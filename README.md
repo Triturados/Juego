@@ -57,6 +57,11 @@ Ataques:\
 -Noboru: Consiste en una bola de llamas que disparará Otoroshi de su brazo derecho, dicha bola de llamas será inesquivable y el jugador deberá protegerse con los pilares del mapa para evitar sufrir daños.\
 -Mo Kogeki: Otoroshi realiza una carga de X segundos para preparar una embestida, durante esta carga aparecerá una línea que marcará la zona y dirección de la embestida, y pasado dicho tiempo se moverá rápidamente en esa dirección.
 
+
+<p align="center">
+  <img src="Recursos/OtoroshiHit.gif" width="100" />
+</p>
+
 * Ivasan, el caballero demoníaco
 
 Un demonio elegante con traje y dos cuernos que tapan su oscuro rostro. Será el último jefe del juego y poseerá 2 fases además de muchos ataques diferentes al resto de jefes.
@@ -118,7 +123,10 @@ El juego tiene una estética low poly, ambientada en diferentes escenarios del i
 El primero se ambienta en un escenario con temática japonesa.
 El segundo en una cueva infernal y el tercero en un templo derruido con estética Griega.
 
-(Imagenes del boss y escenario)
+<p float="left">
+  <img src="Recursos/OtoroshiRoar.gif" width="100" />
+  <img src="Recursos/Arena.png" width="100" /> 
+</p>
 
 # Contenido <a name="cont"></a>
 # Arquitectura <a name="arqui"></a>
