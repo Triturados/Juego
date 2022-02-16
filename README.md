@@ -59,7 +59,7 @@ Ataques:\
 
 
 <p align="center">
-  <img src="Recursos/OtoroshiHit.gif" width="100" />
+  <img src="Recursos/OtoroshiHit.gif" width="600" />
 </p>
 
 * Ivasan, el caballero demoníaco
@@ -124,8 +124,8 @@ El primero se ambienta en un escenario con temática japonesa.
 El segundo en una cueva infernal y el tercero en un templo derruido con estética Griega.
 
 <p float="left">
-  <img src="Recursos/OtoroshiRoar.gif" width="100" />
-  <img src="Recursos/Arena.png" width="100" /> 
+  <img src="Recursos/OtoroshiRoar.gif" width="400" />
+  <img src="Recursos/Arena.png" width="400" /> 
 </p>
 
 # Contenido <a name="cont"></a>
