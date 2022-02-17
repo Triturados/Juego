@@ -60,7 +60,7 @@ Al igual que los enemigos, los escenarios también comparten una serie de mecán
 
 ## iv. Mecánicas de interacción <a name="mecint"></a>
 
-(Por especificar)
+Entre cada pelea con los enemigos, el jugador aparecerá de vuelta en el hotel del infierno en el que se encuentran los bosses derrotados merodeando por el hall principal, cada una de las puertas de habitaciones donde se deberá entrar para comenzar la siguiente pelea. Además como elementos interactivos, en el hall del hotel, va a haber una máquina de mejoras y una recepcionista con la que se puede negociar.
 
 # Dinámica <a name="dinam"></a>
 
@@ -155,9 +155,14 @@ El mapa para este jefe es un templo derruido Griego/Romano, hay fuego por el map
 
 # Arquitectura <a name="arqui"></a>
 
-
+(Insertar imagen de UML y explicar algo si eso)
 
 # Controles <a name="contro"></a>
+
+Como controles, para el movimiento octodireccional se van a usar las teclas a,w,s,d y combinaciones de ellas para las direcciones en diagonal.
+En cuanto al ataque básico, se ejecutará con el click izquierdo colocando el puntero del ratón sobre el enemigo que se desea atacar.
+Por último, el dash se ejecutará con el click derecho en la dirección en la que el jugador se está moviendo en ese momento.
+
 <p align="center">
   <img src="Recursos/Controles.png" width="600" />
 </p>
