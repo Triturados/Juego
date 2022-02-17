@@ -155,7 +155,9 @@ El mapa para este jefe es un templo derruido Griego/Romano, hay fuego por el map
 
 # Arquitectura <a name="arqui"></a>
 
-(Insertar imagen de UML y explicar algo si eso)
+<p align="center">
+  <img src="Recursos/UML_Juego.png" />
+</p>
 
 # Controles <a name="contro"></a>
 
