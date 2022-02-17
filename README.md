@@ -18,7 +18,7 @@
 
 # Descripción <a name="desc"></a>
 
-“Crunch Trough Hell” es un videojuego 3D del género Acción/Bullet hell con perspectiva isométrica en el que controlas a un valiente enamorado. Para lograr su objetivo y ganarse la aprobación de su amada, deberá bajar al infierno y derrotar a unos enemigos temibles y sedientos de sangre. ¿Serás capaz de salir vivo del inframundo y conquistar a su amante?
+“Crunch Trough Hell” es un videojuego 3D del género Acción/Bullet hell con perspectiva top-down con un cierto grado de inclinación en el que controlas a un valiente enamorado. Para lograr su objetivo y ganarse la aprobación de su amada, deberá bajar al infierno y derrotar a unos enemigos temibles y sedientos de sangre. ¿Serás capaz de salir vivo del inframundo y conquistar a su amante?
 
 El juego se puede jugar en Windows y está destinado a jugadores mayores de 12 años que les guste el frenetismo y la agilidad. No apto para gente más pequeña debido a su violencia.
 
