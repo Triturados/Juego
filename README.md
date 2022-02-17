@@ -159,15 +159,6 @@ El mapa para este jefe es un templo derruido Griego/Romano, hay fuego por el map
   <img src="Recursos/UML_Juego.png" />
 </p>
 
-# Pipeline de desarrollo
-Para cargar modelos 3d de todos los elementos de juego, se van a crear modelos sencillos "low poly" en blender. 
-Se exportaran como .obj y se utilizara OgreAssimpConverter.exe para convertirlos a .mesh, el formato binario eficiente de Ogre. Se importaran al juego gracias al motor de renderizado, utilizando Ogre.
-
-Para cargar audios se obtendrán de páginas gratuitas como freeSound.com. Se utilizarán en formato .wav y se implementán en el juego gracias al proyecto de Sonido, que utiliza la biblioteca FMod. Habrá al menos 2 pistas de
-audio: efectos y musica.
-
-Para cargar escenarios, se utilizara Lua para establecer las posiciones de distintos elementos del mapa. Se creará
-en proyecto de la solucion del motor que carge los elementos de juego con los componentes que necesiten para ser usados.
 
 # Controles <a name="contro"></a>
 
