@@ -158,6 +158,4 @@ El mapa para este jefe es un templo derruido Griego/Romano, hay fuego por el map
 
 
 # Controles <a name="contro"></a>
-<p align="center">
-  <img src="Recursos/Controles.png" width="600" />
-</p>
+
