@@ -2,26 +2,16 @@
 #include <Scene.h>
 #include <Component.h>
 #include <GameObject.h>
-#include <iostream>
-
-
-class ComponenteDani : public Component {
-	int count = 0;
-public:
-	void update() override {
-		std::cout << (count += 2) << "\n";
-	}
-};
-
+#include "Components/ComponenteDeContar.h"
 
 class EscenaDani : public SceneCreator {
 
 public:
 	Scene* populateScene() override {
 		auto escena = createScene("Escena dani");
-		auto objeto = createGameObject("Componente dani");
+		auto objeto = createGameObject("Objeto de nuesto amigo y vecino Dani");
 
-		objeto->addComponent<ComponenteDani>();
+		objeto->addComponent<ComponenteDeContar>();
 
 		return escena;
 	}
