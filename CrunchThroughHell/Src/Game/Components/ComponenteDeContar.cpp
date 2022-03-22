@@ -3,5 +3,5 @@
 
 
 void ComponenteDeContar::update() {
-	std::cout << (count += 2) << "\n";
+	std::cout << "Hola" << "\n";
 }

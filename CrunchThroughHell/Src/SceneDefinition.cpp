@@ -2,7 +2,7 @@
 #include <Scene.h>
 #include <Component.h>
 #include <GameObject.h>
-#include "Components/ComponenteDeContar.h"
+#include <Components/ComponenteDeContar.h>
 
 class EscenaDani : public SceneCreator {
 

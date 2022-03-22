@@ -58,7 +58,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Motor\Skeleton\src\ECS</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Motor\Skeleton\src\ECS;$(SolutionDir)Src\Game\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -82,9 +82,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Src\Game\Components\ComponenteDeContar.cpp" />
     <ClCompile Include="..\Src\SceneDefinition.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Src\Game\Components\ComponenteDeContar.h" />
     <ClInclude Include="..\Src\SceneDefinition.h" />
   </ItemGroup>
   <ItemGroup>

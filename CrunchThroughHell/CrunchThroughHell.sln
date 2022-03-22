@@ -9,8 +9,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ECS", "..\..\Motor\Skeleton
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "Game\Game.vcxproj", "{75740C85-0DF3-44B1-AC2B-D6F1FDEFA337}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Utilities", "..\..\Motor\Skeleton\projects\Utilities\Utilities.vcxproj", "{17C98F4B-91BE-4D6C-8EA1-7037992A19B3}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -29,10 +27,6 @@ Global
 		{75740C85-0DF3-44B1-AC2B-D6F1FDEFA337}.Debug|x64.Build.0 = Debug|x64
 		{75740C85-0DF3-44B1-AC2B-D6F1FDEFA337}.Release|x64.ActiveCfg = Release|x64
 		{75740C85-0DF3-44B1-AC2B-D6F1FDEFA337}.Release|x64.Build.0 = Release|x64
-		{17C98F4B-91BE-4D6C-8EA1-7037992A19B3}.Debug|x64.ActiveCfg = Debug|x64
-		{17C98F4B-91BE-4D6C-8EA1-7037992A19B3}.Debug|x64.Build.0 = Debug|x64
-		{17C98F4B-91BE-4D6C-8EA1-7037992A19B3}.Release|x64.ActiveCfg = Release|x64
-		{17C98F4B-91BE-4D6C-8EA1-7037992A19B3}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

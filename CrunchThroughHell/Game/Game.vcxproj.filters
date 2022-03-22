@@ -13,15 +13,27 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Components">
+      <UniqueIdentifier>{3c4d13e1-e336-452d-8026-78ad2c3bcf33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Source">
+      <UniqueIdentifier>{c49f257d-c02f-4b4f-8705-81850763ad27}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Src\SceneDefinition.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="..\Src\Game\Components\ComponenteDeContar.cpp">
+      <Filter>Components\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Src\SceneDefinition.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Game\Components\ComponenteDeContar.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
