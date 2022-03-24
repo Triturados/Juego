@@ -1,12 +1,9 @@
 #include "ComponenteDeContar.h"
 #include <iostream>
 #include <SceneManager.h>
+#include <GameTime.h>
 
 void ComponenteDeContar::update() {
 
-	if (SceneManager::getInstance() != nullptr) {
-		std::cout << "SI QUE EXISTE OLE OLE OLE\n";
-	}
-	else std::cout << (count++) << "\n";
+	std::cout << "Frame rate: " << 1.0f / LoveEngine::Time::getInstance()->deltaTime << "\n";
 }
-
