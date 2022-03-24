@@ -27,6 +27,9 @@
     <ClCompile Include="..\Src\Game\Components\ComponenteDeContar.cpp">
       <Filter>Components\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\Src\ComponentDefinition.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Src\SceneDefinition.h">
@@ -34,6 +37,9 @@
     </ClInclude>
     <ClInclude Include="..\Src\Game\Components\ComponenteDeContar.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\ComponentDefinition.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

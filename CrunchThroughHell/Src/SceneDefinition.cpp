@@ -11,7 +11,7 @@ public:
 		auto escena = createScene("Escena dani");
 		auto objeto = createGameObject("Objeto de nuesto amigo y vecino Dani");
 
-		objeto->addComponent<ComponenteDeContar>();
+		objeto->addComponent("ComponenteDeContar");
 
 		return escena;
 	}

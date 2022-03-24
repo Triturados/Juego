@@ -82,10 +82,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Src\ComponentDefinition.cpp" />
     <ClCompile Include="..\Src\Game\Components\ComponenteDeContar.cpp" />
     <ClCompile Include="..\Src\SceneDefinition.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Src\ComponentDefinition.h" />
     <ClInclude Include="..\Src\Game\Components\ComponenteDeContar.h" />
     <ClInclude Include="..\Src\SceneDefinition.h" />
   </ItemGroup>

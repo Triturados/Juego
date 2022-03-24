@@ -9,3 +9,4 @@ void ComponenteDeContar::update() {
 	}
 	else std::cout << (count++) << "\n";
 }
+
