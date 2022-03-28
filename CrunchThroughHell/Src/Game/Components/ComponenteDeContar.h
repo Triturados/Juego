@@ -7,3 +7,18 @@ public:
 	void init() override;
 	void update() override;
 };
+
+class FrameRate : public Component {
+public:
+	void init() override;
+	void update() override;
+};
+
+class Timer;
+
+class Autodestruccion : public Component {
+	Timer* timer;
+public:
+	void init() override;
+	void update() override;
+};
