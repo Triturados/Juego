@@ -4,7 +4,7 @@
 extern "C" {
 	
 	__declspec(dllexport) void componentDefinition() {
-		LoveEngine::defineComponents();
+		LoveEngine::ComponentDefinitions::defineComponents();
 	}
 }
 

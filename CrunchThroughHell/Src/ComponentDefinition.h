@@ -3,7 +3,8 @@
 
 namespace LoveEngine {
 
+	namespace ComponentDefinitions {
 
-	void defineComponents();
-
+		void defineComponents();
+	}
 }
