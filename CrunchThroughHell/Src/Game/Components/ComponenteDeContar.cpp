@@ -13,11 +13,15 @@ void ComponenteDeContar::init() {
 
 void ComponenteDeContar::update() {
 	std::cout << "Frame numero: " << ++count << "\n";
+
+	if (count > 15) {
+		SceneManager::getInstance()->changeScene(1, SceneLoad::SWAP);
+	}
 }
 
 void FrameRate::init()
 {
-	std::cout << "Creado frame rate";
+
 }
 
 void FrameRate::update()
