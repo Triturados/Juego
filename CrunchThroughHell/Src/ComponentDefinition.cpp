@@ -4,6 +4,8 @@
 
 #include <Components/ComponenteDeContar.h>
 namespace LoveEngine {
+
+	using namespace ECS;
 	namespace ComponentDefinitions {
 		void defineComponents() {
 
@@ -13,6 +15,7 @@ namespace LoveEngine {
 			inst->registerComponent(new ComponentCreatorTemplate<ComponenteDeContar>("ComponenteDeContar"));
 			inst->registerComponent(new ComponentCreatorTemplate<Autodestruccion>("AutoDestruccion"));
 			inst->registerComponent(new ComponentCreatorTemplate<FrameRate>("FrameRate"));
+			inst->registerComponent(new ComponentCreatorTemplate<EscribirNumero>("EscribirNumero"));
 		}
 	}
 }

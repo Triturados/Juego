@@ -1,24 +1,42 @@
 #pragma once
 #include <Component.h>
 
-class ComponenteDeContar : public Component {
-	int count = 0;
-public:
-	void init() override;
-	void update() override;
-};
+namespace LoveEngine {
+	namespace ECS {
 
-class FrameRate : public Component {
-public:
-	void init() override;
-	void update() override;
-};
+		class Timer;
 
-class Timer;
+		class ComponenteDeContar : public Component {
+			int count = 0;
+		public:
+			void init() override;
+			void update() override;
+		};
 
-class Autodestruccion : public Component {
-	Timer* timer;
-public:
-	void init() override;
-	void update() override;
-};
+		class FrameRate : public Component {
+		public:
+			void init() override;
+			void update() override;
+		};
+
+
+		class Autodestruccion : public Component {
+			Timer* timer;
+		public:
+			void init() override;
+			void update() override;
+		};
+
+		class EscribirNumero : public Component {
+			int numerito = 2;
+		public:
+			void init() override;
+			void update() override;
+
+			void sendValues(int, float, Component* = nullptr, GameObject* = nullptr);
+
+		};
+
+
+	}
+}
