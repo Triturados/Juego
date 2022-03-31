@@ -8,23 +8,23 @@
 namespace LoveEngine {
 	namespace ECS {
 
-
-
 		void ComponenteDeContar::init() {
 
 		}
 
 		void ComponenteDeContar::update() {
-			std::cout << "Frame numero: " << ++count << "\n";
+			int count = Time::getInstance()->frameCount;
+			std::cout << "Frame numero: " << count << "\n";
 
 			if (count > 15) {
-				//LoveEngine::SceneManagement::changeScene(1, 1);
+				//std::cout << damenum() << "\n";
+				LoveEngine::SceneManagement::SceneManager::getInstance()->changeScene(1,
+					SceneManagement::SceneLoad::PUSH);
 			}
 		}
 
 		void FrameRate::init()
 		{
-
 		}
 
 		void FrameRate::update()
