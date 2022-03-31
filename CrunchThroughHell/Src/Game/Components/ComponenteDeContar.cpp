@@ -18,7 +18,7 @@ namespace LoveEngine {
 			std::cout << "Frame numero: " << ++count << "\n";
 
 			if (count > 15) {
-				LoveEngine::SceneManagement::changeScene(1, 1);
+				//LoveEngine::SceneManagement::changeScene(1, 1);
 			}
 		}
 
