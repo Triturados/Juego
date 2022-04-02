@@ -68,7 +68,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>ECS.lib</AdditionalDependencies>
+      <AdditionalDependencies>ECS_d.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\Motor\Skeleton\exes;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
