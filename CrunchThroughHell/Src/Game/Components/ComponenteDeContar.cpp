@@ -23,6 +23,11 @@ namespace LoveEngine {
 			}
 		}
 
+		void ComponenteDeContar::receiveMessage(std::string message)
+		{
+			std::cout << "He recibido el siguiente mensaje: " << message << "\n";
+		}
+
 		void FrameRate::init()
 		{
 		}

@@ -11,6 +11,7 @@ namespace LoveEngine {
 		public:
 			void init() override;
 			void update() override;
+			void receiveMessage(std::string message) override;
 		};
 
 		class FrameRate : public Component {

@@ -45,13 +45,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)Build\$(Configuration)\$(ProjectName)</OutDir>
+    <OutDir>$(SolutionDir)..\..\Motor\Skeleton\exes</OutDir>
     <TargetName>Game_d</TargetName>
     <IntDir>$(SolutionDir)Temp\$(Configuration)\$(ProjectName)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)Build\$(Configuration)\$(ProjectName)</OutDir>
+    <OutDir>$(SolutionDir)..\..\Motor\Skeleton\exes</OutDir>
     <IntDir>$(SolutionDir)Temp\$(Configuration)\$(ProjectName)</IntDir>
     <TargetName>Game</TargetName>
   </PropertyGroup>
