@@ -4,7 +4,7 @@
 #include <GameTime.h>
 #include <Timer.h>
 #include <GameObject.h>
-
+#include <StringFormater.h>
 namespace LoveEngine {
 	namespace ECS {
 
@@ -56,9 +56,15 @@ namespace LoveEngine {
 			std::cout << "numerito numerito: " << numerito << "\n";
 		}
 
-		void EscribirNumero::sendValues(int i, float f, Component* c, GameObject* o)
+		void EscribirNumero::receiveMessage(std::string message)
 		{
-			numerito = i;
+			StringFormatter sf(message);
+			numerito = sf.getInt("numerito");
 		}
+
+		/*void EscribirNumero::receiveValues(int i, float f, Component* c, GameObject* o)
+		{
+
+		}*/
 	}
 }

@@ -34,8 +34,8 @@ namespace LoveEngine {
 			void init() override;
 			void update() override;
 
-			void sendValues(int, float, Component* = nullptr, GameObject* = nullptr);
-
+			//void receiveValues(int, float, Component* = nullptr, GameObject* = nullptr);
+			void receiveMessage(std::string message) override;
 		};
 
 
