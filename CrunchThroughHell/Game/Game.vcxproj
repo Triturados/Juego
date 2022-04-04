@@ -61,7 +61,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Motor\Skeleton\src\Utilities;$(SolutionDir)..\..\Motor\Skeleton\src\ECS;$(SolutionDir)Src\Game\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Motor\Skeleton\src\Utilities;$(SolutionDir)..\..\Motor\Skeleton\src\ECS;$(SolutionDir)Src\Game\;$(SolutionDir)Src\LoveEngine</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -80,7 +80,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Motor\Skeleton\src\Utilities;$(SolutionDir)..\..\Motor\Skeleton\src\ECS;$(SolutionDir)Src\Game\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Motor\Skeleton\src\Utilities;$(SolutionDir)..\..\Motor\Skeleton\src\ECS;$(SolutionDir)Src\Game\;$(SolutionDir)Src\LoveEngine</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -97,12 +97,12 @@
   <ItemGroup>
     <ClCompile Include="..\Src\ComponentDefinition.cpp" />
     <ClCompile Include="..\Src\Game\Components\ComponenteDeContar.cpp" />
-    <ClCompile Include="..\Src\SceneDefinition.cpp" />
+    <ClCompile Include="..\Src\Game\Components\MovimientoJugador.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Src\ComponentDefinition.h" />
     <ClInclude Include="..\Src\Game\Components\ComponenteDeContar.h" />
-    <ClInclude Include="..\Src\SceneDefinition.h" />
+    <ClInclude Include="..\Src\Game\Components\MovimientoJugador.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

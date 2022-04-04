@@ -21,24 +21,24 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Src\SceneDefinition.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="..\Src\Game\Components\ComponenteDeContar.cpp">
       <Filter>Components\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\Src\ComponentDefinition.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="..\Src\Game\Components\MovimientoJugador.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Src\SceneDefinition.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="..\Src\Game\Components\ComponenteDeContar.h">
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="..\Src\ComponentDefinition.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Game\Components\MovimientoJugador.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
