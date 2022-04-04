@@ -1,6 +1,8 @@
 #pragma once
 #include <Component.h>
-
+#include <Transform.h>
+#include <Vector3.h>
+#include <Vector4.h>
 
 namespace LoveEngine {
 	namespace Input {
@@ -8,7 +10,7 @@ namespace LoveEngine {
 	}
 
 	namespace ECS {
-		class Transform;
+		//class Transform;
 		class MovimientoJugador : public Component {
 			
 		private:

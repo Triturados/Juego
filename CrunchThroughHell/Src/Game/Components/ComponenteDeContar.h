@@ -22,7 +22,7 @@ namespace LoveEngine {
 
 
 		class Autodestruccion : public Component {
-			Timer* timer;
+			LoveEngine::ECS::Timer* timer;
 		public:
 			void init() override;
 			void update() override;

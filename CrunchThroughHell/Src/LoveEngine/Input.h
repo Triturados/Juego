@@ -32,13 +32,9 @@ namespace LoveEngine {
 
 		class  InputManager {
 		public:
-			InputManager();
-			static void setSDLwithOgreTest();
-			static void initSDLWindowTest();
 			static InputManager* getInstance();
-			bool handleInput();
+			
 			bool isKeyPressed(InputKeys key);
-
 			Utilities::Vector2<float> mousePosition();
 		};
 	}

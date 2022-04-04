@@ -7,6 +7,7 @@
 #include "Input.h"
 #include <StringFormater.h>
 #include <iostream>
+
 void LoveEngine::ECS::MovimientoJugador::init()
 {
 	input = Input::InputManager::getInstance();
@@ -22,14 +23,15 @@ void LoveEngine::ECS::MovimientoJugador::update()
 	Utilities::Vector4 rotation;
 
 	float dT = Time::getInstance()->deltaTime;
-
+	Utilities::Vector3<float> vec;
+	vec.add(1, 2, 3);
 	if (input->isKeyPressed(Input::InputKeys::W)) movement = speed * dT;
 	if (input->isKeyPressed(Input::InputKeys::S)) movement = -speed * dT;
 	if (input->isKeyPressed(Input::InputKeys::A)) rotation.y = rotSpeed * dT;
 	if (input->isKeyPressed(Input::InputKeys::D)) rotation.y = -rotSpeed * dT;
 
-	player->translate(player->forward() * movement);
-	player->rotate(rotation);
+	//player->translate(player->forward() * movement);
+	//player->rotate(rotation);
 
 }
 
