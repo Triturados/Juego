@@ -23,11 +23,20 @@ void LoveEngine::ECS::MovimientoJugador::update()
 
 	float dT = Time::getInstance()->deltaTime;
 
-	if (input->isKeyPressed(Input::InputKeys::W)) movement = speed * dT;
-	if (input->isKeyPressed(Input::InputKeys::S)) movement = -speed * dT;
-	if (input->isKeyPressed(Input::InputKeys::A)) rotation.y = rotSpeed * dT;
-	if (input->isKeyPressed(Input::InputKeys::D)) rotation.y = -rotSpeed * dT;
+	if (!input->controllerConected()) {
+		if (input->isKeyPressed(Input::InputKeys::W)) movement = speed * dT;
+		if (input->isKeyPressed(Input::InputKeys::S)) movement = -speed * dT;
+		if (input->isKeyPressed(Input::InputKeys::A)) rotation.y = rotSpeed * dT;
+		if (input->isKeyPressed(Input::InputKeys::D)) rotation.y = -rotSpeed * dT;
+	}
+	else {
+		Utilities::Vector2 controller = input->getController().leftJoystick;
 
+		movement = controller.y * speed * dT;
+		rotation.y = controller.x * rotSpeed * dT;
+
+		std::cout << controller << "\n";
+	}
 	player->translate(player->forward() * movement);
 	player->rotate(rotation);
 
