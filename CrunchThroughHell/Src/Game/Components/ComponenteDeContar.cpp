@@ -5,6 +5,9 @@
 #include <Timer.h>
 #include <GameObject.h>
 #include <StringFormater.h>
+#include <Window.h>
+#include <Input.h>
+
 namespace LoveEngine {
 	namespace ECS {
 
@@ -60,6 +63,67 @@ namespace LoveEngine {
 		{
 			StringFormatter sf(message);
 			numerito = sf.getInt("numerito");
+		}
+
+		void Moverpanatalla::moverPantalla()
+		{
+			int x = rand() % 1920;
+			int y = rand() % 1080;
+
+			Window::getInstance()->repositionWindow(Utilities::Vector2<int>(x, y));
+		}
+
+		Moverpanatalla::Moverpanatalla()
+		{
+			srand(std::time(NULL));
+			rand();
+			inicial = 3;
+			repeticion = 2;
+			size = Utilities::Vector2<int>();
+		}
+
+		void Moverpanatalla::init()
+		{
+			size = Window::getInstance()->getWindowSize();
+			//timer = Timer::repeat([&](Timer*) { moverPantalla(); }, inicial);
+		}
+
+		void Moverpanatalla::update()
+		{
+			float dt = Time::getInstance()->deltaTime;
+
+			bool change = false;
+			if (Input::InputManager::getInstance()->isKeyPressed(Input::InputKeys::A))
+			{
+				change = true;
+				size.x++;
+			}
+			else if (Input::InputManager::getInstance()->isKeyPressed(Input::InputKeys::S))
+			{
+				change = true;
+				size.y++;
+			}
+
+			std::cout << size << "\n";
+			if (change) {
+				Window::getInstance()->setWindowSize(size);
+			}
+		}
+
+		void Moverpanatalla::receiveMessage(std::string message)
+		{
+			StringFormatter sf(message);
+
+			if (!sf.tryGetFloat("inicial", inicial)) {
+				int ini;
+				if (sf.tryGetInt("inicial", ini))
+					inicial = ini;
+			}
+			if (!sf.tryGetFloat("repeticion", repeticion)) {
+				int repe;
+				if (sf.tryGetInt("repeticion", repe))
+					repeticion = repe;
+			}
 		}
 
 		/*void EscribirNumero::receiveValues(int i, float f, Component* c, GameObject* o)

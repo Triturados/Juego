@@ -61,7 +61,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Motor\Skeleton\src\Utilities;$(SolutionDir)..\..\Motor\Skeleton\src\ECS;$(SolutionDir)Src\Game\;$(SolutionDir)Src\LoveEngine</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Motor\Skeleton\src\Utilities;$(SolutionDir)..\..\Motor\Skeleton\src\OGRE;$(SolutionDir)..\..\Motor\Skeleton\src\ECS;$(SolutionDir)Src\Game\;$(SolutionDir)Src\LoveEngine</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -80,7 +80,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Motor\Skeleton\src\Utilities;$(SolutionDir)..\..\Motor\Skeleton\src\ECS;$(SolutionDir)Src\Game\;$(SolutionDir)Src\LoveEngine</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\Motor\Skeleton\src\Utilities;$(SolutionDir)..\..\Motor\Skeleton\src\OGRE;$(SolutionDir)..\..\Motor\Skeleton\src\ECS;$(SolutionDir)Src\Game\;$(SolutionDir)Src\LoveEngine</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>

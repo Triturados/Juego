@@ -1,6 +1,6 @@
 #pragma once
 #include <Component.h>
-
+#include <Vector2.h>
 namespace LoveEngine {
 	namespace ECS {
 
@@ -38,6 +38,16 @@ namespace LoveEngine {
 			void receiveMessage(std::string message) override;
 		};
 
-
+		class Moverpanatalla : public Component {
+			Timer* timer;
+			float inicial, repeticion;
+			Utilities::Vector2<int> size;
+			void moverPantalla();
+		public:
+			Moverpanatalla();
+			void init() override;
+			void update() override;
+			void receiveMessage(std::string) override;
+		};
 	}
 }
