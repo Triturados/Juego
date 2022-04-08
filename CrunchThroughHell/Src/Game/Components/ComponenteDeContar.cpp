@@ -7,6 +7,7 @@
 #include <StringFormater.h>
 #include <Window.h>
 #include <Input.h>
+#include <ctime>
 
 namespace LoveEngine {
 	namespace ECS {
