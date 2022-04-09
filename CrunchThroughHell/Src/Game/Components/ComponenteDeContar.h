@@ -11,7 +11,6 @@ namespace LoveEngine {
 		public:
 			void init() override;
 			void update() override;
-			void receiveMessage(std::string message) override;
 		};
 
 		class FrameRate : public Component {
@@ -34,8 +33,7 @@ namespace LoveEngine {
 			void init() override;
 			void update() override;
 
-			//void receiveValues(int, float, Component* = nullptr, GameObject* = nullptr);
-			void receiveMessage(std::string message) override;
+			void receiveMessage(Utilities::StringFormatter& message) override;
 		};
 
 		class Moverpanatalla : public Component {
@@ -47,7 +45,7 @@ namespace LoveEngine {
 			Moverpanatalla();
 			void init() override;
 			void update() override;
-			void receiveMessage(std::string) override;
+			void receiveMessage(Utilities::StringFormatter& ) override;
 		};
 	}
 }

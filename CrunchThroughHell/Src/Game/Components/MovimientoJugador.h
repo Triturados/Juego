@@ -20,7 +20,7 @@ namespace LoveEngine {
 		public:
 			void init() override;
 			void update() override;
-			void receiveMessage(std::string message) override;
+			void receiveMessage(Utilities::StringFormatter& message) override;
 		};
 	}
 }

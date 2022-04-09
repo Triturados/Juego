@@ -4,7 +4,7 @@
 #include <GameTime.h>
 #include <Timer.h>
 #include <GameObject.h>
-#include <StringFormater.h>
+#include <StringFormatter.h>
 #include <Window.h>
 #include <Input.h>
 
@@ -26,10 +26,6 @@ namespace LoveEngine {
 			}
 		}
 
-		void ComponenteDeContar::receiveMessage(std::string message)
-		{
-			std::cout << "He recibido el siguiente mensaje: " << message << "\n";
-		}
 
 		void FrameRate::init()
 		{
@@ -59,9 +55,8 @@ namespace LoveEngine {
 			std::cout << "numerito numerito: " << numerito << "\n";
 		}
 
-		void EscribirNumero::receiveMessage(std::string message)
+		void EscribirNumero::receiveMessage(Utilities::StringFormatter& sf)
 		{
-			StringFormatter sf(message);
 			numerito = sf.getInt("numerito");
 		}
 
@@ -110,10 +105,8 @@ namespace LoveEngine {
 			}
 		}
 
-		void Moverpanatalla::receiveMessage(std::string message)
+		void Moverpanatalla::receiveMessage(Utilities::StringFormatter& sf)
 		{
-			StringFormatter sf(message);
-
 			if (!sf.tryGetFloat("inicial", inicial)) {
 				int ini;
 				if (sf.tryGetInt("inicial", ini))

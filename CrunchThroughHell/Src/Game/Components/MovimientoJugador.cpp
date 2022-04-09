@@ -5,7 +5,7 @@
 #include "Vector4.h"
 #include "GameTime.h"
 #include "Input.h"
-#include <StringFormater.h>
+#include <StringFormatter.h>
 #include <iostream>
 void LoveEngine::ECS::MovimientoJugador::init()
 {
@@ -42,13 +42,10 @@ void LoveEngine::ECS::MovimientoJugador::update()
 
 }
 
-void LoveEngine::ECS::MovimientoJugador::receiveMessage(std::string message)
+void LoveEngine::ECS::MovimientoJugador::receiveMessage(Utilities::StringFormatter& sf)
 {
-	StringFormatter sf(message);
-
 	sf.tryGetFloat("speed", speed);
 	sf.tryGetFloat("rotSpeed", rotSpeed);
-
 }
 
 
