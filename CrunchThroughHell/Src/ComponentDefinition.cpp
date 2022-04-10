@@ -18,7 +18,7 @@ namespace LoveEngine {
 			inst->registerComponent(new ComponentCreatorTemplate<FrameRate>("FrameRate"));
 			inst->registerComponent(new ComponentCreatorTemplate<EscribirNumero>("EscribirNumero"));
 			inst->registerComponent(new ComponentCreatorTemplate<MovimientoJugador>("MovimientoJugador"));
-
+			inst->registerComponent(new ComponentCreatorTemplate<Moverpanatalla>("MoverPantalla"));
 		}
 	}
 }
