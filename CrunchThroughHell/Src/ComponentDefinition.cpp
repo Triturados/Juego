@@ -4,6 +4,9 @@
 
 #include <Components/MovimientoJugador.h>
 #include <Components/ComponenteDeContar.h>
+#include "../Game/CamFollow.h"
+#include "../Game/CamRotate.h"
+
 namespace LoveEngine {
 
 	using namespace ECS;
@@ -19,6 +22,8 @@ namespace LoveEngine {
 			inst->registerComponent(new ComponentCreatorTemplate<EscribirNumero>("EscribirNumero"));
 			inst->registerComponent(new ComponentCreatorTemplate<MovimientoJugador>("MovimientoJugador"));
 			inst->registerComponent(new ComponentCreatorTemplate<Moverpanatalla>("MoverPantalla"));
+			inst->registerComponent(new ComponentCreatorTemplate<CamFollow>("CamFollow"));
+			inst->registerComponent(new ComponentCreatorTemplate<CamRotate>("CamRotate"));
 		}
 	}
 }

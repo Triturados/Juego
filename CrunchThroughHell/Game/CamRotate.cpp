@@ -79,15 +79,13 @@ void LoveEngine::ECS::CamRotate::update()
 
 void LoveEngine::ECS::CamRotate::receiveMessage(Utilities::StringFormatter& sf)
 {
-	sf.tryGetFloat("speed", speed);
-	sf.tryGetFloat("rotSpeed", rotSpeed);
 	sf.tryGetFloat("verSens", verSens);
-	sf.tryGetFloat("horiSens", horiSens);;
+	sf.tryGetFloat("horiSens", horiSens);
 }
 
 void LoveEngine::ECS::CamRotate::receiveGameObject(int n, GameObject* b)
 {
-	if (n = 0)
+	if (n == 0)
 	{
 		boss = b;
 	}

@@ -20,8 +20,6 @@ namespace LoveEngine {
 			GameObject* player;
 
 			Input::InputManager* input;
-			float speed = 15;
-			float rotSpeed = 5;
 			float horiSens = 1;
 			float verSens = 1;
 
