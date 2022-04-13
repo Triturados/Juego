@@ -24,6 +24,9 @@ namespace LoveEngine {
 			float horiSens = 1;
 			float verSens = 1;
 
+			float antAngulo = 181;
+			bool girarDer = true;
+
 			bool followBoss;
 
 			Utilities::Vector2<float>* mousePos;

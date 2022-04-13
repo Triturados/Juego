@@ -10,6 +10,8 @@
 #include <iostream>
 #include <math.h>
 
+#define PI 3.14159265
+
 LoveEngine::ECS::CamRotate::~CamRotate()
 {
 	delete mousePos;
@@ -48,12 +50,33 @@ void LoveEngine::ECS::CamRotate::update()
 		direccionCP.x = puntoA.x - camTr->getPos()->x;
 		direccionCP.y = puntoA.z - camTr->getPos()->z;
 
-		float angulo  = acosf((direccionCP.x * direccionPB.x) + (direccionCP.y * direccionPB.y))/ (direccionCP.magnitude()* direccionPB.magnitude());
+		float supElem = (direccionCP.x * direccionPB.x) + (direccionCP.y * direccionPB.y);
+		float infElem = (direccionCP.magnitude() * direccionPB.magnitude());
+		float angulo  = acosf(supElem/infElem) * 180.0 / PI;
 
 		std::cout << angulo << std::endl;
-		if (angulo > 5) //No esta colocado
+		if (angulo > 1) //No esta colocado
 		{
-			rotation.y = horiSens * 0.15 * dT; //si no esta bien que gire pa probar
+			float speed = angulo / 180;
+			if (speed < 0.4) speed = 0.4;
+
+
+			if (girarDer)
+			{
+				std::cout << "giro der" << std::endl;
+				rotation.y = horiSens * speed * dT;
+			}
+			else
+			{
+				std::cout << "giro izq" << std::endl;
+				rotation.y = -horiSens * speed * dT;
+			}
+
+			if (antAngulo > angulo) //ESTO ES HORRIBLE 
+			{
+				girarDer = !girarDer;
+			}
+			antAngulo = angulo;
 		}
 	}
 	else
