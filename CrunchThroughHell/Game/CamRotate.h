@@ -18,6 +18,7 @@ namespace LoveEngine {
 
 			GameObject* boss;
 			GameObject* player;
+			GameObject* cam;
 
 			Input::InputManager* input;
 			float horiSens = 1;

@@ -34,7 +34,7 @@ namespace LoveEngine {
 
 		void FrameRate::update()
 		{
-			std::cout << "Frame rate: " << 1.0f / LoveEngine::Time::getInstance()->deltaTime << "\n";
+			//std::cout << "Frame rate: " << 1.0f / LoveEngine::Time::getInstance()->deltaTime << "\n";
 		}
 
 		void Autodestruccion::init()
@@ -53,7 +53,7 @@ namespace LoveEngine {
 		}
 		void EscribirNumero::update()
 		{
-			std::cout << "numerito numerito: " << numerito << "\n";
+			//std::cout << "numerito numerito: " << numerito << "\n";
 		}
 
 		void EscribirNumero::receiveMessage(Utilities::StringFormatter& sf)
@@ -100,7 +100,7 @@ namespace LoveEngine {
 				size.y++;
 			}
 
-			std::cout << size << "\n";
+			//std::cout << size << "\n";
 			if (change) {
 				Window::getInstance()->setWindowSize(size);
 			}

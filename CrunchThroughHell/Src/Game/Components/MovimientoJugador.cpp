@@ -35,7 +35,7 @@ void LoveEngine::ECS::MovimientoJugador::update()
 		movement = controller.y * speed * dT;
 		rotation.y = controller.x * rotSpeed * dT;
 
-		std::cout << controller << "\n";
+		//std::cout << controller << "\n";
 	}
 	player->translate(player->forward() * movement);
 	player->rotate(rotation);

@@ -8,6 +8,8 @@
 #include "GameTime.h"
 #include <StringFormatter.h>
 #include <iostream>
+#include <math.h>
+
 LoveEngine::ECS::CamRotate::~CamRotate()
 {
 	delete mousePos;
@@ -19,7 +21,7 @@ void LoveEngine::ECS::CamRotate::init()
 
 	playerTr = player->getComponent<Transform>(); //COMO ACCEDO A DOS GAMEOBJECTS AAAAAAA ESCENA DANIEL
 	bossTr = boss->getComponent<Transform>();
-	camTr = gameObject->getComponent<Transform>();
+	camTr = cam->getComponent<Transform>();
 	
 	mousePos = new Utilities::Vector2<float>(input->mousePosition().x, input->mousePosition().y);
 	
@@ -35,7 +37,6 @@ void LoveEngine::ECS::CamRotate::update()
 
 	if (followBoss) //Line between player - boss girar cam hasta que pase por al recta en x z que forma con el player y el boss
 	{
-		
 		Utilities::Vector3<float> puntoA = *playerTr->getPos(); //x y z para la recta, altura da igual
 		Utilities::Vector3<float> puntoB = *bossTr->getPos();
 
@@ -47,7 +48,10 @@ void LoveEngine::ECS::CamRotate::update()
 		direccionCP.x = puntoA.x - camTr->getPos()->x;
 		direccionCP.y = puntoA.z - camTr->getPos()->z;
 
-		if (direccionCP != direccionPB)
+		float angulo  = acosf((direccionCP.x * direccionPB.x) + (direccionCP.y * direccionPB.y))/ (direccionCP.magnitude()* direccionPB.magnitude());
+
+		std::cout << angulo << std::endl;
+		if (angulo > 5) //No esta colocado
 		{
 			rotation.y = horiSens * 0.15 * dT; //si no esta bien que gire pa probar
 		}
@@ -72,9 +76,9 @@ void LoveEngine::ECS::CamRotate::update()
 		{
 
 		}
-
-		gameObject->getComponent<Transform>()->rotate(rotation);
 	}
+
+	gameObject->getComponent<Transform>()->rotate(rotation);
 }
 
 void LoveEngine::ECS::CamRotate::receiveMessage(Utilities::StringFormatter& sf)
@@ -92,5 +96,9 @@ void LoveEngine::ECS::CamRotate::receiveGameObject(int n, GameObject* b)
 	else if (n == 1)
 	{
 		player = b;
+	}
+	else if (n == 2)
+	{
+		cam = b;
 	}
 }
