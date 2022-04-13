@@ -55,7 +55,7 @@ void LoveEngine::ECS::CamRotate::update()
 		float angulo  = acosf(supElem/infElem) * 180.0 / PI;
 
 		std::cout << angulo << std::endl;
-		if (angulo > 1) //No esta colocado
+		if (angulo > 0.15) //No esta colocado
 		{
 			float speed = angulo / 180;
 			if (speed < 0.4) speed = 0.4;
