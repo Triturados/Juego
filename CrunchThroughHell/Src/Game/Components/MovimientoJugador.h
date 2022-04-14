@@ -9,10 +9,13 @@ namespace LoveEngine {
 
 	namespace ECS {
 		class Transform;
+		class RigidBody;
 		class MovimientoJugador : public Component {
 			
 		private:
-			Transform* player;
+			bool hasRigidBody;
+			Transform* tr;
+			RigidBody* rb;
 			Input::InputManager* input;
 			float speed = 15;
 			float rotSpeed = 5;
@@ -20,6 +23,8 @@ namespace LoveEngine {
 		public:
 			void init() override;
 			void update() override;
+			void moveTransform(float mv, Utilities::Vector4<float> rt);
+			void moveRigidbody(float mv, Utilities::Vector4<float> rt);
 			void receiveMessage(Utilities::StringFormatter& message) override;
 		};
 	}
