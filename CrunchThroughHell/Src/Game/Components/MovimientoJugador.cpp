@@ -42,14 +42,16 @@ void LoveEngine::ECS::MovimientoJugador::update()
 
 		//std::cout << controller << "\n";
 	}
-	tr->translate(tr->forward() * movement);
-	tr->rotate(rotation);
+	
+	if (!hasRigidBody) moveTransform(movement, rotation);
+	else moveRigidbody(movement, rotation);
 
 }
 
 void LoveEngine::ECS::MovimientoJugador::moveTransform(float mv, Utilities::Vector4<float> rt)
 {
-
+	tr->translate(tr->forward() * mv);
+	tr->rotate(rt);
 }
 
 void LoveEngine::ECS::MovimientoJugador::moveRigidbody(float mv, Utilities::Vector4<float> rt)
