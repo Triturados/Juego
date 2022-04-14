@@ -25,38 +25,43 @@ void LoveEngine::ECS::MovimientoJugador::update()
 {
 	float movement = 0;
 	Utilities::Vector4<float> rotation;
-
 	float dT = Time::getInstance()->deltaTime;
 
 	if (!input->controllerConected()) {
-		if (input->isKeyPressed(Input::InputKeys::W)) movement = speed * dT;
-		if (input->isKeyPressed(Input::InputKeys::S)) movement = -speed * dT;
-		if (input->isKeyPressed(Input::InputKeys::A)) rotation.y = rotSpeed * dT;
-		if (input->isKeyPressed(Input::InputKeys::D)) rotation.y = -rotSpeed * dT;
+		if (input->isKeyPressed(Input::InputKeys::W)) movement = speed;
+		if (input->isKeyPressed(Input::InputKeys::S)) movement = -speed;
+		if (input->isKeyPressed(Input::InputKeys::A)) rotation.y = rotSpeed;
+		if (input->isKeyPressed(Input::InputKeys::D)) rotation.y = -rotSpeed;
 	}
 	else {
 		Utilities::Vector2 controller = input->getController().leftJoystick;
 
-		movement = controller.y * speed * dT;
-		rotation.y = controller.x * rotSpeed * dT;
+		movement = controller.y * speed ;
+		rotation.y = controller.x * rotSpeed;
 
 		//std::cout << controller << "\n";
 	}
-	
-	if (!hasRigidBody) moveTransform(movement, rotation);
-	else moveRigidbody(movement, rotation);
+
+	std::cout << tr->getRot()->y << std::endl;
+	if (hasRigidBody)moveRigidbody(movement, rotation);
+	else moveTransform(movement, rotation, dT);
 
 }
 
-void LoveEngine::ECS::MovimientoJugador::moveTransform(float mv, Utilities::Vector4<float> rt)
+void LoveEngine::ECS::MovimientoJugador::moveTransform(float mv, Utilities::Vector4<float> rt, float dT)
 {
-	tr->translate(tr->forward() * mv);
+	tr->translate(tr->forward() * mv * dT);
+	rt.y *= dT;
 	tr->rotate(rt);
 }
 
 void LoveEngine::ECS::MovimientoJugador::moveRigidbody(float mv, Utilities::Vector4<float> rt)
 {
+	rb->setLinearVelocity(tr->forward() * mv);
 
+	Utilities::Vector3<float> rtToV3(rt.x, rt.y, rt.z);
+
+	rb->setAngularVelocity(rtToV3);
 }
 
 void LoveEngine::ECS::MovimientoJugador::receiveMessage(Utilities::StringFormatter& sf)

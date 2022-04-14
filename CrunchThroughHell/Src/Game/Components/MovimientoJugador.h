@@ -23,7 +23,7 @@ namespace LoveEngine {
 		public:
 			void init() override;
 			void update() override;
-			void moveTransform(float mv, Utilities::Vector4<float> rt);
+			void moveTransform(float mv, Utilities::Vector4<float> rt, float dT);
 			void moveRigidbody(float mv, Utilities::Vector4<float> rt);
 			void receiveMessage(Utilities::StringFormatter& message) override;
 		};
