@@ -27,7 +27,7 @@ void LoveEngine::ECS::CamRotate::init()
 	
 	mousePos = new Utilities::Vector2<float>(input->mousePosition().x, input->mousePosition().y);
 	
-	followBoss = true;
+	followBoss = false;
 }
 
 void LoveEngine::ECS::CamRotate::update()
@@ -83,16 +83,19 @@ void LoveEngine::ECS::CamRotate::update()
 	{
 		if (!input->controllerConected()) //pad and mouse
 		{
+			Utilities::Vector2<float> antPos = *mousePos;
 			delete mousePos;
 			mousePos = new Utilities::Vector2<float>(input->mousePosition().x, input->mousePosition().y);
 
-			float movementHorizontal = mousePos->x - input->mousePosition().x; 
+			float movementHorizontal = mousePos->x - antPos.x;
 
-			float movementVertical = mousePos->y - input->mousePosition().y;
+			float movementVertical = mousePos->y - antPos.y;
 			
+			std::cout << movementHorizontal << std::endl;
+			std::cout << movementVertical << std::endl;
 
-			rotation.y = horiSens * movementHorizontal * dT;
-			rotation.x = verSens * movementVertical * dT;
+			rotation.y = horiSens * movementHorizontal * dT * 0.1;
+			rotation.x = verSens * movementVertical * dT * 0.1;
 
 		}
 		else //Controller
