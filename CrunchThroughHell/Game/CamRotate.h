@@ -24,7 +24,7 @@ namespace LoveEngine {
 			float horiSens = 1;
 			float verSens = 1;
 
-			float antAngulo = 181;
+			float antAngulo = 180;
 			bool girarDer = true;
 
 			bool followBoss;
