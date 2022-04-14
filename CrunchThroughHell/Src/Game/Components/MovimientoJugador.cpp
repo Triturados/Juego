@@ -1,25 +1,30 @@
 #include "MovimientoJugador.h"
 #include "GameObject.h"
 #include "Transform.h"
+#include "RigidBody.h"
 #include "Vector3.h"
 #include "Vector4.h"
 #include "GameTime.h"
 #include "Input.h"
 #include <StringFormatter.h>
 #include <iostream>
+
 void LoveEngine::ECS::MovimientoJugador::init()
 {
 	input = Input::InputManager::getInstance();
 	//assert
 
-	player = gameObject->getComponent<Transform>();
+	tr = gameObject->getComponent<Transform>();
 	//assert
+
+	rb = gameObject->getComponent<RigidBody>();
+	hasRigidBody = rb != nullptr;
 }
 
 void LoveEngine::ECS::MovimientoJugador::update()
 {
 	float movement = 0;
-	Utilities::Vector4 rotation;
+	Utilities::Vector4<float> rotation;
 
 	float dT = Time::getInstance()->deltaTime;
 
@@ -37,8 +42,18 @@ void LoveEngine::ECS::MovimientoJugador::update()
 
 		//std::cout << controller << "\n";
 	}
-	player->translate(player->forward() * movement);
-	player->rotate(rotation);
+	tr->translate(tr->forward() * movement);
+	tr->rotate(rotation);
+
+}
+
+void LoveEngine::ECS::MovimientoJugador::moveTransform(float mv, Utilities::Vector4<float> rt)
+{
+
+}
+
+void LoveEngine::ECS::MovimientoJugador::moveRigidbody(float mv, Utilities::Vector4<float> rt)
+{
 
 }
 
