@@ -10,6 +10,8 @@
 #include <iostream>
 #include <math.h>
 
+#define PI 3.14159265
+
 LoveEngine::ECS::CamRotate::~CamRotate()
 {
 	delete mousePos;
@@ -25,7 +27,7 @@ void LoveEngine::ECS::CamRotate::init()
 	
 	mousePos = new Utilities::Vector2<float>(input->mousePosition().x, input->mousePosition().y);
 	
-	followBoss = true;
+	followBoss = false;
 }
 
 void LoveEngine::ECS::CamRotate::update()
@@ -48,29 +50,104 @@ void LoveEngine::ECS::CamRotate::update()
 		direccionCP.x = puntoA.x - camTr->getPos()->x;
 		direccionCP.y = puntoA.z - camTr->getPos()->z;
 
-		float angulo  = acosf((direccionCP.x * direccionPB.x) + (direccionCP.y * direccionPB.y))/ (direccionCP.magnitude()* direccionPB.magnitude());
+		float supElem = (direccionCP.x * direccionPB.x) + (direccionCP.y * direccionPB.y);
+		float infElem = (direccionCP.magnitude() * direccionPB.magnitude());
+		float angulo  = acosf(supElem/infElem) * 180.0 / PI;
 
-		std::cout << angulo << std::endl;
-		if (angulo > 5) //No esta colocado
+		if (angulo > 0.15) //No esta colocado
 		{
-			rotation.y = horiSens * 0.15 * dT; //si no esta bien que gire pa probar
+			float speed = angulo / 180;
+			if (speed < 0.3) speed = 0.3;
+
+
+			if (girarDer)
+			{
+				rotation.y = -horiSens * speed * dT;
+			}
+			else
+			{
+				rotation.y = horiSens * speed * dT;
+			}
+
+			//if (antAngulo < angulo) //ESTO ES HORRIBLE 
+			//{
+			//	std::cout << antAngulo << " < " << angulo << std::endl;
+			//	girarDer = !girarDer;
+			//}
+			antAngulo = angulo;
+		}
+
+
+		//Permitir ligero movimiento a los lados
+		if (!input->controllerConected()) //pad and mouse
+		{
+			//if (angulo < 10) //rango maximo de 10 por cada lado
+			//{
+			//	std::cout << "movimiento solo" << std::endl;
+			//	float speed = angulo / 10;
+
+			//	Utilities::Vector2<float> antPos = *mousePos;
+			//	delete mousePos;
+			//	mousePos = new Utilities::Vector2<float>(input->mousePosition().x, input->mousePosition().y);
+
+			//	float movementHorizontal = mousePos->x - antPos.x;
+			//	float movementVertical = mousePos->y - antPos.y;
+
+			//	rotation.y = horiSens * movementHorizontal * dT * 0.1 * speed;
+			//	rotation.x = verSens * movementVertical * dT * 0.1 * speed;
+			//}
+
+		}
+		else
+		{
+
 		}
 	}
 	else
 	{
 		if (!input->controllerConected()) //pad and mouse
 		{
+			Utilities::Vector2<float> antPos = *mousePos;
 			delete mousePos;
 			mousePos = new Utilities::Vector2<float>(input->mousePosition().x, input->mousePosition().y);
 
-			float movementHorizontal = mousePos->x - input->mousePosition().x; 
+			float movementHorizontal = mousePos->x - antPos.x;
 
-			float movementVertical = mousePos->y - input->mousePosition().y;
-			
+			float movementVertical = mousePos->y - antPos.y;
 
-			rotation.y = horiSens * movementHorizontal * dT;
-			rotation.x = verSens * movementVertical * dT;
+			//Limitar altura
+			Utilities::Vector3<float> playerPos = *playerTr->getPos();
+			Utilities::Vector3<float> camPos = *camTr->getPos();
 
+			Utilities::Vector3<float> direccionCP;
+			direccionCP.x = camPos.x - playerPos.x;
+			direccionCP.y = camPos.y - playerPos.y;
+			direccionCP.z = camPos.z - playerPos.z;
+			Utilities::Vector3<float> direccionPS;
+			direccionPS.y = playerPos.y;
+			direccionPS.x = camPos.x;
+			direccionPS.z = camPos.z;
+
+			float supElem = (direccionCP.x * direccionPS.x) + (direccionCP.y * direccionPS.y) + (direccionCP.z * direccionPS.z);
+			float infElem = (direccionCP.magnitude() * direccionPS.magnitude());
+			float angulo = acosf(supElem / infElem) * 180.0 / PI;
+
+			//std::cout << angulo << std::endl;
+			//if (angulo <= 80 && camPos.y > playerPos.y && movementVertical < 0) //Limite superior
+			//{
+			//	rotation.x = verSens * movementVertical * dT * 0.1;
+			//}
+			//else if (angulo <= 3 && camPos.y > playerPos.y && movementVertical > 0) //Limite inferior
+			//{
+			//	rotation.x = verSens * movementVertical * dT * 0.1;
+			//}
+			//else 
+			//{
+			//	rotation.x = verSens * movementVertical * dT * 0.1;
+			//}
+
+			rotation.x = verSens * movementVertical * dT * 0.1;
+			rotation.y = horiSens * movementHorizontal * dT * 0.1;
 		}
 		else //Controller
 		{
