@@ -10,6 +10,7 @@
 
 
 #include <Input.h>
+#include <GameTime.h>
 
 void LoveEngine::ECS::SaludJugador::receiveMessage(Utilities::StringFormatter& sf)
 {
@@ -37,6 +38,16 @@ void LoveEngine::ECS::SaludJugador::addMaxHealth()
 	_MAX_HEALTH++;
 }
 
+// Metodo que tiene en cuenta el cooldown para afcetar a la vida
+void LoveEngine::ECS::SaludJugador::takeDamage(int damage)
+{
+	if (hitCooldown) return;
+
+	setHealth(getHealth() - damage);
+	hitCooldown = true;
+	cooldownTime = _MAX_COOLDOWN_TIME;
+}
+
 void LoveEngine::ECS::SaludJugador::init()
 {
 	input = Input::InputManager::getInstance();
@@ -51,14 +62,29 @@ void LoveEngine::ECS::SaludJugador::init()
 	slider->setPos(100, 100);	
 }
 
+float naive_lerp(float a, float b, float t)
+{
+	return a + t * (b - a);
+}
+
 void LoveEngine::ECS::SaludJugador::update()
 {
-	if(input->keyJustPressed(Input::InputKeys::A)) {
-		setHealth(getHealth() - 1);
+	//testeo
+	if(input->keyJustPressed(Input::InputKeys::B)) {
+		takeDamage(1);
 	}
 
 	int barProgress = actHealth * slider->MAX_VALUE / _MAX_HEALTH;
+	
+	barProgress = naive_lerp(slider->getProgress(), barProgress, Time::getInstance()->deltaTime);
 	slider->setProgress(barProgress);
+}
+
+void LoveEngine::ECS::SaludJugador::stepPhysics()
+{
+	if (!hitCooldown) return;
+	cooldownTime -= Time::getInstance()->deltaTime;
+	if (cooldownTime < 0) hitCooldown = false;
 }
 
 

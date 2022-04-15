@@ -21,15 +21,21 @@ namespace LoveEngine {
 			int _MAX_HEALTH = 4;
 			int actHealth = 4;
 
+			bool hitCooldown = false;
+			float _MAX_COOLDOWN_TIME = 3;
+			float cooldownTime = _MAX_COOLDOWN_TIME;
+
 		public:
 			void init() override;
 			void update() override;
+			virtual void stepPhysics() override;
 			void receiveMessage(Utilities::StringFormatter& message) override;
 
 			inline int getHealth() { return actHealth; }
 			void addHealth();
 			void setHealth(int health);
 			void addMaxHealth();
+			void takeDamage(int damage);
 		};
 	}
 }
