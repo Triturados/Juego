@@ -36,6 +36,9 @@
     <ClCompile Include="CamRotate.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="..\Src\Game\Components\ComportamientoBoss.cpp">
+      <Filter>Components\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Src\Game\Components\ComponenteDeContar.h">
@@ -52,6 +55,9 @@
     </ClInclude>
     <ClInclude Include="CamRotate.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Game\Components\ComportamientoBoss.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

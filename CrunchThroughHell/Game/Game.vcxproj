@@ -97,6 +97,7 @@
   <ItemGroup>
     <ClCompile Include="..\Src\ComponentDefinition.cpp" />
     <ClCompile Include="..\Src\Game\Components\ComponenteDeContar.cpp" />
+    <ClCompile Include="..\Src\Game\Components\ComportamientoBoss.cpp" />
     <ClCompile Include="..\Src\Game\Components\MovimientoJugador.cpp" />
     <ClCompile Include="CamFollow.cpp" />
     <ClCompile Include="CamRotate.cpp" />
@@ -104,6 +105,7 @@
   <ItemGroup>
     <ClInclude Include="..\Src\ComponentDefinition.h" />
     <ClInclude Include="..\Src\Game\Components\ComponenteDeContar.h" />
+    <ClInclude Include="..\Src\Game\Components\ComportamientoBoss.h" />
     <ClInclude Include="..\Src\Game\Components\MovimientoJugador.h" />
     <ClInclude Include="CamFollow.h" />
     <ClInclude Include="CamRotate.h" />
