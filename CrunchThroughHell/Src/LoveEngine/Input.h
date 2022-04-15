@@ -61,6 +61,7 @@ namespace LoveEngine {
 			static InputManager* getInstance();
 			bool handleInput();
 			bool isKeyPressed(InputKeys key);
+			bool keyJustPressed(InputKeys key);
 
 			Controller& getController();
 			bool controllerConected();
