@@ -14,14 +14,28 @@
 
 void LoveEngine::ECS::SaludJugador::receiveMessage(Utilities::StringFormatter& sf)
 {
-	/*sf.tryGetFloat("speed", speed);
-	sf.tryGetFloat("rotSpeed", rotSpeed);*/
+	sf.tryGetFloat("cooldownTime", cooldownTime);
+	sf.tryGetInt("maxHealth", _MAX_HEALTH);
 }
 
 void LoveEngine::ECS::SaludJugador::addHealth()
 {
 	actHealth++;
 	if (actHealth > _MAX_HEALTH) actHealth = _MAX_HEALTH;
+}
+
+void LoveEngine::ECS::SaludJugador::init()
+{
+	input = Input::InputManager::getInstance();
+	//assert
+
+	tr = gameObject->getComponent<Transform>();
+	slider = gameObject->getComponent<Slider>();
+	//assert
+
+	actHealth = _MAX_HEALTH;
+	slider->setDetectInput(false);
+	slider->setPos(100, 100);	
 }
 
 void LoveEngine::ECS::SaludJugador::setHealth(int health)
@@ -48,19 +62,6 @@ void LoveEngine::ECS::SaludJugador::takeDamage(int damage)
 	cooldownTime = _MAX_COOLDOWN_TIME;
 }
 
-void LoveEngine::ECS::SaludJugador::init()
-{
-	input = Input::InputManager::getInstance();
-	//assert
-
-	tr = gameObject->getComponent<Transform>();
-	//assert
-	slider = gameObject->getComponent<Slider>();
-
-	actHealth = _MAX_HEALTH;
-	slider->setDetectInput(false);
-	slider->setPos(100, 100);	
-}
 
 float naive_lerp(float a, float b, float t)
 {
