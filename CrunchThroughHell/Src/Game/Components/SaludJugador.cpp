@@ -62,6 +62,11 @@ void LoveEngine::ECS::SaludJugador::takeDamage(int damage)
 	cooldownTime = _MAX_COOLDOWN_TIME;
 }
 
+LoveEngine::ECS::SaludJugador::~SaludJugador()
+{
+
+}
+
 
 float naive_lerp(float a, float b, float t)
 {

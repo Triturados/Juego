@@ -36,6 +36,7 @@ namespace LoveEngine {
 			void setHealth(int health);
 			void addMaxHealth();
 			void takeDamage(int damage);
+			~SaludJugador();
 		};
 	}
 }
