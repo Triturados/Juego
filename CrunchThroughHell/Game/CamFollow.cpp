@@ -24,10 +24,10 @@ void LoveEngine::ECS::CamFollow::receiveMessage(Utilities::StringFormatter& sf)
 void LoveEngine::ECS::CamFollow::update()
 {
 	cam->lookAt(*playerTr->getPos());
-
 }
 
 void LoveEngine::ECS::CamFollow::receiveGameObject(int n, GameObject* b)
 {
 	playerTr = b->getComponent<Transform>();
+	std::cout << "hola entra COMPOENNTE escean dani" << std::endl;
 }
