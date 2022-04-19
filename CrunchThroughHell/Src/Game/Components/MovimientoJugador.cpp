@@ -26,36 +26,47 @@ void LoveEngine::ECS::MovimientoJugador::update()
 	float movement = 0;
 	Utilities::Vector4<float> rotation;
 	float dT = Time::getInstance()->deltaTime;
-	bool willDash = false;
+	lastDash += dT;
 
 	if (!input->controllerConected()) {
 		if (input->isKeyPressed(Input::InputKeys::W)) movement = speed;
 		if (input->isKeyPressed(Input::InputKeys::S)) movement = -speed;
 		if (input->isKeyPressed(Input::InputKeys::A)) rotation.y = rotSpeed;
-		if (input->isKeyPressed(Input::InputKeys::D)) rotation.y = -rotSpeed;
-		if (input->isKeyPressed(Input::InputKeys::SPACE))willDash = true;
+		if (input->isKeyPressed(Input::InputKeys::SPACE)) rotation.y = -rotSpeed;
+		if (input->isKeyPressed(Input::InputKeys::D) && lastDash >= dashDelay) willDash = true;
 	}
 	else {
 		Utilities::Vector2 controller = input->getController().leftJoystick;
 
-		movement = controller.y * speed ;
+		movement = controller.y * speed;
 		rotation.y = controller.x * rotSpeed;
 
 		//std::cout << controller << "\n";
 	}
 
-	std::cout << tr->getRot()->y << std::endl;
-	if (hasRigidBody) {
+	if (willDash) {
+		dash(dT);
+	}
+	else if (hasRigidBody) {
 		moveRigidbody(movement, rotation);
-		if (willDash) dash();
 	}
 	else moveTransform(movement, rotation, dT);
 
 }
 
-void LoveEngine::ECS::MovimientoJugador::dash()
+void LoveEngine::ECS::MovimientoJugador::dash(float dT)
 {
-//	rb->addForce(tr->forward() * dashSpeed, *tr->getPos(), ForceMode::IMPULSE);
+	printf("DASH");
+
+	currentDashDuration += dT;
+
+	rb->setLinearVelocity(tr->forward() * dashSpeed);
+
+	if (currentDashDuration >= dashDuration) {
+		lastDash = 0;
+		currentDashDuration = 0;
+		willDash = false;
+	}
 }
 
 void LoveEngine::ECS::MovimientoJugador::moveTransform(float mv, Utilities::Vector4<float> rt, float dT)
@@ -79,6 +90,8 @@ void LoveEngine::ECS::MovimientoJugador::receiveMessage(Utilities::StringFormatt
 	sf.tryGetFloat("speed", speed);
 	sf.tryGetFloat("rotSpeed", rotSpeed);
 	sf.tryGetFloat("dashSpeed", dashSpeed);
+	sf.tryGetFloat("dashDuration", dashDuration);
+	sf.tryGetFloat("dashDelay", dashDelay);
 }
 
 
