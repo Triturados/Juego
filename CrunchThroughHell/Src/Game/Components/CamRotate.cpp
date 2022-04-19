@@ -21,7 +21,7 @@ void LoveEngine::ECS::CamRotate::init()
 {
 	input = Input::InputManager::getInstance();
 
-	playerTr = player->getComponent<Transform>(); //COMO ACCEDO A DOS GAMEOBJECTS AAAAAAA ESCENA DANIEL
+	playerTr = player->getComponent<Transform>();
 	bossTr = boss->getComponent<Transform>();
 	camTr = cam->getComponent<Transform>();
 	
@@ -32,13 +32,15 @@ void LoveEngine::ECS::CamRotate::init()
 
 void LoveEngine::ECS::CamRotate::update()
 {
-	if (input->isKeyPressed(Input::InputKeys::SPACE)) followBoss = !followBoss;
+	gameObject->getComponent<Transform>()->setPos(*playerTr->getPos());
+	if (input->keyJustPressed(Input::InputKeys::B)) followBoss = !followBoss;
 
 	float dT = Time::getInstance()->deltaTime;
 	Utilities::Vector4<float> rotation;
 
 	if (followBoss) //Line between player - boss girar cam hasta que pase por al recta en x z que forma con el player y el boss
 	{
+		std::cout << "movimiento boss" << std::endl;
 		Utilities::Vector3<float> puntoA = *playerTr->getPos(); //x y z para la recta, altura da igual
 		Utilities::Vector3<float> puntoB = *bossTr->getPos();
 
@@ -112,7 +114,6 @@ void LoveEngine::ECS::CamRotate::update()
 			mousePos = new Utilities::Vector2<float>(input->mousePosition().x, input->mousePosition().y);
 
 			float movementHorizontal = mousePos->x - antPos.x;
-
 			float movementVertical = mousePos->y - antPos.y;
 
 			//Limitar altura
@@ -133,21 +134,22 @@ void LoveEngine::ECS::CamRotate::update()
 			float angulo = acosf(supElem / infElem) * 180.0 / PI;
 
 			//std::cout << angulo << std::endl;
-			//if (angulo <= 80 && camPos.y > playerPos.y && movementVertical < 0) //Limite superior
-			//{
-			//	rotation.x = verSens * movementVertical * dT * 0.1;
-			//}
-			//else if (angulo <= 3 && camPos.y > playerPos.y && movementVertical > 0) //Limite inferior
-			//{
-			//	rotation.x = verSens * movementVertical * dT * 0.1;
-			//}
-			//else 
-			//{
-			//	rotation.x = verSens * movementVertical * dT * 0.1;
-			//}
+			if (angulo >= 40 && camPos.y > playerPos.y && movementVertical > 0) //Limite superior
+			{
+				rotation.x = verSens * movementVertical * dT * 0.1;
+			}
+			else if (angulo <= 3 && camPos.y > playerPos.y && movementVertical < 0) //Limite inferior
+			{
+				rotation.x = verSens * movementVertical * dT * 0.1;
+			}
+			else if (angulo >= 3 && angulo <= 40)
+			{
+				rotation.x = verSens * movementVertical * dT * 0.1;
+			}
 
-			rotation.x = verSens * movementVertical * dT * 0.1;
 			rotation.y = horiSens * movementHorizontal * dT * 0.1;
+
+			std::cout << "rot hori: " << rotation.y << " rot vertical: " << rotation.x << std::endl;
 		}
 		else //Controller
 		{

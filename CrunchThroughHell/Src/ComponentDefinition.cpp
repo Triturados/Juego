@@ -6,9 +6,9 @@
 #include <Components/ComponenteDeContar.h>
 #include <Components/ComportamientoBoss.h>
 #include <Components/SaludJugador.h>
-#include "../Game/CamFollow.h"
+#include "Components/CamFollow.h"
 #include "Components/MainMenu.h"
-#include "../Game/CamRotate.h"
+#include "Components/CamRotate.h"
 
 namespace LoveEngine {
 

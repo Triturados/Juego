@@ -33,16 +33,16 @@
     <ClCompile Include="..\Src\Game\Components\SaludJugador.cpp">
       <Filter>Components\Source</Filter>
     </ClCompile>
-    <ClCompile Include="CamFollow.cpp">
-      <Filter>Components\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="CamRotate.cpp">
-      <Filter>Components\Source</Filter>
-    </ClCompile>
     <ClCompile Include="..\Src\Game\Components\MovimientoJugador.cpp">
       <Filter>Components\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\Src\Game\Components\MainMenu.cpp">
+      <Filter>Components\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Game\Components\CamFollow.cpp">
+      <Filter>Components\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Game\Components\CamRotate.cpp">
       <Filter>Components\Source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -56,12 +56,6 @@
     <ClInclude Include="..\Src\Game\Components\SaludJugador.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="CamFollow.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="CamRotate.h">
-      <Filter>Components</Filter>
-    </ClInclude>
     <ClInclude Include="..\Src\Game\Components\MovimientoJugador.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -69,6 +63,12 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\Src\Game\Components\MainMenu.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Game\Components\CamFollow.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Game\Components\CamRotate.h">
       <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
