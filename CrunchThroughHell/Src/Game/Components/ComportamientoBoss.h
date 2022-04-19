@@ -15,6 +15,8 @@ namespace LoveEngine {
 			public:
 				MeleeAttack(Agent* agent_);
 				void setTarget(Transform* t);
+				void setTransform(Transform* t);
+				void setRB(RigidBody* rb_);
 				bool conditionsFulfilled() const final;
 				void onActionStart() final;
 				void activeUpdate() final;
@@ -35,6 +37,8 @@ namespace LoveEngine {
             public:
                 Chase(Agent* agent_);
                 void setTarget(Transform* t);
+                void setTransform(Transform* t);
+                void setRB(RigidBody* rb_);
                 void activeUpdate() final;
             protected:
                 float maxVel = 10;
@@ -49,6 +53,8 @@ namespace LoveEngine {
             public:
                 Leap(Agent* agent_);
                 void setTarget(Transform* t);
+                void setTransform(Transform* t);
+                void setRB(RigidBody* rb_);
                 bool conditionsFulfilled() const final;
                 void onActionStart() final;
                 void activeUpdate() final;
@@ -60,9 +66,15 @@ namespace LoveEngine {
 #pragma endregion
 		private:
 			Transform* target;
+            MeleeAttack* attack;
+            Leap* leap;
+            Idle* idle;
+            Chase* chase;
 
 		public:
-			void init() override;
+            ComportamientoBoss();
+            void init() override;
+            void receiveComponent(int n, Component* b) override;
 		};
 	}
 }
