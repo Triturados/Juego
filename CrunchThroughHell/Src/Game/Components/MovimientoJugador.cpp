@@ -33,7 +33,7 @@ void LoveEngine::ECS::MovimientoJugador::update()
 		if (input->isKeyPressed(Input::InputKeys::S)) movement = -speed;
 		if (input->isKeyPressed(Input::InputKeys::A)) rotation.y = rotSpeed;
 		if (input->isKeyPressed(Input::InputKeys::SPACE)) rotation.y = -rotSpeed;
-		if (input->isKeyPressed(Input::InputKeys::D) && lastDash >= dashDelay) willDash = true;
+		if (input->isKeyPressed(Input::InputKeys::D) && lastDash >= dashDelay) isDashing = true;
 	}
 	else {
 		Utilities::Vector2 controller = input->getController().leftJoystick;
@@ -44,7 +44,7 @@ void LoveEngine::ECS::MovimientoJugador::update()
 		//std::cout << controller << "\n";
 	}
 
-	if (willDash) {
+	if (isDashing) {
 		dash(dT);
 	}
 	else if (hasRigidBody) {
@@ -65,7 +65,7 @@ void LoveEngine::ECS::MovimientoJugador::dash(float dT)
 	if (currentDashDuration >= dashDuration) {
 		lastDash = 0;
 		currentDashDuration = 0;
-		willDash = false;
+		isDashing = false;
 	}
 }
 
