@@ -32,8 +32,8 @@ void LoveEngine::ECS::MovimientoJugador::update()
 		if (input->isKeyPressed(Input::InputKeys::W)) movement = speed;
 		if (input->isKeyPressed(Input::InputKeys::S)) movement = -speed;
 		if (input->isKeyPressed(Input::InputKeys::A)) rotation.y = rotSpeed;
-		if (input->isKeyPressed(Input::InputKeys::SPACE)) rotation.y = -rotSpeed;
-		if (input->isKeyPressed(Input::InputKeys::D) && lastDash >= dashDelay) isDashing = true;
+		if (input->isKeyPressed(Input::InputKeys::D)) rotation.y = -rotSpeed;
+		if (input->isKeyPressed(Input::InputKeys::SPACE) && lastDash >= dashDelay) isDashing = true;
 	}
 	else {
 		Utilities::Vector2 controller = input->getController().leftJoystick;
