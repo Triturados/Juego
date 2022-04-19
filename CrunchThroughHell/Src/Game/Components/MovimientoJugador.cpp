@@ -26,12 +26,14 @@ void LoveEngine::ECS::MovimientoJugador::update()
 	float movement = 0;
 	Utilities::Vector4<float> rotation;
 	float dT = Time::getInstance()->deltaTime;
+	bool willDash = false;
 
 	if (!input->controllerConected()) {
 		if (input->isKeyPressed(Input::InputKeys::W)) movement = speed;
 		if (input->isKeyPressed(Input::InputKeys::S)) movement = -speed;
 		if (input->isKeyPressed(Input::InputKeys::A)) rotation.y = rotSpeed;
 		if (input->isKeyPressed(Input::InputKeys::D)) rotation.y = -rotSpeed;
+		if (input->isKeyPressed(Input::InputKeys::SPACE))willDash = true;
 	}
 	else {
 		Utilities::Vector2 controller = input->getController().leftJoystick;
@@ -43,9 +45,16 @@ void LoveEngine::ECS::MovimientoJugador::update()
 	}
 
 	std::cout << tr->getRot()->y << std::endl;
-	if (hasRigidBody)moveRigidbody(movement, rotation);
+	if (hasRigidBody) {
+		moveRigidbody(movement, rotation);
+		if (willDash) dash();
+	}
 	else moveTransform(movement, rotation, dT);
 
+}
+
+void LoveEngine::ECS::MovimientoJugador::dash()
+{
 }
 
 void LoveEngine::ECS::MovimientoJugador::moveTransform(float mv, Utilities::Vector4<float> rt, float dT)
@@ -68,6 +77,7 @@ void LoveEngine::ECS::MovimientoJugador::receiveMessage(Utilities::StringFormatt
 {
 	sf.tryGetFloat("speed", speed);
 	sf.tryGetFloat("rotSpeed", rotSpeed);
+	sf.tryGetFloat("dashSpeed", dashSpeed);
 }
 
 
