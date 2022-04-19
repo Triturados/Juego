@@ -35,7 +35,7 @@ void LoveEngine::ECS::SaludJugador::init()
 
 	actHealth = _MAX_HEALTH;
 	slider->setDetectInput(false);
-	slider->setPos(100, 100);	
+	slider->setPos(Utilities::Vector3<int>(100,100, 1));	
 }
 
 void LoveEngine::ECS::SaludJugador::setHealth(int health)
