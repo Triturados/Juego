@@ -99,7 +99,7 @@ namespace LoveEngine
                 Utilities::Vector3<float> targetPos = *(target->getPos());
                 Utilities::Vector3<float> pos = *(tr->getPos());
 
-                rb->addForce((targetPos - pos).getNormalized() * acc * rb->getMass(), Utilities::Vector3<float>(0, 0, 0), (int)ForceMode::ACCELERATION);
+                rb->addForce((targetPos - pos).getNormalized() * acc * rb->getMass(), Utilities::Vector3<float>(0, 0, 0), ForceMode::ACCELERATION);
                 //lookat target
             }
         }
@@ -131,7 +131,7 @@ namespace LoveEngine
             }
 
             //start animation
-            rb->addForce(*(target->getPos()) - *(tr->getPos()) + Utilities::Vector3<float>(0, 10, 0), Utilities::Vector3<float>(0, 0, 0), (int)ForceMode::IMPULSE);
+            rb->addForce(*(target->getPos()) - *(tr->getPos()) + Utilities::Vector3<float>(0, 10, 0), Utilities::Vector3<float>(0, 0, 0), ForceMode::IMPULSE);
         }
 
         void ComportamientoBoss::Leap::activeUpdate()

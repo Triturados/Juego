@@ -55,6 +55,7 @@ void LoveEngine::ECS::MovimientoJugador::update()
 
 void LoveEngine::ECS::MovimientoJugador::dash()
 {
+//	rb->addForce(tr->forward() * dashSpeed, *tr->getPos(), ForceMode::IMPULSE);
 }
 
 void LoveEngine::ECS::MovimientoJugador::moveTransform(float mv, Utilities::Vector4<float> rt, float dT)
