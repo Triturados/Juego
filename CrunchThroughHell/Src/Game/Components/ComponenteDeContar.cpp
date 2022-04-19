@@ -20,11 +20,11 @@ namespace LoveEngine {
 			int count = Time::getInstance()->frameCount;
 			std::cout << "Frame numero: " << count << "\n";
 
-			if (count > 15) {
-				//std::cout << damenum() << "\n";
+			/*if (count > 15) {
+				std::cout << damenum() << "\n";
 				LoveEngine::SceneManagement::SceneManager::getInstance()->changeScene(1,
 					SceneManagement::SceneLoad::PUSH);
-			}
+			}*/
 		}
 
 
