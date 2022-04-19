@@ -7,6 +7,7 @@
 #include <Components/ComportamientoBoss.h>
 #include <Components/SaludJugador.h>
 #include "../Game/CamFollow.h"
+#include "Components/MainMenu.h"
 #include "../Game/CamRotate.h"
 
 namespace LoveEngine {
@@ -28,6 +29,7 @@ namespace LoveEngine {
 			inst->registerComponent(new ComponentCreatorTemplate<CamRotate>("CamRotate"));
 			inst->registerComponent(new ComponentCreatorTemplate<ComportamientoBoss>("ComportamientoBoss"));
 			inst->registerComponent(new ComponentCreatorTemplate<SaludJugador>("SaludJugador"));
+			inst->registerComponent(new ComponentCreatorTemplate<MainMenu>("MainMenu"));
 		}
 	}
 }
