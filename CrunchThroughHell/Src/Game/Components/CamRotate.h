@@ -7,6 +7,11 @@ namespace LoveEngine {
 		class InputManager;
 	}
 
+	namespace Utilities {
+		template<typename T>
+		class Vector3;
+	}
+
 	namespace ECS {
 		class Transform;
 		class CamRotate : public Component {
@@ -30,6 +35,8 @@ namespace LoveEngine {
 			bool followBoss;
 
 			Utilities::Vector2<float>* mousePos;
+
+			float calculateAngle(Utilities::Vector3<float> vectorA, Utilities::Vector3<float> vectorB);
 		public:
 			~CamRotate();
 

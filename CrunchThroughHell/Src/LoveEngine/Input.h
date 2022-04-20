@@ -66,6 +66,8 @@ namespace LoveEngine {
 			Controller& getController();
 			bool controllerConected();
 			Utilities::Vector2<float> mousePosition();
+			Utilities::Vector2<float> relativeMousePosition();
+			void mouseVisibility(bool inGame);
 		};
 	}
 }

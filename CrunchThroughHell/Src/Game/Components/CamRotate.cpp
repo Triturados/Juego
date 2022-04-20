@@ -20,6 +20,7 @@ LoveEngine::ECS::CamRotate::~CamRotate()
 void LoveEngine::ECS::CamRotate::init()
 {
 	input = Input::InputManager::getInstance();
+	input->mouseVisibility(true);
 
 	playerTr = player->getComponent<Transform>();
 	bossTr = boss->getComponent<Transform>();
@@ -113,9 +114,12 @@ void LoveEngine::ECS::CamRotate::update()
 			delete mousePos;
 			mousePos = new Utilities::Vector2<float>(input->mousePosition().x, input->mousePosition().y);
 
-			float movementHorizontal = mousePos->x - antPos.x;
-			float movementVertical = mousePos->y - antPos.y;
+			float movementHorizontal = (float)input->relativeMousePosition().x;
+			float movementVertical = (float)input->relativeMousePosition().y;
 
+
+			if (movementHorizontal <= 1 && movementHorizontal >= -1) movementHorizontal = 0;
+			if (movementVertical <= 1 && movementVertical >= -1) movementVertical = 0;
 			//Limitar altura
 			Utilities::Vector3<float> playerPos = *playerTr->getPos();
 			Utilities::Vector3<float> camPos = *camTr->getPos();
@@ -129,27 +133,34 @@ void LoveEngine::ECS::CamRotate::update()
 			direccionPS.x = camPos.x;
 			direccionPS.z = camPos.z;
 
-			float supElem = (direccionCP.x * direccionPS.x) + (direccionCP.y * direccionPS.y) + (direccionCP.z * direccionPS.z);
-			float infElem = (direccionCP.magnitude() * direccionPS.magnitude());
-			float angulo = acosf(supElem / infElem) * 180.0 / PI;
+			float angulo = calculateAngle(direccionCP, direccionPS);
 
-			//std::cout << angulo << std::endl;
+			float anguloX = calculateAngle(Utilities::Vector3<float>(direccionCP.x, 0, direccionCP.z), Utilities::Vector3<float>(1, 0, 0));
+
+			if (anguloX > 90) anguloX = 180 - anguloX;
+
+			std::cout << "anguloX " << anguloX << std::endl;
+			std::cout << "angulo " << angulo << std::endl;
+
 			if (angulo >= 40 && camPos.y > playerPos.y && movementVertical > 0) //Limite superior
 			{
-				rotation.x = verSens * movementVertical * dT * 0.1;
+				rotation.x = /*std::cos(anguloX) **/ verSens * movementVertical * dT * 0.1;
+				/*rotation.z = /*std::sin(anguloX) * verSens * movementVertical * dT * 0.1;*/
 			}
 			else if (angulo <= 3 && camPos.y > playerPos.y && movementVertical < 0) //Limite inferior
 			{
-				rotation.x = verSens * movementVertical * dT * 0.1;
+				rotation.x = /*std::cos(anguloX) **/ verSens * movementVertical * dT * 0.1;
+				/*rotation.z = /*std::sin(anguloX) * verSens * movementVertical * dT * 0.1;*/
 			}
 			else if (angulo >= 3 && angulo <= 40)
 			{
-				rotation.x = verSens * movementVertical * dT * 0.1;
+				rotation.x = /*std::cos(anguloX) **/ verSens * movementVertical * dT * 0.1;
+				/*rotation.z = /*std::sin(anguloX) * verSens * movementVertical * dT * 0.1;*/
 			}
 
 			rotation.y = horiSens * movementHorizontal * dT * 0.1;
 
-			std::cout << "rot hori: " << rotation.y << " rot vertical: " << rotation.x << std::endl;
+			
 		}
 		else //Controller
 		{
@@ -164,6 +175,15 @@ void LoveEngine::ECS::CamRotate::receiveMessage(Utilities::StringFormatter& sf)
 {
 	sf.tryGetFloat("verSens", verSens);
 	sf.tryGetFloat("horiSens", horiSens);
+}
+
+float LoveEngine::ECS::CamRotate::calculateAngle(Utilities::Vector3<float> vectorA, Utilities::Vector3<float> vectorB)
+{
+	float supElem = (vectorA.x * vectorB.x) + (vectorA.y * vectorB.y) + (vectorA.z * vectorB.z);
+	float infElem = (vectorA.magnitude() * vectorB.magnitude());
+	
+	
+	return acosf(supElem / infElem) * 180.0 / PI;
 }
 
 void LoveEngine::ECS::CamRotate::receiveGameObject(int n, GameObject* b)
