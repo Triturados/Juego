@@ -26,9 +26,20 @@ namespace LoveEngine {
 			ComponentFactory* inst = ComponentFactory::getInstance();
 			assert(inst != nullptr);
 
-			//newComponent<ComponenteDeContar>("ComponenteDeContar", inst);
-
-			inst->registerComponent(new ComponentCreatorTemplate<ComponenteDeContar>("ComponenteDeContar"));
+			newComponent<ComponenteDeContar>("ComponenteDeContar", inst);
+			newComponent<Autodestruccion>("Autodestruccion", inst);
+			newComponent<FrameRate>("FrameRate", inst);
+			newComponent<EscribirNumero>("EscribirNumero", inst);
+			newComponent<MovimientoJugador>("MovimientoJugador", inst);
+			newComponent<Moverpanatalla>("MoverPantalla", inst);
+			newComponent<CamFollow>("CamFollow", inst);
+			newComponent<CamRotate>("CamRotate", inst);
+			newComponent<SaludJugador>("SaludJugador", inst);
+			newComponent<ComportamientoBoss>("ComportamientoBoss", inst);
+			newComponent<MainMenu>("MainMenu", inst);
+			newComponent<ShowText>("ShowText", inst);
+			
+			/*inst->registerComponent(new ComponentCreatorTemplate<ComponenteDeContar>("ComponenteDeContar"));
 			inst->registerComponent(new ComponentCreatorTemplate<Autodestruccion>("AutoDestruccion"));
 			inst->registerComponent(new ComponentCreatorTemplate<FrameRate>("FrameRate"));
 			inst->registerComponent(new ComponentCreatorTemplate<EscribirNumero>("EscribirNumero"));
@@ -40,6 +51,7 @@ namespace LoveEngine {
 			inst->registerComponent(new ComponentCreatorTemplate<SaludJugador>("SaludJugador"));
 			inst->registerComponent(new ComponentCreatorTemplate<MainMenu>("MainMenu"));
 			inst->registerComponent(new ComponentCreatorTemplate<ShowText>("ShowText"));
+			*/
 		}
 	}
 }
