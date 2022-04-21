@@ -10,6 +10,7 @@
 #include "Components/MainMenu.h"
 #include "Components/CamRotate.h"
 #include "Components/ShowText.h"
+#include "Components/DeadZone.h"
 
 namespace LoveEngine {
 
@@ -38,7 +39,8 @@ namespace LoveEngine {
 			newComponent<ComportamientoBoss>("ComportamientoBoss", inst);
 			newComponent<MainMenu>("MainMenu", inst);
 			newComponent<ShowText>("ShowText", inst);
-			
+			newComponent<DeadZone>("DeadZone", inst);
+
 			/*inst->registerComponent(new ComponentCreatorTemplate<ComponenteDeContar>("ComponenteDeContar"));
 			inst->registerComponent(new ComponentCreatorTemplate<Autodestruccion>("AutoDestruccion"));
 			inst->registerComponent(new ComponentCreatorTemplate<FrameRate>("FrameRate"));
@@ -50,8 +52,7 @@ namespace LoveEngine {
 			inst->registerComponent(new ComponentCreatorTemplate<ComportamientoBoss>("ComportamientoBoss"));
 			inst->registerComponent(new ComponentCreatorTemplate<SaludJugador>("SaludJugador"));
 			inst->registerComponent(new ComponentCreatorTemplate<MainMenu>("MainMenu"));
-			inst->registerComponent(new ComponentCreatorTemplate<ShowText>("ShowText"));
-			*/
+			inst->registerComponent(new ComponentCreatorTemplate<ShowText>("ShowText"));*/
 		}
 	}
 }
