@@ -34,7 +34,15 @@ void LoveEngine::ECS::CamRotate::init()
 void LoveEngine::ECS::CamRotate::update()
 {
 	gameObject->getComponent<Transform>()->setPos(*playerTr->getPos());
-	if (input->keyJustPressed(Input::InputKeys::B)) followBoss = !followBoss;
+	if (input->keyJustPressed(Input::InputKeys::B))
+	{
+		followBoss = !followBoss;
+		if (followBoss)
+		{
+			antAngulo = 180;
+			cont = 0;
+		}
+	}
 
 	float dT = Time::getInstance()->deltaTime;
 	Utilities::Vector4<float> rotation;
@@ -59,7 +67,6 @@ void LoveEngine::ECS::CamRotate::update()
 
 
 
-
 		if (angulo > 2) //No esta colocado
 		{
 			float speed = angulo / 180;
@@ -77,10 +84,10 @@ void LoveEngine::ECS::CamRotate::update()
 
 			//std::cout << angulo << std::endl;
 
-			//if (antAngulo < angulo) //ESTO ES HORRIBLE 
-			//{
-			//	girarDer = !girarDer;
-			//}
+			if (antAngulo > angulo && cont < 2) //ESTO ES HORRIBLE 
+			{
+				girarDer = !girarDer;
+			}
 
 			antAngulo = angulo;
 		}
@@ -89,6 +96,7 @@ void LoveEngine::ECS::CamRotate::update()
 			std::cout << "CAM COLOCADA " << std::endl;
 		}
 
+		cont++;
 		//Permitir ligero movimiento a los lados
 		if (!input->controllerConected()) //pad and mouse
 		{

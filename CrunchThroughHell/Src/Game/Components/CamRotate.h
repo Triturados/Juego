@@ -30,6 +30,7 @@ namespace LoveEngine {
 			float verSens = 1;
 
 			float antAngulo = 180;
+			int cont = 0;
 			bool girarDer = true;
 
 			bool followBoss;
