@@ -57,7 +57,10 @@ void LoveEngine::ECS::CamRotate::update()
 		float infElem = (direccionCP.magnitude() * direccionPB.magnitude());
 		float angulo  = acosf(supElem/infElem) * 180.0 / PI;
 
-		if (angulo > 0.15) //No esta colocado
+
+
+
+		if (angulo > 2) //No esta colocado
 		{
 			float speed = angulo / 180;
 			if (speed < 0.3) speed = 0.3;
@@ -72,14 +75,19 @@ void LoveEngine::ECS::CamRotate::update()
 				rotation.y = horiSens * speed * dT;
 			}
 
+			//std::cout << angulo << std::endl;
+
 			//if (antAngulo < angulo) //ESTO ES HORRIBLE 
 			//{
-			//	std::cout << antAngulo << " < " << angulo << std::endl;
 			//	girarDer = !girarDer;
 			//}
+
 			antAngulo = angulo;
 		}
-
+		else
+		{
+			std::cout << "CAM COLOCADA " << std::endl;
+		}
 
 		//Permitir ligero movimiento a los lados
 		if (!input->controllerConected()) //pad and mouse
@@ -101,10 +109,7 @@ void LoveEngine::ECS::CamRotate::update()
 			//}
 
 		}
-		else
-		{
-
-		}
+		
 	}
 	else
 	{
@@ -139,23 +144,27 @@ void LoveEngine::ECS::CamRotate::update()
 
 			if (anguloX > 90) anguloX = 180 - anguloX;
 
-			std::cout << "anguloX " << anguloX << std::endl;
-			std::cout << "angulo " << angulo << std::endl;
+			//std::cout << "angulo " << angulo << "mov vertical " << movementVertical << std::endl;
+			
+			float valorX = 90 / anguloX;
+			float valorZ = 1 - valorX;
 
-			if (angulo >= 40 && camPos.y > playerPos.y && movementVertical > 0) //Limite superior
+			//std::cout << "anguloX: " << anguloX << "seno del angulo: " << valorX << std::endl;
+
+			if (angulo >= 40  && movementVertical > 0) //Limite superior
 			{
-				rotation.x = /*std::cos(anguloX) **/ verSens * movementVertical * dT * 0.1;
-				/*rotation.z = /*std::sin(anguloX) * verSens * movementVertical * dT * 0.1;*/
+				rotation.x =/* valorX **/ verSens * movementVertical * dT * 0.1;
+				//rotation.z = valorZ * verSens * movementVertical * dT * 0.1;
 			}
-			else if (angulo <= 3 && camPos.y > playerPos.y && movementVertical < 0) //Limite inferior
+			else if (angulo <= 3  && movementVertical < 0) //Limite inferior
 			{
-				rotation.x = /*std::cos(anguloX) **/ verSens * movementVertical * dT * 0.1;
-				/*rotation.z = /*std::sin(anguloX) * verSens * movementVertical * dT * 0.1;*/
+				rotation.x =/* valorX **/ verSens * movementVertical * dT * 0.1;
+				//rotation.z = valorZ * verSens * movementVertical * dT * 0.1;
 			}
-			else if (angulo >= 3 && angulo <= 40)
+			else if (angulo > 3 && angulo < 40)
 			{
-				rotation.x = /*std::cos(anguloX) **/ verSens * movementVertical * dT * 0.1;
-				/*rotation.z = /*std::sin(anguloX) * verSens * movementVertical * dT * 0.1;*/
+				rotation.x =/* valorX **/ verSens * movementVertical * dT * 0.1;
+				//rotation.z = valorZ * verSens * movementVertical * dT * 0.1;
 			}
 
 			rotation.y = horiSens * movementHorizontal * dT * 0.1;
