@@ -148,32 +148,32 @@ void LoveEngine::ECS::CamRotate::update()
 
 			float angulo = calculateAngle(direccionCP, direccionPS);
 
-			float anguloX = calculateAngle(Utilities::Vector3<float>(direccionCP.x, 0, direccionCP.z), Utilities::Vector3<float>(1, 0, 0));
+			//float anguloX = calculateAngle(Utilities::Vector3<float>(direccionCP.x, 0, direccionCP.z), Utilities::Vector3<float>(1, 0, 0));
 
-			if (anguloX > 90) anguloX = 180 - anguloX;
+			//if (anguloX > 90) anguloX = 180 - anguloX;
 
-			//std::cout << "angulo " << angulo << "mov vertical " << movementVertical << std::endl;
-			
-			float valorX = 90 / anguloX;
-			float valorZ = 1 - valorX;
+			////std::cout << "angulo " << angulo << "mov vertical " << movementVertical << std::endl;
+			//
+			//float valorX = 90 / anguloX;
+			//float valorZ = 1 - valorX;
 
-			//std::cout << "anguloX: " << anguloX << "seno del angulo: " << valorX << std::endl;
+			////std::cout << "anguloX: " << anguloX << "seno del angulo: " << valorX << std::endl;
 
-			if (angulo >= 40  && movementVertical > 0) //Limite superior
-			{
-				rotation.x =/* valorX **/ verSens * movementVertical * dT * 0.1;
-				//rotation.z = valorZ * verSens * movementVertical * dT * 0.1;
-			}
-			else if (angulo <= 3  && movementVertical < 0) //Limite inferior
-			{
-				rotation.x =/* valorX **/ verSens * movementVertical * dT * 0.1;
-				//rotation.z = valorZ * verSens * movementVertical * dT * 0.1;
-			}
-			else if (angulo > 3 && angulo < 40)
-			{
-				rotation.x =/* valorX **/ verSens * movementVertical * dT * 0.1;
-				//rotation.z = valorZ * verSens * movementVertical * dT * 0.1;
-			}
+			//if (angulo >= 40  && movementVertical > 0) //Limite superior
+			//{
+			//	rotation.x =/* valorX **/ verSens * movementVertical * dT * 0.1;
+			//	//rotation.z = valorZ * verSens * movementVertical * dT * 0.1;
+			//}
+			//else if (angulo <= 3  && movementVertical < 0) //Limite inferior
+			//{
+			//	rotation.x =/* valorX **/ verSens * movementVertical * dT * 0.1;
+			//	//rotation.z = valorZ * verSens * movementVertical * dT * 0.1;
+			//}
+			//else if (angulo > 3 && angulo < 40)
+			//{
+			//	rotation.x =/* valorX **/ verSens * movementVertical * dT * 0.1;
+			//	//rotation.z = valorZ * verSens * movementVertical * dT * 0.1;
+			//}
 
 			rotation.y = horiSens * movementHorizontal * dT * 0.1;
 
