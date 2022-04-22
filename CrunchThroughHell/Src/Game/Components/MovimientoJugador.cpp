@@ -8,6 +8,7 @@
 #include "Input.h"
 #include <StringFormatter.h>
 #include <iostream>
+#include "SceneManager.h"
 
 void LoveEngine::ECS::MovimientoJugador::init()
 {
@@ -34,6 +35,7 @@ void LoveEngine::ECS::MovimientoJugador::update()
 		if (input->isKeyPressed(Input::InputKeys::A)) rotation.y = rotSpeed;
 		if (input->isKeyPressed(Input::InputKeys::D)) rotation.y = -rotSpeed;
 		if (input->isKeyPressed(Input::InputKeys::SPACE) && lastDash >= dashDelay) isDashing = true;
+		if (input->isKeyPressed(Input::InputKeys::R)) SceneManagement::changeScene(3, SceneManagement::SceneLoad::PUSH);
 	}
 	else {
 		Utilities::Vector2 controller = input->getController().leftJoystick;
