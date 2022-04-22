@@ -22,8 +22,9 @@ namespace LoveEngine {
 			SPACE = 44, ESCAPE = 41, ENTER = 88
 		};
 
-		enum class  MouseState {
-			NONE, CLICK_L, CLICK_R, CLICK_M
+		enum class MouseState {
+			NONE, CLICK_L, CLICK_R, CLICK_M,
+			JUST_CLICK_L
 		};
 
 		const int controllerButtonCount = 15;
@@ -62,6 +63,8 @@ namespace LoveEngine {
 			bool handleInput();
 			bool isKeyPressed(InputKeys key);
 			bool keyJustPressed(InputKeys key);
+			bool mousePressed(MouseState state);
+
 
 			Controller& getController();
 			bool controllerConected();
