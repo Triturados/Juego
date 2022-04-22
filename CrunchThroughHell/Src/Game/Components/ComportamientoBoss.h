@@ -60,6 +60,7 @@ namespace LoveEngine {
 #pragma endregion
 		private:
 			Transform* target;
+			Transform* tr;
             MeleeAttack* attack;
             Leap* leap;
             Chase* chase;
@@ -68,6 +69,8 @@ namespace LoveEngine {
             ComportamientoBoss();
             void init() override;
             void receiveComponent(int n, Component* b) override;
+
+            void update() final;
 		};
 	}
 }

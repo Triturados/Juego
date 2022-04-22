@@ -12,6 +12,8 @@ namespace LoveEngine
 {
     namespace ECS
     {
+        using Vector3 = Utilities::Vector3<float>;
+
         ComportamientoBoss::ComportamientoBoss()
         {
             attack = new MeleeAttack(this);
@@ -24,7 +26,7 @@ namespace LoveEngine
 
         void ComportamientoBoss::init()
         {
-            Transform* tr = gameObject->getComponent<Transform>();
+            tr = gameObject->getComponent<Transform>();
             RigidBody* rb = gameObject->getComponent<RigidBody>();
             attack->setTransform(tr);
             attack->setRB(rb);
@@ -43,6 +45,13 @@ namespace LoveEngine
             leap->setTarget(playerTr);
         }
 
+        void ComportamientoBoss::update()
+        {
+            Agent::update();
+            //esto esta aqui para poder hacer couts de debug
+            //TO DO: remove this before final release
+        }
+
 #pragma region acciones
 
         ComportamientoBoss::MeleeAttack::MeleeAttack(Agent* agent_) : Action(agent_, 10.0)
@@ -59,7 +68,7 @@ namespace LoveEngine
         bool ComportamientoBoss::MeleeAttack::conditionsFulfilled() const
         {
             if (target == nullptr) return false;
-            return (*(target->getPos()) - *(tr->getPos())).magnitude() < 10;
+            return (*(target->getPos()) - *(tr->getPos())).magnitude() < 25;
         }
 
         void ComportamientoBoss::MeleeAttack::onActionStart()
@@ -68,7 +77,7 @@ namespace LoveEngine
             setPriority(30.0);
             if (target == nullptr || rb == nullptr || tr == nullptr)
             {
-                //throw new std::exception("Faltan referencias para una acción");
+                throw new std::exception("Faltan referencias para una accion");
                 return;
             }
             // TO DO: start animation
@@ -91,10 +100,15 @@ namespace LoveEngine
         {
             if ((*(rb->getVelocity())).magnitude() < maxVel)
             {
-                Utilities::Vector3<float> targetPos = *(target->getPos());
-                Utilities::Vector3<float> pos = *(tr->getPos());
+                Vector3 targetPos = *(target->getPos());
+                Vector3 pos = *(tr->getPos());
 
-                rb->addForce((targetPos - pos).getNormalized() * acc * rb->getMass(), Utilities::Vector3<float>(0, 0, 0), ForceMode::ACCELERATION);
+                //Vector3 vel = (targetPos - pos).getNormalized() * acc;
+                //rb->setLinearVelocity(vel);
+
+                Vector3 force = (targetPos - pos).getNormalized() * (acc / 10.0) * rb->getMass();
+                rb->addForce(force, Vector3(0, 0, 0), ForceMode::IMPULSE);
+                
                 //lookat target
             }
         }
@@ -112,28 +126,14 @@ namespace LoveEngine
 
         bool ComportamientoBoss::Leap::conditionsFulfilled() const
         {
-            if (target == nullptr) return false;
-            return (*(target->getPos()) - *(tr->getPos())).magnitude() > 40;
         }
 
         void ComportamientoBoss::Leap::onActionStart()
         {
-            std::cout << "\n\n\n\n\n\n\nLeaping\n\n\n\n\n\n\n\n";
-            if (target == nullptr || rb == nullptr || tr == nullptr)
-            {
-                //throw new std::exception("Faltan referencias para una acción");
-                return;
-            }
-
-            //start animation
-            rb->addForce(*(target->getPos()) - *(tr->getPos()) + Utilities::Vector3<float>(0, 10, 0), Utilities::Vector3<float>(0, 0, 0), ForceMode::IMPULSE);
         }
 
         void ComportamientoBoss::Leap::activeUpdate()
         {
-            if (rb->getVelocity()->y > 0 && rb->getVelocity()->y < 0.02)
-                setPriority(80);
-            //end animation
         }
 #pragma endregion
     }
