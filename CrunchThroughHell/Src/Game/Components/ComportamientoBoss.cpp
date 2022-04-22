@@ -127,11 +127,12 @@ namespace LoveEngine
         bool ComportamientoBoss::Leap::conditionsFulfilled() const
         {
             if (target == nullptr) return false;
-            return (*(target->getPos()) - *(tr->getPos())).magnitude() > 40;
+            return (*(target->getPos()) - *(tr->getPos())).magnitude() > 50;
         }
 
         void ComportamientoBoss::Leap::onActionStart()
         {
+            std::cout << "\n\n\n\n\n\n\nLeaping\n\n\n\n\n\n\n\n";
             if (target == nullptr || rb == nullptr || tr == nullptr)
             {
                 throw new std::exception("Faltan referencias para una accion");
@@ -157,7 +158,7 @@ namespace LoveEngine
         void ComportamientoBoss::Leap::activeUpdate()
         {
             //TO DO: make height calculation relative to hitbox size, or some other way entirely
-            if (rb->getVelocity()->y < 0 && tr->getPos()->y < 21) 
+            if (rb->getVelocity()->y < 0 && tr->getPos()->y < 22) 
             {
                 std::cout << "Grounded";
                 rb->setLinearVelocity(Vector3(0, 0, 0));
