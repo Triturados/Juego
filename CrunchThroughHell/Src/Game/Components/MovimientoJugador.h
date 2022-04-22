@@ -1,7 +1,6 @@
 #pragma once
 #include <Component.h>
 
-
 namespace LoveEngine {
 	namespace Input {
 		class InputManager;
@@ -10,6 +9,7 @@ namespace LoveEngine {
 	namespace ECS {
 		class Transform;
 		class RigidBody;
+		class ParticleSystem;
 		class MovimientoJugador : public Component {
 			
 		private:
@@ -17,6 +17,7 @@ namespace LoveEngine {
 
 			bool hasRigidBody;
 			Transform* tr;
+			ParticleSystem* dashParticles;
 			RigidBody* rb;
 			Input::InputManager* input;
 			float speed = MAX_SPEED;

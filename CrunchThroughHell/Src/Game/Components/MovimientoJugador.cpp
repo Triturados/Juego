@@ -6,6 +6,7 @@
 #include "Vector4.h"
 #include "GameTime.h"
 #include "Input.h"
+#include "ParticleSystem.h"
 #include <StringFormatter.h>
 #include <iostream>
 #include "SceneManager.h"
@@ -20,6 +21,10 @@ void LoveEngine::ECS::MovimientoJugador::init()
 
 	rb = gameObject->getComponent<RigidBody>();
 	hasRigidBody = rb != nullptr;
+
+	if(hasRigidBody)rb->setAngularFactor(Utilities::Vector3<float>(0, 1, 0));
+	
+	dashParticles = tr->getChild(1)->gameObject->getComponent<ParticleSystem>();
 }
 
 void LoveEngine::ECS::MovimientoJugador::update()
@@ -62,7 +67,7 @@ void LoveEngine::ECS::MovimientoJugador::update()
 
 void LoveEngine::ECS::MovimientoJugador::dash(float dT)
 {
-	printf("DASH");
+	if (!dashParticles->isEmitting()) dashParticles->setActive(true);
 
 	currentDashDuration += dT;
 
@@ -72,6 +77,7 @@ void LoveEngine::ECS::MovimientoJugador::dash(float dT)
 		lastDash = 0;
 		currentDashDuration = 0;
 		isDashing = false;
+		dashParticles->setActive(false);
 	}
 }
 
@@ -84,7 +90,9 @@ void LoveEngine::ECS::MovimientoJugador::moveTransform(float mv, Utilities::Vect
 
 void LoveEngine::ECS::MovimientoJugador::moveRigidbody(float mv, Utilities::Vector4<float> rt)
 {
-	rb->setLinearVelocity(tr->forward() * mv);
+	Utilities::Vector3<float>newVelocity((tr->forward() * mv).x, (tr->forward() * mv).y + rb->getVelocity()->y, (tr->forward() * mv).z);
+
+	rb->setLinearVelocity(newVelocity);
 
 	Utilities::Vector3<float> rtToV3(rt.x, rt.y, rt.z);
 
