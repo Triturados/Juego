@@ -79,11 +79,6 @@ namespace LoveEngine
             // TO DO: lookat target
         }
 
-
-        ComportamientoBoss::Idle::Idle(Agent* agent_) : Action(agent_, 8.0) {}
-
-        void ComportamientoBoss::Idle::activeUpdate() { std::cout << "Idle\n"; }
-
         ComportamientoBoss::Chase::Chase(Agent* agent_) : Action(agent_, 0.0) { };
 
         void ComportamientoBoss::Chase::setTarget(Transform* t) { target = t; };

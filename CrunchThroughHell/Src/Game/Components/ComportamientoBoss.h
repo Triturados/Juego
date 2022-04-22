@@ -25,12 +25,6 @@ namespace LoveEngine {
 				Transform* target = nullptr;
 				Transform* tr = nullptr;
 			};
-            class Idle : public Action
-            {
-            public:
-                Idle(Agent* agent_);
-                void activeUpdate() final;
-            };
 
             class Chase : public Action
             {
@@ -68,7 +62,6 @@ namespace LoveEngine {
 			Transform* target;
             MeleeAttack* attack;
             Leap* leap;
-            Idle* idle;
             Chase* chase;
 
 		public:

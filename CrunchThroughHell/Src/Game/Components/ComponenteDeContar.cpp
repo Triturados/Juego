@@ -18,7 +18,7 @@ namespace LoveEngine {
 
 		void ComponenteDeContar::update() {
 			int count = Time::getInstance()->frameCount;
-			std::cout << "Frame numero: " << count << "\n";
+			//std::cout << "Frame numero: " << count << "\n";
 
 			/*if (count > 15) {
 				std::cout << damenum() << "\n";
