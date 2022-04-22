@@ -38,12 +38,14 @@ namespace LoveEngine {
 
 
 		void DeadMenu::restartGame() {
+			std::cout << "Volvemos al juego" << std::endl;
 			SceneManagement::changeScene(1, SceneManagement::SceneLoad::PUSH);
 		}
 
 
 		void DeadMenu::goBackMenu() {
-			SceneManagement::changeScene(0, SceneManagement::SceneLoad::PUSH);
+			SceneManagement::changeScene(1, SceneManagement::SceneLoad::POP);//Borramos la escena del menu muerte y juego
+			//SceneManagement::changeScene(3, SceneManagement::SceneLoad::POP);//Borramos la escena del menu muerte y juego
 		}
 
 	}
