@@ -13,6 +13,8 @@
 #include "Components/DeadZone.h"
 #include "Components/EfectoEscenario.h"
 #include "Components/DeadMenu.h"
+#include "Components/PauseGame.h"
+#include "Components/PauseMenu.h"
 
 namespace LoveEngine {
 
@@ -40,6 +42,8 @@ namespace LoveEngine {
 			newComponent<SaludJugador>("SaludJugador", inst);
 			newComponent<ComportamientoBoss>("ComportamientoBoss", inst);
 			newComponent<MainMenu>("MainMenu", inst);
+			newComponent<PauseGame>("PauseGame", inst);
+			newComponent<PauseMenu>("PauseMenu", inst);
 			newComponent<ShowText>("ShowText", inst);
 			newComponent<DeadZone>("DeadZone", inst);
 			newComponent<EfectoEscenario>("EfectoEscenario", inst);
