@@ -13,11 +13,13 @@ namespace LoveEngine {
 		class MovimientoJugador : public Component {
 			
 		private:
+			float MAX_SPEED = 15;
+
 			bool hasRigidBody;
 			Transform* tr;
 			RigidBody* rb;
 			Input::InputManager* input;
-			float speed = 15;
+			float speed = MAX_SPEED;
 			float rotSpeed = 5;
 
 			float dashDelay = 2; //Cada cuanto tiempo puedes dashear
@@ -28,6 +30,7 @@ namespace LoveEngine {
 			float dashSpeed = 220; //Velocidad del dash
 			bool isDashing = false;
 
+
 		public:
 			void init() override;
 			void update() override;
@@ -35,6 +38,10 @@ namespace LoveEngine {
 			void moveTransform(float mv, Utilities::Vector4<float> rt, float dT);
 			void moveRigidbody(float mv, Utilities::Vector4<float> rt);
 			void receiveMessage(Utilities::StringFormatter& message) override;
+
+			inline float getSpeed() { return speed; };
+			inline float getMaxSpeed() { return MAX_SPEED; };
+			inline void setSpeed(float speed_) { speed = speed_; };
 		};
 	}
 }

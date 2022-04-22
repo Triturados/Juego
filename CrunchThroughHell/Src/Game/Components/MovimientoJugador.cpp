@@ -88,6 +88,7 @@ void LoveEngine::ECS::MovimientoJugador::moveRigidbody(float mv, Utilities::Vect
 void LoveEngine::ECS::MovimientoJugador::receiveMessage(Utilities::StringFormatter& sf)
 {
 	sf.tryGetFloat("speed", speed);
+	MAX_SPEED = speed;
 	sf.tryGetFloat("rotSpeed", rotSpeed);
 	sf.tryGetFloat("dashSpeed", dashSpeed);
 	sf.tryGetFloat("dashDuration", dashDuration);

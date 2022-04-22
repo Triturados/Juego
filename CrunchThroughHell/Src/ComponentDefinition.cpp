@@ -11,6 +11,7 @@
 #include "Components/CamRotate.h"
 #include "Components/ShowText.h"
 #include "Components/DeadZone.h"
+#include "Components/EfectoEscenario.h"
 
 namespace LoveEngine {
 
@@ -40,6 +41,7 @@ namespace LoveEngine {
 			newComponent<MainMenu>("MainMenu", inst);
 			newComponent<ShowText>("ShowText", inst);
 			newComponent<DeadZone>("DeadZone", inst);
+			newComponent<EfectoEscenario>("EfectoEscenario", inst);
 
 			/*inst->registerComponent(new ComponentCreatorTemplate<ComponenteDeContar>("ComponenteDeContar"));
 			inst->registerComponent(new ComponentCreatorTemplate<Autodestruccion>("AutoDestruccion"));
