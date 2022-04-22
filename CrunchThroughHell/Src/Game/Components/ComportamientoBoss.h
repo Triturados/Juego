@@ -56,6 +56,9 @@ namespace LoveEngine {
                 RigidBody* rb;
                 Transform* target = nullptr;
                 Transform* tr = nullptr;
+            private:
+                float hrzImpulse = 40.0;        // velocidad inicial en horizontal
+                float jumpZenith = 20.0;        // altura del punto mas alto del salto
             };
 #pragma endregion
 		private:

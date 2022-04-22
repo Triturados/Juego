@@ -126,14 +126,46 @@ namespace LoveEngine
 
         bool ComportamientoBoss::Leap::conditionsFulfilled() const
         {
+            if (target == nullptr) return false;
+            return (*(target->getPos()) - *(tr->getPos())).magnitude() > 40;
         }
 
         void ComportamientoBoss::Leap::onActionStart()
         {
+            if (target == nullptr || rb == nullptr || tr == nullptr)
+            {
+                throw new std::exception("Faltan referencias para una accion");
+                return;
+            }
+            Vector3 hrzDistance = (*(target->getPos()) - *(tr->getPos()));
+            hrzDistance.y = 0;
+
+            // calculado despejando ecuaciones del MRUA
+            // TO DO: calibrate calculation to fit game gravity
+            float gravity = -1;
+            float vertImpulse = jumpZenith * hrzImpulse / hrzDistance.magnitude() + (-1/2 * gravity) / hrzImpulse * hrzDistance.magnitude();
+            
+            hrzDistance.normalize();
+            auto force = Vector3(hrzDistance.x * hrzImpulse, vertImpulse, hrzDistance.z * hrzImpulse);
+            rb->addForce(force * rb->getMass(), Vector3(0, 0, 0), ForceMode::IMPULSE);
+
+            //start animation
+
+            lockAction = true;
         }
 
         void ComportamientoBoss::Leap::activeUpdate()
         {
+            //TO DO: make height calculation relative to hitbox size, or some other way entirely
+            if (rb->getVelocity()->y < 0 && tr->getPos()->y < 21) 
+            {
+                std::cout << "Grounded";
+                rb->setLinearVelocity(Vector3(0, 0, 0));
+                //TO DO: add recovery timer on landing
+                setPriority(80);
+                lockAction = false;
+            }
+            //end animation
         }
 #pragma endregion
     }
