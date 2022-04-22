@@ -12,6 +12,7 @@
 #include "Components/ShowText.h"
 #include "Components/DeadZone.h"
 #include "Components/EfectoEscenario.h"
+#include "Components/DeadMenu.h"
 
 namespace LoveEngine {
 
@@ -42,6 +43,7 @@ namespace LoveEngine {
 			newComponent<ShowText>("ShowText", inst);
 			newComponent<DeadZone>("DeadZone", inst);
 			newComponent<EfectoEscenario>("EfectoEscenario", inst);
+			newComponent<DeadMenu>("DeadMenu", inst);
 
 			/*inst->registerComponent(new ComponentCreatorTemplate<ComponenteDeContar>("ComponenteDeContar"));
 			inst->registerComponent(new ComponentCreatorTemplate<Autodestruccion>("AutoDestruccion"));
