@@ -67,6 +67,8 @@ namespace LoveEngine {
 
 
 			Controller& getController();
+			bool isControllerButtonPressed(ControllerButton b);
+			bool isControllerButtonState(ControllerButtonState s);
 			bool controllerConected();
 			Utilities::Vector2<float> mousePosition();
 			Utilities::Vector2<float> relativeMousePosition();

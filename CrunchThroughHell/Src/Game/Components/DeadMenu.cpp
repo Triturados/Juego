@@ -13,6 +13,8 @@ namespace LoveEngine {
 		}
 		void DeadMenu::init()
 		{
+			std::cout << "Creando muerte" << std::endl;
+
 			Input::InputManager::getInstance()->mouseVisibility(false);
 
 			if (restartButton != nullptr) {

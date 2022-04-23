@@ -54,12 +54,13 @@
     <ClCompile Include="..\Src\Game\Components\EfectoEscenario.cpp">
       <Filter>Components\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\Game\Components\DeadMenu.cpp">
-    </ClCompile>
     <ClCompile Include="..\Src\Game\Components\PauseMenu.cpp">
       <Filter>Components\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\Src\Game\Components\PauseGame.cpp">
+      <Filter>Components\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Game\Components\DeadMenu.cpp">
       <Filter>Components\Source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -97,8 +98,6 @@
     <ClInclude Include="..\Src\Game\Components\EfectoEscenario.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\Src\Game\Components\DeadMenu.h">
-    </ClInclude>
     <ClInclude Include="..\Src\Game\Components\PauseMenu.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -107,6 +106,9 @@
     </ClInclude>
     <ClInclude Include="..\Src\Game\Definitions.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Game\Components\DeadMenu.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

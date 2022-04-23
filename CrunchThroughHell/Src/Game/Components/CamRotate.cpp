@@ -15,7 +15,7 @@
 
 LoveEngine::ECS::CamRotate::~CamRotate()
 {
-	delete mousePos;
+
 }
 
 void LoveEngine::ECS::CamRotate::init()
@@ -26,7 +26,6 @@ void LoveEngine::ECS::CamRotate::init()
 	bossTr = boss->getComponent<Transform>();
 	camTr = cam->getComponent<Transform>();
 	
-	mousePos = new Utilities::Vector2<float>(input->mousePosition().x, input->mousePosition().y);
 	
 	followBoss = false;
 }
@@ -34,7 +33,7 @@ void LoveEngine::ECS::CamRotate::init()
 void LoveEngine::ECS::CamRotate::update()
 {
 	gameObject->getComponent<Transform>()->setPos(*playerTr->getPos());
-	if (input->keyJustPressed(Input::InputKeys::B))
+	if (input->keyJustPressed(Input::InputKeys::B) || (input->isControllerButtonPressed(Input::ControllerButton::Y) && input->isControllerButtonState(Input::ControllerButtonState::DOWN)))
 	{
 		followBoss = !followBoss;
 		if (followBoss)
@@ -49,7 +48,6 @@ void LoveEngine::ECS::CamRotate::update()
 
 	if (followBoss) //Line between player - boss girar cam hasta que pase por al recta en x z que forma con el player y el boss
 	{
-		std::cout << "movimiento boss" << std::endl;
 		Utilities::Vector3<float> puntoA = *playerTr->getPos(); //x y z para la recta, altura da igual
 		Utilities::Vector3<float> puntoB = *bossTr->getPos();
 
@@ -123,18 +121,15 @@ void LoveEngine::ECS::CamRotate::update()
 	{
 		if (!input->controllerConected()) //pad and mouse
 		{
-			Utilities::Vector2<float> antPos = *mousePos;
-			delete mousePos;
-			mousePos = new Utilities::Vector2<float>(input->mousePosition().x, input->mousePosition().y);
 
 			float movementHorizontal = (float)input->relativeMousePosition().x;
-			float movementVertical = (float)input->relativeMousePosition().y;
+			//float movementVertical = (float)input->relativeMousePosition().y;
 
 
 			if (movementHorizontal <= 1 && movementHorizontal >= -1) movementHorizontal = 0;
-			if (movementVertical <= 1 && movementVertical >= -1) movementVertical = 0;
+			//if (movementVertical <= 1 && movementVertical >= -1) movementVertical = 0;
 			//Limitar altura
-			Utilities::Vector3<float> playerPos = *playerTr->getPos();
+			/*Utilities::Vector3<float> playerPos = *playerTr->getPos();
 			Utilities::Vector3<float> camPos = *camTr->getPos();
 
 			Utilities::Vector3<float> direccionCP;
@@ -146,7 +141,7 @@ void LoveEngine::ECS::CamRotate::update()
 			direccionPS.x = camPos.x;
 			direccionPS.z = camPos.z;
 
-			float angulo = calculateAngle(direccionCP, direccionPS);
+			float angulo = calculateAngle(direccionCP, direccionPS);*/
 
 			//float anguloX = calculateAngle(Utilities::Vector3<float>(direccionCP.x, 0, direccionCP.z), Utilities::Vector3<float>(1, 0, 0));
 
@@ -181,7 +176,9 @@ void LoveEngine::ECS::CamRotate::update()
 		}
 		else //Controller
 		{
+			Utilities::Vector2 controller = input->getController().rightJoystick;
 
+			rotation.y = horiSens * controller.x * dT * 0.1;
 		}
 	}
 

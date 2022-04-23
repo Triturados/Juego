@@ -42,6 +42,7 @@ void LoveEngine::ECS::MovimientoJugador::update()
 		if (input->isKeyPressed(Input::InputKeys::SPACE) && lastDash >= dashDelay) isDashing = true;
 		if (input->isKeyPressed(Input::InputKeys::R))
 		{
+			std::cout << "cambiando de escena" << std::endl;
 			SceneManagement::changeScene(5, SceneManagement::SceneLoad::SWAP); //Ir escena muerte
 		}
 	}
@@ -52,6 +53,11 @@ void LoveEngine::ECS::MovimientoJugador::update()
 		rotation.y = controller.x * rotSpeed;
 
 		//std::cout << controller << "\n";
+
+		if (input->isControllerButtonPressed(Input::ControllerButton::B) && input->isControllerButtonState(Input::ControllerButtonState::DOWN) && lastDash >= dashDelay)
+		{
+			isDashing = true;
+		}
 	}
 
 	if (isDashing) {
