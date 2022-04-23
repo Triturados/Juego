@@ -9,7 +9,7 @@ void LoveEngine::ECS::PauseGame::init() {
 }
 
 void LoveEngine::ECS::PauseGame::update() {
-	std::cout << "ASDASD";
+	//std::cout << "ASDASD";
 	if (input->keyJustPressed(Input::InputKeys::ESCAPE)) {
 		SceneManagement::changeScene((int)SceneOrder::Pause, SceneManagement::SceneLoad::PUSH);
 	}

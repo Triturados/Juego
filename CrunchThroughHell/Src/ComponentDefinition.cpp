@@ -15,6 +15,7 @@
 #include "Components/DeadMenu.h"
 #include "Components/PauseGame.h"
 #include "Components/PauseMenu.h"
+#include "Components/Conversation.h"
 
 namespace LoveEngine {
 
@@ -50,6 +51,8 @@ namespace LoveEngine {
 			newComponent<DeadZone>("DeadZone");
 			newComponent<EfectoEscenario>("EfectoEscenario");
 			newComponent<DeadMenu>("DeadMenu");
+			newComponent<Conversation>("Dialogue");
+			newComponent<Conversation>("Conversation");
 
 
 			inst = nullptr;

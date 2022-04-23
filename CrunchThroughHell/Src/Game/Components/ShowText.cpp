@@ -35,7 +35,7 @@ void LoveEngine::ECS::ShowText::update()
 		text->changeText(currentText);
 		if (currentIdx >= finalText.size()) {
 			enabled = false;
-			finished = false;
+			finished = true;
 			onEnd();
 		}
 	}

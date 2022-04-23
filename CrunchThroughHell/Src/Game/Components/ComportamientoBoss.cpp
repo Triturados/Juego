@@ -73,7 +73,7 @@ namespace LoveEngine
 
         void ComportamientoBoss::MeleeAttack::onActionStart()
         {
-            std::cout << "\n\n\n\n\n\n\nAttacking at melee\n\n\n\n\n\n\n\n";
+            //std::cout << "\n\n\n\n\n\n\nAttacking at melee\n\n\n\n\n\n\n\n";
             setPriority(30.0);
             if (target == nullptr || rb == nullptr || tr == nullptr)
             {
@@ -132,7 +132,7 @@ namespace LoveEngine
 
         void ComportamientoBoss::Leap::onActionStart()
         {
-            std::cout << "\n\n\n\n\n\n\nLeaping\n\n\n\n\n\n\n\n";
+            //std::cout << "\n\n\n\n\n\n\nLeaping\n\n\n\n\n\n\n\n";
             if (target == nullptr || rb == nullptr || tr == nullptr)
             {
                 throw new std::exception("Faltan referencias para una accion");
@@ -160,7 +160,7 @@ namespace LoveEngine
             //TO DO: make height calculation relative to hitbox size, or some other way entirely
             if (rb->getVelocity()->y < 0 && tr->getPos()->y < 22) 
             {
-                std::cout << "Grounded";
+                //std::cout << "Grounded";
                 rb->setLinearVelocity(Vector3(0, 0, 0));
                 //TO DO: add recovery timer on landing
                 setPriority(80);
