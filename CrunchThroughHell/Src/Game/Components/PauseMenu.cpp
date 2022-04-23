@@ -37,7 +37,7 @@ namespace LoveEngine {
 
 
 		void PauseMenu::continueGame() {
-			SceneManagement::changeScene(1, SceneManagement::SceneLoad::POP);
+			SceneManagement::changeScene(0, SceneManagement::SceneLoad::POP);
 		}
 
 

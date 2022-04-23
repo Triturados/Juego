@@ -125,6 +125,7 @@
     <ClInclude Include="..\Src\Game\Components\PauseMenu.h" />
     <ClInclude Include="..\Src\Game\Components\SaludJugador.h" />
     <ClInclude Include="..\Src\Game\Components\ShowText.h" />
+    <ClInclude Include="..\Src\Game\Definitions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,6 +1,7 @@
 #include "MainMenu.h"
 #include <SceneManager.h>
 #include <Button.h>
+#include <Definitions.h>
 
 namespace LoveEngine {
 
@@ -35,7 +36,7 @@ namespace LoveEngine {
 
 
 		void MainMenu::startGame() {
-			SceneManagement::changeScene(1, SceneManagement::SceneLoad::PUSH);
+			SceneManagement::changeScene((int)SceneOrder::Overworld, SceneManagement::SceneLoad::SWAP);
 		}
 
 

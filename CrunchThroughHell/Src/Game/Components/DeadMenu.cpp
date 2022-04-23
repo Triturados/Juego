@@ -2,6 +2,7 @@
 #include <SceneManager.h>
 #include <Button.h>
 #include "Input.h"
+#include <Definitions.h>
 
 namespace LoveEngine {
 
@@ -39,13 +40,12 @@ namespace LoveEngine {
 
 		void DeadMenu::restartGame() {
 			std::cout << "Volvemos al juego" << std::endl;
-			SceneManagement::changeScene(1, SceneManagement::SceneLoad::PUSH);
+			SceneManagement::changeScene((int)SceneOrder::Overworld, SceneManagement::SceneLoad::CLEAR);
 		}
 
 
 		void DeadMenu::goBackMenu() {
-			SceneManagement::changeScene(1, SceneManagement::SceneLoad::POP);//Borramos la escena del menu muerte y juego
-			//SceneManagement::changeScene(3, SceneManagement::SceneLoad::POP);//Borramos la escena del menu muerte y juego
+			SceneManagement::changeScene((int)SceneOrder::MainMenu, SceneManagement::SceneLoad::CLEAR);//Borramos la escena del menu muerte y juego
 		}
 
 	}

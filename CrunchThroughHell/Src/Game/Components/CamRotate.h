@@ -45,6 +45,8 @@ namespace LoveEngine {
 			void update() override;
 			void receiveMessage(Utilities::StringFormatter& message) override;
 			void receiveGameObject(int n, GameObject* b) override;
+			void onSceneUp() override;
+			void onSceneDown() override;
 		};
 	}
 }

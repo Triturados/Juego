@@ -9,6 +9,7 @@
 #include <StringFormatter.h>
 #include <iostream>
 #include <math.h>
+#include <Window.h>
 
 #define PI 3.14159265
 
@@ -20,7 +21,6 @@ LoveEngine::ECS::CamRotate::~CamRotate()
 void LoveEngine::ECS::CamRotate::init()
 {
 	input = Input::InputManager::getInstance();
-	input->mouseVisibility(true);
 
 	playerTr = player->getComponent<Transform>();
 	bossTr = boss->getComponent<Transform>();
@@ -217,4 +217,14 @@ void LoveEngine::ECS::CamRotate::receiveGameObject(int n, GameObject* b)
 	{
 		cam = b;
 	}
+}
+
+void LoveEngine::ECS::CamRotate::onSceneUp()
+{
+	Window::getInstance()->mouseVisibility(false);
+}
+
+void LoveEngine::ECS::CamRotate::onSceneDown()
+{
+	Window::getInstance()->mouseVisibility(true);
 }
