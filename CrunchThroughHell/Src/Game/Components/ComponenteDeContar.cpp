@@ -89,21 +89,21 @@ namespace LoveEngine {
 			float dt = Time::getInstance()->deltaTime;
 
 			bool change = false;
-			if (Input::InputManager::getInstance()->isKeyPressed(Input::InputKeys::A))
-			{
-				change = true;
-				size.x++;
-			}
-			else if (Input::InputManager::getInstance()->isKeyPressed(Input::InputKeys::S))
-			{
-				change = true;
-				size.y++;
-			}
+			//if (Input::InputManager::getInstance()->isKeyPressed(Input::InputKeys::A))
+			//{
+			//	change = true;
+			//	size.x++;
+			//}
+			//else if (Input::InputManager::getInstance()->isKeyPressed(Input::InputKeys::S))
+			//{
+			//	change = true;
+			//	size.y++;
+			//}
 
-			//std::cout << size << "\n";
-			if (change) {
-				Window::getInstance()->setWindowSize(size);
-			}
+			////std::cout << size << "\n";
+			//if (change) {
+			//	Window::getInstance()->setWindowSize(size);
+			//}
 		}
 
 		void Moverpanatalla::receiveMessage(Utilities::StringFormatter& sf)
