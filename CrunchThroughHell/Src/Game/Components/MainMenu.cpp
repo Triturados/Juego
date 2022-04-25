@@ -5,40 +5,49 @@
 
 namespace LoveEngine {
 
+	enum MenuButtons {
+		NewGame, Continue, HowToPlay, Settings, About, Exit, NumButtons
+	};
+
 	namespace ECS {
 		MainMenu::MainMenu()
 		{
-			exitbutton = startbutton = nullptr;
+			buttons = std::vector<Button*>(MenuButtons::NumButtons, nullptr);
 		}
 		void MainMenu::init()
 		{
-			if (startbutton != nullptr) {
-				startbutton->onClick([&]() {startGame(); });
-			}
-			if (exitbutton != nullptr) {
-				exitbutton->onClick([&]() {exit(); });
-			}
+			buttons[MenuButtons::NewGame]->onClick([&]() {newGame(); });
+			buttons[MenuButtons::Continue]->onClick([&]() {continueGame(); });
+			buttons[MenuButtons::HowToPlay]->onClick([&]() {howToPlay(); });
+			buttons[MenuButtons::Settings]->onClick([&]() {settings(); });
+			buttons[MenuButtons::About]->onClick([&]() {about(); });
+			buttons[MenuButtons::Exit]->onClick([&]() {exit(); });
 		}
 		void MainMenu::receiveComponent(int i, Component* c)
 		{
-			switch (i)
-			{
-			case 0:
-				startbutton = static_cast<Button*>(c);
-				break;
-			case 1:
-				exitbutton = static_cast<Button*>(c);
-				break;
-			default:
-				break;
-			}
+			buttons[i] = static_cast<Button*>(c);
 		}
 
 
-		void MainMenu::startGame() {
+		void MainMenu::newGame() {
 			SceneManagement::changeScene((int)SceneOrder::Overworld, SceneManagement::SceneLoad::SWAP);
 		}
 
+		void MainMenu::continueGame() {
+
+		}
+
+		void MainMenu::howToPlay() {
+
+		}
+
+		void MainMenu::settings() {
+
+		}
+		
+		void MainMenu::about() {
+
+		}
 
 		void MainMenu::exit() {
 			SceneManagement::changeScene(0, SceneManagement::SceneLoad::EXIT);

@@ -1,6 +1,6 @@
 #pragma once
 #include <Component.h>
-
+#include <vector>
 namespace LoveEngine {
 	namespace ECS {
 		class Button;
@@ -13,10 +13,13 @@ namespace LoveEngine {
 			void receiveComponent(int, Component*) override;
 		private:
 
-			Button* startbutton;
-			Button* exitbutton;
+			std::vector<Button*> buttons;
 
-			void startGame();
+			void newGame();
+			void continueGame();
+			void settings();
+			void howToPlay();
+			void about();
 			void exit();
 		};
 	}
