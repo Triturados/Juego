@@ -96,6 +96,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Src\ComponentDefinition.cpp" />
+    <ClCompile Include="..\Src\Game\Components\Bullet.cpp" />
     <ClCompile Include="..\Src\Game\Components\CamFollow.cpp" />
     <ClCompile Include="..\Src\Game\Components\CamRotate.cpp" />
     <ClCompile Include="..\Src\Game\Components\ComponenteDeContar.cpp" />
@@ -114,6 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Src\ComponentDefinition.h" />
+    <ClInclude Include="..\Src\Game\Components\Bullet.h" />
     <ClInclude Include="..\Src\Game\Components\CamFollow.h" />
     <ClInclude Include="..\Src\Game\Components\CamRotate.h" />
     <ClInclude Include="..\Src\Game\Components\ComponenteDeContar.h" />
