@@ -27,6 +27,7 @@ namespace LoveEngine {
 			void recoverMovement(GameObject* jugador);
 
 
+			void enterCollision(GameObject* other) override;
 			void colliding(GameObject* other) override;
 			void exitCollision(GameObject* other) override;
 			~EfectoEscenario();

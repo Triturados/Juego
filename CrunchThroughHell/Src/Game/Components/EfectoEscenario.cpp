@@ -24,7 +24,7 @@ void LoveEngine::ECS::EfectoEscenario::receiveMessage(Utilities::StringFormatter
 void LoveEngine::ECS::EfectoEscenario::slowMovement(GameObject* jugador)
 {
 	MovimientoJugador* mj = jugador->getComponent<MovimientoJugador>();
-	mj->setSpeed(mj->getSpeed() / 2.0f);
+	mj->setSpeed(mj->getMaxSpeed() / 2.0f);
 }
 
 void LoveEngine::ECS::EfectoEscenario::doDamage(GameObject* jugador)
@@ -45,7 +45,7 @@ void LoveEngine::ECS::EfectoEscenario::init()
 	//assert	
 }
 
-void LoveEngine::ECS::EfectoEscenario::colliding(GameObject* other)
+void LoveEngine::ECS::EfectoEscenario::enterCollision(GameObject* other)
 {
 	if (!other->getComponent<MovimientoJugador>()) return;
 	switch (efect)
@@ -59,11 +59,27 @@ void LoveEngine::ECS::EfectoEscenario::colliding(GameObject* other)
 	default:
 		break;
 	}
+}
+
+void LoveEngine::ECS::EfectoEscenario::colliding(GameObject* other)
+{
+	if (!other->getComponent<MovimientoJugador>()) return;
+	switch (efect)
+	{
+	case LoveEngine::ECS::FloorEfects::LAVA:
+		doDamage(other);
+		break;
+	case LoveEngine::ECS::FloorEfects::LODO:
+		break;
+	default:
+		break;
+	}
 
 }
 
 void LoveEngine::ECS::EfectoEscenario::exitCollision(GameObject* other)
 {
+	if (!other->getComponent<MovimientoJugador>()) return;
 	switch (efect)
 	{
 	case LoveEngine::ECS::FloorEfects::LAVA:
