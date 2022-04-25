@@ -17,6 +17,7 @@
 #include "Components/PauseMenu.h"
 #include "Components/Conversation.h"
 #include "Components/Transition.h"
+#include "Components/Bullet.h"
 
 namespace LoveEngine {
 
@@ -55,6 +56,7 @@ namespace LoveEngine {
 			newComponent<Conversation>("Dialogue");
 			newComponent<Conversation>("Conversation");
 			newComponent<Transition>("Transition");
+			newComponent<Bullet>("Bullet");
 
 
 			inst = nullptr;
