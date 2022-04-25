@@ -10,7 +10,7 @@ namespace LoveEngine {
 	namespace ECS {
 		class Transform;
 		class RigidBody;
-		enum class FloorEfects {LAVA, LODO};
+		enum class FloorEfects {LAVA, LODO, NONE};
 		class EfectoEscenario : public Component {
 		private:
 			Transform* tr = nullptr;

@@ -17,6 +17,7 @@ void LoveEngine::ECS::EfectoEscenario::receiveMessage(Utilities::StringFormatter
 {
 	int nEfect;
 	sf.tryGetInt("type", nEfect);
+	if (nEfect >= (int)FloorEfects::NONE) throw new std::exception("Error en el tipo escogido de efectoEscenario");
 	efect = (FloorEfects)nEfect;
 }
 
