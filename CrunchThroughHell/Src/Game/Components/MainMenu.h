@@ -13,7 +13,14 @@ namespace LoveEngine {
 			void receiveComponent(int, Component*) override;
 		private:
 
+			Button *up, *down;
 			std::vector<Button*> buttons;
+			std::vector<int> positions;
+			int currentlySelected;
+
+			int getButtonIdx(int i);
+
+			void advance(int i);
 
 			void newGame();
 			void continueGame();

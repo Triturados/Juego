@@ -24,7 +24,6 @@ namespace LoveEngine {
 
 		enum class MouseState {
 			NONE, CLICK_L, CLICK_R, CLICK_M,
-			JUST_CLICK_L
 		};
 
 		const int controllerButtonCount = 15;
@@ -70,6 +69,7 @@ namespace LoveEngine {
 			bool isControllerButtonPressed(ControllerButton b);
 			bool isControllerButtonState(ControllerButtonState s);
 			bool controllerConected();
+			bool justClicked();
 			Utilities::Vector2<float> mousePosition();
 			Utilities::Vector2<float> relativeMousePosition();
 			void mouseVisibility(bool inGame);
