@@ -3,8 +3,10 @@
 #include <Definitions.h>
 #include <Button.h>
 #include <Vector3.h>
-
+#include <GameObject.h>
+#include "MoveUI.h"
 namespace LoveEngine {
+
 
 	enum MenuButtons {
 		NewGame, Continue, HowToPlay, Settings, About, Exit, NumButtons
@@ -15,6 +17,7 @@ namespace LoveEngine {
 		{
 			currentlySelected = 0;
 			buttons = std::vector<Button*>(MenuButtons::NumButtons, nullptr);
+			moveUIs = std::vector<MoveUI*>(MenuButtons::NumButtons, nullptr);
 			positions = std::vector<int>(MenuButtons::NumButtons, 0);
 		}
 		void MainMenu::init()
@@ -28,7 +31,13 @@ namespace LoveEngine {
 
 			for (int i = 0; i < buttons.size(); i++) {
 				Button* button = buttons[i];
-				positions[i] = button->getPos().y;
+				auto pos = button->getPos();
+				positions[i] = pos.y;
+
+				auto move = button->gameObject->addComponent<MoveUI>();
+				move->init();
+				move->changeDestination(pos);
+				moveUIs[i] = move;
 			}
 
 			up  ->onClick([&]() {advance( 1); });
@@ -93,8 +102,11 @@ namespace LoveEngine {
 			for (int i = 0; i < NumButtons; i++) {
 				auto pos = buttons[i]->getPos();
 				pos.y = positions[getButtonIdx(i)];
-				buttons[i]->setPos(pos);
+				//buttons[i]->setPos(pos);
+				moveUIs[i]->changeDestination(pos);
 			}
 		}
+
+		
 	}
 }

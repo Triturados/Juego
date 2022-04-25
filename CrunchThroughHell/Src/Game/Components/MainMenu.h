@@ -4,7 +4,7 @@
 namespace LoveEngine {
 	namespace ECS {
 		class Button;
-
+		class MoveUI;
 		class MainMenu : public Component {
 		public:
 			MainMenu();
@@ -15,6 +15,7 @@ namespace LoveEngine {
 
 			Button *up, *down;
 			std::vector<Button*> buttons;
+			std::vector<MoveUI*> moveUIs;
 			std::vector<int> positions;
 			int currentlySelected;
 

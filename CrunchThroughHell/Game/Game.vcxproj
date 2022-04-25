@@ -106,6 +106,7 @@
     <ClCompile Include="..\Src\Game\Components\DeadZone.cpp" />
     <ClCompile Include="..\Src\Game\Components\EfectoEscenario.cpp" />
     <ClCompile Include="..\Src\Game\Components\MainMenu.cpp" />
+    <ClCompile Include="..\Src\Game\Components\MoveUI.cpp" />
     <ClCompile Include="..\Src\Game\Components\MovimientoJugador.cpp" />
     <ClCompile Include="..\Src\Game\Components\PauseGame.cpp" />
     <ClCompile Include="..\Src\Game\Components\PauseMenu.cpp" />
@@ -125,6 +126,7 @@
     <ClInclude Include="..\Src\Game\Components\DeadZone.h" />
     <ClInclude Include="..\Src\Game\Components\EfectoEscenario.h" />
     <ClInclude Include="..\Src\Game\Components\MainMenu.h" />
+    <ClInclude Include="..\Src\Game\Components\MoveUI.h" />
     <ClInclude Include="..\Src\Game\Components\MovimientoJugador.h" />
     <ClInclude Include="..\Src\Game\Components\PauseGame.h" />
     <ClInclude Include="..\Src\Game\Components\PauseMenu.h" />
