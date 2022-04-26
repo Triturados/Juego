@@ -47,7 +47,7 @@ namespace LoveEngine {
 
 
 		void DeadMenu::goBackMenu() {
-			SceneManagement::changeScene((int)SceneOrder::MainMenu, SceneManagement::SceneLoad::CLEAR);//Borramos la escena del menu muerte y juego
+			SceneManagement::changeScene((int)SceneOrder::MainMenu, SceneManagement::SceneLoad::SWAP);//Borramos la escena del menu muerte y juego
 		}
 
 	}
