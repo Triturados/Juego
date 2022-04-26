@@ -28,6 +28,7 @@ namespace LoveEngine
         {
             tr = gameObject->getComponent<Transform>();
             RigidBody* rb = gameObject->getComponent<RigidBody>();
+            rb->setMass(1000);
             attack->setTransform(tr);
             attack->setRB(rb);
             chase->setTransform(tr);
