@@ -76,7 +76,7 @@ void LoveEngine::ECS::MovimientoJugador::dash(float dT)
 
 	currentDashDuration += dT;
 
-	rb->setLinearVelocity(tr->forward() * -dashSpeed);
+	rb->setLinearVelocity(tr->forward() * dashSpeed);
 
 	if (currentDashDuration >= dashDuration) {
 		lastDash = 0;
