@@ -44,7 +44,7 @@ void LoveEngine::ECS::CamRotate::update()
 	}
 
 	float dT = Time::getInstance()->deltaTime;
-	Utilities::Vector4<float> rotation;
+	Utilities::Vector3<float> rotation;
 
 	if (followBoss) //Line between player - boss girar cam hasta que pase por al recta en x z que forma con el player y el boss
 	{

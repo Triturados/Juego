@@ -36,8 +36,8 @@ namespace LoveEngine {
 			void init() override;
 			void update() override;
 			void dash(float dT);
-			void moveTransform(float mv, Utilities::Vector4<float> rt, float dT);
-			void moveRigidbody(float mv, Utilities::Vector4<float> rt);
+			void moveTransform(float mv, Utilities::Vector3<float> rt, float dT);
+			void moveRigidbody(float mv, Utilities::Vector3<float> rt);
 			void receiveMessage(Utilities::StringFormatter& message) override;
 
 			inline float getSpeed() { return speed; };

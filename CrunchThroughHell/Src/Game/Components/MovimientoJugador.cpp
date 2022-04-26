@@ -30,7 +30,7 @@ void LoveEngine::ECS::MovimientoJugador::init()
 void LoveEngine::ECS::MovimientoJugador::update()
 {
 	float movement = 0;
-	Utilities::Vector4<float> rotation;
+	Utilities::Vector3<float> rotation;
 	float dT = Time::getInstance()->deltaTime;
 	lastDash += dT;
 
@@ -76,7 +76,7 @@ void LoveEngine::ECS::MovimientoJugador::dash(float dT)
 
 	currentDashDuration += dT;
 
-	rb->setLinearVelocity(tr->forward() * dashSpeed);
+	rb->setLinearVelocity(tr->forward() * -dashSpeed);
 
 	if (currentDashDuration >= dashDuration) {
 		lastDash = 0;
@@ -86,14 +86,14 @@ void LoveEngine::ECS::MovimientoJugador::dash(float dT)
 	}
 }
 
-void LoveEngine::ECS::MovimientoJugador::moveTransform(float mv, Utilities::Vector4<float> rt, float dT)
+void LoveEngine::ECS::MovimientoJugador::moveTransform(float mv, Utilities::Vector3<float> rt, float dT)
 {
 	tr->translate(tr->forward() * mv * dT);
 	rt.y *= dT;
 	tr->rotate(rt);
 }
 
-void LoveEngine::ECS::MovimientoJugador::moveRigidbody(float mv, Utilities::Vector4<float> rt)
+void LoveEngine::ECS::MovimientoJugador::moveRigidbody(float mv, Utilities::Vector3<float> rt)
 {
 	Utilities::Vector3<float>newVelocity((tr->forward() * mv).x, (tr->forward() * mv).y + rb->getVelocity()->y, (tr->forward() * mv).z);
 
