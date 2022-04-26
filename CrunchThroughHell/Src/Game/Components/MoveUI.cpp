@@ -4,22 +4,10 @@
 #include "Image.h"
 #include "Button.h"
 #include "StringFormatter.h"
-//#include "Utils.h"
+#include "Utils.h"
 
 namespace LoveEngine {
 
-	namespace Utilities {
-		float cubicEaseOut(float t)
-		{
-			float inv = 1 - t;
-			return 1 - (inv * inv * inv);
-		}
-
-		float lerp(float a, float b, float t)
-		{
-			return (1 - t) * a + t * b;
-		}
-	}
 
 	LoveEngine::ECS::MoveUI::MoveUI()
 	{

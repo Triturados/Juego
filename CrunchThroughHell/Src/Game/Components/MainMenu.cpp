@@ -112,8 +112,6 @@ namespace LoveEngine {
 					moveUIs[i]->changeDestination(pos);
 			}
 
-			std::cout << "\n";
-
 		}
 
 		
