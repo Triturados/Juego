@@ -37,6 +37,11 @@ namespace LoveEngine
             Agent::init();
         }
 
+        void ComportamientoBoss::postInit()
+        {
+            gameObject->getComponent<RigidBody>()->setAngularFactor(Utilities::Vector3<float>(0, 1, 0));
+        }
+
         void ComportamientoBoss::receiveComponent(int n, Component* c)
         {
             auto playerTr = static_cast<Transform*>(c);

@@ -71,6 +71,7 @@ namespace LoveEngine {
 		public:
             ComportamientoBoss();
             void init() override;
+            void postInit()override;
             void receiveComponent(int n, Component* b) override;
 
             void update() final;

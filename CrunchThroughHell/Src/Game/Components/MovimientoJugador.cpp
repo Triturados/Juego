@@ -11,6 +11,8 @@
 #include <iostream>
 #include "SceneManager.h"
 
+
+
 void LoveEngine::ECS::MovimientoJugador::init()
 {
 	input = Input::InputManager::getInstance();
@@ -22,23 +24,30 @@ void LoveEngine::ECS::MovimientoJugador::init()
 	rb = gameObject->getComponent<RigidBody>();
 	hasRigidBody = rb != nullptr;
 
-	if(hasRigidBody)rb->setAngularFactor(Utilities::Vector3<float>(0, 1, 0));
-	
+}
+
+void LoveEngine::ECS::MovimientoJugador::postInit() {
+
+	if (hasRigidBody)rb->setAngularFactor(Utilities::Vector3<float>(0, 0, 0));
+
 	dashParticles = tr->getChild(1)->gameObject->getComponent<ParticleSystem>();
+
+	if (bossRb != nullptr) bossTr = bossRb->gameObject->getComponent<Transform>();
 }
 
 void LoveEngine::ECS::MovimientoJugador::update()
 {
-	float movement = 0;
-	Utilities::Vector3<float> rotation;
+	movementZ = 0;
+	movementX = 0;
+
 	float dT = Time::getInstance()->deltaTime;
 	lastDash += dT;
 
 	if (!input->controllerConected()) {
-		if (input->isKeyPressed(Input::InputKeys::W)) movement = speed;
-		if (input->isKeyPressed(Input::InputKeys::S)) movement = -speed;
-		if (input->isKeyPressed(Input::InputKeys::A)) rotation.y = rotSpeed;
-		if (input->isKeyPressed(Input::InputKeys::D)) rotation.y = -rotSpeed;
+		if (input->isKeyPressed(Input::InputKeys::W)) movementZ = speed;
+		if (input->isKeyPressed(Input::InputKeys::S)) movementZ = -speed;
+		if (input->isKeyPressed(Input::InputKeys::A)) movementX = speed;
+		if (input->isKeyPressed(Input::InputKeys::D)) movementX = -speed;
 		if (input->isKeyPressed(Input::InputKeys::SPACE) && lastDash >= dashDelay) isDashing = true;
 		if (input->isKeyPressed(Input::InputKeys::R))
 		{
@@ -49,8 +58,8 @@ void LoveEngine::ECS::MovimientoJugador::update()
 	else {
 		Utilities::Vector2 controller = input->getController().leftJoystick;
 
-		movement = controller.y * speed;
-		rotation.y = controller.x * rotSpeed;
+		movementZ = controller.y * speed;
+		movementX = controller.x * speed;
 
 		//std::cout << controller << "\n";
 
@@ -60,23 +69,26 @@ void LoveEngine::ECS::MovimientoJugador::update()
 		}
 	}
 
-	if (isDashing) {
-		dash(dT);
-	}
-	else if (hasRigidBody) {
-		moveRigidbody(movement, rotation);
-	}
-	else moveTransform(movement, rotation, dT);
+	
+	if (isDashing) currentDashDuration += dT;
 
 }
 
-void LoveEngine::ECS::MovimientoJugador::dash(float dT)
+void LoveEngine::ECS::MovimientoJugador::stepPhysics()
+{
+	if (isDashing)
+		dash();
+	else move(movementX, movementZ);
+}
+
+void LoveEngine::ECS::MovimientoJugador::dash()
 {
 	if (!dashParticles->isEmitting()) dashParticles->setActive(true);
 
-	currentDashDuration += dT;
-
-	rb->setLinearVelocity(tr->forward() * dashSpeed);
+	Utilities::Vector3<float> dashDir = *rb->getVelocity();
+	dashDir.y = 0;
+	dashDir.normalize();
+	rb->setLinearVelocity(dashDir * dashSpeed);
 
 	if (currentDashDuration >= dashDuration) {
 		lastDash = 0;
@@ -86,32 +98,39 @@ void LoveEngine::ECS::MovimientoJugador::dash(float dT)
 	}
 }
 
-void LoveEngine::ECS::MovimientoJugador::moveTransform(float mv, Utilities::Vector3<float> rt, float dT)
-{
-	tr->translate(tr->forward() * mv * dT);
-	rt.y *= dT;
-	tr->rotate(rt);
-}
 
-void LoveEngine::ECS::MovimientoJugador::moveRigidbody(float mv, Utilities::Vector3<float> rt)
+void LoveEngine::ECS::MovimientoJugador::move(float mvX, float mvZ)
 {
-	Utilities::Vector3<float>newVelocity((tr->forward() * mv).x, (tr->forward() * mv).y + rb->getVelocity()->y, (tr->forward() * mv).z);
+	Utilities::Vector3<float>newVelocity = tr->forward() * mvZ + tr->right() * mvX;
+	newVelocity.y = rb->getVelocity()->y;
 
 	rb->setLinearVelocity(newVelocity);
 
-	Utilities::Vector3<float> rtToV3(rt.x, rt.y, rt.z);
 
-	rb->setAngularVelocity(rtToV3);
+	Utilities::Vector3<float> bossPos = *bossTr->getPos();
+	Utilities::Vector3<float> playerPos = *tr->getPos();
+
+	Utilities::Vector3<float> dir = bossPos - playerPos;
+	dir.normalize();
+
+	float angle = std::atan2(dir.x, dir.z);
+
+	rb->setRotation(Utilities::Vector3<int>(0, 1, 0), angle);
 }
 
 void LoveEngine::ECS::MovimientoJugador::receiveMessage(Utilities::StringFormatter& sf)
 {
 	sf.tryGetFloat("speed", speed);
 	MAX_SPEED = speed;
-	sf.tryGetFloat("rotSpeed", rotSpeed);
 	sf.tryGetFloat("dashSpeed", dashSpeed);
 	sf.tryGetFloat("dashDuration", dashDuration);
 	sf.tryGetFloat("dashDelay", dashDelay);
+}
+
+void LoveEngine::ECS::MovimientoJugador::receiveComponent(int i, Component* c)
+{
+	if (dynamic_cast<RigidBody*>(c) != nullptr)
+		bossRb = (RigidBody*)c;
 }
 
 
