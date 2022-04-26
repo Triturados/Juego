@@ -37,6 +37,7 @@ namespace LoveEngine {
 				auto move = button->gameObject->addComponent<MoveUI>();
 				move->init();
 				move->changeDestination(pos);
+				move->setActive(false);
 				moveUIs[i] = move;
 			}
 
@@ -101,10 +102,18 @@ namespace LoveEngine {
 
 			for (int i = 0; i < NumButtons; i++) {
 				auto pos = buttons[i]->getPos();
-				pos.y = positions[getButtonIdx(i)];
-				//buttons[i]->setPos(pos);
-				moveUIs[i]->changeDestination(pos);
+				int buttonidx = getButtonIdx(i);
+				pos.y = positions[buttonidx];
+				if ((buttonidx == 0 && idx == 1) || (buttonidx == NumButtons - 1 && idx == -1)) {
+					moveUIs[i]->setActive(false);
+					buttons[i]->setPos(pos);
+				}
+				else
+					moveUIs[i]->changeDestination(pos);
 			}
+
+			std::cout << "\n";
+
 		}
 
 		

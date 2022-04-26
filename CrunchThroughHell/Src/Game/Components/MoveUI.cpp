@@ -31,7 +31,6 @@ namespace LoveEngine {
 
 	void LoveEngine::ECS::MoveUI::init()
 	{
-		std::cout << "UNU";
 		img = gameObject->getComponent<Image>();
 		button = gameObject->getComponent<Button>();
 	}
