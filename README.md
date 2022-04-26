@@ -13,7 +13,6 @@
 1. [Contenido](#cont)
     1. [Enemigos](#enemi)
     1. [Escenarios](#escena)
-1. [Arquitectura](#arqui)
 1. [Controles](#contro)
 
 # Descripción <a name="desc"></a>
@@ -152,13 +151,6 @@ El mapa para este jefe está ambientado en la plaza en ruinas de un pueblo japon
 * Escenario de Ivasan
 
 El mapa para este jefe es un templo derruido Griego/Romano, hay fuego por el mapa al igual que en el resto de mapas. Durante la primera fase hay columnas por el mapa que hay que usar para evitar el ataque a distancia del jefe y también hay un centro de gravedad en el medio del mapa, que atrae al jugador si está muy cerca. Después en la segunda fase el mapa cambia y pasan a ser plataformas que irán apareciendo y desapareciendo ya que el mapa pasará a estar levitando.
-
-# Arquitectura <a name="arqui"></a>
-
-<p align="center">
-  <img src="Recursos/UML_Juego.png" />
-</p>
-
 
 # Controles <a name="contro"></a>
 
