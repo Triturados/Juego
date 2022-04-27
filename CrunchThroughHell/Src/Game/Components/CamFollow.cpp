@@ -14,6 +14,8 @@
 void LoveEngine::ECS::CamFollow::init()
 {
 	cam = gameObject->getComponent<Camera>();
+	tr = gameObject->getComponent<Transform>();
+	tr->translate(Utilities::Vector3<float>(0, 50, -50));
 }
 
 void LoveEngine::ECS::CamFollow::receiveMessage(Utilities::StringFormatter& sf)
@@ -23,11 +25,12 @@ void LoveEngine::ECS::CamFollow::receiveMessage(Utilities::StringFormatter& sf)
 
 void LoveEngine::ECS::CamFollow::update()
 {
-	cam->lookAt(*playerTr->getPos());
+	cam->resetOrientation();
+	cam->lookAt(*targetTr->getPos());
 }
 
-void LoveEngine::ECS::CamFollow::receiveGameObject(int n, GameObject* b)
+void LoveEngine::ECS::CamFollow::receiveComponent(int n, Component* c)
 {
-	playerTr = b->getComponent<Transform>();
-	std::cout << "hola entra COMPOENNTE escean dani" << std::endl;
+	if (dynamic_cast<Transform*>(c) != nullptr)
+		targetTr = (Transform*)c;
 }
