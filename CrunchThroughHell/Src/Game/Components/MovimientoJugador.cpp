@@ -38,12 +38,11 @@ void LoveEngine::ECS::MovimientoJugador::postInit() {
 
 void LoveEngine::ECS::MovimientoJugador::update()
 {
-	
+	if (!knockback) {
 		movementZ = 0;
 		movementX = 0;
 		float dT = Time::getInstance()->deltaTime;
 		lastDash += dT;
-		lastKnockback += dT;
 
 		if (!input->controllerConected()) {
 			if (input->isKeyPressed(Input::InputKeys::W)) movementZ = speed;
@@ -65,29 +64,39 @@ void LoveEngine::ECS::MovimientoJugador::update()
 
 			//std::cout << controller << "\n";
 
-			if (input->isControllerButtonPressed(Input::ControllerButton::B) &&
-				input->isControllerButtonState(Input::ControllerButtonState::DOWN) && lastDash >= dashDelay)
+			if (input->isControllerButtonPressed(Input::ControllerButton::B) && input->isControllerButtonState(Input::ControllerButtonState::DOWN) && lastDash >= dashDelay)
 			{
 				isDashing = true;
 			}
 		}
 
-	
 
-	if (isDashing) currentDashDuration += dT;
-	if (isKnockback) currentKnockbackDuration += dT;
+		if (isDashing) currentDashDuration += dT;
+	}
+	else
+	{
+		std::cout << "BOBO";
+		LoveEngine::Utilities::Vector3<float>* vel = rb->getVelocity();
+		std::cout << "         " << *rb->getVelocity() << std::endl;
+		vel->inverse();
+		LoveEngine::Utilities::Vector3<float>* velDup = vel;
+		velDup->x *= 10;
+		velDup->z *= 10;
+		rb->addForce(*velDup, { 0.0f,0.0f,0.0f},ForceMode::IMPULSE);
+		knockback = false;
+	}
+
 }
 
 void LoveEngine::ECS::MovimientoJugador::stepPhysics()
 {
+	if (!knockback)
+	{
 		if (isDashing)
 			dash();
-		else if (isKnockback) {
-			if(trJefe != nullptr)
-				//throw std::exception("received negative value");
-			knockback();
-		}
 		else move(movementX, movementZ);
+	}
+
 }
 
 void LoveEngine::ECS::MovimientoJugador::dash()
@@ -104,24 +113,6 @@ void LoveEngine::ECS::MovimientoJugador::dash()
 		currentDashDuration = 0;
 		isDashing = false;
 		dashParticles->setActive(false);
-	}
-}
-
-void LoveEngine::ECS::MovimientoJugador::knockback()
-{
-	Utilities::Vector3<float> targetPos = *(trJefe->getPos());
-	Utilities::Vector3<float> pos = *(tr->getPos());
-
-	Utilities::Vector3<float> force = (pos - targetPos)  * rb->getMass();
-	force.y = 0;
-	//std::cout << "fuerza aplicada" << force << std::endl;
-
-	rb->addForce(force, Utilities::Vector3<float>(0,0,0), ForceMode::IMPULSE);
-
-	if (currentKnockbackDuration >= knockbackDuration) {
-		lastKnockback = 0;
-		currentKnockbackDuration = 0;
-		isKnockback = false;
 	}
 }
 
@@ -160,26 +151,13 @@ void LoveEngine::ECS::MovimientoJugador::receiveComponent(int i, Component* c)
 		bossRb = (RigidBody*)c;
 }
 
-void LoveEngine::ECS::MovimientoJugador::enterCollision(GameObject* other)
-{
-		if (other->getComponent<ComportamientoBoss>() != nullptr && !isDashing) //Si con lo que hemos chocado es el boss
-		{
-			if (trJefe == nullptr) {
-				trJefe = other->getComponent<Transform>();
-			}
-			isKnockback = true;
-	}
-}
-
 void LoveEngine::ECS::MovimientoJugador::colliding(GameObject* other)
 {
-		if (other->getComponent<ComportamientoBoss>() != nullptr && !isDashing) //Si con lo que hemos chocado es el boss
-		{
-			if (trJefe == nullptr) {
-				trJefe = other->getComponent<Transform>();
-			}
-			isKnockback = true;
-		}
+
+	if (other->getComponent<ComportamientoBoss>() != nullptr && !isDashing) //Si con lo que hemos chocado es el boss
+	{
+		knockback = true;
+	}
 }
 
 

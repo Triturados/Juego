@@ -113,7 +113,7 @@ namespace LoveEngine
                 //rb->setLinearVelocity(vel);
 
                 Vector3 force = (targetPos - pos).getNormalized() * (acc / 10.0) * rb->getMass();
-                rb->addForce(force, Utilities::Vector3<float>(0, 0, 0), ForceMode::IMPULSE);
+                rb->addForce(force, Vector3(0, 0, 0), ForceMode::IMPULSE);
                 
                 //lookat target
                 Utilities::Vector3<float> dir = targetPos - pos;
