@@ -17,6 +17,8 @@ namespace LoveEngine {
 
 			RigidBody* bossRb;
 			Transform* bossTr;
+			
+			Transform* camTr;
 
 			bool hasRigidBody;
 			Transform* tr;
@@ -52,7 +54,8 @@ namespace LoveEngine {
 			void stepPhysics() override;
 			void dash();
 			void knockback();
-			void move(float mvX, float mvZ);
+			void freeMovement(float mvX, float mvZ);
+			void aimedMovement(float mvX, float mvZ);
 			void receiveMessage(Utilities::StringFormatter& message) override;
 			void receiveComponent(int, Component*) override;
 

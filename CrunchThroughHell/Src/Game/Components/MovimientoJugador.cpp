@@ -38,41 +38,41 @@ void LoveEngine::ECS::MovimientoJugador::postInit() {
 
 void LoveEngine::ECS::MovimientoJugador::update()
 {
-	
-		movementZ = 0;
-		movementX = 0;
-		float dT = Time::getInstance()->deltaTime;
-		lastDash += dT;
-		lastKnockback += dT;
 
-		if (!input->controllerConected()) {
-			if (input->isKeyPressed(Input::InputKeys::W)) movementZ = speed;
-			if (input->isKeyPressed(Input::InputKeys::S)) movementZ = -speed;
-			if (input->isKeyPressed(Input::InputKeys::A)) movementX = speed;
-			if (input->isKeyPressed(Input::InputKeys::D)) movementX = -speed;
-			if (input->isKeyPressed(Input::InputKeys::SPACE) && lastDash >= dashDelay) isDashing = true;
-			if (input->isKeyPressed(Input::InputKeys::R))
-			{
-				std::cout << "cambiando de escena" << std::endl;
-				SceneManagement::changeScene(5, SceneManagement::SceneLoad::SWAP); //Ir escena muerte
-			}
+	movementZ = 0;
+	movementX = 0;
+	float dT = Time::getInstance()->deltaTime;
+	lastDash += dT;
+	lastKnockback += dT;
+
+	if (!input->controllerConected()) {
+		if (input->isKeyPressed(Input::InputKeys::W)) movementZ = speed;
+		if (input->isKeyPressed(Input::InputKeys::S)) movementZ = -speed;
+		if (input->isKeyPressed(Input::InputKeys::A)) movementX = speed;
+		if (input->isKeyPressed(Input::InputKeys::D)) movementX = -speed;
+		if (input->isKeyPressed(Input::InputKeys::SPACE) && lastDash >= dashDelay) isDashing = true;
+		if (input->isKeyPressed(Input::InputKeys::R))
+		{
+			std::cout << "cambiando de escena" << std::endl;
+			SceneManagement::changeScene(5, SceneManagement::SceneLoad::SWAP); //Ir escena muerte
 		}
-		else {
-			Utilities::Vector2 controller = input->getController().leftJoystick;
+	}
+	else {
+		Utilities::Vector2 controller = input->getController().leftJoystick;
 
-			movementZ = controller.y * speed;
-			movementX = controller.x * speed;
+		movementZ = controller.y * speed;
+		movementX = controller.x * speed;
 
-			//std::cout << controller << "\n";
+		//std::cout << controller << "\n";
 
-			if (input->isControllerButtonPressed(Input::ControllerButton::B) &&
-				input->isControllerButtonState(Input::ControllerButtonState::DOWN) && lastDash >= dashDelay)
-			{
-				isDashing = true;
-			}
+		if (input->isControllerButtonPressed(Input::ControllerButton::B) &&
+			input->isControllerButtonState(Input::ControllerButtonState::DOWN) && lastDash >= dashDelay)
+		{
+			isDashing = true;
 		}
+	}
 
-	
+
 
 	if (isDashing) currentDashDuration += dT;
 	if (isKnockback) currentKnockbackDuration += dT;
@@ -80,14 +80,14 @@ void LoveEngine::ECS::MovimientoJugador::update()
 
 void LoveEngine::ECS::MovimientoJugador::stepPhysics()
 {
-		if (isDashing)
-			dash();
-		else if (isKnockback) {
-			if(trJefe != nullptr)
-				//throw std::exception("received negative value");
+	if (isDashing)
+		dash();
+	else if (isKnockback) {
+		if (trJefe != nullptr)
+			//throw std::exception("received negative value");
 			knockback();
-		}
-		else move(movementX, movementZ);
+	}
+	else aimedMovement(movementX, movementZ);
 }
 
 void LoveEngine::ECS::MovimientoJugador::dash()
@@ -112,11 +112,11 @@ void LoveEngine::ECS::MovimientoJugador::knockback()
 	Utilities::Vector3<float> targetPos = *(trJefe->getPos());
 	Utilities::Vector3<float> pos = *(tr->getPos());
 
-	Utilities::Vector3<float> force = (pos - targetPos)  * rb->getMass();
+	Utilities::Vector3<float> force = (pos - targetPos) * rb->getMass();
 	force.y = 0;
 	//std::cout << "fuerza aplicada" << force << std::endl;
 
-	rb->addForce(force, Utilities::Vector3<float>(0,0,0), ForceMode::IMPULSE);
+	rb->addForce(force, Utilities::Vector3<float>(0, 0, 0), ForceMode::IMPULSE);
 
 	if (currentKnockbackDuration >= knockbackDuration) {
 		lastKnockback = 0;
@@ -126,13 +126,28 @@ void LoveEngine::ECS::MovimientoJugador::knockback()
 }
 
 
-void LoveEngine::ECS::MovimientoJugador::move(float mvX, float mvZ)
+void LoveEngine::ECS::MovimientoJugador::freeMovement(float mvX, float mvZ)
 {
 	Utilities::Vector3<float>newVelocity = tr->forward() * mvZ + tr->right() * mvX;
 	newVelocity.y = rb->getVelocity()->y;
 
 	rb->setLinearVelocity(newVelocity);
 
+	Utilities::Vector3<float> camRot = *camTr->getRot();
+
+	float angle = camRot.y + 3.1416;
+
+
+	rb->setRotation(Utilities::Vector3<int>(0, 1, 0), angle);
+}
+
+void LoveEngine::ECS::MovimientoJugador::aimedMovement(float mvX, float mvZ)
+{
+
+	Utilities::Vector3<float>newVelocity = tr->forward() * mvZ + tr->right() * mvX;
+	newVelocity.y = rb->getVelocity()->y;
+
+	rb->setLinearVelocity(newVelocity);
 
 	Utilities::Vector3<float> bossPos = *bossTr->getPos();
 	Utilities::Vector3<float> playerPos = *tr->getPos();
@@ -156,30 +171,34 @@ void LoveEngine::ECS::MovimientoJugador::receiveMessage(Utilities::StringFormatt
 
 void LoveEngine::ECS::MovimientoJugador::receiveComponent(int i, Component* c)
 {
-	if (dynamic_cast<RigidBody*>(c) != nullptr)
-		bossRb = (RigidBody*)c;
+	if (i == 0)
+		if (dynamic_cast<RigidBody*>(c) != nullptr)
+			bossRb = (RigidBody*)c;
+	if (i != 0)
+		if (dynamic_cast<Transform*>(c) != nullptr)
+			camTr = (Transform*)c;
 }
 
 void LoveEngine::ECS::MovimientoJugador::enterCollision(GameObject* other)
 {
-		if (other->getComponent<ComportamientoBoss>() != nullptr && !isDashing) //Si con lo que hemos chocado es el boss
-		{
-			if (trJefe == nullptr) {
-				trJefe = other->getComponent<Transform>();
-			}
-			isKnockback = true;
+	if (other->getComponent<ComportamientoBoss>() != nullptr && !isDashing) //Si con lo que hemos chocado es el boss
+	{
+		if (trJefe == nullptr) {
+			trJefe = other->getComponent<Transform>();
+		}
+		isKnockback = true;
 	}
 }
 
 void LoveEngine::ECS::MovimientoJugador::colliding(GameObject* other)
 {
-		if (other->getComponent<ComportamientoBoss>() != nullptr && !isDashing) //Si con lo que hemos chocado es el boss
-		{
-			if (trJefe == nullptr) {
-				trJefe = other->getComponent<Transform>();
-			}
-			isKnockback = true;
+	if (other->getComponent<ComportamientoBoss>() != nullptr && !isDashing) //Si con lo que hemos chocado es el boss
+	{
+		if (trJefe == nullptr) {
+			trJefe = other->getComponent<Transform>();
 		}
+		isKnockback = true;
+	}
 }
 
 

@@ -81,6 +81,9 @@
     <ClCompile Include="..\Src\Game\Components\MoveUI.cpp">
       <Filter>Components\Menu\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\Src\Game\Components\AtaqueJugador.cpp">
+      <Filter>Components\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Src\Game\Components\ComponenteDeContar.h">
@@ -139,6 +142,9 @@
     </ClInclude>
     <ClInclude Include="..\Src\Game\Components\MoveUI.h">
       <Filter>Components\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Game\Components\AtaqueJugador.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
