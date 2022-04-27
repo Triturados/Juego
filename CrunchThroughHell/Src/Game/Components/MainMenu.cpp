@@ -33,7 +33,7 @@ namespace LoveEngine {
 				Button* button = buttons[i];
 				auto pos = button->getPos();
 				positions[i] = pos.y;
-
+  
 				auto move = button->gameObject->addComponent<MoveUI>();
 				move->init();
 				move->changeDestination(pos);
