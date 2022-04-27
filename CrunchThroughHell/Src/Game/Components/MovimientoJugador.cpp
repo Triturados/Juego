@@ -94,7 +94,7 @@ void LoveEngine::ECS::MovimientoJugador::stepPhysics()
 	{
 		if (isDashing)
 			dash();
-		else move(movementX, movementZ);
+		else freeMovement(movementX, movementZ);
 	}
 
 }
@@ -117,7 +117,7 @@ void LoveEngine::ECS::MovimientoJugador::dash()
 }
 
 
-void LoveEngine::ECS::MovimientoJugador::move(float mvX, float mvZ)
+void LoveEngine::ECS::MovimientoJugador::aimedMovement(float mvX, float mvZ)
 {
 	Utilities::Vector3<float>newVelocity = tr->forward() * mvZ + tr->right() * mvX;
 	newVelocity.y = rb->getVelocity()->y;
@@ -136,6 +136,21 @@ void LoveEngine::ECS::MovimientoJugador::move(float mvX, float mvZ)
 	rb->setRotation(Utilities::Vector3<int>(0, 1, 0), angle);
 }
 
+void LoveEngine::ECS::MovimientoJugador::freeMovement(float mvX, float mvZ)
+{
+	Utilities::Vector3<float>newVelocity = tr->forward() * mvZ + tr->right() * mvX;
+	newVelocity.y = rb->getVelocity()->y;
+
+	rb->setLinearVelocity(newVelocity);
+
+	Utilities::Vector3<float> camRot = *camTr->getRot();
+
+	float angle = camRot.y + 3.1416;
+
+
+	rb->setRotation(Utilities::Vector3<int>(0, 1, 0), angle);
+}
+
 void LoveEngine::ECS::MovimientoJugador::receiveMessage(Utilities::StringFormatter& sf)
 {
 	sf.tryGetFloat("speed", speed);
@@ -147,8 +162,12 @@ void LoveEngine::ECS::MovimientoJugador::receiveMessage(Utilities::StringFormatt
 
 void LoveEngine::ECS::MovimientoJugador::receiveComponent(int i, Component* c)
 {
-	if (dynamic_cast<RigidBody*>(c) != nullptr)
-		bossRb = (RigidBody*)c;
+	if (i == 0)
+		if (dynamic_cast<RigidBody*>(c) != nullptr)
+			bossRb = (RigidBody*)c;
+	if (i != 0)
+		if (dynamic_cast<Transform*>(c) != nullptr)
+			camTr = (Transform*)c;
 }
 
 void LoveEngine::ECS::MovimientoJugador::colliding(GameObject* other)
