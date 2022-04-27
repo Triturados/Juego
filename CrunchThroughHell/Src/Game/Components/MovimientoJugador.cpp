@@ -11,7 +11,7 @@
 #include <iostream>
 #include "SceneManager.h"
 #include "ComportamientoBoss.h"
-
+#include "Definitions.h"
 
 
 void LoveEngine::ECS::MovimientoJugador::init()
@@ -54,7 +54,7 @@ void LoveEngine::ECS::MovimientoJugador::update()
 		if (input->isKeyPressed(Input::InputKeys::R))
 		{
 			std::cout << "cambiando de escena" << std::endl;
-			SceneManagement::changeScene(5, SceneManagement::SceneLoad::SWAP); //Ir escena muerte
+			SceneManagement::changeScene((int)SceneOrder::Defeat, SceneManagement::SceneLoad::SWAP); //Ir escena muerte
 		}
 	}
 	else {
