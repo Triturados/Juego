@@ -116,6 +116,10 @@ namespace LoveEngine
                 rb->addForce(force, Vector3(0, 0, 0), ForceMode::IMPULSE);
                 
                 //lookat target
+                Utilities::Vector3<float> dir = targetPos - pos;
+                dir.normalize();
+                float angle = std::atan2(dir.x, dir.z);
+                rb->setRotation(Utilities::Vector3<int>(0, 1, 0), angle);
             }
         }
 
@@ -157,6 +161,11 @@ namespace LoveEngine
             rb->addForce(force * rb->getMass(), Vector3(0, 0, 0), ForceMode::IMPULSE);
 
             //start animation
+            Utilities::Vector3<float> dir = *target->getPos() - *tr->getPos();
+            dir.normalize();
+            float angle = std::atan2(dir.x, dir.z);
+            rb->setRotation(Utilities::Vector3<int>(0, 1, 0), angle);
+
 
             lockAction = true;
         }
