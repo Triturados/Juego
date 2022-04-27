@@ -112,11 +112,11 @@ void LoveEngine::ECS::MovimientoJugador::knockback()
 	Utilities::Vector3<float> targetPos = *(trJefe->getPos());
 	Utilities::Vector3<float> pos = *(tr->getPos());
 
-	Utilities::Vector3<float> force = (pos - targetPos) * rb->getMass();
+	Utilities::Vector3<float> force = (pos - targetPos);
 	force.y = 0;
 	//std::cout << "fuerza aplicada" << force << std::endl;
 
-	rb->addForce(force, Utilities::Vector3<float>(0, 0, 0), ForceMode::IMPULSE);
+	rb->addForce(force, Utilities::Vector3<float>(0, 0, 0), ForceMode::ACCELERATION);
 
 	if (currentKnockbackDuration >= knockbackDuration) {
 		lastKnockback = 0;
