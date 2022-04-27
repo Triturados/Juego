@@ -23,6 +23,11 @@ namespace LoveEngine {
 		button = gameObject->getComponent<Button>();
 	}
 
+	void ECS::MoveUI::setDuration(float newduration)
+	{
+		duration = newduration;
+	}
+
 	void LoveEngine::ECS::MoveUI::update()
 	{
 		t += Time::getInstance()->deltaTime;

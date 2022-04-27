@@ -9,7 +9,8 @@ namespace LoveEngine {
 		public:
 			MainMenu();
 
-			void init() override;
+			void postInit() override;
+
 			void receiveComponent(int, Component*) override;
 		private:
 
@@ -21,7 +22,7 @@ namespace LoveEngine {
 
 			int getButtonIdx(int i);
 
-			void advance(int i);
+			void advance(int i, float t = -1);
 
 			void newGame();
 			void continueGame();
@@ -29,6 +30,8 @@ namespace LoveEngine {
 			void howToPlay();
 			void about();
 			void exit();
+
+			void buttonPos(Button* b);
 		};
 	}
 }

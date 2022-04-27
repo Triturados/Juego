@@ -20,7 +20,7 @@ namespace LoveEngine {
 			moveUIs = std::vector<MoveUI*>(MenuButtons::NumButtons, nullptr);
 			positions = std::vector<int>(MenuButtons::NumButtons, 0);
 		}
-		void MainMenu::init()
+		void MainMenu::postInit()
 		{
 			buttons[MenuButtons::NewGame]->onClick([&]() {newGame(); });
 			buttons[MenuButtons::Continue]->onClick([&]() {continueGame(); });
@@ -29,11 +29,12 @@ namespace LoveEngine {
 			buttons[MenuButtons::About]->onClick([&]() {about(); });
 			buttons[MenuButtons::Exit]->onClick([&]() {exit(); });
 
+
 			for (int i = 0; i < buttons.size(); i++) {
 				Button* button = buttons[i];
 				auto pos = button->getPos();
 				positions[i] = pos.y;
-  
+
 				auto move = button->gameObject->addComponent<MoveUI>();
 				move->init();
 				move->changeDestination(pos);
@@ -41,8 +42,12 @@ namespace LoveEngine {
 				moveUIs[i] = move;
 			}
 
-			up  ->onClick([&]() {advance( 1); });
-			down->onClick([&]() {advance(-1); });
+			up->onClick([&]() {advance(1, 1); });
+			down->onClick([&]() {advance(-1, 1); });
+
+			for (int i = 0; i < 4; i++) {
+				advance(-1, 3);
+			}
 		}
 
 		void MainMenu::receiveComponent(int i, Component* c)
@@ -81,7 +86,7 @@ namespace LoveEngine {
 		void MainMenu::settings() {
 
 		}
-		
+
 		void MainMenu::about() {
 
 		}
@@ -90,8 +95,12 @@ namespace LoveEngine {
 			SceneManagement::changeScene(0, SceneManagement::SceneLoad::EXIT);
 		}
 
+		void MainMenu::buttonPos(Button* b)
+		{
+			std::cout << b->getPos().y << "\n";
+		}
 
-		void MainMenu::advance(int idx) {
+		void MainMenu::advance(int idx, float time) {
 			currentlySelected += idx;
 
 			if (currentlySelected < 0)
@@ -108,12 +117,17 @@ namespace LoveEngine {
 					moveUIs[i]->setActive(false);
 					buttons[i]->setPos(pos);
 				}
-				else
+				else {
+					if (time > 0)
+						moveUIs[i]->setDuration(time);
 					moveUIs[i]->changeDestination(pos);
+				}
 			}
 
+			std::cout << "Jugar: ";
+			buttonPos(buttons[0]);
 		}
 
-		
+
 	}
 }

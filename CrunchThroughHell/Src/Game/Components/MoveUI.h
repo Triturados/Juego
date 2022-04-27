@@ -17,6 +17,7 @@ namespace LoveEngine {
 		public:
 			MoveUI();
 			void init() override;
+			void setDuration(float newduration);
 			void update() override;
 			void receiveMessage(Utilities::StringFormatter& sf);
 			void changeDestination(Utilities::Vector3<int> dest);
