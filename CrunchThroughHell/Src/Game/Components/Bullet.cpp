@@ -18,7 +18,7 @@ void LoveEngine::ECS::Bullet::update()
 
 	if (gameObject->isEnabled()) {
 		if (mRb != nullptr) {
-			mRb->addForce(*vel, Utilities::Vector3<float>(0, 0, 0), ForceMode::FORCE);
+			mRb->addForce(*vel, Utilities::Vector3<float> (0,0,0), ForceMode::FORCE);
 		}
 	}
 }
