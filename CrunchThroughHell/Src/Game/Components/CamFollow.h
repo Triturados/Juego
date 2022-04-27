@@ -18,15 +18,14 @@ namespace LoveEngine {
 		class CamFollow : public Component {
 
 		private:
-			Transform* targetTr;
-			Transform* tr;
+			Transform* playerTr;
 			Camera* cam;
  
 			Input::InputManager* input;
 		public:
 			void init() override;
 			void update() override;
-			void receiveComponent(int, Component*) override;
+			void receiveGameObject(int n, GameObject* b) override;
 			void receiveMessage(Utilities::StringFormatter& sf) override;
 		};
 	}
