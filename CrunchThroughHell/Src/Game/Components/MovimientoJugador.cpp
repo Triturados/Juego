@@ -10,6 +10,7 @@
 #include <StringFormatter.h>
 #include <iostream>
 #include "SceneManager.h"
+#include "ComportamientoBoss.h"
 
 
 
@@ -37,47 +38,65 @@ void LoveEngine::ECS::MovimientoJugador::postInit() {
 
 void LoveEngine::ECS::MovimientoJugador::update()
 {
-	movementZ = 0;
-	movementX = 0;
+	if (!knockback) {
+		movementZ = 0;
+		movementX = 0;
+		float dT = Time::getInstance()->deltaTime;
+		lastDash += dT;
 
-	float dT = Time::getInstance()->deltaTime;
-	lastDash += dT;
-
-	if (!input->controllerConected()) {
-		if (input->isKeyPressed(Input::InputKeys::W)) movementZ = speed;
-		if (input->isKeyPressed(Input::InputKeys::S)) movementZ = -speed;
-		if (input->isKeyPressed(Input::InputKeys::A)) movementX = speed;
-		if (input->isKeyPressed(Input::InputKeys::D)) movementX = -speed;
-		if (input->isKeyPressed(Input::InputKeys::SPACE) && lastDash >= dashDelay) isDashing = true;
-		if (input->isKeyPressed(Input::InputKeys::R))
-		{
-			SceneManagement::changeScene(7, SceneManagement::SceneLoad::SWAP); //Ir escena muerte
+		if (!input->controllerConected()) {
+			if (input->isKeyPressed(Input::InputKeys::W)) movementZ = speed;
+			if (input->isKeyPressed(Input::InputKeys::S)) movementZ = -speed;
+			if (input->isKeyPressed(Input::InputKeys::A)) movementX = speed;
+			if (input->isKeyPressed(Input::InputKeys::D)) movementX = -speed;
+			if (input->isKeyPressed(Input::InputKeys::SPACE) && lastDash >= dashDelay) isDashing = true;
+			if (input->isKeyPressed(Input::InputKeys::R))
+			{
+				std::cout << "cambiando de escena" << std::endl;
+				SceneManagement::changeScene(5, SceneManagement::SceneLoad::SWAP); //Ir escena muerte
+			}
 		}
-	}
-	else {
-		Utilities::Vector2 controller = input->getController().leftJoystick;
+		else {
+			Utilities::Vector2 controller = input->getController().leftJoystick;
 
-		movementZ = controller.y * speed;
-		movementX = controller.x * speed;
+			movementZ = controller.y * speed;
+			movementX = controller.x * speed;
 
-		//std::cout << controller << "\n";
+			//std::cout << controller << "\n";
 
-		if (input->isControllerButtonPressed(Input::ControllerButton::B) && input->isControllerButtonState(Input::ControllerButtonState::DOWN) && lastDash >= dashDelay)
-		{
-			isDashing = true;
+			if (input->isControllerButtonPressed(Input::ControllerButton::B) && input->isControllerButtonState(Input::ControllerButtonState::DOWN) && lastDash >= dashDelay)
+			{
+				isDashing = true;
+			}
 		}
-	}
 
-	
-	if (isDashing) currentDashDuration += dT;
+
+		if (isDashing) currentDashDuration += dT;
+	}
+	else
+	{
+		std::cout << "BOBO";
+		LoveEngine::Utilities::Vector3<float>* vel = rb->getVelocity();
+		std::cout << "         " << *rb->getVelocity() << std::endl;
+		vel->inverse();
+		LoveEngine::Utilities::Vector3<float>* velDup = vel;
+		velDup->x *= 10;
+		velDup->z *= 10;
+		rb->addForce(*velDup, { 0.0f,0.0f,0.0f},ForceMode::IMPULSE);
+		knockback = false;
+	}
 
 }
 
 void LoveEngine::ECS::MovimientoJugador::stepPhysics()
 {
-	if (isDashing)
-		dash();
-	else move(movementX, movementZ);
+	if (!knockback)
+	{
+		if (isDashing)
+			dash();
+		else move(movementX, movementZ);
+	}
+
 }
 
 void LoveEngine::ECS::MovimientoJugador::dash()
@@ -131,5 +150,15 @@ void LoveEngine::ECS::MovimientoJugador::receiveComponent(int i, Component* c)
 	if (dynamic_cast<RigidBody*>(c) != nullptr)
 		bossRb = (RigidBody*)c;
 }
+
+void LoveEngine::ECS::MovimientoJugador::colliding(GameObject* other)
+{
+
+	if (other->getComponent<ComportamientoBoss>() != nullptr && !isDashing) //Si con lo que hemos chocado es el boss
+	{
+		knockback = true;
+	}
+}
+
 
 

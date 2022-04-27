@@ -27,6 +27,7 @@ namespace LoveEngine {
 
 			float movementZ = 0;
 			float movementX = 0;
+			bool knockback=false;
 
 			float dashDelay = 2; //Cada cuanto tiempo puedes dashear
 			float lastDash = 2; //Conteo del ultimo dash para aplicar el delay
@@ -50,6 +51,7 @@ namespace LoveEngine {
 			inline float getSpeed() { return speed; };
 			inline float getMaxSpeed() { return MAX_SPEED; };
 			inline void setSpeed(float speed_) { speed = speed_; };
+			void colliding(GameObject* other)override;
 		};
 	}
 }

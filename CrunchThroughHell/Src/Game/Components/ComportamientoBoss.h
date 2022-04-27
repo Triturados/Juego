@@ -20,6 +20,8 @@ namespace LoveEngine {
 				bool conditionsFulfilled() const final;
 				void onActionStart() final;
 				void activeUpdate() final;
+               
+
 			protected:
 				RigidBody* rb;
 				Transform* target = nullptr;
