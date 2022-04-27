@@ -63,6 +63,7 @@ namespace LoveEngine {
 			bool isKeyPressed(InputKeys key);
 			bool keyJustPressed(InputKeys key);
 			bool mousePressed(MouseState state);
+			float mouseWheel();
 
 
 			Controller& getController();

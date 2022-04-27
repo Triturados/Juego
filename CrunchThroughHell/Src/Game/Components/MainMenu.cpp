@@ -5,6 +5,9 @@
 #include <Vector3.h>
 #include <GameObject.h>
 #include "MoveUI.h"
+#include <Input.h>
+#include "GameTime.h"
+
 namespace LoveEngine {
 
 
@@ -19,6 +22,9 @@ namespace LoveEngine {
 			buttons = std::vector<Button*>(MenuButtons::NumButtons, nullptr);
 			moveUIs = std::vector<MoveUI*>(MenuButtons::NumButtons, nullptr);
 			positions = std::vector<int>(MenuButtons::NumButtons, 0);
+
+			scrollTimer = 0;
+			scrollInterval = 0.2f;
 		}
 		void MainMenu::postInit()
 		{
@@ -47,6 +53,25 @@ namespace LoveEngine {
 
 			for (int i = 0; i < 4; i++) {
 				advance(-1, 3);
+			}
+		}
+
+		void MainMenu::update() {
+			
+			if (scrollTimer > scrollInterval) {
+				float scroll = Input::InputManager::getInstance()->mouseWheel();
+				if (scroll != 0) {
+					int dir = -1;
+					if (scroll > 0) {
+						dir = 1;
+					}
+
+					advance(dir);
+					scrollTimer = 0;
+				}
+			}
+			else {
+				scrollTimer += Time::getInstance()->deltaTime;
 			}
 		}
 

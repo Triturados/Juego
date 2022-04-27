@@ -10,10 +10,11 @@ namespace LoveEngine {
 			MainMenu();
 
 			void postInit() override;
-
+			void update() override;
 			void receiveComponent(int, Component*) override;
 		private:
-
+			float scrollTimer;
+			float scrollInterval;
 			Button *up, *down;
 			std::vector<Button*> buttons;
 			std::vector<MoveUI*> moveUIs;
