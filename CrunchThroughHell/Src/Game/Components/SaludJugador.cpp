@@ -30,12 +30,12 @@ void LoveEngine::ECS::SaludJugador::init()
 	//assert
 
 	tr = gameObject->getComponent<Transform>();
-	slider = gameObject->getComponent<Slider>();
+	sliderBehind = gameObject->getComponent<Slider>();
 	//assert
 
 	actHealth = _MAX_HEALTH;
-	slider->setDetectInput(false);
-	slider->setPos(Utilities::Vector3<int>(100,100, 1));	
+	sliderBehind->setDetectInput(false);
+	sliderBehind->setPos(Utilities::Vector3<int>(100,100, 1));
 }
 
 void LoveEngine::ECS::SaludJugador::setHealth(int health)
@@ -45,6 +45,22 @@ void LoveEngine::ECS::SaludJugador::setHealth(int health)
 	actHealth = health;	
 
 
+}
+
+void LoveEngine::ECS::SaludJugador::receiveComponent(int i, Component* c)
+{
+	/*if (i == 0)
+	{
+		std::cout << "Meto el  slider arriba" << "\n";
+		sliderTop = static_cast<Slider*>(c);
+		sliderTop->setDetectInput(false);
+	}
+	else if (i == 1)
+	{
+		std::cout << "Meto el slider abajo" << "\n";
+		sliderBehind = static_cast<Slider*>(c);
+		sliderBehind->setDetectInput(false);
+	}*/
 }
 
 void LoveEngine::ECS::SaludJugador::addMaxHealth()
@@ -80,10 +96,11 @@ void LoveEngine::ECS::SaludJugador::update()
 		takeDamage(1);
 	}
 
-	int barProgress = actHealth * slider->MAX_VALUE / _MAX_HEALTH;
+	int barProgress = actHealth * sliderBehind->MAX_VALUE / _MAX_HEALTH;
+
+	sliderBehind->setProgress(barProgress);
 	
-	barProgress = naive_lerp(slider->getProgress(), barProgress, Time::getInstance()->deltaTime);
-	slider->setProgress(barProgress);
+	barProgress = naive_lerp(sliderBehind->getProgress(), barProgress, Time::getInstance()->deltaTime);
 }
 
 void LoveEngine::ECS::SaludJugador::stepPhysics()

@@ -15,14 +15,15 @@ namespace LoveEngine {
 			
 		private:
 			Transform* tr = nullptr;
-			Slider* slider = nullptr;
+			Slider* sliderBehind = nullptr;
+			Slider* sliderTop = nullptr;
 			Input::InputManager* input = nullptr;
 
 			int _MAX_HEALTH = 4;
 			int actHealth = 4;
 
 			bool hitCooldown = false;
-			float _MAX_COOLDOWN_TIME = 3;
+			float _MAX_COOLDOWN_TIME = 0.3;
 			float cooldownTime = _MAX_COOLDOWN_TIME;
 
 		public:
@@ -30,6 +31,7 @@ namespace LoveEngine {
 			void update() override;
 			virtual void stepPhysics() override;
 			void receiveMessage(Utilities::StringFormatter& message) override;
+			void receiveComponent(int i, Component* c) override;
 
 			inline int getHealth() { return actHealth; }
 			void addHealth();
