@@ -7,6 +7,7 @@
 #include <GameObject.h>
 #include "MoveUI.h"
 #include "GameTime.h"
+#include "Window.h"
 #include "ScaleMainMenuButton.h"
 
 namespace LoveEngine {
@@ -77,13 +78,13 @@ namespace LoveEngine {
 
 			Input::InputManager* input = Input::InputManager::getInstance();
 
-			/*if (input->justClicked()) {
+			if (input->justClicked()) {
 				auto p = input->mousePosition();
 				if (true || mousepos != Utilities::Vector2<int>()) {
 					std::cout << p - mousepos << "\n";
 				}
 				mousepos = p;
-			}*/
+			}
 
 			if (scrollTimer > scrollInterval) {
 				float scroll = input->mouseWheel();
@@ -159,16 +160,15 @@ namespace LoveEngine {
 			for (int i = 0; i < NumButtons; i++) {
 				auto pos = buttons[i]->getPos();
 				int buttonidx = getButtonIdx(i);
+				pos.x = (Window::getInstance()->getWindowSize().x - buttons[i]->getSize().x) * 0.5f;
 				pos.y = positions[buttonidx];
 				if ((buttonidx == 0 && idx == 1) || (buttonidx == NumButtons - 1 && idx == -1)) {
 					moveUIs[i]->setActive(false);
 					buttons[i]->setPos(pos);
 				}
-				else {
-					if (time > 0)
-						moveUIs[i]->setDuration(time);
-					moveUIs[i]->changeDestination(pos);
-				}
+				if (time > 0)
+					moveUIs[i]->setDuration(time);
+				moveUIs[i]->changeDestination(pos);
 			}
 
 		}
