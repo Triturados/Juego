@@ -9,7 +9,7 @@ set ENGINE_DIR=.\CrunchThroughHell\Engine\
 set CRUNCH_THROUGH_HELL_SOL=.\CrunchThroughHell\CrunchThroughHell.sln
 
 rem Inicializamos el submódulo
-git submodule update --init
+git submodule update --remote
 
 cd %ENGINE_DIR%
 
