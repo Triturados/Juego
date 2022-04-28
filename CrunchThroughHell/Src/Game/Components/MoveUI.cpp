@@ -15,12 +15,20 @@ namespace LoveEngine {
 		duration = 1;
 		img = nullptr;
 		button = nullptr;
+
+		destination = origin = Utilities::Vector3<int>();
+
+		enabled = false;
 	}
 
 	void LoveEngine::ECS::MoveUI::init()
 	{
-		img = gameObject->getComponent<Image>();
-		button = gameObject->getComponent<Button>();
+		if ((img = gameObject->getComponent<Image>()) != nullptr) {
+			origin = img->getPos();
+		}
+		else if ((button = gameObject->getComponent<Button>()) != nullptr) {
+			origin = button->getPos();
+		}
 	}
 
 	void ECS::MoveUI::setDuration(float newduration)
@@ -40,21 +48,27 @@ namespace LoveEngine {
 		float tvalue = t / duration;
 
 		if (img != nullptr) {
-			auto v = img->getPos();
+			auto v = origin;
 			v.lerp(destination, Utilities::cubicEaseOut(tvalue));
 			img->setPos(v);
 		}
 
 		if (button != nullptr) {
-			auto v = button->getPos();
+			auto v = origin;
 			v.lerp(destination, Utilities::cubicEaseOut(tvalue));
 			button->setPos(v);
 		}
+
 	}
 
 	void LoveEngine::ECS::MoveUI::receiveMessage(Utilities::StringFormatter& sf)
 	{
 		sf.tryGetFloat("duration", duration);
+
+		Utilities::Vector3<float> dest;
+		if (sf.tryGetVector3("destination", dest)) {
+			destination = (Utilities::Vector3<int>)dest;
+		}
 	}
 
 	void LoveEngine::ECS::MoveUI::changeDestination(Utilities::Vector3<int> dest)
@@ -62,6 +76,11 @@ namespace LoveEngine {
 		t = 0;
 		destination = dest;
 		enabled = true;
+
+		if (img != nullptr)
+			origin = img->getPos();
+		else if (button != nullptr)
+			origin = button->getPos();
 	}
 
 }

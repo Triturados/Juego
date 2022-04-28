@@ -1,12 +1,13 @@
 #include "MainMenu.h"
 #include <SceneManager.h>
 #include <Definitions.h>
+#include <Input.h>
 #include <Button.h>
 #include <Vector3.h>
 #include <GameObject.h>
 #include "MoveUI.h"
-#include <Input.h>
 #include "GameTime.h"
+#include "ScaleMainMenuButton.h"
 
 namespace LoveEngine {
 
@@ -46,13 +47,15 @@ namespace LoveEngine {
 				move->changeDestination(pos);
 				move->setActive(false);
 				moveUIs[i] = move;
+
+				button->gameObject->addComponent<ScaleMainMenuButton>();
 			}
 
 			up->onClick([&]() {advance(1, 1); });
 			down->onClick([&]() {advance(-1, 1); });
 
 			for (int i = 0; i < 4; i++) {
-				advance(-1, 3);
+				advance(-1, 1);
 			}
 		}
 
@@ -120,11 +123,6 @@ namespace LoveEngine {
 			SceneManagement::changeScene(0, SceneManagement::SceneLoad::EXIT);
 		}
 
-		void MainMenu::buttonPos(Button* b)
-		{
-			std::cout << b->getPos().y << "\n";
-		}
-
 		void MainMenu::advance(int idx, float time) {
 			currentlySelected += idx;
 
@@ -149,8 +147,6 @@ namespace LoveEngine {
 				}
 			}
 
-			std::cout << "Jugar: ";
-			buttonPos(buttons[0]);
 		}
 
 
