@@ -18,6 +18,7 @@
 #include "Components/Conversation.h"
 #include "Components/Transition.h"
 #include "Components/Bullet.h"
+#include "Components/Stamina.h"
 
 namespace LoveEngine {
 
@@ -57,7 +58,7 @@ namespace LoveEngine {
 			newComponent<Conversation>("Conversation");
 			newComponent<Transition>("Transition");
 			newComponent<Bullet>("Bullet");
-
+			newComponent<Stamina>("Stamina");
 
 			inst = nullptr;
 		}

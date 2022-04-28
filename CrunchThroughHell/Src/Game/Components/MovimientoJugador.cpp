@@ -12,7 +12,7 @@
 #include "SceneManager.h"
 #include "ComportamientoBoss.h"
 #include "Definitions.h"
-
+#include "Stamina.h"
 
 void LoveEngine::ECS::MovimientoJugador::init()
 {
@@ -25,6 +25,7 @@ void LoveEngine::ECS::MovimientoJugador::init()
 	rb = gameObject->getComponent<RigidBody>();
 	hasRigidBody = rb != nullptr;
 
+	sta = gameObject->getComponent<Stamina>();
 }
 
 void LoveEngine::ECS::MovimientoJugador::postInit() {
@@ -42,7 +43,7 @@ void LoveEngine::ECS::MovimientoJugador::update()
 	movementZ = 0;
 	movementX = 0;
 	float dT = Time::getInstance()->deltaTime;
-	lastDash += dT;
+	//lastDash += dT;
 	lastKnockback += dT;
 
 	if (!input->controllerConected()) {
@@ -50,7 +51,7 @@ void LoveEngine::ECS::MovimientoJugador::update()
 		if (input->isKeyPressed(Input::InputKeys::S)) movementZ = -speed;
 		if (input->isKeyPressed(Input::InputKeys::A)) movementX = speed;
 		if (input->isKeyPressed(Input::InputKeys::D)) movementX = -speed;
-		if (input->isKeyPressed(Input::InputKeys::SPACE) && lastDash >= dashDelay) isDashing = true;
+		if (input->isKeyPressed(Input::InputKeys::SPACE) && sta->getStamina() >= dashStamina && !isDashing) sta->loseStamina(dashStamina); isDashing = true;
 		if (input->isKeyPressed(Input::InputKeys::R))
 		{
 			std::cout << "cambiando de escena" << std::endl;
@@ -66,8 +67,9 @@ void LoveEngine::ECS::MovimientoJugador::update()
 		//std::cout << controller << "\n";
 
 		if (input->isControllerButtonPressed(Input::ControllerButton::B) &&
-			input->isControllerButtonState(Input::ControllerButtonState::DOWN) && lastDash >= dashDelay)
+			input->isControllerButtonState(Input::ControllerButtonState::DOWN) && sta->getStamina() >= dashStamina && !isDashing)
 		{
+			sta->loseStamina(dashStamina);
 			isDashing = true;
 		}
 	}
@@ -100,7 +102,6 @@ void LoveEngine::ECS::MovimientoJugador::dash()
 	rb->setLinearVelocity(dashDir * dashSpeed);
 
 	if (currentDashDuration >= dashDuration) {
-		lastDash = 0;
 		currentDashDuration = 0;
 		isDashing = false;
 		dashParticles->setActive(false);
@@ -166,7 +167,6 @@ void LoveEngine::ECS::MovimientoJugador::receiveMessage(Utilities::StringFormatt
 	MAX_SPEED = speed;
 	sf.tryGetFloat("dashSpeed", dashSpeed);
 	sf.tryGetFloat("dashDuration", dashDuration);
-	sf.tryGetFloat("dashDelay", dashDelay);
 }
 
 void LoveEngine::ECS::MovimientoJugador::receiveComponent(int i, Component* c)
