@@ -10,6 +10,8 @@ namespace LoveEngine {
 		class Transform;
 		class RigidBody;
 		class ParticleSystem;
+		class Stamina;
+
 		class MovimientoJugador : public Component {
 			
 		private:
@@ -32,8 +34,8 @@ namespace LoveEngine {
 			float movementZ = 0;
 			float movementX = 0;
 
-			float dashDelay = 2; //Cada cuanto tiempo puedes dashear
-			float lastDash = 2; //Conteo del ultimo dash para aplicar el delay
+			//float dashDelay = 2; //Cada cuanto tiempo puedes dashear
+			//float lastDash = 2; //Conteo del ultimo dash para aplicar el delay
 			float lastKnockback = 2;
 			float knockbackDelay = 2;
 			float impulsoKnock = 0.5;
@@ -46,7 +48,9 @@ namespace LoveEngine {
 			bool isDashing = false;
 			bool isKnockback = false;
 	
-
+			int attackStamina = 20;
+			int dashStamina = 30;
+			Stamina* sta;
 		public:
 			void init() override;
 			void postInit() override;
