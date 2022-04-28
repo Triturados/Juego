@@ -9,6 +9,7 @@ namespace LoveEngine {
 
 		class MoveUI : public Component {
 		private:
+			Utilities::Vector3<int> origin;
 			Utilities::Vector3<int> destination;
 			Image* img;
 			Button* button;

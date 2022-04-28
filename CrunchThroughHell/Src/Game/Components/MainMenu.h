@@ -32,7 +32,6 @@ namespace LoveEngine {
 			void about();
 			void exit();
 
-			void buttonPos(Button* b);
 		};
 	}
 }
