@@ -7,6 +7,8 @@ rem Variables de batch
 set WORKING_DIR=%cd%
 set ENGINE_DIR=.\CrunchThroughHell\Engine\
 
+git submodule update --remote
+
 cd %ENGINE_DIR%
 
 call automate_reset.bat
