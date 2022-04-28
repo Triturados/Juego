@@ -5,6 +5,7 @@
 #include "Button.h"
 #include "StringFormatter.h"
 #include "Utils.h"
+#include "Window.h"
 
 namespace LoveEngine {
 
@@ -56,6 +57,9 @@ namespace LoveEngine {
 		if (button != nullptr) {
 			auto v = origin;
 			v.lerp(destination, Utilities::cubicEaseOut(tvalue));
+
+			v.x = (Window::getInstance()->getWindowSize().x - button->getSize().x) * 0.5f;
+
 			button->setPos(v);
 		}
 
@@ -69,6 +73,11 @@ namespace LoveEngine {
 		if (sf.tryGetVector3("destination", dest)) {
 			destination = (Utilities::Vector3<int>)dest;
 		}
+	}
+
+	Utilities::Vector3<int> ECS::MoveUI::getDestination()
+	{
+		return destination;
 	}
 
 	void LoveEngine::ECS::MoveUI::changeDestination(Utilities::Vector3<int> dest)

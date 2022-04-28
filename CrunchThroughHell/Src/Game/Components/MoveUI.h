@@ -21,6 +21,7 @@ namespace LoveEngine {
 			void setDuration(float newduration);
 			void update() override;
 			void receiveMessage(Utilities::StringFormatter& sf);
+			Utilities::Vector3<int> getDestination();
 			void changeDestination(Utilities::Vector3<int> dest);
 		};
 

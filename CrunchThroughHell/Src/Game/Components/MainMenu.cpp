@@ -16,7 +16,11 @@ namespace LoveEngine {
 		NewGame, Continue, HowToPlay, Settings, About, Exit, NumButtons
 	};
 
+
 	namespace ECS {
+
+		Utilities::Vector2<int> mousepos;
+
 		MainMenu::MainMenu()
 		{
 			currentlySelected = 0;
@@ -36,20 +40,22 @@ namespace LoveEngine {
 			buttons[MenuButtons::About]->onClick([&]() {about(); });
 			buttons[MenuButtons::Exit]->onClick([&]() {exit(); });
 
-
+			std::vector<ScaleMainMenuButton*> scales;
 			for (int i = 0; i < buttons.size(); i++) {
 				Button* button = buttons[i];
 				auto pos = button->getPos();
 				positions[i] = pos.y;
+
+				auto scale = button->gameObject->addComponent<ScaleMainMenuButton>();
+				scale->sendFormattedString("maxDistance: 700.0; height: 545.0");
+				scale->init();
+				scales.push_back(scale);
 
 				auto move = button->gameObject->addComponent<MoveUI>(true);
 				move->init();
 				move->changeDestination(pos);
 				move->setActive(false);
 				moveUIs[i] = move;
-
-				auto scale = button->gameObject->addComponent<ScaleMainMenuButton>()->sendFormattedString("maxDistance: 200.0; height: 550.0");
-				scale->init();
 			}
 
 			up->onClick([&]() {advance(1, 1); });
@@ -58,11 +64,26 @@ namespace LoveEngine {
 			for (int i = 0; i < 4; i++) {
 				advance(-1, 1);
 			}
+
+			int height = moveUIs[0]->getDestination().y + std::round(buttons[0]->getSize().y * 0.5f);
+
+			for (auto scale : scales) {
+				scale->setHeight(height);
+				//scale->enabled = false;
+			}
 		}
 
 		void MainMenu::update() {
-			
+
 			Input::InputManager* input = Input::InputManager::getInstance();
+
+			/*if (input->justClicked()) {
+				auto p = input->mousePosition();
+				if (true || mousepos != Utilities::Vector2<int>()) {
+					std::cout << p - mousepos << "\n";
+				}
+				mousepos = p;
+			}*/
 
 			if (scrollTimer > scrollInterval) {
 				float scroll = input->mouseWheel();

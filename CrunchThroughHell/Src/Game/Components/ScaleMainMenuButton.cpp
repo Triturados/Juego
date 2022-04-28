@@ -31,7 +31,7 @@ void LoveEngine::ECS::ScaleMainMenuButton::setHeight(float h)
 
 void LoveEngine::ECS::ScaleMainMenuButton::update()
 {
-	float dist = Utilities::abs(button->getPos().y - height);
+	float dist = Utilities::abs(std::round(button->getPos().y + button->getSize().y * 0.5f) - height);
 
 	if (dist > maxDistance) {
 		button->setSize(Utilities::Vector2(0, 0));
@@ -40,20 +40,15 @@ void LoveEngine::ECS::ScaleMainMenuButton::update()
 	}
 
 	float t = dist / maxDistance;
-
 	Utilities::Vector2<int> size = originalScale;
+
 	size = size * ( 1 - t );
-
-	Utilities::Vector2<int> offset = Utilities::Vec3toVec2Int(button->getPos());
-
-
-
+	
 	button->setSize(size);
 }
 
 void LoveEngine::ECS::ScaleMainMenuButton::receiveMessage(Utilities::StringFormatter& sf)
 {
 	sf.tryGetFloat("height", height);
-	std::cout << height << "\n";
 	sf.tryGetFloat("maxDistance", maxDistance);
 }
