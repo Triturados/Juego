@@ -51,7 +51,11 @@ void LoveEngine::ECS::MovimientoJugador::update()
 		if (input->isKeyPressed(Input::InputKeys::S)) movementZ = -speed;
 		if (input->isKeyPressed(Input::InputKeys::A)) movementX = speed;
 		if (input->isKeyPressed(Input::InputKeys::D)) movementX = -speed;
-		if (input->isKeyPressed(Input::InputKeys::SPACE) && sta->getStamina() >= dashStamina && !isDashing) sta->loseStamina(dashStamina); isDashing = true;
+		if (input->isKeyPressed(Input::InputKeys::SPACE) && sta->getStamina() >= dashStamina && !isDashing)
+		{
+			sta->loseStamina(dashStamina);
+			isDashing = true;
+		}
 		if (input->isKeyPressed(Input::InputKeys::R))
 		{
 			std::cout << "cambiando de escena" << std::endl;
