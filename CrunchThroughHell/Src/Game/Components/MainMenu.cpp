@@ -42,13 +42,14 @@ namespace LoveEngine {
 				auto pos = button->getPos();
 				positions[i] = pos.y;
 
-				auto move = button->gameObject->addComponent<MoveUI>();
+				auto move = button->gameObject->addComponent<MoveUI>(true);
 				move->init();
 				move->changeDestination(pos);
 				move->setActive(false);
 				moveUIs[i] = move;
 
-				button->gameObject->addComponent<ScaleMainMenuButton>();
+				auto scale = button->gameObject->addComponent<ScaleMainMenuButton>()->sendFormattedString("maxDistance: 200.0; height: 550.0");
+				scale->init();
 			}
 
 			up->onClick([&]() {advance(1, 1); });
@@ -61,8 +62,10 @@ namespace LoveEngine {
 
 		void MainMenu::update() {
 			
+			Input::InputManager* input = Input::InputManager::getInstance();
+
 			if (scrollTimer > scrollInterval) {
-				float scroll = Input::InputManager::getInstance()->mouseWheel();
+				float scroll = input->mouseWheel();
 				if (scroll != 0) {
 					int dir = -1;
 					if (scroll > 0) {

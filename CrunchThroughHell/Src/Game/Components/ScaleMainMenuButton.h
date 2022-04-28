@@ -9,14 +9,15 @@ namespace LoveEngine {
 
 		class ScaleMainMenuButton : public Component {
 		private:
-			float height;
 			float maxDistance;
+			float height;
 			Utilities::Vector2<int> originalScale;
-			
+
 			Button* button;
 		public:
 			ScaleMainMenuButton();
 			void init() override;
+			void setHeight(float);
 			void update() override;
 			void receiveMessage(Utilities::StringFormatter& sf);
 		};
