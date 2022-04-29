@@ -28,8 +28,10 @@ void LoveEngine::ECS::AtaqueJugador::init()
 }
 
 void LoveEngine::ECS::AtaqueJugador::postInit() {
+	comboIndex = 0;
 
-	anim->changeAnimation("attack1");
+	anim->setActive(false);
+	anim->changeAnimation("attack3");
 	anim->setActive(false);
 	anim->setLoop(false);
 
@@ -77,13 +79,14 @@ void LoveEngine::ECS::AtaqueJugador::receiveComponent(int i, Component* c)
 
 void LoveEngine::ECS::AtaqueJugador::startAttack()
 {
+	if (comboIndex >= numAnimations) comboIndex = 0;
+	std::string attackString = attackAnimations[comboIndex];
+	++comboIndex;
 
-	std::string attackRnd = attackAnimations[Utilities::Random::randomBetween(0, 3)];
-	anim->changeAnimation(attackRnd);
+	anim->changeAnimation(attackString);
 	attackDuration = anim->getDuration();
-	anim->setActive(true);
-	anim->setLoop(false);
 	anim->resetAnim();
+
 	currentDuration = 0;
 	isAttacking = true;
 
@@ -113,7 +116,6 @@ bool LoveEngine::ECS::AtaqueJugador::bossOnRange()
 	Utilities::Vector3<float> playerPos = *tr->getPos();
 	Utilities::Vector3<float> dir = bossPos - playerPos;
 
-	std::cout << dir.magnitude() << "\n";
 
 	if (dir.magnitude() > attackDistance) return false;
 

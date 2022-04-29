@@ -34,6 +34,8 @@ void LoveEngine::ECS::MovimientoJugador::init()
 
 void LoveEngine::ECS::MovimientoJugador::postInit() {
 
+	anim->setActive(false);
+
 	if (hasRigidBody)rb->setAngularFactor(Utilities::Vector3<float>(0, 0, 0));
 
 	dashParticles = tr->getChild(1)->gameObject->getComponent<ParticleSystem>();
@@ -43,6 +45,7 @@ void LoveEngine::ECS::MovimientoJugador::postInit() {
 
 void LoveEngine::ECS::MovimientoJugador::update()
 {
+
 	if (!ataque->currentlyAttacking()) changeAnimations();
 
 	movementZ = 0;
@@ -143,13 +146,14 @@ void LoveEngine::ECS::MovimientoJugador::changeAnimations()
 	else if (movementX > movementZ) {
 		anim->changeAnimation("runright");
 	}
-	else if (movementX<0 && -movementX > movementZ) {
+	else if (movementX<0 && abs(movementX) > abs(movementZ)) {
 		anim->changeAnimation("runleft");
 	}
-	else anim->changeAnimation("run");
+	else if (movementZ > 0)anim->changeAnimation("run");
+	else anim->changeAnimation("walkback");
 
 	anim->setLoop(true);
-	anim->setActive();
+
 }
 
 

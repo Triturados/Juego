@@ -20,6 +20,7 @@ namespace LoveEngine {
 			float dmg = 15;
 			float attackDistance =45;
 			float attackAngle = 45;
+			int comboIndex = 0;
 
 			float speedReductionFactor = 0.25;
 			float originalSpeed;
@@ -29,6 +30,7 @@ namespace LoveEngine {
 			Animation* anim;
 
 			std::string attackAnimations[3] = {"attack1","attack2","attack3"};
+			int numAnimations = 3;
 			
 			bool hit = false;
 			bool isAttacking = false;
