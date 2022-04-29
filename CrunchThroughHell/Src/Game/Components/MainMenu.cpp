@@ -8,6 +8,7 @@
 #include "MoveUI.h"
 #include "GameTime.h"
 #include "Window.h"
+#include <StringFormatter.h>
 #include "ScaleMainMenuButton.h"
 
 namespace LoveEngine {
@@ -24,6 +25,8 @@ namespace LoveEngine {
 
 		MainMenu::MainMenu()
 		{
+			centerButtonIdx = 2;
+			centerx = Window::getInstance()->getWindowSize().x * .5f;
 			currentlySelected = 0;
 			buttons = std::vector<Button*>(MenuButtons::NumButtons, nullptr);
 			moveUIs = std::vector<MoveUI*>(MenuButtons::NumButtons, nullptr);
@@ -48,11 +51,12 @@ namespace LoveEngine {
 				positions[i] = pos.y;
 
 				auto scale = button->gameObject->addComponent<ScaleMainMenuButton>();
-				scale->sendFormattedString("maxDistance: 700.0; height: 545.0");
+				scale->sendFormattedString("maxDistance: 700.0; height: 545.0;");
 				scale->init();
 				scales.push_back(scale);
 
 				auto move = button->gameObject->addComponent<MoveUI>(true);
+				move->sendFormattedString("centerX: " + std::to_string(centerx));
 				move->init();
 				move->changeDestination(pos);
 				move->setActive(false);
@@ -65,7 +69,6 @@ namespace LoveEngine {
 			for (int i = 0; i < 4; i++) {
 				advance(-1, 1);
 			}
-
 			int height = moveUIs[0]->getDestination().y + std::round(buttons[0]->getSize().y * 0.5f);
 
 			for (auto scale : scales) {
@@ -116,6 +119,12 @@ namespace LoveEngine {
 			buttons[i] = static_cast<Button*>(c);
 		}
 
+		void MainMenu::receiveMessage(Utilities::StringFormatter& sf) {
+
+			sf.tryGetInt("centerX", centerx);
+
+		}
+
 		int MainMenu::getButtonIdx(int i)
 		{
 			int nindex = i + currentlySelected;
@@ -160,7 +169,9 @@ namespace LoveEngine {
 			for (int i = 0; i < NumButtons; i++) {
 				auto pos = buttons[i]->getPos();
 				int buttonidx = getButtonIdx(i);
-				pos.x = (Window::getInstance()->getWindowSize().x - buttons[i]->getSize().x) * 0.5f;
+
+				buttons[i]->setInteractable(buttonidx == centerButtonIdx);
+				pos.x = centerx - (buttons[i]->getSize().x * 0.5f);
 				pos.y = positions[buttonidx];
 				if ((buttonidx == 0 && idx == 1) || (buttonidx == NumButtons - 1 && idx == -1)) {
 					moveUIs[i]->setActive(false);

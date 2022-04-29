@@ -15,6 +15,8 @@ namespace LoveEngine {
 			Button* button;
 			float t;
 			float duration;
+			bool shouldcenterX;
+			int centerx;
 		public:
 			MoveUI();
 			void init() override;

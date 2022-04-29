@@ -11,8 +11,11 @@ namespace LoveEngine {
 
 			void postInit() override;
 			void update() override;
+			void receiveMessage(Utilities::StringFormatter&) override;
 			void receiveComponent(int, Component*) override;
 		private:
+			int centerButtonIdx;
+			int centerx;
 			float scrollTimer;
 			float scrollInterval;
 			Button *up, *down;

@@ -19,6 +19,8 @@ namespace LoveEngine {
 
 		destination = origin = Utilities::Vector3<int>();
 
+		shouldcenterX = false;
+		centerx = -1;
 		enabled = false;
 	}
 
@@ -51,6 +53,10 @@ namespace LoveEngine {
 		if (img != nullptr) {
 			auto v = origin;
 			v.lerp(destination, Utilities::cubicEaseOut(tvalue));
+
+			if (centerx)
+				v.x = centerx - (button->getSize().x * 0.5f);
+
 			img->setPos(v);
 		}
 
@@ -58,7 +64,8 @@ namespace LoveEngine {
 			auto v = origin;
 			v.lerp(destination, Utilities::cubicEaseOut(tvalue));
 
-			v.x = (Window::getInstance()->getWindowSize().x - button->getSize().x) * 0.5f;
+			if (centerx)
+				v.x = centerx - (button->getSize().x * 0.5f);
 
 			button->setPos(v);
 		}
@@ -72,6 +79,10 @@ namespace LoveEngine {
 		Utilities::Vector3<float> dest;
 		if (sf.tryGetVector3("destination", dest)) {
 			destination = (Utilities::Vector3<int>)dest;
+		}
+
+		if (sf.tryGetInt("centerX", centerx)) {
+			shouldcenterX = true;
 		}
 	}
 
