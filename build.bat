@@ -1,4 +1,4 @@
-echo off
+@echo off
 
 title Realizando la build - Crunch Through Hell
 echo Comenzando con la magia!
