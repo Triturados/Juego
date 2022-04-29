@@ -11,8 +11,10 @@
 #include <iostream>
 #include "SceneManager.h"
 #include "ComportamientoBoss.h"
+#include "Animation.h"
 #include "Definitions.h"
 #include "Stamina.h"
+#include "AtaqueJugador.h"
 
 void LoveEngine::ECS::MovimientoJugador::init()
 {
@@ -26,6 +28,8 @@ void LoveEngine::ECS::MovimientoJugador::init()
 	hasRigidBody = rb != nullptr;
 
 	sta = gameObject->getComponent<Stamina>();
+	anim = gameObject->getComponent<Animation>();
+	ataque = gameObject->getComponent<AtaqueJugador>();
 }
 
 void LoveEngine::ECS::MovimientoJugador::postInit() {
@@ -39,6 +43,7 @@ void LoveEngine::ECS::MovimientoJugador::postInit() {
 
 void LoveEngine::ECS::MovimientoJugador::update()
 {
+	if (!ataque->currentlyAttacking()) changeAnimations();
 
 	movementZ = 0;
 	movementX = 0;
@@ -128,6 +133,23 @@ void LoveEngine::ECS::MovimientoJugador::knockback()
 		currentKnockbackDuration = 0;
 		isKnockback = false;
 	}
+}
+
+void LoveEngine::ECS::MovimientoJugador::changeAnimations()
+{
+	if (movementX == 0 && movementZ == 0) {
+		anim->changeAnimation("idle");
+	}
+	else if (movementX > movementZ) {
+		anim->changeAnimation("runright");
+	}
+	else if (movementX<0 && -movementX > movementZ) {
+		anim->changeAnimation("runleft");
+	}
+	else anim->changeAnimation("run");
+
+	anim->setLoop(true);
+	anim->setActive();
 }
 
 

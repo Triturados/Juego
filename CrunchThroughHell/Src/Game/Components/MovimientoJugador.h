@@ -9,9 +9,11 @@ namespace LoveEngine {
 	namespace ECS {
 		class Transform;
 		class RigidBody;
+		class Animation;
 		class ParticleSystem;
 		class Stamina;
 
+		class AtaqueJugador;
 		class MovimientoJugador : public Component {
 			
 		private:
@@ -26,6 +28,8 @@ namespace LoveEngine {
 			Transform* tr;
 			Transform* trJefe = nullptr;
 
+			AtaqueJugador* ataque;
+			Animation* anim;
 			ParticleSystem* dashParticles;
 			RigidBody* rb;
 			Input::InputManager* input;
@@ -58,6 +62,7 @@ namespace LoveEngine {
 			void stepPhysics() override;
 			void dash();
 			void knockback();
+			void changeAnimations();
 			void freeMovement(float mvX, float mvZ);
 			void aimedMovement(float mvX, float mvZ);
 			void receiveMessage(Utilities::StringFormatter& message) override;
