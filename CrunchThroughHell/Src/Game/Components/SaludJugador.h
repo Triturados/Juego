@@ -19,8 +19,8 @@ namespace LoveEngine {
 			Slider* sliderTop = nullptr;
 			Input::InputManager* input = nullptr;
 
-			int _MAX_HEALTH = 4;
-			int actHealth = 4;
+			int _MAX_HEALTH = 100;
+			int actHealth = 100;
 
 			bool hitCooldown = false;
 			float _MAX_COOLDOWN_TIME = 0.3;

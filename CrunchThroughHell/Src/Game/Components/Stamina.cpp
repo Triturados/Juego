@@ -29,12 +29,16 @@ void LoveEngine::ECS::Stamina::init()
 	//assert
 
 	tr = gameObject->getComponent<Transform>();
-	sliderBehind = gameObject->getComponent<Slider>();
+	//sliderBehind = gameObject->getComponent<Slider>();
 	//assert
 
 	actStamina = _MAX_STAMINA;
 	sliderBehind->setDetectInput(false);
 	sliderBehind->setPos(Utilities::Vector3<int>(100,100, 1));
+
+
+	sliderTop->setDetectInput(false);
+	sliderBehind->setDetectInput(false);
 }
 
 void LoveEngine::ECS::Stamina::setStamina(int sta)
@@ -48,18 +52,16 @@ void LoveEngine::ECS::Stamina::setStamina(int sta)
 
 void LoveEngine::ECS::Stamina::receiveComponent(int i, Component* c)
 {
-	/*if (i == 0)
+	if (i == 0)
 	{
 		std::cout << "Meto el  slider arriba" << "\n";
 		sliderTop = static_cast<Slider*>(c);
-		sliderTop->setDetectInput(false);
 	}
 	else if (i == 1)
 	{
 		std::cout << "Meto el slider abajo" << "\n";
 		sliderBehind = static_cast<Slider*>(c);
-		sliderBehind->setDetectInput(false);
-	}*/
+	}
 }
 
 // Metodo que tiene en cuenta el cooldown para afcetar a la vida
@@ -84,10 +86,11 @@ void LoveEngine::ECS::Stamina::update()
 {
 	int barProgress = actStamina * sliderBehind->MAX_VALUE / _MAX_STAMINA;
 
-	sliderBehind->setProgress(barProgress);
+	sliderTop->setProgress(barProgress);
 
 	barProgress = naive_lerp(sliderBehind->getProgress(), barProgress, Time::getInstance()->deltaTime);
 
+	sliderBehind->setProgress(barProgress);
 
 
 
