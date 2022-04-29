@@ -26,6 +26,7 @@ namespace LoveEngine {
 
 			float restartStamina = 0;
 			float staminaTime = 3; 
+			float comebackStamina;
 		public:
 			void init() override;
 			void update() override;

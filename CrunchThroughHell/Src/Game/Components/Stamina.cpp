@@ -33,8 +33,6 @@ void LoveEngine::ECS::Stamina::init()
 	//assert
 
 	actStamina = _MAX_STAMINA;
-	sliderBehind->setDetectInput(false);
-	sliderBehind->setPos(Utilities::Vector3<int>(100,100, 1));
 
 
 	sliderTop->setDetectInput(false);
@@ -84,6 +82,16 @@ float LoveEngine::ECS::Stamina::naive_lerp(float a, float b, float t)
 
 void LoveEngine::ECS::Stamina::update()
 {
+	if (actStamina < _MAX_STAMINA)
+	{
+		restartStamina += Time::getInstance()->deltaTime;
+
+		if (restartStamina >= staminaTime)
+		{
+			setStamina(actStamina + 3);
+		}
+	}
+
 	int barProgress = actStamina * sliderBehind->MAX_VALUE / _MAX_STAMINA;
 
 	sliderTop->setProgress(barProgress);
@@ -94,14 +102,7 @@ void LoveEngine::ECS::Stamina::update()
 
 
 
-	if (actStamina < _MAX_STAMINA)
-	{
-		restartStamina += Time::getInstance()->deltaTime;
-		if (restartStamina >= staminaTime)
-		{
-			setStamina(_MAX_STAMINA);
-		}
-	}
+
 }
 
 void LoveEngine::ECS::Stamina::stepPhysics()
