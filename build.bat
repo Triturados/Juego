@@ -20,8 +20,8 @@ call automate.bat
 cd %WORKING_DIR%
 
 rem Compilacion de la solucion del juego
-msbuild %CRUNCH_THROUGH_HELL_SOL% /p:configuration=Debug /p:Platform=x64
-msbuild %CRUNCH_THROUGH_HELL_SOL% /p:configuration=Release /p:Platform=x64
+msbuild %CRUNCH_THROUGH_HELL_SOL% /p:configuration=Debug /p:Platform=x64 /p:PlatformToolset=v142
+msbuild %CRUNCH_THROUGH_HELL_SOL% /p:configuration=Release /p:Platform=x64 /p:PlatformToolset=v142
 
 echo Magia hecha, a jugar!
 
