@@ -93,6 +93,9 @@
     <ClCompile Include="..\Src\Game\Components\BossMelee.cpp">
       <Filter>Components\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\Src\Game\Components\BossDistancia.cpp">
+      <Filter>Components\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Src\Game\Components\ComponenteDeContar.h">
@@ -162,6 +165,9 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="..\Src\Game\Components\BossMelee.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Game\Components\BossDistancia.h">
       <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>

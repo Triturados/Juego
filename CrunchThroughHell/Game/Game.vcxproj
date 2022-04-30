@@ -97,6 +97,7 @@
   <ItemGroup>
     <ClCompile Include="..\Src\ComponentDefinition.cpp" />
     <ClCompile Include="..\Src\Game\Components\AtaqueJugador.cpp" />
+    <ClCompile Include="..\Src\Game\Components\BossDistancia.cpp" />
     <ClCompile Include="..\Src\Game\Components\BossMelee.cpp" />
     <ClCompile Include="..\Src\Game\Components\Bullet.cpp" />
     <ClCompile Include="..\Src\Game\Components\CamFollow.cpp" />
@@ -121,6 +122,7 @@
   <ItemGroup>
     <ClInclude Include="..\Src\ComponentDefinition.h" />
     <ClInclude Include="..\Src\Game\Components\AtaqueJugador.h" />
+    <ClInclude Include="..\Src\Game\Components\BossDistancia.h" />
     <ClInclude Include="..\Src\Game\Components\BossMelee.h" />
     <ClInclude Include="..\Src\Game\Components\Bullet.h" />
     <ClInclude Include="..\Src\Game\Components\CamFollow.h" />
