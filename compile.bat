@@ -1,11 +1,9 @@
 @echo off
 
-title Te faltan dos veranos - Crunch Through Hell
-echo Comenzando con lo que cualquiera haría pero a ti te lo tiene que hacer un ejecutable de windows!
+title Actualizacion de submodulo y compilacion de motor y juego - Crunch Through Hell
+echo Comenzando...
 
 rem Variables de batch
-set WORKING_DIR=%cd%
-set ENGINE_DIR=.\CrunchThroughHell\Engine\
 set SKELETON_SOL=.\CrunchThroughHell\Engine\Skeleton\Skeleton.sln
 set CRUNCH_THROUGH_HELL_SOL=.\CrunchThroughHell\CrunchThroughHell.sln
 

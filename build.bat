@@ -4,7 +4,7 @@ title Realizando la build - Crunch Through Hell
 echo Comenzando con la magia!
 
 rem Variables de batch
-set WORKING_DIR=%cd%
+set GAME_ROOT_DIR=%cd%
 set ENGINE_DIR=.\CrunchThroughHell\Engine\
 set CRUNCH_THROUGH_HELL_SOL=.\CrunchThroughHell\CrunchThroughHell.sln
 
@@ -17,7 +17,7 @@ call automate_reset.bat
 
 call automate.bat
 
-cd %WORKING_DIR%
+cd %GAME_ROOT_DIR%
 
 rem Compilacion de la solucion del juego
 msbuild %CRUNCH_THROUGH_HELL_SOL% /p:configuration=Debug /p:Platform=x64 /p:PlatformToolset=v142
