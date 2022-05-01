@@ -793,6 +793,22 @@ function scene3() -- Overworld
 
     createVignette()
     scene:createObject("Pause Game"):addComponent("PauseGame")
+
+    local bullet = scene:createObject("Bullet")
+    bullet:addComponent("Transform"):sendMsg([[        
+    scale: 1,1,1;
+    position: 0,10,0;
+    rotation: 0,0,0;]])
+    bullet:addComponent("Mesh"):sendMsg([[meshName: fireball.mesh]])
+    local bulletrb = bullet:addComponent('Rigidbody')
+    bulletrb:sendMsg([[
+        state: kinematic;
+        mass: 0.0;
+        shape: sphere; 
+        restitution: 1.0;
+        colliderScale: 2,2,2;
+    ]])
+    bullet:addComponent("Bullet"):sendMsg([[direction: 10,0,0; velocity: 2.0; damage: 10;]])
 end
 
 function scene4() -- Boss1
