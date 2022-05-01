@@ -15,6 +15,7 @@ namespace LoveEngine {
 				void setTarget(Transform* t);
 				void setTransform(Transform* t);
 				void setRB(RigidBody* rb_);
+                void setAnim(Animation* a);
 				bool conditionsFulfilled() const final;
 				void onActionStart() final;
 				void activeUpdate() final;
@@ -22,8 +23,13 @@ namespace LoveEngine {
 
 			protected:
 				RigidBody* rb;
+                Animation* anim = nullptr;
 				Transform* target = nullptr;
 				Transform* tr = nullptr;
+
+                std::string attackAnimations[3] = { "attack1","attack2","attack3" };
+                int numAnimations = 3;
+                int comboIndex = 0;
 			};
 
             class Chase : public Action
@@ -33,6 +39,7 @@ namespace LoveEngine {
                 void setTarget(Transform* t);
                 void setTransform(Transform* t);
                 void setRB(RigidBody* rb_);
+                void setAnim(Animation* a);
                 void activeUpdate() final;
             protected:
                 float maxVel = 10;
@@ -40,6 +47,7 @@ namespace LoveEngine {
                 RigidBody* rb = nullptr;
                 Transform* target = nullptr;
                 Transform* tr = nullptr;
+                Animation* anim = nullptr;
             };
 
             class Leap : public Action
@@ -49,6 +57,7 @@ namespace LoveEngine {
                 void setTarget(Transform* t);
                 void setTransform(Transform* t);
                 void setRB(RigidBody* rb_);
+                void setAnim(Animation* a);
                 bool conditionsFulfilled() const final;
                 void onActionStart() final;
                 void activeUpdate() final;
@@ -56,6 +65,7 @@ namespace LoveEngine {
                 RigidBody* rb;
                 Transform* target = nullptr;
                 Transform* tr = nullptr;
+                Animation* anim = nullptr;
             private:
                 float hrzImpulse = 40.0;        // velocidad inicial en horizontal
                 float jumpZenith = 20.0;        // altura del punto mas alto del salto

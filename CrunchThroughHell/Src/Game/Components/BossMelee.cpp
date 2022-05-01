@@ -7,6 +7,7 @@
 #include "GameTime.h"
 #include <StringFormatter.h>
 #include <iostream>
+#include <Animation.h>
 
 namespace LoveEngine
 {
@@ -34,14 +35,18 @@ namespace LoveEngine
         void BossMelee::init()
         {
             tr = gameObject->getComponent<Transform>();
+            anim = gameObject->getComponent<Animation>();
             RigidBody* rb = gameObject->getComponent<RigidBody>();
             rb->setMass(1000);
             attack->setTransform(tr);
             attack->setRB(rb);
+            attack->setAnim(anim);
             chase->setTransform(tr);
             chase->setRB(rb);
+            chase->setAnim(anim);
             leap->setTransform(tr);
             leap->setRB(rb);
+            leap->setAnim(anim);
             ComportamientoBoss::init();
         }
 
@@ -56,7 +61,8 @@ namespace LoveEngine
 
         void BossMelee::MeleeAttack::setTransform(Transform* t) { tr = t; };
 
-        void BossMelee::MeleeAttack::setRB(RigidBody* rb_) { rb = rb_; };
+        void BossMelee::MeleeAttack::setRB(RigidBody* rb_) { rb = rb_; }
+        void BossMelee::MeleeAttack::setAnim(Animation* a) { anim = a; };
 
         bool BossMelee::MeleeAttack::conditionsFulfilled() const
         {
@@ -73,6 +79,12 @@ namespace LoveEngine
                 return;
             }
             // TO DO: start animation
+            //if (comboIndex >= numAnimations) comboIndex = 0;
+            //std::string attackString = attackAnimations[comboIndex];
+            //++comboIndex;
+
+            //if (!anim->playingAnimation(attackString))
+            //    anim->changeAnimation(attackString);
         }
 
         void BossMelee::MeleeAttack::activeUpdate()
@@ -87,6 +99,7 @@ namespace LoveEngine
         void BossMelee::Chase::setTransform(Transform* t) { tr = t; };
 
         void BossMelee::Chase::setRB(RigidBody* rb_) { rb = rb_; };
+        void BossMelee::Chase::setAnim(Animation* a) { anim = a; };
 
         void BossMelee::Chase::activeUpdate()
         {
@@ -106,6 +119,9 @@ namespace LoveEngine
                 dir.normalize();
                 float angle = std::atan2(dir.x, dir.z);
                 rb->setRotation(Utilities::Vector3<int>(0, 1, 0), angle);
+
+                anim->changeAnimation("walk");
+                anim->setLoop(true);
             }
         }
 
@@ -119,6 +135,7 @@ namespace LoveEngine
         void BossMelee::Leap::setTransform(Transform* t) { tr = t; };
 
         void BossMelee::Leap::setRB(RigidBody* rb_) { rb = rb_; };
+        void BossMelee::Leap::setAnim(Animation* a) { anim = a; };
 
         bool BossMelee::Leap::conditionsFulfilled() const
         {
@@ -152,6 +169,7 @@ namespace LoveEngine
             float angle = std::atan2(dir.x, dir.z);
             rb->setRotation(Utilities::Vector3<int>(0, 1, 0), angle);
 
+            anim->resetAnim();
 
             lockAction = true;
         }
@@ -168,6 +186,8 @@ namespace LoveEngine
                 lockAction = false;
             }
             //end animation
+            anim->changeAnimation("jump");
+            anim->setLoop(true);
         }
 #pragma endregion
     }
