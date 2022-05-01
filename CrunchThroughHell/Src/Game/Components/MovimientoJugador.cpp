@@ -38,7 +38,11 @@ void LoveEngine::ECS::MovimientoJugador::postInit() {
 
 	if (hasRigidBody)rb->setAngularFactor(Utilities::Vector3<float>(0, 0, 0));
 
-	dashParticles = tr->getChild(1)->gameObject->getComponent<ParticleSystem>();
+	//EL DASH TIENE QUE SER HIJO DEL JUGADOR
+	int indx = 0;
+	while (tr->getChild(indx)->gameObject->getComponent<ParticleSystem>() == nullptr)
+		indx++;
+	dashParticles = tr->getChild(indx)->gameObject->getComponent<ParticleSystem>();
 
 	if (bossRb != nullptr) bossTr = bossRb->gameObject->getComponent<Transform>();
 }
@@ -51,7 +55,7 @@ void LoveEngine::ECS::MovimientoJugador::update()
 	movementZ = 0;
 	movementX = 0;
 	float dT = Time::getInstance()->deltaTime;
-	//lastDash += dT;
+	lastDash += dT;
 	lastKnockback += dT;
 
 	if (!input->controllerConected()) {
@@ -59,10 +63,12 @@ void LoveEngine::ECS::MovimientoJugador::update()
 		if (input->isKeyPressed(Input::InputKeys::S)) movementZ = -speed;
 		if (input->isKeyPressed(Input::InputKeys::A)) movementX = speed;
 		if (input->isKeyPressed(Input::InputKeys::D)) movementX = -speed;
-		if (input->isKeyPressed(Input::InputKeys::SPACE) && sta->getStamina() >= dashStamina && !isDashing)
+		if (input->isKeyPressed(Input::InputKeys::SPACE) && sta->getStamina() >= dashStamina && !isDashing && lastDash >= dashDelay && (movementX != 0 || movementZ != 0))
 		{
+			lastDash = 0;
 			sta->loseStamina(dashStamina);
 			isDashing = true;
+			currentDashDuration = 0;
 		}
 		if (input->isKeyPressed(Input::InputKeys::R))
 		{
@@ -79,10 +85,11 @@ void LoveEngine::ECS::MovimientoJugador::update()
 		//std::cout << controller << "\n";
 
 		if (input->isControllerButtonPressed(Input::ControllerButton::B) &&
-			input->isControllerButtonState(Input::ControllerButtonState::DOWN) && sta->getStamina() >= dashStamina && !isDashing)
+			input->isControllerButtonState(Input::ControllerButtonState::DOWN) && sta->getStamina() >= dashStamina && !isDashing && lastDash >= dashDelay && (movementX != 0 || movementZ != 0) )
 		{
 			sta->loseStamina(dashStamina);
 			isDashing = true;
+			currentDashDuration = 0;
 		}
 	}
 
@@ -143,7 +150,7 @@ void LoveEngine::ECS::MovimientoJugador::changeAnimations()
 	if (movementX == 0 && movementZ == 0) {
 		anim->changeAnimation("idle");
 	}
-	else if (movementX > movementZ) {
+	else if (movementX > abs(movementZ)) {
 		anim->changeAnimation("runright");
 	}
 	else if (movementX<0 && abs(movementX) > abs(movementZ)) {

@@ -38,16 +38,16 @@ namespace LoveEngine {
 			float movementZ = 0;
 			float movementX = 0;
 
-			//float dashDelay = 2; //Cada cuanto tiempo puedes dashear
-			//float lastDash = 2; //Conteo del ultimo dash para aplicar el delay
+			float dashDelay = 1; //Cada cuanto tiempo puedes dashear
+			float lastDash = 1; //Conteo del ultimo dash para aplicar el delay
 			float lastKnockback = 2;
 			float knockbackDelay = 2;
 			float impulsoKnock = 0.5;
 
 			float dashDuration = 0.1; //Cuanto dura el movimiento del dash
 			float currentDashDuration = 0; //Conteo de la duracion del dash
-			float knockbackDuration = 0.1; //Cuanto dura el movimiento del dash
-			float currentKnockbackDuration = 0; //Conteo de la duracion del dash
+			float knockbackDuration = 0.1; //Cuanto dura el movimiento del knockback
+			float currentKnockbackDuration = 0; //Conteo de la duracion del knockback
 			float dashSpeed = 220; //Velocidad del dash
 			bool isDashing = false;
 			bool isKnockback = false;
