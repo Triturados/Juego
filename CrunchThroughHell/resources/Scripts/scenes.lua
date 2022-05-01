@@ -699,7 +699,7 @@ function scene3() -- Overworld
         position: 50,20,-50;
         rotation: 0,0,0;
     ]])
-    local bossAI = boss:addComponent("ComportamientoBoss")
+    local bossAI = boss:addComponent("BossMelee")
     bossAI:sendComponent(0, tr)
     boss:addComponent("Mesh"):sendMsg([[meshName: Boss.mesh]])
     local bossRb = boss:addComponent('Rigidbody')

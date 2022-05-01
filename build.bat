@@ -9,7 +9,11 @@ set ENGINE_DIR=.\CrunchThroughHell\Engine\
 set CRUNCH_THROUGH_HELL_SOL=.\CrunchThroughHell\CrunchThroughHell.sln
 
 rem Inicializamos el submódulo
-git submodule update --remote
+git submodule init
+git submodule update
+
+rem Se aniade el Ogre.log que se ignora
+type nul > .\CrunchThroughHell\config\ogre.log
 
 cd %ENGINE_DIR%
 
