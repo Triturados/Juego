@@ -84,16 +84,16 @@
     <ClCompile Include="..\..\src\Game\Components\AtaqueJugador.cpp">
       <Filter>Components\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\Game\Components\ScaleMainMenuButton.cpp">
+    <ClCompile Include="..\..\src\Game\Components\ScaleMainMenuButton.cpp">
       <Filter>Components\Menu\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\Game\Components\Stamina.cpp">
+    <ClCompile Include="..\..\src\Game\Components\Stamina.cpp">
       <Filter>Components\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\Game\Components\BossMelee.cpp">
+    <ClCompile Include="..\..\src\Game\Components\BossMelee.cpp">
       <Filter>Components\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\Game\Components\BossDistancia.cpp">
+    <ClCompile Include="..\..\src\Game\Components\BossDistancia.cpp">
       <Filter>Components\Source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -158,16 +158,16 @@
     <ClInclude Include="..\..\src\Game\Components\AtaqueJugador.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\Src\Game\Components\ScaleMainMenuButton.h">
+    <ClInclude Include="..\..\src\Game\Components\ScaleMainMenuButton.h">
       <Filter>Components\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="..\Src\Game\Components\Stamina.h">
+    <ClInclude Include="..\..\src\Game\Components\Stamina.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\Src\Game\Components\BossMelee.h">
+    <ClInclude Include="..\..\src\Game\Components\BossMelee.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\Src\Game\Components\BossDistancia.h">
+    <ClInclude Include="..\..\src\Game\Components\BossDistancia.h">
       <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
