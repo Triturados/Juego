@@ -12,6 +12,9 @@ rem Inicializamos el submódulo
 git submodule init
 git submodule update
 
+rem Se aniade el Ogre.log que se ignora
+type nul > .\CrunchThroughHell\config\ogre.log
+
 cd %ENGINE_DIR%
 
 call automate_reset.bat
