@@ -19,7 +19,9 @@ namespace LoveEngine {
 			int lastBullet;
 			int count;
 			int random;
+			int interval;
 
+			void createBullet();
 		public:
 			void init() override;
 			void update() override;
