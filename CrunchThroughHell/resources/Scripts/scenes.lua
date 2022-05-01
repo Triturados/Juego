@@ -796,19 +796,20 @@ function scene3() -- Overworld
 
     local bullet = scene:createObject("Bullet")
     bullet:addComponent("Transform"):sendMsg([[        
-    scale: 1,1,1;
+    scale: 2,2,2;
     position: 0,10,0;
     rotation: 0,0,0;]])
     bullet:addComponent("Mesh"):sendMsg([[meshName: fireball.mesh]])
     local bulletrb = bullet:addComponent('Rigidbody')
     bulletrb:sendMsg([[
+        trigger: true
         state: kinematic;
-        mass: 0.0;
-        shape: sphere; 
+        mass: 1.0;
+        shape: cube; 
         restitution: 1.0;
-        colliderScale: 2,2,2;
+        colliderScale: 3,3,3;
     ]])
-    bullet:addComponent("Bullet"):sendMsg([[direction: 10,0,0; velocity: 2.0; damage: 10;]])
+    bullet:addComponent("Bullet"):sendMsg([[direction: 1,0,0; velocity: 20.0; damage: 10;]])
 end
 
 function scene4() -- Boss1

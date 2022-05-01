@@ -100,6 +100,7 @@
     <ClCompile Include="..\..\src\Game\Components\BossDistancia.cpp" />
     <ClCompile Include="..\..\src\Game\Components\BossMelee.cpp" />
     <ClCompile Include="..\..\src\Game\Components\Bullet.cpp" />
+    <ClCompile Include="..\..\Src\Game\Components\BulletGenerator.cpp" />
     <ClCompile Include="..\..\src\Game\Components\CamFollow.cpp" />
     <ClCompile Include="..\..\src\Game\Components\CamRotate.cpp" />
     <ClCompile Include="..\..\src\Game\Components\ComponenteDeContar.cpp" />
@@ -125,6 +126,7 @@
     <ClInclude Include="..\..\src\Game\Components\BossDistancia.h" />
     <ClInclude Include="..\..\src\Game\Components\BossMelee.h" />
     <ClInclude Include="..\..\src\Game\Components\Bullet.h" />
+    <ClInclude Include="..\..\Src\Game\Components\BulletGenerator.h" />
     <ClInclude Include="..\..\src\Game\Components\CamFollow.h" />
     <ClInclude Include="..\..\src\Game\Components\CamRotate.h" />
     <ClInclude Include="..\..\src\Game\Components\ComponenteDeContar.h" />

@@ -13,6 +13,7 @@
 LoveEngine::ECS::Bullet::Bullet()
 {
 	dir = new Utilities::Vector3<float>(0, 0, 0);
+	lastPos = new Utilities::Vector3<float>(0, 0, 0);
 	damage = 0; tr = nullptr;
 	vel = 0; mesh = nullptr;
 }
@@ -26,6 +27,7 @@ void LoveEngine::ECS::Bullet::init()
 {
 	lifetime = Timer::deleteGameObject(gameObject, 10);
 	tr = gameObject->getComponent<Transform>();
+	*lastPos = *tr->getPos();
 	dir->normalize();
 	mesh = gameObject->getComponent<Mesh>();
 	rb = gameObject->getComponent<RigidBody>();
@@ -35,11 +37,14 @@ void LoveEngine::ECS::Bullet::update()
 {
 	std::cout << "Este componente se autodestruira en: " << lifetime->timeLeft() << "\n";
 	
-	dir->x = dir->x * vel;
-	dir->y = dir->y * vel;
-	dir->z = dir->z * vel;
+	rb->setLinearVelocity(*dir * vel);
 
-	tr->translate(*dir);
+	Utilities::Vector3<float> angle = *lastPos - *tr->getPos();
+	angle.normalize();
+	float angleF = std::atan2(angle.x, angle.z);
+
+	rb->setRotation(Utilities::Vector3<int>(0, 1, 0), angleF);
+	*lastPos = *tr->getPos();
 }
 
 void LoveEngine::ECS::Bullet::receiveMessage(Utilities::StringFormatter& sf)
@@ -54,11 +59,16 @@ void LoveEngine::ECS::Bullet::receiveMessage(Utilities::StringFormatter& sf)
 	dir->z = direction.z;
 }
 
-void LoveEngine::ECS::Bullet::enterCollision(GameObject* other)
+void LoveEngine::ECS::Bullet::colliding(GameObject* other)
 {
 	if (!other->getComponent<SaludJugador>()) return;
 
 	other->getComponent<SaludJugador>()->takeDamage(damage);
 	mesh->setVisibility(false);
 	gameObject->removeGameObject();
+}
+
+void LoveEngine::ECS::Bullet::enterCollision(GameObject* other)
+{
+	colliding(other);
 }

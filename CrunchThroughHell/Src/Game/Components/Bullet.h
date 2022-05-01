@@ -17,6 +17,7 @@ namespace LoveEngine {
 			Mesh* mesh;
 			RigidBody* rb;
 			Utilities::Vector3<float>* dir;
+			Utilities::Vector3<float>* lastPos;
 			float vel;
 			int damage;
 		public:
@@ -25,6 +26,7 @@ namespace LoveEngine {
 			void init() override;
 			void update() override;
 			void receiveMessage(Utilities::StringFormatter& sf) override;
+			void colliding(GameObject* other) override;
 			void enterCollision(GameObject* other) override;
 		};
 	}
