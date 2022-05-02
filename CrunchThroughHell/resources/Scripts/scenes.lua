@@ -158,7 +158,7 @@ function scene0() -- Main menu
         local w = 200
         local x = (width() - w) / 2;
         button:sendMsg([[
-            material: mainmenuButton;
+            material: mainmenuButton ]]..i..[[;
             width: ]] .. w .. [[;
             height: 50;
             posX: ]] .. round(x) .. [[;

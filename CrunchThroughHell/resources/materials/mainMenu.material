@@ -102,6 +102,105 @@ material mainmenuButton{
 }
 
 
+material mainmenuButton0{
+	technique{
+		pass{
+			lighting off
+			depth_check off
+			scene_blend alpha_blend
+			texture_unit {
+				texture buttonPlay.png
+				colour_op modulate
+			}
+		}
+	}
+}
+
+material mainmenuButton1{
+	technique{
+		pass{
+			lighting off
+			depth_check off
+			scene_blend alpha_blend
+			texture_unit {
+				texture buttonContinue.png
+				colour_op modulate
+			}
+		}
+	}
+}
+
+material mainmenuButton2{
+	technique{
+		pass{
+			lighting off
+			depth_check off
+			scene_blend alpha_blend
+			texture_unit {
+				texture buttonHowToPlay.png
+				colour_op modulate
+			}
+		}
+	}
+}
+
+material mainmenuButton3{
+	technique{
+		pass{
+			lighting off
+			depth_check off
+			scene_blend alpha_blend
+			texture_unit {
+				texture buttonSettings.png
+				colour_op modulate
+			}
+		}
+	}
+}
+
+material mainmenuButton4{
+	technique{
+		pass{
+			lighting off
+			depth_check off
+			scene_blend alpha_blend
+			texture_unit {
+				texture buttonAbout.png
+				colour_op modulate
+			}
+		}
+	}
+}
+
+material mainmenuButton5{
+	technique{
+		pass{
+			lighting off
+			depth_check off
+			scene_blend alpha_blend
+			texture_unit {
+				texture buttonExit.png
+				colour_op modulate
+			}
+		}
+	}
+}
+
+material mainmenuButton6{
+	technique{
+		pass{
+			lighting off
+			depth_check off
+			scene_blend alpha_blend
+			texture_unit {
+				texture buttonCredits.png
+				colour_op modulate
+			}
+		}
+	}
+}
+
+
 material pauseMenu{
 	technique{
 		pass{
