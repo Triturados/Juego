@@ -8,6 +8,7 @@
 #include <StringFormatter.h>
 #include <iostream>
 #include <Animation.h>
+#include <Timer.h>
 
 namespace LoveEngine
 {
@@ -72,6 +73,7 @@ namespace LoveEngine
 
         void BossMelee::MeleeAttack::onActionStart()
         {
+            std::cout << "\n\n\n\n\n\n\nAttacking\n\n\n\n\n\n\n\n";
             setPriority(30.0);
             if (target == nullptr || rb == nullptr || tr == nullptr)
             {
@@ -80,16 +82,22 @@ namespace LoveEngine
             }
             // TO DO: start animation
             //if (comboIndex >= numAnimations) comboIndex = 0;
-            //std::string attackString = attackAnimations[comboIndex];
+            AttackAnimation attack = attackAnimations[comboIndex++ % numAnimations];
             //++comboIndex;
 
-            //if (!anim->playingAnimation(attackString))
-            //    anim->changeAnimation(attackString);
+            if (!anim->playingAnimation(attack.animation))
+                anim->changeAnimation(attack.animation);
+
+            lockAction = true;
+
+            ECS::Timer::invoke([&](ECS::Timer*) {
+                attackFinished();
+                }, attack.duration);
         }
 
-        void BossMelee::MeleeAttack::activeUpdate()
+        void BossMelee::MeleeAttack::attackFinished()
         {
-            // TO DO: lookat target
+            lockAction = false;
         }
 
         BossMelee::Chase::Chase(Agent* agent_) : Action(agent_, 0.0) { };
@@ -107,9 +115,6 @@ namespace LoveEngine
             {
                 Vector3 targetPos = *(target->getPos());
                 Vector3 pos = *(tr->getPos());
-
-                //Vector3 vel = (targetPos - pos).getNormalized() * acc;
-                //rb->setLinearVelocity(vel);
 
                 Vector3 force = (targetPos - pos).getNormalized() * (acc / 10.0) * rb->getMass();
                 rb->addForce(force, Vector3(0, 0, 0), ForceMode::IMPULSE);
@@ -145,7 +150,7 @@ namespace LoveEngine
 
         void BossMelee::Leap::onActionStart()
         {
-            //std::cout << "\n\n\n\n\n\n\nLeaping\n\n\n\n\n\n\n\n";
+            std::cout << "\n\n\n\n\n\n\nLeaping\n\n\n\n\n\n\n\n";
             if (target == nullptr || rb == nullptr || tr == nullptr)
             {
                 throw new std::exception("Faltan referencias para una accion");
@@ -179,7 +184,7 @@ namespace LoveEngine
             //TO DO: make height calculation relative to hitbox size, or some other way entirely
             if (rb->getVelocity()->y < 0 && tr->getPos()->y < 22) 
             {
-                //std::cout << "Grounded";
+                std::cout << "Grounded";
                 rb->setLinearVelocity(Vector3(0, 0, 0));
                 //TO DO: add recovery timer on landing
                 setPriority(80);

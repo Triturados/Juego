@@ -5,6 +5,8 @@
 namespace LoveEngine {
 
 	namespace ECS {
+        class Timer;
+
 		class BossMelee : public ComportamientoBoss {
 		protected:
 #pragma region Actions
@@ -18,7 +20,6 @@ namespace LoveEngine {
                 void setAnim(Animation* a);
 				bool conditionsFulfilled() const final;
 				void onActionStart() final;
-				void activeUpdate() final;
                
 
 			protected:
@@ -27,9 +28,16 @@ namespace LoveEngine {
 				Transform* target = nullptr;
 				Transform* tr = nullptr;
 
-                std::string attackAnimations[3] = { "attack1","attack2","attack3" };
+                struct AttackAnimation {
+                    std::string animation;
+                    float duration;
+                };
+
+                AttackAnimation attackAnimations[3] = { { "attack1", 1.3 }, { "attack2", 1.3 }, { "attack3", 1.3 } };
                 int numAnimations = 3;
                 int comboIndex = 0;
+            private:
+                void attackFinished();
 			};
 
             class Chase : public Action
