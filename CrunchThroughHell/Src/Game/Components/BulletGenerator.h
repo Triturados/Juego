@@ -17,7 +17,7 @@ namespace LoveEngine {
 
 		private:
 			Timer* timer;
-			int random;
+			Transform* tr;
 			int interval;
 			Utilities::Vector3<float>* area;
 

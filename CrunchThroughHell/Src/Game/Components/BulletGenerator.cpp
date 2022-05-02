@@ -13,27 +13,33 @@
 
 void LoveEngine::ECS::BulletGenerator::createBullet()
 {
+	Utilities::Vector3<float> pos;
+	pos.x = area->x + rand() % ((int)area->z * 2);
+	pos.z = tr->getPos()->z;
+	pos.y = tr->getPos()->y;
+
 	GameObject* bullet = LoveEngine::SceneManagement::SceneManager::getInstance()->getCurrentScene()->createGameObject("bullet");
 	auto bulletTr = bullet->addComponent<Transform>();
-	bulletTr->sendFormattedString("position: 0,0,0; scale: 2,2,2; rotation: 0,0,0");
+	bulletTr->sendFormattedString("position: 0,0,0; scale: 3,3,3; rotation: 0,0,0");
+	bulletTr->setPos(pos);
 	auto bulletMesh = bullet->addComponent<Mesh>();
 	bulletMesh->sendFormattedString("meshName: fireball.mesh");
 	auto bulletRigid = bullet->addComponent<RigidBody>();
 	bulletRigid->sendFormattedString("trigger: true; state: kinematic; mass: 1.0; shape: cube; restitution: 1.0; colliderScale: 3, 3, 3;");
 	auto bulletB = bullet->addComponent<Bullet>();
-	bulletB->sendFormattedString("direction: 1,0,0; velocity: 20.0; damage: 10;");
+	bulletB->sendFormattedString("direction: 0,0,1; velocity: 20.0; damage: 10;");
 	bulletTr->init(); bulletMesh->init(); bulletRigid->init(); bulletB->init();
 }
 
-LoveEngine::ECS::BulletGenerator::BulletGenerator() : interval(0), random(0)
+LoveEngine::ECS::BulletGenerator::BulletGenerator() : interval(0)
 {
 	area = new Utilities::Vector3<float>(0,0,0);
-	timer = nullptr;
+	timer = nullptr; tr = nullptr;
 }
 
 void LoveEngine::ECS::BulletGenerator::init()
 {
-	random = 0;
+	tr = gameObject->getComponent<Transform>();
 	timer = ECS::Timer::repeat([&](ECS::Timer*) { createBullet(); }, interval);
 }
 

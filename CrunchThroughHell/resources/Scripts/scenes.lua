@@ -319,11 +319,6 @@ function scene3() -- Overworld
         rotation: 0,0,0;
     ]])
 
-    local muroM1 = muro1:addComponent("Mesh")
-    muroM1:sendMsg([[
-        meshName: cube.mesh;
-    ]])
-
     local rBMuro1 = muro1:addComponent('Rigidbody')
     rBMuro1:sendMsg([[
         trigger: false;
@@ -331,7 +326,7 @@ function scene3() -- Overworld
         mass: 0.0;
         shape: cube; 
         restitution: 0.9;
-        colliderScale: 1,10,150;
+        colliderScale: 10,30,150;
     ]])
     --MURO2
     local muro2 = scene:createObject("muro2")
@@ -343,11 +338,6 @@ function scene3() -- Overworld
         rotation: 0,0,0;
     ]])
 
-    local muroM2 = muro2:addComponent("Mesh")
-    muroM2:sendMsg([[
-        meshName: cube.mesh;
-    ]])
-
     local rBMuro2 = muro2:addComponent('Rigidbody')
     rBMuro2:sendMsg([[
         trigger: false;
@@ -355,7 +345,7 @@ function scene3() -- Overworld
         mass: 0.0;
         shape: cube; 
         restitution: 0.9;
-        colliderScale: 1,10,150;
+        colliderScale: 10,30,150;
     ]])
 
     --MURO3
@@ -368,11 +358,6 @@ function scene3() -- Overworld
         rotation: 0,0,0;
     ]])
 
-    local muroM3 = muro3:addComponent("Mesh")
-    muroM3:sendMsg([[
-        meshName: cube.mesh;
-    ]])
-
     local rBMuro3 = muro3:addComponent('Rigidbody')
     rBMuro3:sendMsg([[
         trigger: false;
@@ -380,7 +365,7 @@ function scene3() -- Overworld
         mass: 0.0;
         shape: cube; 
         restitution: 0.9;
-        colliderScale: 150,10,1;
+        colliderScale: 150,30,10;
     ]])
 
     local muro4 = scene:createObject("muro4")
@@ -392,11 +377,6 @@ function scene3() -- Overworld
         rotation: 0,0,0;
     ]])
 
-    local muroM4 = muro4:addComponent("Mesh")
-    muroM4:sendMsg([[
-        meshName: cube.mesh;
-    ]])
-
     local rBMuro4 = muro4:addComponent('Rigidbody')
     rBMuro4:sendMsg([[
         trigger: false;
@@ -404,7 +384,7 @@ function scene3() -- Overworld
         mass: 0.0;
         shape: cube; 
         restitution: 0.9;
-        colliderScale: 150,10,1;
+        colliderScale: 150,30,10;
     ]])
 
     -- Suelo--
@@ -797,11 +777,11 @@ function scene3() -- Overworld
     local bulletGenerator = scene:createObject("BulletGen")
     bulletGenerator:addComponent("Transform"):sendMsg([[        
     scale: 1,1,1;
-    position: 0,10,0;
+    position: 0,10,-150;
     rotation: 0,0,0;]])
     bulletGenerator:addComponent("BulletGenerator"):sendMsg([[
-    interval: 2;
-    area: 1,1,1;
+    interval: 5;
+    area: -100,20,100;
     ]])
 end
 
