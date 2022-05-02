@@ -191,7 +191,7 @@ namespace LoveEngine
                 lockAction = false;
             }
             //end animation
-            anim->changeAnimation("jump");
+            anim->changeAnimation("jumpend");
             anim->setLoop(true);
         }
 #pragma endregion
