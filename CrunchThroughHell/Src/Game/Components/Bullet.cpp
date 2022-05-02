@@ -79,5 +79,8 @@ void LoveEngine::ECS::Bullet::colliding(GameObject* other)
 
 void LoveEngine::ECS::Bullet::enterCollision(GameObject* other)
 {
-	colliding(other);
+	if (!other->getComponent<SaludJugador>()) return;
+
+	hit = true;
+	hitObject = other;
 }

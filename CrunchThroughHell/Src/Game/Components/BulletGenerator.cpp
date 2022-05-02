@@ -3,6 +3,7 @@
 #include "Transform.h"
 #include "RigidBody.h"
 #include "Mesh.h"
+#include "Material.h"
 #include <GameTime.h>
 #include <StringFormatter.h>
 #include <Timer.h>
@@ -28,7 +29,10 @@ void LoveEngine::ECS::BulletGenerator::createBullet()
 	bulletRigid->sendFormattedString("trigger: true; state: kinematic; mass: 1.0; shape: cube; restitution: 1.0; colliderScale: 3, 3, 3;");
 	auto bulletB = bullet->addComponent<Bullet>();
 	bulletB->sendFormattedString("direction: 0,0,1; velocity: 20.0; damage: 10;");
-	bulletTr->init(); bulletMesh->init(); bulletRigid->init(); bulletB->init();
+	auto bulletMat = bullet->addComponent<Material>();
+	bulletMat->receiveComponent(0, bulletMesh);
+	bulletMat->sendFormattedString("materialName: lava;");
+	bulletTr->init(); bulletMesh->init(); bulletRigid->init(); bulletB->init(); bulletMat->init();
 }
 
 LoveEngine::ECS::BulletGenerator::BulletGenerator() : interval(0)
