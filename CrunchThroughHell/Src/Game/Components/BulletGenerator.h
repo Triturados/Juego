@@ -16,13 +16,14 @@ namespace LoveEngine {
 		class BulletGenerator : public Component {
 
 		private:
-			int lastBullet;
-			int count;
+			Timer* timer;
 			int random;
 			int interval;
+			Utilities::Vector3<float>* area;
 
 			void createBullet();
 		public:
+			BulletGenerator();
 			void init() override;
 			void update() override;
 			void receiveMessage(Utilities::StringFormatter& message) override;

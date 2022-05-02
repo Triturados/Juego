@@ -33,7 +33,7 @@ namespace LoveEngine {
                     float duration;
                 };
 
-                AttackAnimation attackAnimations[3] = { { "attack1", 1.3 }, { "attack2", 1.3 }, { "attack3", 1.3 } };
+                AttackAnimation attackAnimations[3] = { { "attack1", 2.4 }, { "attack2", 1.5 }, { "attack3", 2.66 } };
                 int numAnimations = 3;
                 int comboIndex = 0;
             private:

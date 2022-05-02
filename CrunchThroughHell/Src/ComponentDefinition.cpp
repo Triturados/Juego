@@ -21,6 +21,7 @@
 #include "Components/Bullet.h"
 #include "Components/Stamina.h"
 #include "Components/AtaqueJugador.h"
+#include "Components/BulletGenerator.h"
 
 namespace LoveEngine {
 
@@ -61,6 +62,7 @@ namespace LoveEngine {
 			newComponent<Conversation>("Conversation");
 			newComponent<Transition>("Transition");
 			newComponent<Bullet>("Bullet");
+			newComponent<BulletGenerator>("BulletGenerator");
 			newComponent<Stamina>("Stamina");
 			newComponent<AtaqueJugador>("AtaqueJugador");
 
