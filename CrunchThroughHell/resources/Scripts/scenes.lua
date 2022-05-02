@@ -150,13 +150,13 @@ function scene0() -- Main menu
     zOrder = zOrder + 1
 
 
-    local soundObj = scene:createObject("menuSound")
-    local soundComp1= soundObj:addComponent("Sound")
-    soundComp1:sendMsg([[soundName: MenuJuegoSuspense.wav; channel: music; loop: true; volume: 0.5; playNow: 1; needsPause:0]])
+    -- local soundObj = scene:createObject("menuSound")
+    -- local soundComp1= soundObj:addComponent("Sound")
+    -- soundComp1:sendMsg([[soundName: MenuJuegoSuspense.wav; channel: music; loop: true; volume: 0.5; playNow: 1; needsPause:0]])
 
-    local soundObj2 = scene:createObject("buttonSound")
-    local soundComp2= soundObj2:addComponent("Sound")
-    soundComp2:sendMsg([[soundName: ClickSound.wav; channel: effects; loop: false; volume: 0.3;  playNow: 0; needsPause:0]])
+    -- local soundObj2 = scene:createObject("buttonSound")
+    -- local soundComp2= soundObj2:addComponent("Sound")
+    -- soundComp2:sendMsg([[soundName: ClickSound.wav; channel: effects; loop: false; volume: 0.3;  playNow: 0; needsPause:0]])
  
 
     local mainmenu = bg:addComponent("MainMenu");
@@ -584,7 +584,6 @@ function scene3() -- Overworld
     --player:addComponent("ParticleSystem")
 
     player:addComponent("Animation"):sendMsg([[animName: idle]])
-    player:addComponent("Sound"):sendMsg([[soundName: wii.mp3; channel: music; loop: true]])
 
     local sliderBehindLive = player:addComponent("Slider"):sendMsg([[
         materialBar: Heal;
@@ -683,7 +682,9 @@ function scene3() -- Overworld
     -- Enemigo--
     
     local bossSoundObj = scene:createObject("bossSound")
-    bossSoundObj:addComponent("Sound"):sendMsg([[soundName: FireNight.wav; channel: music; loop: true; volume: 0.5; playNow: true; needsPause: true]])
+    
+
+    -- bossSoundObj:addComponent("Sound"):sendMsg([[soundName: FireNight.wav; channel: music; loop: true; volume: 0.5; playNow: true; needsPause: true]])
 
     local boss = scene:createObject("boss")
     local bosstr = boss:addComponent("Transform")
