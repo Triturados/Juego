@@ -10,6 +10,10 @@ set CRUNCH_THROUGH_HELL_SOL=.\CrunchThroughHell\CrunchThroughHell.sln
 
 rem Inicializamos el submódulo
 git submodule init
+
+rem Cambiar a main cuando se haga el merge de Functional a main
+git config -f .gitmodules submodule.CrunchThroughHell/Engine.branch Functional
+
 git submodule update
 
 rem Se aniade el Ogre.log que se ignora
