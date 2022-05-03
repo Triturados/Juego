@@ -12,7 +12,7 @@
 #include "Transform.h"
 #include "MovimientoJugador.h"
 #include "Random.h"
-
+#include "Stamina.h"
 
 void LoveEngine::ECS::AtaqueJugador::init()
 {
@@ -25,6 +25,9 @@ void LoveEngine::ECS::AtaqueJugador::init()
 	anim = gameObject->getComponent<Animation>();
 
 	tr = gameObject->getComponent<Transform>();
+
+	sta = gameObject->getComponent<Stamina>();
+
 }
 
 void LoveEngine::ECS::AtaqueJugador::postInit() {
@@ -36,6 +39,7 @@ void LoveEngine::ECS::AtaqueJugador::postInit() {
 	anim->setLoop(false);
 
 	attackDuration = anim->getDuration();
+	attackStamina = sta->getMaxStamina() / 6;
 }
 
 void LoveEngine::ECS::AtaqueJugador::update()
@@ -46,7 +50,7 @@ void LoveEngine::ECS::AtaqueJugador::update()
 	if (isAttacking) attack();
 
 	if (!input->controllerConected()) {
-		if (input->mousePressed(Input::MouseState::CLICK_L) && currentDuration > attackDuration) startAttack();
+		if (input->mousePressed(Input::MouseState::CLICK_L) && currentDuration > attackDuration && sta->getStamina() >= attackStamina) startAttack();
 	}
 	else {
 		//Utilities::Vector2 controller = input->getController().leftJoystick;
@@ -54,7 +58,7 @@ void LoveEngine::ECS::AtaqueJugador::update()
 
 		//std::cout << controller << "\n";
 
-		if (input->isControllerButtonPressed(Input::ControllerButton::A))
+		if (input->isControllerButtonPressed(Input::ControllerButton::A)&& sta->getStamina() >= attackStamina)
 		{
 			startAttack();
 		}
@@ -74,7 +78,7 @@ void LoveEngine::ECS::AtaqueJugador::receiveComponent(int i, Component* c)
 	if (i == 0)
 		if (dynamic_cast<Transform*>(c) != nullptr)
 			bossTr = (Transform*)c;
-
+		
 }
 
 void LoveEngine::ECS::AtaqueJugador::startAttack()
@@ -89,6 +93,8 @@ void LoveEngine::ECS::AtaqueJugador::startAttack()
 
 	currentDuration = 0;
 	isAttacking = true;
+
+	sta->loseStamina(attackStamina);
 
 	originalSpeed = movement->getSpeed();
 	movement->setSpeed(originalSpeed * speedReductionFactor);
@@ -121,12 +127,8 @@ bool LoveEngine::ECS::AtaqueJugador::bossOnRange()
 
 	dir.normalize();
 
-	//HACER SOLO SI EL MOVIMIENTO ES LIBRE
-	//float angle = std::atan2(dir.x, dir.z) * 180 / 3.1416;
-	//angle = angle % 360;
-	//std::cout << angle << "\n\n\n";
-	//
-	//if (angle < -attackAngle || angle > attackAngle) return false;
+	//CALCULAR ANGULO SOLO SI EL MOVIMIENTO ES LIBRE
+	
 
 	return true;;
 }

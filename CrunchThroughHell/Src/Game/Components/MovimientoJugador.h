@@ -52,8 +52,7 @@ namespace LoveEngine {
 			bool isDashing = false;
 			bool isKnockback = false;
 	
-			int attackStamina = 20;
-			int dashStamina = 30;
+			int dashStamina = 0;
 			Stamina* sta;
 		public:
 			void init() override;

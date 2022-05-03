@@ -11,6 +11,7 @@ namespace LoveEngine {
 		class Transform;
 		class ParticleSystem;
 		class Animation;
+		class Stamina;
 		class MovimientoJugador;
 		class AtaqueJugador : public Component {
 
@@ -40,6 +41,9 @@ namespace LoveEngine {
 
 			float attackDuration = 1;
 			float currentDuration = 1;
+
+			float attackStamina = 0;
+			Stamina* sta;
 
 		public:
 			void init() override;
