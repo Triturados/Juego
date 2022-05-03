@@ -13,6 +13,8 @@ namespace LoveEngine {
 			class MeleeAttack : public Action
 			{
 			public:
+                bool damaging = true;   // controla que un solo ataque no dañe en cada frame
+
 				MeleeAttack(Agent* agent_);
 				void setTarget(Transform* t);
 				void setTransform(Transform* t);
@@ -61,7 +63,7 @@ namespace LoveEngine {
             class Leap : public Action
             {
             public:
-                bool landingEnabled = false;    // justo despuï¿½s de saltar no debe detectar aterrizaje
+                bool landingEnabled = false;    // justo después de saltar no debe detectar aterrizaje
 
                 Leap(Agent* agent_);
                 void setTarget(Transform* t);
@@ -79,9 +81,9 @@ namespace LoveEngine {
                 Transform* tr = nullptr;
                 Animation* anim = nullptr;
             private:
-                float jumpDuration = 2.0;        // duraciï¿½n fija de los saltos
+                float jumpDuration = 2.0;        // duración fija de los saltos
                 void enableLanding();
-                void recover();                 // despuï¿½s de aterrizar, tarda un momento en levantarse
+                void recover();                 // después de aterrizar, tarda un momento en levantarse
             };
 #pragma endregion
             void setTargets() override;
@@ -94,6 +96,7 @@ namespace LoveEngine {
 		public:
             BossMelee();
             void init() override;
+            void enterCollision(GameObject* other) override;
 		};
 	}
 }

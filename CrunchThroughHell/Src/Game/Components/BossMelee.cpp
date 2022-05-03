@@ -9,6 +9,7 @@
 #include <iostream>
 #include <Animation.h>
 #include <Timer.h>
+#include "SaludJugador.h"
 
 namespace LoveEngine
 {
@@ -51,6 +52,29 @@ namespace LoveEngine
             ComportamientoBoss::init();
         }
 
+        void BossMelee::enterCollision(GameObject* other)
+        {
+            //Esto tiene que estar aquí porque las acciones no pueden detectar colisiones
+            
+            // Descomentar esto si se arreglan las colisiones
+            /*if (currentAction == leap && leap->landingEnabled)
+            {
+                std::cout << "Maybe landing?\n";
+                auto otherTr = other->getComponent<Transform>();
+                if (otherTr->getPos()->y < tr->getPos()->y)
+                    leap->land();
+            }
+            else */if (currentAction == attack && attack->damaging)
+            {
+                auto hp = other->getComponent<SaludJugador>();
+                if (hp != nullptr)
+                {
+                    attack->damaging = false;
+                    hp->takeDamage(10);
+                }
+            }
+        }
+
 #pragma region acciones
 
         BossMelee::MeleeAttack::MeleeAttack(Agent* agent_) : Action(agent_, 10.0)
@@ -73,7 +97,7 @@ namespace LoveEngine
 
         void BossMelee::MeleeAttack::onActionStart()
         {
-            std::cout << "\n\n\n\n\n\n\nAttacking\n\n\n\n\n\n\n\n";
+            //std::cout << "\n\n\n\n\n\n\nAttacking\n\n\n\n\n\n\n\n";
 
             setPriority(30.0);
             if (target == nullptr || rb == nullptr || tr == nullptr)
@@ -81,13 +105,13 @@ namespace LoveEngine
                 throw new std::exception("Faltan referencias para una accion");
                 return;
             }
-            // TO DO: start animation
-            //if (comboIndex >= numAnimations) comboIndex = 0;
+
             AttackAnimation attack = attackAnimations[comboIndex++ % numAnimations];
-            //++comboIndex;
 
             if (!anim->playingAnimation(attack.animation))
                 anim->changeAnimation(attack.animation);
+
+            anim->resetAnim();
 
             lockAction = true;
 
@@ -99,6 +123,7 @@ namespace LoveEngine
         void BossMelee::MeleeAttack::attackFinished()
         {
             lockAction = false;
+            damaging = true;
         }
 
         BossMelee::Chase::Chase(Agent* agent_) : Action(agent_, 0.0) { };
@@ -151,7 +176,7 @@ namespace LoveEngine
 
         void BossMelee::Leap::onActionStart()
         {
-            std::cout << "\n\n\n\n\n\n\nLeaping: distance " << (*(target->getPos()) - *(tr->getPos())).magnitude() <<"\n\n\n\n\n\n\n\n";
+            //std::cout << "\n\n\n\n\n\n\nLeaping: distance " << (*(target->getPos()) - *(tr->getPos())).magnitude() <<"\n\n\n\n\n\n\n\n";
             if (target == nullptr || rb == nullptr || tr == nullptr)
             {
                 throw new std::exception("Faltan referencias para una accion");
@@ -181,7 +206,7 @@ namespace LoveEngine
 
             lockAction = true;
 
-            // aseguramos que no detecte aterrizaje nada mï¿½s saltar
+            // aseguramos que no detecte aterrizaje nada más saltar
             landingEnabled = false;
             ECS::Timer::invoke([&](ECS::Timer*) {
                 enableLanding();
@@ -190,7 +215,7 @@ namespace LoveEngine
 
         void BossMelee::Leap::activeUpdate()
         {
-            std::cout << "Current height: " << tr->getPos()->y;
+            //std::cout << "Current height: " << tr->getPos()->y;
             if (rb->getVelocity()->y < 0 && tr->getPos()->y < 22)
                 land();
         }
