@@ -23,6 +23,7 @@ void LoveEngine::ECS::CamRotate::init()
 	input = Input::InputManager::getInstance();
 
 	playerTr = player->getComponent<Transform>();
+	if(boss != nullptr)
 	bossTr = boss->getComponent<Transform>();
 	camTr = cam->getComponent<Transform>();
 	
@@ -35,7 +36,7 @@ void LoveEngine::ECS::CamRotate::update()
 	gameObject->getComponent<Transform>()->setPos(*playerTr->getPos());
 	if (input->keyJustPressed(Input::InputKeys::B) || (input->isControllerButtonPressed(Input::ControllerButton::Y) && input->isControllerButtonState(Input::ControllerButtonState::DOWN)))
 	{
-		followBoss = !followBoss;
+		if(bossTr != nullptr) followBoss = !followBoss;
 		if (followBoss)
 		{
 			antAngulo = 180;

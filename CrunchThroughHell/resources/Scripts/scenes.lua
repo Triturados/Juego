@@ -741,12 +741,30 @@ function scene5() -- Boss2
 
     local camCamera = cam:addComponent('Camera')
 
+    --Luz General
+    local luz = scene:createObject("Luz")
+    local compLuz = luz:addComponent('Transform')
+
+    compLuz:sendMsg([[
+        scale: 1,1,1;
+        position: 0,40,0;
+        rotation: -90,0,0;
+    ]])
+
+    local compLight = luz:addComponent('Light')
+    compLight:sendMssg([[
+        name: luz_direccional
+        type: directional
+        power: 5
+    ]])
+
+
     --Creamos Suelo
     local suelo = scene:createObject("Suelo")
     local sueloTr = suelo:addComponent("Transform")
 
     sueloTr:sendMsg([[
-        scale: 4,1,4;
+        scale: 150,1,150;
         position: 0,-4,0;
         rotation: 0,0,0;
     ]])
@@ -758,13 +776,135 @@ function scene5() -- Boss2
     local compRigidbodySuelo = suelo:addComponent('Rigidbody')
     compRigidbodySuelo:sendMsg([[
         trigger: false;
-        state: kinematic;
+        state: static;
         mass: 0.0;
         shape: cube; 
         restitution: 0.9;
         colliderScale: 150,3.5,150;
         ]])
 
+    -- player--
+    local player = scene:createObject("jugador")
+    local tr = player:addComponent("Transform")
+    tr:sendMsg([[
+        scale: 0.075,0.075,0.075;
+        position: 0,30,0;
+        rotation: 0,0,0;
+    ]])
+    player:addComponent("Rigidbody"):sendMsg([[
+        shape: cube; 
+        type: dynamic;
+        mass: 10.0;
+        restitution: 0;
+        colliderScale: 3,8,2;
+    ]])
+    local mesh = player:addComponent("Mesh")
+    mesh:sendMsg([[meshName: Player.mesh]])
+    local playerMov = player:addComponent("MovimientoJugador")
+    playerMov:sendMsg([[
+        speed: 30.0
+    ]])
+
+    player:addComponent("Animation"):sendMsg([[animName: idle]])
+
+
+    local sliderBehindLive = player:addComponent("Slider"):sendMsg([[
+        materialBar: Heal;
+        materialBarBg: Heal_bg;
+        materialButton: CircleButton;
+        width: 500;
+        height: 25;
+        posX: 100;
+        posY: 60;
+    ]])
+
+   local sliderOverLive = player:addComponent("Slider"):sendMsg([[
+        materialBar: Heal;
+        materialBarBg: Heal_bg;
+        materialButton: CircleButton;
+        width: 500;
+        height: 25;
+        posX: 100;
+        posY: 60;
+    ]])
+
+    local saludjugador = player:addComponent("SaludJugador")
+    saludjugador:sendComponent(0, sliderOverLive);
+    saludjugador:sendComponent(1, sliderBehindLive);
+
+    local sliderBehindSta = player:addComponent("Slider"):sendMsg([[
+        materialBar: Stamina;
+        materialBarBg: Stamina_bg;
+        materialButton: CircleButton;
+        width: 300;
+        height: 25;
+        posX: 100;
+        posY: 90;
+    ]])
+
+   local sliderOverSta = player:addComponent("Slider"):sendMsg([[
+        materialBar: Stamina;
+        materialBarBg: Stamina_bg;
+        materialButton: CircleButton;
+        width: 300;
+        height: 25;
+        posX: 100;
+        posY: 90;
+    ]])
+
+    local staminajugador = player:addComponent("Stamina")
+    staminajugador:sendComponent(0, sliderOverSta);
+    staminajugador:sendComponent(1, sliderBehindSta);
+
+
+    local playerAttack = player:addComponent("AtaqueJugador")
+
+    local dashParticles = scene:createObject("dashParticles")
+    local trDash = dashParticles:addComponent("Transform")
+    trDash:sendMsg([[scale: 1,1,1; position: 0,35,0; rotation: 0,0,0;]])
+    local dashSys = dashParticles:addComponent("ParticleSystem")
+    dashSys:sendMsg([[particleName: dash; emitting: false]])
+    trDash:sendComponent(1, tr)
+    -----------------------------------PELIGRO----------------------------------------------------
+    --AHORA SE VIENE LA MOVIDA ESTA DE LA CAMARA QUE NO HAY DIOS QUE ENTIENDA :)
+     local bolaHijaJug = scene:createObject("BolaHija")
+     local compTrBolaHijaJug = bolaHijaJug:addComponent('Transform')
+
+     compTrBolaHijaJug:sendMsg([[
+         scale: 0.02,0.02,0.02;
+         position: 0,10,0;
+         rotation: 0,0,0;
+     ]])
+
+     local rotarcam = bolaHijaJug:addComponent('CamRotate')
+
+     local camFollow = cam:addComponent('CamFollow')
+
+     camCamera:sendMsg([[
+         name: escenaJuego;
+         zOrder: -3;
+     ]])
+     camCamera:sendMsg([[
+         compositor: Posterize;
+     ]])
+
+     playerMov:sendComponent(1, trcam)
+
+     trcam:sendComponent(1, compTrBolaHijaJug)
+
+     -- Metiendo componente rotar Camara
+    rotarcam:sendMsg([[
+        verSens: 5.5
+        horiSens: 5.5
+    ]])
+
+    camFollow:sendComponent(0, tr)
+
+    rotarcam:sendGameObject(0, boss)
+    rotarcam:sendGameObject(1, player)
+    rotarcam:sendGameObject(2, cam)
+
+-------------------------------------YA SE ACABO NO SUFRAS MAS----------------------------------------------------------
 
 end
 

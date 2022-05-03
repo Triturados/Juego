@@ -36,7 +36,7 @@ namespace LoveEngine {
 			bool hit = false;
 			bool isAttacking = false;
 
-			Transform* bossTr;
+			Transform* bossTr = nullptr;
 			Transform* tr;
 
 			float attackDuration = 1;

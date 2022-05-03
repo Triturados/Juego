@@ -110,7 +110,13 @@ void LoveEngine::ECS::MovimientoJugador::stepPhysics()
 			//throw std::exception("received negative value");
 			knockback();
 	}
-	else aimedMovement(movementX, movementZ);
+	else {
+		if(bossTr != nullptr)
+			aimedMovement(movementX, movementZ);
+		else {
+			freeMovement(movementX, movementZ);
+		}
+	}
 }
 
 void LoveEngine::ECS::MovimientoJugador::dash()

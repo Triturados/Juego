@@ -21,7 +21,7 @@ namespace LoveEngine {
 			Transform* bossTr;
 			Transform* camTr;
 
-			GameObject* boss;
+			GameObject* boss = nullptr;
 			GameObject* player;
 			GameObject* cam;
 

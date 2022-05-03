@@ -118,14 +118,16 @@ void LoveEngine::ECS::AtaqueJugador::attack()
 
 bool LoveEngine::ECS::AtaqueJugador::bossOnRange()
 {
-	Utilities::Vector3<float> bossPos = *bossTr->getPos();
-	Utilities::Vector3<float> playerPos = *tr->getPos();
-	Utilities::Vector3<float> dir = bossPos - playerPos;
+	if (bossTr != nullptr) {
+		Utilities::Vector3<float> bossPos = *bossTr->getPos();
+		Utilities::Vector3<float> playerPos = *tr->getPos();
+		Utilities::Vector3<float> dir = bossPos - playerPos;
 
 
-	if (dir.magnitude() > attackDistance) return false;
+		if (dir.magnitude() > attackDistance) return false;
 
-	dir.normalize();
+		dir.normalize();
+	}
 
 	//CALCULAR ANGULO SOLO SI EL MOVIMIENTO ES LIBRE
 	
