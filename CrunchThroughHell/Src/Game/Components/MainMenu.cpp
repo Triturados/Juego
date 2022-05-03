@@ -78,7 +78,10 @@ namespace LoveEngine {
 
 				button->gameObject->activate(false);
 				button->setVisibility(false);
-				move->update();
+				move->update(); 
+				Utilities::Vector3 position = button->getPosition();
+				position.y = Window::getInstance()->getWindowSize().y + button->getSize().y;
+				button->setPosition(position);
 			}
 
 			musicSound= buttons[0]->gameObject->addComponent<Sound>();
