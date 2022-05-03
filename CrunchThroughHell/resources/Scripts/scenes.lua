@@ -747,7 +747,7 @@ function scene5() -- Boss2
 
     compLuz:sendMsg([[
         scale: 1,1,1;
-        position: 0,40,0;
+        position: 0,20,0;
         rotation: -90,0,0;
     ]])
 
@@ -755,7 +755,7 @@ function scene5() -- Boss2
     compLight:sendMssg([[
         name: luz_direccional
         type: directional
-        power: 1
+        power: 1.1
     ]])
 
 
@@ -782,6 +782,10 @@ function scene5() -- Boss2
         restitution: 0.9;
         colliderScale: 350,1,350;
         ]])
+
+    local material = suelo:addComponent("Material")
+    material:sendMsg([[materialName: VerdeOscuro]])
+    material:sendComponent(0, comp3)
 
     -- player--
     local player = scene:createObject("jugador")
