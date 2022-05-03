@@ -298,24 +298,20 @@ function scene3() -- Overworld
     local a = scene:createObject("AAA");
     a:addComponent("MoverPantalla"):sendMsg("inicial: 0.1")
 
-    local btest = scene:createObject("btest");
-    btest:addComponent("Button"):sendMsg([[
-        material: Heal_bg;
-        width: 300;
-        height: 50;
-        posX: 400;
-        posY: 100;
-    ]])
+    -- local btest = scene:createObject("btest");
+    -- btest:addComponent("Button"):sendMsg([[
+    --     material: Heal_bg;
+    --     width: 300;
+    --     height: 50;
+    --     posX: 400;
+    --     posY: 100;
+    -- ]])
 
     local testImagen = scene:createObject("uiobj")
     testImagen:addComponent("Transform")
     testImagen:addComponent("Image"):sendMsg([[
         material: ui
     ]])
-
-    -- Slider--
-    local testSlider = scene:createObject("miSlider")
-    testSlider:addComponent("Transform")
 
     -- Limites mundo --
     --MURO1
@@ -482,7 +478,7 @@ function scene3() -- Overworld
     local compTrBolaHijaJug = bolaHijaJug:addComponent('Transform')
 
     compTrBolaHijaJug:sendMsg([[
-        scale: 0.2,0.2,0.2;
+        scale: 0.02,0.02,0.02;
         position: 0,10,0;
         rotation: 0,0,0;
     ]])
@@ -544,20 +540,20 @@ function scene3() -- Overworld
         materialBar: Heal;
         materialBarBg: Heal_bg;
         materialButton: CircleButton;
-        width: 300;
-        height: 50;
+        width: 500;
+        height: 25;
         posX: 100;
-        posY: 100;
+        posY: 60;
     ]])
 
    local sliderOverLive = player:addComponent("Slider"):sendMsg([[
         materialBar: Heal;
         materialBarBg: Heal_bg;
         materialButton: CircleButton;
-        width: 300;
-        height: 50;
+        width: 500;
+        height: 25;
         posX: 100;
-        posY: 100;
+        posY: 60;
     ]])
 
     local saludjugador = player:addComponent("SaludJugador")
@@ -565,23 +561,23 @@ function scene3() -- Overworld
     saludjugador:sendComponent(1, sliderBehindLive);
 
     local sliderBehindSta = player:addComponent("Slider"):sendMsg([[
-        materialBar: Heal;
-        materialBarBg: Heal_bg;
+        materialBar: Stamina;
+        materialBarBg: Stamina_bg;
         materialButton: CircleButton;
         width: 300;
-        height: 50;
+        height: 25;
         posX: 100;
-        posY: 160;
+        posY: 90;
     ]])
 
    local sliderOverSta = player:addComponent("Slider"):sendMsg([[
-        materialBar: Heal;
-        materialBarBg: Heal_bg;
+        materialBar: Stamina;
+        materialBarBg: Stamina_bg;
         materialButton: CircleButton;
         width: 300;
-        height: 50;
+        height: 25;
         posX: 100;
-        posY: 160;
+        posY: 90;
     ]])
 
     local staminajugador = player:addComponent("Stamina")

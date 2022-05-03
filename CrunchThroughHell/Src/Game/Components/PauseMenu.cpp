@@ -2,6 +2,9 @@
 #include <Button.h>
 #include "PauseMenu.h"
 #include "Input.h"
+#include <Sound.h>
+#include <SoundButton.h>
+#include <GameObject.h>
 
 namespace LoveEngine {
 
@@ -14,9 +17,23 @@ namespace LoveEngine {
 		{
 			if (continuebutton != nullptr) {
 				continuebutton->onClick([&]() {continueGame(); });
+				auto sound = continuebutton->gameObject->addComponent<Sound>();
+				sound->sendFormattedString("soundName: ClickSound.wav; channel: effects; loop: false; volume: 0.5; playNow: false; ");
+				sound->init();
+
+				auto soundController = continuebutton->gameObject->addComponent<SoundButton>();
+				soundController->init();
+				soundController->postInit();
 			}
 			if (exitbutton != nullptr) {
 				exitbutton->onClick([&]() {exit(); });
+				auto sound = exitbutton->gameObject->addComponent<Sound>();
+				sound->sendFormattedString("soundName: ClickSound.wav; channel: effects; loop: false; volume: 0.5; playNow: false; ");
+				sound->init();
+
+				auto soundController = exitbutton->gameObject->addComponent<SoundButton>();
+				soundController->init();
+				soundController->postInit();
 			}
 		}
 		
