@@ -128,7 +128,7 @@ function scene0() -- Main menu
     local containerObj = scene:createObject("Container")
     containerObj:addComponent('MoveUI'):sendMssg([[
         destination: 100, 0, 0;
-        duration: 3.0;
+        duration: 2.0;
         enabled: true;
     ]])
 

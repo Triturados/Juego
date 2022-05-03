@@ -12,6 +12,7 @@
 #include "ScaleMainMenuButton.h"
 #include <Sound.h>
 #include <SoundButton.h>
+#include <Timer.h>
 
 namespace LoveEngine {
 
@@ -37,6 +38,7 @@ namespace LoveEngine {
 			scrollTimer = 0;
 			scrollInterval = 0.2f;
 		}
+
 		void MainMenu::postInit()
 		{
 			buttons[MenuButtons::NewGame]->onClick([&]() {newGame(); });
@@ -74,10 +76,9 @@ namespace LoveEngine {
 				soundController->init();
 				soundController->postInit();
 
-
-
-
-
+				button->gameObject->activate(false);
+				button->setVisibility(false);
+				move->update();
 			}
 
 			musicSound= buttons[0]->gameObject->addComponent<Sound>();
@@ -95,8 +96,10 @@ namespace LoveEngine {
 
 			for (auto scale : scales) {
 				scale->setHeight(height);
-				//scale->enabled = false;
+				scale->update();
 			}
+
+			Timer::invoke([&](Timer*) {showMenu(); }, 1.6f);
 		}
 
 		void MainMenu::update() {
@@ -216,5 +219,13 @@ namespace LoveEngine {
 		}
 
 
+		void MainMenu::showMenu() {
+			for (int i = 0; i < NumButtons; i++) {
+				Button* button = buttons[i];
+				button->gameObject->activate(true);
+				button->setVisibility(true);
+				//moveUIs[i]->setActive(true);
+			}
+		}
 	}
 }

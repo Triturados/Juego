@@ -37,6 +37,7 @@ namespace LoveEngine {
 			void about();
 			void exit();
 
+			void showMenu();
 		};
 	}
 }
