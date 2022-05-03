@@ -153,8 +153,8 @@ function scene0() -- Main menu
         material: logo; 
         width: 247;
         height : 133;
-        posX: ]] .. round(bannerwidth * 0.5) ..[[
-        posY: 52
+        posX: ]] .. round((bannerwidth - 247) * 0.5) ..[[;
+        posY: 150
         posZ: ]] .. zOrder ..[[
     ]]))
     zOrder = zOrder + 1

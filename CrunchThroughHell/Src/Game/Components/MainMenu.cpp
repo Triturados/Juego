@@ -29,7 +29,7 @@ namespace LoveEngine {
 		MainMenu::MainMenu()
 		{
 			presskey = true;
-			centerButtonIdx = 2;
+			centerButtonIdx = 3;
 			centerx = Window::getInstance()->getWindowSize().x * .5f;
 			currentlySelected = 0;
 			buttons = std::vector<Button*>(MenuButtons::NumButtons, nullptr);
