@@ -10,12 +10,20 @@
 #include <RigidBody.h>
 #include "Mesh.h"
 
+void LoveEngine::ECS::Bullet::bulletDamage(GameObject* other)
+{
+	other->getComponent<SaludJugador>()->takeDamage(damage);
+	mesh->setVisibility(false);
+	gameObject->removeGameObject();
+}
+
 LoveEngine::ECS::Bullet::Bullet()
 {
 	dir = new Utilities::Vector3<float>(0, 0, 0);
 	lastPos = new Utilities::Vector3<float>(0, 0, 0);
 	damage = 0; tr = nullptr;
 	vel = 0; mesh = nullptr;
+	rb = nullptr; hitObject = nullptr;
 }
 
 LoveEngine::ECS::Bullet::~Bullet()
@@ -25,7 +33,7 @@ LoveEngine::ECS::Bullet::~Bullet()
 
 void LoveEngine::ECS::Bullet::init()
 {
-	lifetime = Timer::deleteGameObject(gameObject, 10);
+	lifetime = Timer::deleteGameObject(gameObject, 15);
 	tr = gameObject->getComponent<Transform>();
 	*lastPos = *tr->getPos();
 	dir->normalize();
@@ -45,6 +53,8 @@ void LoveEngine::ECS::Bullet::update()
 
 	rb->setRotation(Utilities::Vector3<int>(0, 1, 0), angleF);
 	*lastPos = *tr->getPos();
+
+	if (hit) bulletDamage(hitObject);
 }
 
 void LoveEngine::ECS::Bullet::receiveMessage(Utilities::StringFormatter& sf)
@@ -63,12 +73,14 @@ void LoveEngine::ECS::Bullet::colliding(GameObject* other)
 {
 	if (!other->getComponent<SaludJugador>()) return;
 
-	other->getComponent<SaludJugador>()->takeDamage(damage);
-	mesh->setVisibility(false);
-	gameObject->removeGameObject();
+	hit = true;
+	hitObject = other;
 }
 
 void LoveEngine::ECS::Bullet::enterCollision(GameObject* other)
 {
-	colliding(other);
+	if (!other->getComponent<SaludJugador>()) return;
+
+	hit = true;
+	hitObject = other;
 }

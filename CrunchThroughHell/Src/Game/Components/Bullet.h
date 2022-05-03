@@ -20,6 +20,10 @@ namespace LoveEngine {
 			Utilities::Vector3<float>* lastPos;
 			float vel;
 			int damage;
+			bool hit = false;
+			GameObject* hitObject;
+
+			void bulletDamage(GameObject* other);
 		public:
 			Bullet();
 			~Bullet();

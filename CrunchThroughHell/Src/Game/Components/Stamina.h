@@ -33,7 +33,8 @@ namespace LoveEngine {
 			virtual void stepPhysics() override;
 			void receiveMessage(Utilities::StringFormatter& message) override;
 			void receiveComponent(int i, Component* c) override;
-
+			
+			inline int getMaxStamina() { return _MAX_STAMINA; }
 			inline int getStamina() { return actStamina; }
 			void addHealth();
 			void setStamina(int stamina);
