@@ -728,6 +728,44 @@ function scene4() -- Boss1
 end
 
 function scene5() -- Boss2
+
+    --Creamos Camara
+    local cam = scene:createObject("cam")
+    local trcam = cam:addComponent('Transform')
+
+    trcam:sendMsg([[
+        scale: 2,2,2;
+        position: 0,40,60;
+        rotation: 0,0,0;
+    ]])
+
+    local camCamera = cam:addComponent('Camera')
+
+    --Creamos Suelo
+    local suelo = scene:createObject("Suelo")
+    local sueloTr = suelo:addComponent("Transform")
+
+    sueloTr:sendMsg([[
+        scale: 4,1,4;
+        position: 0,-4,0;
+        rotation: 0,0,0;
+    ]])
+
+    local comp3 = suelo:addComponent("Mesh")
+    comp3:sendMsg([[
+        meshName: cube.mesh;
+    ]])
+    local compRigidbodySuelo = suelo:addComponent('Rigidbody')
+    compRigidbodySuelo:sendMsg([[
+        trigger: false;
+        state: kinematic;
+        mass: 0.0;
+        shape: cube; 
+        restitution: 0.9;
+        colliderScale: 150,3.5,150;
+        ]])
+
+
 end
 
 function scene6() -- Victory
