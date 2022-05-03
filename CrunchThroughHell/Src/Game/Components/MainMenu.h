@@ -38,6 +38,7 @@ namespace LoveEngine {
 			void settings();
 			void howToPlay();
 			void about();
+			void credits();
 			void exit();
 
 			void showMenu();

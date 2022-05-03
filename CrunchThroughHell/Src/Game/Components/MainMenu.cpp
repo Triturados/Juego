@@ -18,7 +18,7 @@ namespace LoveEngine {
 
 
 	enum MenuButtons {
-		NewGame, Continue, HowToPlay, Settings, About, Exit, NumButtons
+		NewGame, Continue, HowToPlay, Settings, About, Credits, Exit, NumButtons
 	};
 
 
@@ -47,6 +47,7 @@ namespace LoveEngine {
 			buttons[MenuButtons::HowToPlay]->onClick([&]() {howToPlay(); });
 			buttons[MenuButtons::Settings]->onClick([&]() {settings(); });
 			buttons[MenuButtons::About]->onClick([&]() {about(); });
+			buttons[MenuButtons::Credits]->onClick([&]() {credits(); });
 			buttons[MenuButtons::Exit]->onClick([&]() {exit(); });
 
 			std::vector<ScaleMainMenuButton*> scales;
@@ -203,6 +204,10 @@ namespace LoveEngine {
 		}
 
 		void MainMenu::about() {
+
+		}
+
+		void MainMenu::credits() {
 
 		}
 

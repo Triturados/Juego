@@ -175,8 +175,8 @@ function scene0() -- Main menu
 
 
     local mainmenu = bg:addComponent("MainMenu");
-    local initialHeigh = 380
-    for i = 0, 5, 1 do
+    local initialHeigh = 320
+    for i = 0, 6, 1 do
         local button = scene:createObject("Menu button " .. i):addComponent('Button');
 
         local w = 200
@@ -204,7 +204,7 @@ function scene0() -- Main menu
         width: 256;
         height : 72;
         posX: ]] .. hideposition .. [[;
-        posY: 370
+        posY: 310
         posZ: ]] .. zOrder ..[[
     ]]))
     zOrder = zOrder + 1
