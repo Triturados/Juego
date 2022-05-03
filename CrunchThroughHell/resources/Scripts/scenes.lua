@@ -461,52 +461,7 @@ function scene3() -- Overworld
     -- camCamera:sendMsg([[
     --    name: escenaJuego;
     -- ]])
-
-    -- Bola--
-
-
-    local bola = scene:createObject("Bola")
-    local compBola = bola:addComponent('Transform')
-
-    compBola:sendMsg([[
-        scale: 2,2,2;
-        position: -20,40,0;
-        rotation: 0,0,0;
-    ]])
-    local compBolaMesh = bola:addComponent('Mesh'):sendMsg([[
-        meshName: bolaroja.mesh;
-    ]])
-
-    local compRigidbody = bola:addComponent('Rigidbody')
-    compRigidbody:sendMsg([[
-        state: static;
-        mass: 1.0;
-        shape: sphere; 
-        restitution: 1.0;
-        colliderScale: 3,3,3;
-    ]])
-
-    -- BolaPesada--
-    local bolaPesada = scene:createObject("BolaPesada")
-    local compBolaPesada = bolaPesada:addComponent('Transform')
-
-    compBolaPesada:sendMsg([[
-        scale: 4,4,4;
-        position: 20,40,0;
-        rotation: 0,0,0;
-        colliderScale: 3,3,3;
-    ]])
-    local compBolaMesh = bolaPesada:addComponent('Mesh'):sendMsg([[
-        meshName: sphere.mesh;
-    ]])
-
-    local bolaPesadaRigid = bolaPesada:addComponent('Rigidbody')
-    bolaPesadaRigid:sendMsg([[
-        shape: sphere; 
-        mass: 1.0;
-        type: static;
-        restitution: 0.75;
-    ]])
+   
 
     local luz = scene:createObject("Luz")
     local compLuz = luz:addComponent('Transform')
@@ -636,42 +591,6 @@ function scene3() -- Overworld
 
     local playerAttack = player:addComponent("AtaqueJugador")
 
-    local luzPlayer = scene:createObject("Luz")
-    local compLuzPlayer = luzPlayer:addComponent('Transform')
-
-    local luzPlayer2 = scene:createObject("Luz")
-    local compLuzPlayer2 = luzPlayer2:addComponent('Transform')
-
-    compLuzPlayer2:sendMsg([[
-        scale: 1,1,1;
-        position: 0,200,0;
-        rotation: 0,0,0;
-    ]])
-    compLuzPlayer2:sendComponent(1, tr)
-
-    compLuzPlayer:sendMsg([[
-        scale: 1,1,1;
-        position: 0,200,0;
-        rotation: 0,0,0;
-    ]])
-    compLuzPlayer:sendComponent(1, tr)
-
-    local compLightPlayer = luzPlayer:addComponent('Light')
-    compLightPlayer:sendMssg([[
-        name: directional_point;
-        type: directional;
-        direction: 0,-100,-50;
-        power: 10000;
-    ]])
-
-    local compLightPlayer2 = luzPlayer2:addComponent('Light')
-    compLightPlayer2:sendMssg([[
-        name: directional_point2;
-        type: directional;
-        direction: 0,-100,50;
-        power: 10000;
-    ]])
-
     local dashParticles = scene:createObject("dashParticles")
     local trDash = dashParticles:addComponent("Transform")
     trDash:sendMsg([[scale: 1,1,1; position: 0,35,0; rotation: 0,0,0;]])
@@ -726,10 +645,10 @@ function scene3() -- Overworld
     rotarcam:sendGameObject(1, player)
     rotarcam:sendGameObject(2, cam)
 
-    local particleSys = scene:createObject("Bomba")
-    particleSys:addComponent("Transform"):sendMsg([[scale: 1,1,1; position: 0,5,-20; rotation: 0,0,0;]])
-    local pSys = particleSys:addComponent("ParticleSystem")
-    pSys:sendMsg([[particleName: bomb; emitting: true]])
+    --local particleSys = scene:createObject("Bomba")
+    --particleSys:addComponent("Transform"):sendMsg([[scale: 1,1,1; position: 0,5,-20; rotation: 0,0,0;]])
+    --local pSys = particleSys:addComponent("ParticleSystem")
+    --pSys:sendMsg([[particleName: bomb; emitting: true]])
 
     local lluviaParticle = scene:createObject("Lluvia")
     lluviaParticle:addComponent("Transform"):sendMsg([[scale: 1,1,1; position: 0,100,0; rotation: 0,0,0;]])
