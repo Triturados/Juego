@@ -249,6 +249,21 @@ function createCharco(name, type, x,y,z)
 
 end
 
+function createSmoke(name, x,y,z)
+    local particleSys = scene:createObject(name)
+    local particleSystr = particleSys:addComponent("Transform"):sendMsg([[
+        scale: 1,1,1; 
+        position: ]] .. x .. [[ , ]] .. y .. [[ , ]] .. z .. [[;
+        rotation: 0,0,0;
+        ]])
+    local pSys = particleSys:addComponent("ParticleSystem")
+    pSys:sendMsg([[particleName: bomb; emitting: true]])
+    
+    return particleSystr;
+
+end
+
+
 function scene1() -- Settings
     scene:name("Settings")
 
@@ -414,7 +429,7 @@ function scene3() -- Overworld
 
     -- Colocamos el padre
     sueloTr:sendMsg([[
-        scale: 4,1,4;
+        scale: 150,1,150;
         position: 0,-4,0;
         rotation: 0,0,0;
     ]])
@@ -438,7 +453,7 @@ function scene3() -- Overworld
 
     local comp3 = suelo:addComponent("Mesh")
     comp3:sendMsg([[
-        meshName: arena.mesh;
+        meshName: cube.mesh;
     ]])
     local compRigidbodySuelo = suelo:addComponent('Rigidbody')
     compRigidbodySuelo:sendMsg([[
@@ -451,7 +466,7 @@ function scene3() -- Overworld
         ]])
 
     local material = suelo:addComponent("Material")
-    material:sendMsg([[materialName: bolaroja]])
+    material:sendMsg([[materialName: GrisSinBrillo]])
     material:sendComponent(0, comp3)
 
     -- Camara comentada por lo del splash screen
@@ -651,10 +666,12 @@ function scene3() -- Overworld
     rotarcam:sendGameObject(1, player)
     rotarcam:sendGameObject(2, cam)
 
-    --local particleSys = scene:createObject("Bomba")
-    --particleSys:addComponent("Transform"):sendMsg([[scale: 1,1,1; position: 0,5,-20; rotation: 0,0,0;]])
-    --local pSys = particleSys:addComponent("ParticleSystem")
-    --pSys:sendMsg([[particleName: bomb; emitting: true]])
+    createSmoke("Smoke1", 0, 0, -180)
+    createSmoke("Smoke2", 50, 0, -170)
+    createSmoke("Smoke3", -100, 0, -160)
+    createSmoke("Smoke4", -170, 0, 0)
+    createSmoke("Smoke5", -190, 0, 80)
+    createSmoke("Smoke1", 170, 0, 0)
 
     local lluviaParticle = scene:createObject("Lluvia")
     lluviaParticle:addComponent("Transform"):sendMsg([[scale: 1,1,1; position: 0,100,0; rotation: 0,0,0;]])
