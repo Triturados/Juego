@@ -13,6 +13,7 @@ namespace LoveEngine {
 		class Animation;
 		class Stamina;
 		class MovimientoJugador;
+		class Sound;
 		class AtaqueJugador : public Component {
 
 		private:
@@ -44,6 +45,7 @@ namespace LoveEngine {
 
 			float attackStamina = 0;
 			Stamina* sta;
+			Sound* attackSound;
 
 		public:
 			void init() override;
