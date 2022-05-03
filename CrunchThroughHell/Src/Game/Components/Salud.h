@@ -11,7 +11,7 @@ namespace LoveEngine {
 		class Transform;
 		class RigidBody;
 		class Slider;
-		class SaludJugador : public Component {
+		class Salud : public Component {
 			
 		private:
 			Transform* tr = nullptr;
@@ -38,7 +38,7 @@ namespace LoveEngine {
 			void setHealth(int health);
 			void addMaxHealth();
 			void takeDamage(int damage);
-			~SaludJugador();
+			~Salud();
 		};
 	}
 }

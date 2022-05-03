@@ -11,7 +11,7 @@
 #include <Input.h>
 #include <GameTime.h>
 #include <Components/MovimientoJugador.h>
-#include <Components/SaludJugador.h>
+#include <Components/Salud.h>
 
 void LoveEngine::ECS::EfectoEscenario::receiveMessage(Utilities::StringFormatter& sf)
 {
@@ -30,7 +30,7 @@ void LoveEngine::ECS::EfectoEscenario::slowMovement(GameObject* jugador)
 void LoveEngine::ECS::EfectoEscenario::doDamage(GameObject* jugador)
 {
 	//el metodo tiene cooldown
-	jugador->getComponent<SaludJugador>()->takeDamage(1);
+	jugador->getComponent<Salud>()->takeDamage(1);
 }
 
 void LoveEngine::ECS::EfectoEscenario::recoverMovement(GameObject* jugador)

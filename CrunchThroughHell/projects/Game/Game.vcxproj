@@ -114,7 +114,7 @@
     <ClCompile Include="..\..\src\Game\Components\MovimientoJugador.cpp" />
     <ClCompile Include="..\..\src\Game\Components\PauseGame.cpp" />
     <ClCompile Include="..\..\src\Game\Components\PauseMenu.cpp" />
-    <ClCompile Include="..\..\src\Game\Components\SaludJugador.cpp" />
+    <ClCompile Include="..\..\src\Game\Components\Salud.cpp" />
     <ClCompile Include="..\..\src\Game\Components\ScaleMainMenuButton.cpp" />
     <ClCompile Include="..\..\src\Game\Components\ShowText.cpp" />
     <ClCompile Include="..\..\src\Game\Components\Stamina.cpp" />
@@ -140,7 +140,7 @@
     <ClInclude Include="..\..\src\Game\Components\MovimientoJugador.h" />
     <ClInclude Include="..\..\src\Game\Components\PauseGame.h" />
     <ClInclude Include="..\..\src\Game\Components\PauseMenu.h" />
-    <ClInclude Include="..\..\src\Game\Components\SaludJugador.h" />
+    <ClInclude Include="..\..\src\Game\Components\Salud.h" />
     <ClInclude Include="..\..\src\Game\Components\ScaleMainMenuButton.h" />
     <ClInclude Include="..\..\src\Game\Components\ShowText.h" />
     <ClInclude Include="..\..\src\Game\Components\Stamina.h" />

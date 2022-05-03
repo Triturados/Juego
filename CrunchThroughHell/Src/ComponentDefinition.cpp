@@ -6,7 +6,7 @@
 #include <Components/ComponenteDeContar.h>
 #include <Components/BossMelee.h>
 #include <Components/BossDistancia.h>
-#include <Components/SaludJugador.h>
+#include <Components/Salud.h>
 #include "Components/CamFollow.h"
 #include "Components/MainMenu.h"
 #include "Components/CamRotate.h"
@@ -49,7 +49,7 @@ namespace LoveEngine {
 			newComponent<Moverpanatalla>("MoverPantalla");
 			newComponent<CamFollow>("CamFollow");
 			newComponent<CamRotate>("CamRotate");
-			newComponent<SaludJugador>("SaludJugador");
+			newComponent<Salud>("Salud");
 			newComponent<BossMelee>("BossMelee");
 			newComponent<BossDistancia>("BossDistancia");
 			newComponent<MainMenu>("MainMenu");

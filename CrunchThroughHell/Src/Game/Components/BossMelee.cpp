@@ -9,7 +9,7 @@
 #include <iostream>
 #include <Animation.h>
 #include <Timer.h>
-#include "SaludJugador.h"
+#include "Salud.h"
 
 namespace LoveEngine
 {
@@ -66,7 +66,7 @@ namespace LoveEngine
             }
             else */if (currentAction == attack && attack->damaging)
             {
-                auto hp = other->getComponent<SaludJugador>();
+                auto hp = other->getComponent<Salud>();
                 if (hp != nullptr)
                 {
                     attack->damaging = false;

@@ -6,13 +6,13 @@
 #include "Transform.h"
 #include "StringFormatter.h"
 #include "Vector3.h"
-#include "SaludJugador.h"
+#include "Salud.h"
 #include <RigidBody.h>
 #include "Mesh.h"
 
 void LoveEngine::ECS::Bullet::bulletDamage(GameObject* other)
 {
-	other->getComponent<SaludJugador>()->takeDamage(damage);
+	other->getComponent<Salud>()->takeDamage(damage);
 	mesh->setVisibility(false);
 	gameObject->removeGameObject();
 }
@@ -71,7 +71,7 @@ void LoveEngine::ECS::Bullet::receiveMessage(Utilities::StringFormatter& sf)
 
 void LoveEngine::ECS::Bullet::colliding(GameObject* other)
 {
-	if (!other->getComponent<SaludJugador>()) return;
+	if (!other->getComponent<Salud>()) return;
 
 	hit = true;
 	hitObject = other;
@@ -79,7 +79,7 @@ void LoveEngine::ECS::Bullet::colliding(GameObject* other)
 
 void LoveEngine::ECS::Bullet::enterCollision(GameObject* other)
 {
-	if (!other->getComponent<SaludJugador>()) return;
+	if (!other->getComponent<Salud>()) return;
 
 	hit = true;
 	hitObject = other;

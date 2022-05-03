@@ -631,7 +631,7 @@ function scene3() -- Overworld
         posY: 60;
     ]])
 
-    local saludjugador = player:addComponent("SaludJugador")
+    local saludjugador = player:addComponent("Salud")
     saludjugador:sendComponent(0, sliderOverLive);
     saludjugador:sendComponent(1, sliderBehindLive);
 
@@ -871,7 +871,7 @@ function scene5() -- Boss2
         posY: 60;
     ]])
 
-    local saludjugador = player:addComponent("SaludJugador")
+    local saludjugador = player:addComponent("Salud")
     saludjugador:sendComponent(0, sliderOverLive);
     saludjugador:sendComponent(1, sliderBehindLive);
 

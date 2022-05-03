@@ -1,4 +1,4 @@
-#include "SaludJugador.h"
+#include "Salud.h"
 #include "GameObject.h"
 #include "Transform.h"
 #include "RigidBody.h"
@@ -12,19 +12,19 @@
 #include <Input.h>
 #include <GameTime.h>
 
-void LoveEngine::ECS::SaludJugador::receiveMessage(Utilities::StringFormatter& sf)
+void LoveEngine::ECS::Salud::receiveMessage(Utilities::StringFormatter& sf)
 {
 	sf.tryGetFloat("cooldownTime", cooldownTime);
 	sf.tryGetInt("maxHealth", _MAX_HEALTH);
 }
 
-void LoveEngine::ECS::SaludJugador::addHealth()
+void LoveEngine::ECS::Salud::addHealth()
 {
 	actHealth++;
 	if (actHealth > _MAX_HEALTH) actHealth = _MAX_HEALTH;
 }
 
-void LoveEngine::ECS::SaludJugador::init()
+void LoveEngine::ECS::Salud::init()
 {
 	input = Input::InputManager::getInstance();
 	//assert
@@ -40,7 +40,7 @@ void LoveEngine::ECS::SaludJugador::init()
 	sliderBehind->setDetectInput(false);
 }
 
-void LoveEngine::ECS::SaludJugador::setHealth(int health)
+void LoveEngine::ECS::Salud::setHealth(int health)
 {
 	if (health < 0) health = 0;
 	else if (health > _MAX_HEALTH) health = _MAX_HEALTH;
@@ -49,7 +49,7 @@ void LoveEngine::ECS::SaludJugador::setHealth(int health)
 
 }
 
-void LoveEngine::ECS::SaludJugador::receiveComponent(int i, Component* c)
+void LoveEngine::ECS::Salud::receiveComponent(int i, Component* c)
 {
 	if (i == 0)
 	{
@@ -63,13 +63,13 @@ void LoveEngine::ECS::SaludJugador::receiveComponent(int i, Component* c)
 	}
 }
 
-void LoveEngine::ECS::SaludJugador::addMaxHealth()
+void LoveEngine::ECS::Salud::addMaxHealth()
 {
 	_MAX_HEALTH++;
 }
 
 // Metodo que tiene en cuenta el cooldown para afcetar a la vida
-void LoveEngine::ECS::SaludJugador::takeDamage(int damage)
+void LoveEngine::ECS::Salud::takeDamage(int damage)
 {
 	if (hitCooldown) return;
 
@@ -78,7 +78,7 @@ void LoveEngine::ECS::SaludJugador::takeDamage(int damage)
 	cooldownTime = _MAX_COOLDOWN_TIME;
 }
 
-LoveEngine::ECS::SaludJugador::~SaludJugador()
+LoveEngine::ECS::Salud::~Salud()
 {
 
 }
@@ -89,7 +89,7 @@ float naive_lerp(float a, float b, float t)
 	return a + t * (b - a);
 }
 
-void LoveEngine::ECS::SaludJugador::update()
+void LoveEngine::ECS::Salud::update()
 {
 	//testeo
 	if(input->keyJustPressed(Input::InputKeys::B)) {
@@ -105,7 +105,7 @@ void LoveEngine::ECS::SaludJugador::update()
 	sliderBehind->setProgress(barProgress);
 }
 
-void LoveEngine::ECS::SaludJugador::stepPhysics()
+void LoveEngine::ECS::Salud::stepPhysics()
 {
 	if (!hitCooldown) return;
 	cooldownTime -= Time::getInstance()->deltaTime;
