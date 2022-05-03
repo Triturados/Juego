@@ -249,6 +249,25 @@ function createCharco(name, type, x,y,z)
 
 end
 
+function createMesh(meshName, x,y,z, sx, sy, sz, rx, ry, rz)
+    local mesh = scene:createObject(meshName);
+
+    local tr = mesh:addComponent("Transform");
+
+    tr:sendMsg([[
+        scale: ]] .. sx .. [[ , ]] .. sy .. [[ , ]] .. sz .. [[;
+        position: ]] .. x .. [[ , ]] .. y .. [[ , ]] .. z .. [[;
+        rotation: ]] .. rx .. [[ , ]] .. ry .. [[ , ]] .. rz .. [[;
+    ]])
+
+    mesh:addComponent("Mesh"):sendMsg([[
+        meshName: ]] .. meshName .. [[;
+    ]])
+    
+    return mesh;
+
+end
+
 function createSmoke(name, x,y,z)
     local particleSys = scene:createObject(name)
     local particleSystr = particleSys:addComponent("Transform"):sendMsg([[
@@ -445,11 +464,6 @@ function scene3() -- Overworld
     muroTr3:sendComponent(1,sueloTr)
     muroTr4:sendComponent(1,sueloTr)
     ------------------------------
-    -- Volvemos a mover el escenario (si hiciese falta)
-    -- sueloTr:sendMsg([[
-    --     position: 0,0,0;
-    --     rotation: 0,0,0,0;
-    -- ]])
 
     local comp3 = suelo:addComponent("Mesh")
     comp3:sendMsg([[
@@ -468,22 +482,6 @@ function scene3() -- Overworld
     local material = suelo:addComponent("Material")
     material:sendMsg([[materialName: GrisSinBrillo]])
     material:sendComponent(0, comp3)
-
-    -- Camara comentada por lo del splash screen
-    -- local camara = scene:createObject("CamaritaGuapa")
-    -- local transcam = camara:addComponent('Transform')
-    -- transcam:sendMsg([[
-    --    scale: 1,1,1;
-    --    position: 0,40,80;
-    --    rotation: 0,0,0,0;
-    -- ]])
-
-    -- local camCamera = camara:addComponent('Camera')
-
-    -- camCamera:sendMsg([[
-    --    name: escenaJuego;
-    -- ]])
-   
 
     local luz = scene:createObject("Luz")
     local compLuz = luz:addComponent('Transform')
@@ -557,8 +555,6 @@ function scene3() -- Overworld
     playerMov:sendMsg([[
         speed: 30.0
     ]])
-
-    --player:addComponent("ParticleSystem")
 
     player:addComponent("Animation"):sendMsg([[animName: idle]])
 
@@ -669,6 +665,17 @@ function scene3() -- Overworld
     createSmoke("Smoke4", -170, 0, 0)
     createSmoke("Smoke5", -190, 0, 80)
     createSmoke("Smoke1", 170, 0, 0)
+
+    createMesh("columna.mesh", -150, 10, 150, 10, 40, 10, 0,0,0)
+    createMesh("columna2.mesh", 150, 10, -150, 10, 40, 10, 0,0,0)
+    createMesh("columna3.mesh", -150, 10, -150, 10, 40, 10, 0,0,0)
+    createMesh("columna3.mesh", 150, 10, 150, 10, 40, 10, 0,0,0)
+    createMesh("wallRock1.mesh", 110, -5, 150, 5, 2, 3, 0,-0.7,0)
+    createMesh("wallRock1.mesh", 150, -5, 110, 5, 2, 3, 0,0.85,0)
+    createMesh("wallRock2.mesh", 150, -5, -110, 5, 2, 3, 0,1.6,0)
+    createMesh("wallRock1.mesh", -110, -5, -150, 5, 2, 3, 0,-0.7,0)
+    createMesh("wallRock2.mesh", -150, -5, 110, 5, 2, 3, 0,-1.6,0)
+    createMesh("wallRock1.mesh", -150, -5, 0, 5, 2, 3, 0,0.85,0)
 
     local lluviaParticle = scene:createObject("Lluvia")
     lluviaParticle:addComponent("Transform"):sendMsg([[scale: 1,1,1; position: 0,100,0; rotation: 0,0,0;]])
