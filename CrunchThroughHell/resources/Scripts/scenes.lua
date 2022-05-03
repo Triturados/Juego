@@ -545,7 +545,7 @@ function scene3() -- Overworld
 
     trcam:sendMsg([[
         scale: 2,2,2;
-        position: 0,40,60;
+        position: 0,20,60;
         rotation: 0,0,0;
     ]])
 
