@@ -12,6 +12,7 @@ namespace LoveEngine {
 		class Animation;
 		class ParticleSystem;
 		class Stamina;
+		class Sound;
 
 		class AtaqueJugador;
 		class MovimientoJugador : public Component {
@@ -54,6 +55,7 @@ namespace LoveEngine {
 	
 			int dashStamina = 0;
 			Stamina* sta;
+			Sound* dashSound;
 		public:
 			void init() override;
 			void postInit() override;

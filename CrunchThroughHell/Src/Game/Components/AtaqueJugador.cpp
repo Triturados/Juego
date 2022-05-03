@@ -13,6 +13,8 @@
 #include "MovimientoJugador.h"
 #include "Random.h"
 #include "Stamina.h"
+#include <Sound.h>
+
 
 void LoveEngine::ECS::AtaqueJugador::init()
 {
@@ -27,6 +29,11 @@ void LoveEngine::ECS::AtaqueJugador::init()
 	tr = gameObject->getComponent<Transform>();
 
 	sta = gameObject->getComponent<Stamina>();
+
+
+	attackSound = gameObject->addComponent<Sound>();
+	attackSound->sendFormattedString("soundName:dash.wav; channel: effects; loop: false; volume: 0.1; playNow: false;");
+	attackSound->init();
 
 }
 
@@ -104,6 +111,7 @@ void LoveEngine::ECS::AtaqueJugador::attack()
 {
 	if (currentDuration >= attackDuration / 2 && !hit) {
 		hit = true;
+		attackSound->playSound();
 		if (bossOnRange())
 			std::cout << "hit\n";
 	}
