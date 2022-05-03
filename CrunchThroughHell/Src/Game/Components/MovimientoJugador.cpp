@@ -45,6 +45,8 @@ void LoveEngine::ECS::MovimientoJugador::postInit() {
 	dashParticles = tr->getChild(indx)->gameObject->getComponent<ParticleSystem>();
 
 	if (bossRb != nullptr) bossTr = bossRb->gameObject->getComponent<Transform>();
+
+	dashStamina = sta->getMaxStamina() / 10;
 }
 
 void LoveEngine::ECS::MovimientoJugador::update()
@@ -85,7 +87,7 @@ void LoveEngine::ECS::MovimientoJugador::update()
 		//std::cout << controller << "\n";
 
 		if (input->isControllerButtonPressed(Input::ControllerButton::B) &&
-			input->isControllerButtonState(Input::ControllerButtonState::DOWN) && sta->getStamina() >= dashStamina && !isDashing && lastDash >= dashDelay && (movementX != 0 || movementZ != 0) )
+			input->isControllerButtonState(Input::ControllerButtonState::DOWN) && sta->getStamina() >= dashStamina && !isDashing && lastDash >= dashDelay && (movementX != 0 || movementZ != 0))
 		{
 			sta->loseStamina(dashStamina);
 			isDashing = true;

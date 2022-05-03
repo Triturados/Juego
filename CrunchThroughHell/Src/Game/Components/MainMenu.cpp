@@ -10,6 +10,8 @@
 #include "Window.h"
 #include <StringFormatter.h>
 #include "ScaleMainMenuButton.h"
+#include <Sound.h>
+#include <SoundButton.h>
 
 namespace LoveEngine {
 
@@ -61,6 +63,14 @@ namespace LoveEngine {
 				move->changeDestination(pos);
 				move->setActive(false);
 				moveUIs[i] = move;
+				
+				auto sound = button->gameObject->addComponent<Sound>();
+				sound->sendFormattedString("soundName: ClickSound.wav; channel: effects; loop: false; volume: 0.5; playNow: false; ");
+				sound->init();
+
+				auto soundController = button->gameObject->addComponent<SoundButton>();
+				soundController->init();
+				soundController->postInit();
 			}
 
 			up->onClick([&]() {advance(1, 1); });
