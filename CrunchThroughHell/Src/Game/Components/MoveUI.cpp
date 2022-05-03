@@ -47,9 +47,8 @@ namespace LoveEngine {
 		auto v = origin;
 		v.lerp(destination, Utilities::cubicEaseOut(tvalue));
 
-		if (centerx)
+		if (shouldcenterX)
 			v.x = centerx - (element->getSize().x * 0.5f);
-
 		element->setPosition(v);
 	}
 
@@ -65,6 +64,8 @@ namespace LoveEngine {
 		if (sf.tryGetInt("centerX", centerx)) {
 			shouldcenterX = true;
 		}
+
+		sf.tryGetBool("enabled", enabled);
 	}
 
 	Utilities::Vector3<int> ECS::MoveUI::getDestination()

@@ -22,6 +22,7 @@
 #include "Components/Stamina.h"
 #include "Components/AtaqueJugador.h"
 #include "Components/BulletGenerator.h"
+#include "Components/MoveUI.h"
 
 namespace LoveEngine {
 
@@ -64,6 +65,7 @@ namespace LoveEngine {
 			newComponent<Bullet>("Bullet");
 			newComponent<BulletGenerator>("BulletGenerator");
 			newComponent<Stamina>("Stamina");
+			newComponent<MoveUI>("MoveUI");
 			newComponent<AtaqueJugador>("AtaqueJugador");
 
 			inst = nullptr;

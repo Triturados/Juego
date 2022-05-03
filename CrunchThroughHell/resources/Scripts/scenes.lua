@@ -8,7 +8,11 @@
 --  6: victory
 --  7: defeat
 --------------
---package.path = package.path .. ";../resources/LUA/?.lua"
+
+
+
+package.path = package.path .. ";./resources/Scripts/?.lua"
+--package.path = package.path .. ";/resources/Scripts/?.lua"
 
 sceneCount = 8;
 
@@ -91,9 +95,9 @@ scene2 = {
 }
 function scene0() -- Main menu
     scene:name("Main menu")
-    -- menu = require "menu";
-    -- menu:cambiarIcono()
-    icon('icon.bmp')
+    --menu = require "menu";
+    --menu:cambiarIcono()
+    --icon('icon.bmp')
 
     local cam = scene:createObject("cam")
     cam:addComponent('Transform'):sendMsg([[
@@ -120,16 +124,30 @@ function scene0() -- Main menu
     local bannerxpos = 100;
     local bannerwidth = 300;
     local centerx = round((100 + 300) * 0.5)
-    scene:createObject("Banner"):addComponent("Image"):sendMsg([[
+
+    local containerObj = scene:createObject("Container")
+    containerObj:addComponent('MoveUI'):sendMssg([[
+        destination: 100, 0, 0;
+        duration: 3.0;
+        enabled: true;
+    ]])
+
+    local container = containerObj:addComponent("UIContainer")
+    container:sendMssg([[
+        posX: 100;
+        posY: -720;
+        posZ: 0;
+    ]])
+
+    container:sendComponent(0, scene:createObject("Banner"):addComponent("Image"):sendMsg([[
         material: mainmenuBanner; 
         width: 300;
         height : 640;
-        posX: 100;
+        posX: 0;
         posY: 52
         posZ: ]] .. zOrder ..[[
-    ]])
+    ]]))
     zOrder = zOrder + 1
-
 
     
     scene:createObject("Press any key"):addComponent("Image"):sendMsg([[
@@ -140,14 +158,6 @@ function scene0() -- Main menu
     ]])
     zOrder = zOrder + 1
 
-
-    scene:createObject("Black border"):addComponent("Image"):sendMsg([[
-        material: mainmenuBlackBorder; 
-        width: 1280;
-        height : 720;
-        posZ: ]] .. zOrder ..[[
-    ]])
-    zOrder = zOrder + 1
 
 
     local mainmenu = bg:addComponent("MainMenu");
@@ -172,6 +182,16 @@ function scene0() -- Main menu
     mainmenu:sendComponent(-1, createArrow(height() - 60, 'mainmenuArrowDown'))
     mainmenu:sendComponent(-2, createArrow(426, 'mainmenuArrow'))
     mainmenu:sendMssg('centerX: 250');
+
+
+
+    scene:createObject("Black border"):addComponent("Image"):sendMsg([[
+        material: mainmenuBlackBorder; 
+        width: 1280;
+        height : 720;
+        posZ: ]] .. zOrder ..[[
+    ]])
+    zOrder = zOrder + 1
 
     Blueprint.spawnObject(scene, "Vignette")
 
