@@ -561,11 +561,13 @@ function scene3() -- Overworld
     ]])
 
     -- player--
+
+    local playerSpawnHeight = 16
     local player = scene:createObject("jugador")
     local tr = player:addComponent("Transform")
     tr:sendMsg([[
         scale: 0.075,0.075,0.075;
-        position: 0,30,0;
+        position: 0,]] .. playerSpawnHeight .. [[,0;
         rotation: 0,0,0;
     ]])
     player:addComponent("Rigidbody"):sendMsg([[
@@ -637,7 +639,7 @@ function scene3() -- Overworld
 
     local dashParticles = scene:createObject("dashParticles")
     local trDash = dashParticles:addComponent("Transform")
-    trDash:sendMsg([[scale: 1,1,1; position: 0,35,0; rotation: 0,0,0;]])
+    trDash:sendMsg([[scale: 1,1,1; position: 0,]] .. playerSpawnHeight - 1 .. [[,0; rotation: 0,0,0;]])
     local dashSys = dashParticles:addComponent("ParticleSystem")
     dashSys:sendMsg([[particleName: dash; emitting: false]])
     trDash:sendComponent(1, tr)
@@ -649,7 +651,7 @@ function scene3() -- Overworld
     local bosstr = boss:addComponent("Transform")
     bosstr:sendMsg([[
         scale: 0.2,0.2,0.2;
-        position: 20,20,-20;
+        position: 30,24,-30;
         rotation: 0,0,0;
     ]])
     local bossAI = boss:addComponent("BossMelee")

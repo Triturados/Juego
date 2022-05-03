@@ -223,7 +223,7 @@ namespace LoveEngine
         void BossMelee::Leap::land()
         {
             landingEnabled = false;
-            std::cout << "Grounded\n";
+            //std::cout << "Grounded\n";
             rb->setLinearVelocity(Vector3(0, 0, 0));
 
             ECS::Timer::invoke([&](ECS::Timer*) {
@@ -236,7 +236,7 @@ namespace LoveEngine
 
         void BossMelee::Leap::enableLanding()
         {
-            std::cout << "able to land\n";
+            //std::cout << "able to land\n";
             landingEnabled = true;
         }
 
