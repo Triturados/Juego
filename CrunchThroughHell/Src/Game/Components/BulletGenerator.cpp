@@ -28,7 +28,7 @@ void LoveEngine::ECS::BulletGenerator::createBullet()
 	auto bulletRigid = bullet->addComponent<RigidBody>();
 	bulletRigid->sendFormattedString("trigger: true; state: dynamic; mass: 1.0; shape: cube; restitution: 1.0; colliderScale: 3, 3, 3;");
 	auto bulletB = bullet->addComponent<Bullet>();
-	bulletB->sendFormattedString("direction: 0,0,1; velocity: 20.0; damage: 10;");
+	bulletB->sendFormattedString("direction: 0,0,1; velocity: 30.0; damage: 10;");
 	auto bulletMat = bullet->addComponent<Material>();
 	bulletMat->receiveComponent(0, bulletMesh);
 	bulletMat->sendFormattedString("materialName: lava;");

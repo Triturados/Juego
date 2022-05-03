@@ -15,6 +15,8 @@
 #include "Definitions.h"
 #include "Stamina.h"
 #include "AtaqueJugador.h"
+#include <Sound.h>
+
 
 void LoveEngine::ECS::MovimientoJugador::init()
 {
@@ -30,6 +32,13 @@ void LoveEngine::ECS::MovimientoJugador::init()
 	sta = gameObject->getComponent<Stamina>();
 	anim = gameObject->getComponent<Animation>();
 	ataque = gameObject->getComponent<AtaqueJugador>();
+
+
+	dashSound = gameObject->addComponent<Sound>();
+	dashSound->sendFormattedString("soundName:dash.wav; channel: effects; loop: false; volume: 0.1; playNow: false;");
+	dashSound->init();
+
+
 }
 
 void LoveEngine::ECS::MovimientoJugador::postInit() {
@@ -67,10 +76,13 @@ void LoveEngine::ECS::MovimientoJugador::update()
 		if (input->isKeyPressed(Input::InputKeys::D)) movementX = -speed;
 		if (input->isKeyPressed(Input::InputKeys::SPACE) && sta->getStamina() >= dashStamina && !isDashing && lastDash >= dashDelay && (movementX != 0 || movementZ != 0))
 		{
+
+
 			lastDash = 0;
 			sta->loseStamina(dashStamina);
 			isDashing = true;
 			currentDashDuration = 0;
+			dashSound->playSound();
 		}
 		if (input->isKeyPressed(Input::InputKeys::R))
 		{

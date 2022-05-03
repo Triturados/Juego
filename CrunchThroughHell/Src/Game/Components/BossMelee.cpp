@@ -9,6 +9,7 @@
 #include <iostream>
 #include <Animation.h>
 #include <Timer.h>
+#include "SaludJugador.h"
 
 namespace LoveEngine
 {
@@ -51,6 +52,29 @@ namespace LoveEngine
             ComportamientoBoss::init();
         }
 
+        void BossMelee::enterCollision(GameObject* other)
+        {
+            //Esto tiene que estar aquí porque las acciones no pueden detectar colisiones
+            
+            // Descomentar esto si se arreglan las colisiones
+            /*if (currentAction == leap && leap->landingEnabled)
+            {
+                std::cout << "Maybe landing?\n";
+                auto otherTr = other->getComponent<Transform>();
+                if (otherTr->getPos()->y < tr->getPos()->y)
+                    leap->land();
+            }
+            else */if (currentAction == attack && attack->damaging)
+            {
+                auto hp = other->getComponent<SaludJugador>();
+                if (hp != nullptr)
+                {
+                    attack->damaging = false;
+                    hp->takeDamage(10);
+                }
+            }
+        }
+
 #pragma region acciones
 
         BossMelee::MeleeAttack::MeleeAttack(Agent* agent_) : Action(agent_, 10.0)
@@ -73,20 +97,21 @@ namespace LoveEngine
 
         void BossMelee::MeleeAttack::onActionStart()
         {
-            std::cout << "\n\n\n\n\n\n\nAttacking\n\n\n\n\n\n\n\n";
+            //std::cout << "\n\n\n\n\n\n\nAttacking\n\n\n\n\n\n\n\n";
+
             setPriority(30.0);
             if (target == nullptr || rb == nullptr || tr == nullptr)
             {
                 throw new std::exception("Faltan referencias para una accion");
                 return;
             }
-            // TO DO: start animation
-            //if (comboIndex >= numAnimations) comboIndex = 0;
+
             AttackAnimation attack = attackAnimations[comboIndex++ % numAnimations];
-            //++comboIndex;
 
             if (!anim->playingAnimation(attack.animation))
                 anim->changeAnimation(attack.animation);
+
+            anim->resetAnim();
 
             lockAction = true;
 
@@ -98,6 +123,7 @@ namespace LoveEngine
         void BossMelee::MeleeAttack::attackFinished()
         {
             lockAction = false;
+            damaging = true;
         }
 
         BossMelee::Chase::Chase(Agent* agent_) : Action(agent_, 0.0) { };
@@ -130,7 +156,7 @@ namespace LoveEngine
             }
         }
 
-        BossMelee::Leap::Leap(Agent* agent_) : Action(agent_, 80)
+        BossMelee::Leap::Leap(Agent* agent_) : Action(agent_, 140)
         {
             increasePrioOverTime = 10;
         }
@@ -150,22 +176,23 @@ namespace LoveEngine
 
         void BossMelee::Leap::onActionStart()
         {
-            std::cout << "\n\n\n\n\n\n\nLeaping\n\n\n\n\n\n\n\n";
+            //std::cout << "\n\n\n\n\n\n\nLeaping: distance " << (*(target->getPos()) - *(tr->getPos())).magnitude() <<"\n\n\n\n\n\n\n\n";
             if (target == nullptr || rb == nullptr || tr == nullptr)
             {
                 throw new std::exception("Faltan referencias para una accion");
                 return;
             }
+
             Vector3 hrzDistance = (*(target->getPos()) - *(tr->getPos()));
             hrzDistance.y = 0;
+            Vector3 hrzImpulse = hrzDistance * (1 / jumpDuration);
 
             // calculado despejando ecuaciones del MRUA
-            // TO DO: calibrate calculation to fit game gravity
-            float gravity = -1;
-            float vertImpulse = jumpZenith * hrzImpulse / hrzDistance.magnitude() + (-1/2 * gravity) / hrzImpulse * hrzDistance.magnitude();
+            float gravity = rb->getGravity()->y;
+
+            float vrtImpulse = -gravity * jumpDuration / 2;
             
-            hrzDistance.normalize();
-            auto force = Vector3(hrzDistance.x * hrzImpulse, vertImpulse, hrzDistance.z * hrzImpulse);
+            auto force = Vector3(hrzImpulse.x, vrtImpulse, hrzImpulse.z);
             rb->addForce(force * rb->getMass(), Vector3(0, 0, 0), ForceMode::IMPULSE);
 
             //start animation
@@ -175,24 +202,48 @@ namespace LoveEngine
             rb->setRotation(Utilities::Vector3<int>(0, 1, 0), angle);
 
             anim->resetAnim();
+            anim->changeAnimation("jumpstart");
 
             lockAction = true;
+
+            // aseguramos que no detecte aterrizaje nada más saltar
+            landingEnabled = false;
+            ECS::Timer::invoke([&](ECS::Timer*) {
+                enableLanding();
+                }, 0.1);
         }
 
         void BossMelee::Leap::activeUpdate()
         {
-            //TO DO: make height calculation relative to hitbox size, or some other way entirely
-            if (rb->getVelocity()->y < 0 && tr->getPos()->y < 22) 
-            {
-                std::cout << "Grounded";
-                rb->setLinearVelocity(Vector3(0, 0, 0));
-                //TO DO: add recovery timer on landing
-                setPriority(80);
-                lockAction = false;
-            }
+            //std::cout << "Current height: " << tr->getPos()->y;
+            if (rb->getVelocity()->y < 0 && tr->getPos()->y < 22)
+                land();
+        }
+
+        void BossMelee::Leap::land()
+        {
+            landingEnabled = false;
+            //std::cout << "Grounded\n";
+            rb->setLinearVelocity(Vector3(0, 0, 0));
+
+            ECS::Timer::invoke([&](ECS::Timer*) {
+                recover();
+                }, 1.2);
             //end animation
             anim->changeAnimation("jumpend");
             anim->setLoop(true);
+        }
+
+        void BossMelee::Leap::enableLanding()
+        {
+            //std::cout << "able to land\n";
+            landingEnabled = true;
+        }
+
+        void BossMelee::Leap::recover()
+        {
+            setPriority(80);
+            lockAction = false;
         }
 #pragma endregion
     }

@@ -262,7 +262,7 @@ function createCharco(name, type, x,y,z)
         mass: 0.0;
         shape: cube; 
         restitution: 0.9;
-        colliderScale: 10,1,10;
+        colliderScale:10,1,10;
     ]])
 
     charco:addComponent('EfectoEscenario'):sendMsg([[
@@ -270,6 +270,25 @@ function createCharco(name, type, x,y,z)
     ]])
     
     return tr;
+
+end
+
+function createMesh(meshName, x,y,z, sx, sy, sz, rx, ry, rz)
+    local mesh = scene:createObject(meshName);
+
+    local tr = mesh:addComponent("Transform");
+
+    tr:sendMsg([[
+        scale: ]] .. sx .. [[ , ]] .. sy .. [[ , ]] .. sz .. [[;
+        position: ]] .. x .. [[ , ]] .. y .. [[ , ]] .. z .. [[;
+        rotation: ]] .. rx .. [[ , ]] .. ry .. [[ , ]] .. rz .. [[;
+    ]])
+
+    mesh:addComponent("Mesh"):sendMsg([[
+        meshName: ]] .. meshName .. [[;
+    ]])
+    
+    return mesh;
 
 end
 
@@ -287,6 +306,32 @@ function createSmoke(name, x,y,z)
 
 end
 
+function createArbol(name, x,y,z)
+    local arbol = scene:createObject(name);
+
+    local tr = arbol:addComponent("Transform");
+
+    tr:sendMsg([[
+        scale: 20,20,20;
+        position: ]] .. x .. [[ , ]] .. y .. [[ , ]] .. z .. [[;
+        rotation: 0,0,0;
+    ]])
+
+    arbol:addComponent("Mesh"):sendMsg([[
+        meshName: Arbol1.mesh;
+    ]])
+
+    arbol:addComponent('Rigidbody'):sendMsg([[
+        mass: 0.0;
+        state: static;
+        shape: cube; 
+        restitution: 0.9;
+        colliderScale: 15,25,15;
+    ]])
+
+    return tr;
+
+end
 
 function scene1() -- Settings
     scene:name("Settings")
@@ -469,11 +514,6 @@ function scene3() -- Overworld
     muroTr3:sendComponent(1,sueloTr)
     muroTr4:sendComponent(1,sueloTr)
     ------------------------------
-    -- Volvemos a mover el escenario (si hiciese falta)
-    -- sueloTr:sendMsg([[
-    --     position: 0,0,0;
-    --     rotation: 0,0,0,0;
-    -- ]])
 
     local comp3 = suelo:addComponent("Mesh")
     comp3:sendMsg([[
@@ -492,22 +532,6 @@ function scene3() -- Overworld
     local material = suelo:addComponent("Material")
     material:sendMsg([[materialName: GrisSinBrillo]])
     material:sendComponent(0, comp3)
-
-    -- Camara comentada por lo del splash screen
-    -- local camara = scene:createObject("CamaritaGuapa")
-    -- local transcam = camara:addComponent('Transform')
-    -- transcam:sendMsg([[
-    --    scale: 1,1,1;
-    --    position: 0,40,80;
-    --    rotation: 0,0,0,0;
-    -- ]])
-
-    -- local camCamera = camara:addComponent('Camera')
-
-    -- camCamera:sendMsg([[
-    --    name: escenaJuego;
-    -- ]])
-   
 
     local luz = scene:createObject("Luz")
     local compLuz = luz:addComponent('Transform')
@@ -545,7 +569,7 @@ function scene3() -- Overworld
 
     trcam:sendMsg([[
         scale: 2,2,2;
-        position: 0,40,60;
+        position: 0,20,60;
         rotation: 0,0,0;
     ]])
 
@@ -561,11 +585,13 @@ function scene3() -- Overworld
     ]])
 
     -- player--
+
+    local playerSpawnHeight = 16
     local player = scene:createObject("jugador")
     local tr = player:addComponent("Transform")
     tr:sendMsg([[
         scale: 0.075,0.075,0.075;
-        position: 0,30,0;
+        position: 0,]] .. playerSpawnHeight .. [[,0;
         rotation: 0,0,0;
     ]])
     player:addComponent("Rigidbody"):sendMsg([[
@@ -581,8 +607,6 @@ function scene3() -- Overworld
     playerMov:sendMsg([[
         speed: 30.0
     ]])
-
-    --player:addComponent("ParticleSystem")
 
     player:addComponent("Animation"):sendMsg([[animName: idle]])
 
@@ -639,22 +663,19 @@ function scene3() -- Overworld
 
     local dashParticles = scene:createObject("dashParticles")
     local trDash = dashParticles:addComponent("Transform")
-    trDash:sendMsg([[scale: 1,1,1; position: 0,35,0; rotation: 0,0,0;]])
+    trDash:sendMsg([[scale: 1,1,1; position: 0,]] .. playerSpawnHeight - 1 .. [[,0; rotation: 0,0,0;]])
     local dashSys = dashParticles:addComponent("ParticleSystem")
     dashSys:sendMsg([[particleName: dash; emitting: false]])
     trDash:sendComponent(1, tr)
 
     -- Enemigo--
     
-    local soundObjBoss = scene:createObject("menuSound")
-    local soundCompBoss= soundObjBoss:addComponent("Sound")
-    soundCompBoss:sendMsg([[soundName: FireNight.wav; channel: music; loop: true; volume: 0.5; playNow: true;]])
 
     local boss = scene:createObject("boss")
     local bosstr = boss:addComponent("Transform")
     bosstr:sendMsg([[
         scale: 0.2,0.2,0.2;
-        position: 50,20,-50;
+        position: 30,24,-30;
         rotation: 0,0,0;
     ]])
     local bossAI = boss:addComponent("BossMelee")
@@ -663,9 +684,9 @@ function scene3() -- Overworld
     local bossRb = boss:addComponent('Rigidbody')
     bossRb:sendMsg([[
         state: dynamic;
-        mass: 10.0;
+        mass: 100.0;
         shape: sphere; 
-        restitution: 1.0;
+        restitution: 0.0;
         colliderScale: 18,18,18;
     ]])
 
@@ -697,6 +718,17 @@ function scene3() -- Overworld
     createSmoke("Smoke5", -190, 0, 80)
     createSmoke("Smoke1", 170, 0, 0)
 
+    createMesh("columna.mesh", -150, 10, 150, 10, 40, 10, 0,0,0)
+    createMesh("columna2.mesh", 150, 10, -150, 10, 40, 10, 0,0,0)
+    createMesh("columna3.mesh", -150, 10, -150, 10, 40, 10, 0,0,0)
+    createMesh("columna3.mesh", 150, 10, 150, 10, 40, 10, 0,0,0)
+    createMesh("wallRock1.mesh", 110, -5, 150, 5, 2, 3, 0,-0.7,0)
+    createMesh("wallRock1.mesh", 150, -5, 110, 5, 2, 3, 0,0.85,0)
+    createMesh("wallRock2.mesh", 150, -5, -110, 5, 2, 3, 0,1.6,0)
+    createMesh("wallRock1.mesh", -110, -5, -150, 5, 2, 3, 0,-0.7,0)
+    createMesh("wallRock2.mesh", -150, -5, 110, 5, 2, 3, 0,-1.6,0)
+    createMesh("wallRock1.mesh", -150, -5, 0, 5, 2, 3, 0,0.85,0)
+
     local lluviaParticle = scene:createObject("Lluvia")
     lluviaParticle:addComponent("Transform"):sendMsg([[scale: 1,1,1; position: 0,100,0; rotation: 0,0,0;]])
     local lluviaParticleSys = lluviaParticle:addComponent("ParticleSystem")
@@ -706,47 +738,6 @@ function scene3() -- Overworld
     torch:addComponent("Transform"):sendMsg([[scale: 1,1,1; position: -30,10,0; rotation: 0,0,0;]])
     local torchSys = torch:addComponent("ParticleSystem")
     torchSys:sendMsg([[particleName: torch; emitting: true]])
-
-    local textPrueba = scene:createObject("TextoPrueba")
-    local textPruebaText = textPrueba:addComponent("Text")
-    textPruebaText:sendMsg([[
-        position: 50, 50, 0;
-        fontName: chikory
-        mainColor: 0.3, 1.0, 0.6, 1.0;
-        textScale: 0.05
-        alignment : 0
-        ]])
-
-    -- textPruebaText:sendString("V I D A S")
-    local showText = textPrueba:addComponent("ShowText")
-    showText:sendMssg([[
-        interval: 0.1
-    ]])
-    showText:sendString("Hola que tal como estas")
-    createText(20, 100, 'tititiitiutututu')
-    local dialogue = scene:createObject("Dialogue"):addComponent('Dialogue')
-    dialogue:sendMsg("lines: 3")
-
-    for i = 0, 2, 1 do
-        local line = createText(20, 500 + i * 30, '  ')
-        dialogue:sendComponent(i, line);
-    end
-    dialogue:sendMssg([[
-        line0: #Soy el primer texto uwu#
-        line1: #Soy el segundo texto uwu#
-        line2: #Soy el tercer texto uwu...#
-    ]])
-    dialogue:sendMssg([[
-        line0: #Soy el cuarto texto uwu#
-        line1: #Soy el quinto texto uwu#
-        line2: #Soy el sexto texto uwu...#
-    ]])
-    dialogue:sendMssg([[
-        line0: #Hola nene, mi nombre es Yojhan Steven, si estas#
-        line1: #viendo esto es porque eres una persona muy#
-        line2: #atenta Muchas gracias por tu tiempo.#
-    ]])
-    -- textPrueba2text:sendString("Soy el segundo texto uwu")
 
     local skybox = scene:createObject("Skybox")
     skybox:addComponent("Skybox"):sendMsg([[materialName: skyboxhell; distance: 300; ]])
@@ -761,8 +752,14 @@ function scene3() -- Overworld
     rotation: 0,0,0;]])
     bulletGenerator:addComponent("BulletGenerator"):sendMsg([[
     interval: 5;
-    area: -100,20,100;
+    area: -140,20,140;
     ]])
+
+    local soundObjBoss = scene:createObject("menuSound")
+    local soundCompBoss= soundObjBoss:addComponent("Sound")
+    soundCompBoss:sendMsg([[soundName: SongFire.wav; channel: music; loop: true; volume: 0.5; playNow: true;]])
+
+
 end
 
 function scene4() -- Boss1
@@ -950,6 +947,9 @@ function scene5() -- Boss2
     rotarcam:sendGameObject(2, cam)
 
 -------------------------------------YA SE ACABO NO SUFRAS MAS----------------------------------------------------------
+----------COLOCAR OBJETOS ESCENARIO
+    local trArbol1 = createArbol(arbol1, 10, 10, 10)
+    local trArbol2 = createArbol(arbol2, 50, 10, 20)
 
 end
 

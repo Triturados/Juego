@@ -33,7 +33,7 @@ LoveEngine::ECS::Bullet::~Bullet()
 
 void LoveEngine::ECS::Bullet::init()
 {
-	lifetime = Timer::deleteGameObject(gameObject, 15);
+	lifetime = Timer::deleteGameObject(gameObject, 20);
 	tr = gameObject->getComponent<Transform>();
 	*lastPos = *tr->getPos();
 	dir->normalize();
@@ -43,7 +43,7 @@ void LoveEngine::ECS::Bullet::init()
 
 void LoveEngine::ECS::Bullet::update()
 {
-	std::cout << "Este componente se autodestruira en: " << lifetime->timeLeft() << "\n";
+	//std::cout << "Este componente se autodestruira en: " << lifetime->timeLeft() << "\n";
 	
 	rb->setLinearVelocity(*dir * vel);
 
