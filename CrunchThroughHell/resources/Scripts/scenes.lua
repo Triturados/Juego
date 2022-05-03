@@ -622,9 +622,6 @@ function scene3() -- Overworld
 
     -- Enemigo--
     
-    local soundObjBoss = scene:createObject("menuSound")
-    local soundCompBoss= soundObjBoss:addComponent("Sound")
-    soundCompBoss:sendMsg([[soundName: FireNight.wav; channel: music; loop: true; volume: 0.5; playNow: true;]])
 
     local boss = scene:createObject("boss")
     local bosstr = boss:addComponent("Transform")
@@ -698,6 +695,12 @@ function scene3() -- Overworld
     interval: 5;
     area: -100,20,100;
     ]])
+
+    local soundObjBoss = scene:createObject("menuSound")
+    local soundCompBoss= soundObjBoss:addComponent("Sound")
+    soundCompBoss:sendMsg([[soundName: SongFire.wav; channel: music; loop: true; volume: 0.5; playNow: true;]])
+
+
 end
 
 function scene4() -- Boss1
