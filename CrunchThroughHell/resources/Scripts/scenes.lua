@@ -666,47 +666,6 @@ function scene3() -- Overworld
     local torchSys = torch:addComponent("ParticleSystem")
     torchSys:sendMsg([[particleName: torch; emitting: true]])
 
-    local textPrueba = scene:createObject("TextoPrueba")
-    local textPruebaText = textPrueba:addComponent("Text")
-    textPruebaText:sendMsg([[
-        position: 50, 50, 0;
-        fontName: chikory
-        mainColor: 0.3, 1.0, 0.6, 1.0;
-        textScale: 0.05
-        alignment : 0
-        ]])
-
-    -- textPruebaText:sendString("V I D A S")
-    local showText = textPrueba:addComponent("ShowText")
-    showText:sendMssg([[
-        interval: 0.1
-    ]])
-    showText:sendString("Hola que tal como estas")
-    createText(20, 100, 'tititiitiutututu')
-    local dialogue = scene:createObject("Dialogue"):addComponent('Dialogue')
-    dialogue:sendMsg("lines: 3")
-
-    for i = 0, 2, 1 do
-        local line = createText(20, 500 + i * 30, '  ')
-        dialogue:sendComponent(i, line);
-    end
-    dialogue:sendMssg([[
-        line0: #Soy el primer texto uwu#
-        line1: #Soy el segundo texto uwu#
-        line2: #Soy el tercer texto uwu...#
-    ]])
-    dialogue:sendMssg([[
-        line0: #Soy el cuarto texto uwu#
-        line1: #Soy el quinto texto uwu#
-        line2: #Soy el sexto texto uwu...#
-    ]])
-    dialogue:sendMssg([[
-        line0: #Hola nene, mi nombre es Yojhan Steven, si estas#
-        line1: #viendo esto es porque eres una persona muy#
-        line2: #atenta Muchas gracias por tu tiempo.#
-    ]])
-    -- textPrueba2text:sendString("Soy el segundo texto uwu")
-
     local skybox = scene:createObject("Skybox")
     skybox:addComponent("Skybox"):sendMsg([[materialName: skyboxhell; distance: 300; ]])
 
