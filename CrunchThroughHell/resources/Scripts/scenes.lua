@@ -238,7 +238,7 @@ function createCharco(name, type, x,y,z)
         mass: 0.0;
         shape: cube; 
         restitution: 0.9;
-        colliderScale: 10,1,10;
+        colliderScale:10,1,10;
     ]])
 
     charco:addComponent('EfectoEscenario'):sendMsg([[
@@ -282,6 +282,32 @@ function createSmoke(name, x,y,z)
 
 end
 
+function createArbol(name, x,y,z)
+    local arbol = scene:createObject(name);
+
+    local tr = arbol:addComponent("Transform");
+
+    tr:sendMsg([[
+        scale: 20,20,20;
+        position: ]] .. x .. [[ , ]] .. y .. [[ , ]] .. z .. [[;
+        rotation: 0,0,0;
+    ]])
+
+    arbol:addComponent("Mesh"):sendMsg([[
+        meshName: Arbol1.mesh;
+    ]])
+
+    arbol:addComponent('Rigidbody'):sendMsg([[
+        mass: 0.0;
+        state: static;
+        shape: cube; 
+        restitution: 0.9;
+        colliderScale: 15,25,15;
+    ]])
+
+    return tr;
+
+end
 
 function scene1() -- Settings
     scene:name("Settings")
@@ -895,6 +921,9 @@ function scene5() -- Boss2
     rotarcam:sendGameObject(2, cam)
 
 -------------------------------------YA SE ACABO NO SUFRAS MAS----------------------------------------------------------
+----------COLOCAR OBJETOS ESCENARIO
+    local trArbol1 = createArbol(arbol1, 10, 10, 10)
+    local trArbol2 = createArbol(arbol2, 50, 10, 20)
 
 end
 
