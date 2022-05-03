@@ -35,7 +35,7 @@ void LoveEngine::ECS::MovimientoJugador::init()
 
 
 	dashSound = gameObject->addComponent<Sound>();
-	dashSound->sendFormattedString("soundName:dash.wav; channel: effects; loop: false; volume: 0.1; playNow: false;");
+	dashSound->sendFormattedString("soundName:dash.wav; channel: effects; loop: false; volume: 0.5; playNow: false;");
 	dashSound->init();
 
 
