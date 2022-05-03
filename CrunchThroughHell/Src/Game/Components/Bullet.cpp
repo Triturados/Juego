@@ -33,7 +33,7 @@ LoveEngine::ECS::Bullet::~Bullet()
 
 void LoveEngine::ECS::Bullet::init()
 {
-	lifetime = Timer::deleteGameObject(gameObject, 15);
+	lifetime = Timer::deleteGameObject(gameObject, 20);
 	tr = gameObject->getComponent<Transform>();
 	*lastPos = *tr->getPos();
 	dir->normalize();

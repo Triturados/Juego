@@ -703,7 +703,7 @@ function scene3() -- Overworld
     rotation: 0,0,0;]])
     bulletGenerator:addComponent("BulletGenerator"):sendMsg([[
     interval: 5;
-    area: -100,20,100;
+    area: -140,20,140;
     ]])
 end
 
