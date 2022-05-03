@@ -5,6 +5,7 @@ namespace LoveEngine {
 	namespace ECS {
 		class Button;
 		class MoveUI;
+		class Sound;
 		class MainMenu : public Component {
 		public:
 			MainMenu();
@@ -22,6 +23,7 @@ namespace LoveEngine {
 			std::vector<Button*> buttons;
 			std::vector<MoveUI*> moveUIs;
 			std::vector<int> positions;
+			Sound* musicSound;
 			int currentlySelected;
 
 			int getButtonIdx(int i);

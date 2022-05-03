@@ -68,10 +68,22 @@ namespace LoveEngine {
 				sound->sendFormattedString("soundName: ClickSound.wav; channel: effects; loop: false; volume: 0.5; playNow: false; ");
 				sound->init();
 
+
+
 				auto soundController = button->gameObject->addComponent<SoundButton>();
 				soundController->init();
 				soundController->postInit();
+
+
+
+
+
 			}
+
+			musicSound= buttons[0]->gameObject->addComponent<Sound>();
+			musicSound->sendFormattedString("soundName:MenuJuegoSuspense.wav; channel: music; loop: true; volume: 0.5; playNow: true;");
+			musicSound->init();
+			
 
 			up->onClick([&]() {advance(1, 1); });
 			down->onClick([&]() {advance(-1, 1); });
@@ -144,6 +156,15 @@ namespace LoveEngine {
 		}
 
 		void MainMenu::newGame() {
+			for (int i = 0; i < buttons.size(); i++) {
+				Button* button = buttons[i];
+				auto soundController = button->gameObject->getComponent<SoundButton>();
+				soundController->removeSound();
+				
+			}
+			musicSound->releaseSound();
+			musicSound->remove();
+
 			SceneManagement::changeScene((int)SceneOrder::Overworld, SceneManagement::SceneLoad::SWAP);
 		}
 

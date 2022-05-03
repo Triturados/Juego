@@ -35,6 +35,8 @@ namespace LoveEngine {
 				soundController->init();
 				soundController->postInit();
 			}
+
+
 		}
 		
 		void PauseMenu::receiveComponent(int i, Component* c)
