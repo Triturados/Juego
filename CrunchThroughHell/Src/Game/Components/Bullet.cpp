@@ -43,7 +43,7 @@ void LoveEngine::ECS::Bullet::init()
 
 void LoveEngine::ECS::Bullet::update()
 {
-	std::cout << "Este componente se autodestruira en: " << lifetime->timeLeft() << "\n";
+	//std::cout << "Este componente se autodestruira en: " << lifetime->timeLeft() << "\n";
 	
 	rb->setLinearVelocity(*dir * vel);
 

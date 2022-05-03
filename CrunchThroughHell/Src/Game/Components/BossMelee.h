@@ -61,6 +61,8 @@ namespace LoveEngine {
             class Leap : public Action
             {
             public:
+                bool landingEnabled = false;    // justo despu�s de saltar no debe detectar aterrizaje
+
                 Leap(Agent* agent_);
                 void setTarget(Transform* t);
                 void setTransform(Transform* t);
@@ -69,14 +71,17 @@ namespace LoveEngine {
                 bool conditionsFulfilled() const final;
                 void onActionStart() final;
                 void activeUpdate() final;
+
+                void land();
             protected:
                 RigidBody* rb;
                 Transform* target = nullptr;
                 Transform* tr = nullptr;
                 Animation* anim = nullptr;
             private:
-                float hrzImpulse = 40.0;        // velocidad inicial en horizontal
-                float jumpZenith = 20.0;        // altura del punto mas alto del salto
+                float jumpDuration = 2.0;        // duraci�n fija de los saltos
+                void enableLanding();
+                void recover();                 // despu�s de aterrizar, tarda un momento en levantarse
             };
 #pragma endregion
             void setTargets() override;

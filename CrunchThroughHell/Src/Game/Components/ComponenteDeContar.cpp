@@ -44,7 +44,7 @@ namespace LoveEngine {
 
 		void Autodestruccion::update()
 		{
-			std::cout << "Este componente se autodestruira en: " << timer->timeLeft() << "\n";
+			//std::cout << "Este componente se autodestruira en: " << timer->timeLeft() << "\n";
 		}
 
 

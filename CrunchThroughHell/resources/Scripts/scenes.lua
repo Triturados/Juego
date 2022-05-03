@@ -649,7 +649,7 @@ function scene3() -- Overworld
     local bosstr = boss:addComponent("Transform")
     bosstr:sendMsg([[
         scale: 0.2,0.2,0.2;
-        position: 50,20,-50;
+        position: 20,20,-20;
         rotation: 0,0,0;
     ]])
     local bossAI = boss:addComponent("BossMelee")
@@ -658,9 +658,9 @@ function scene3() -- Overworld
     local bossRb = boss:addComponent('Rigidbody')
     bossRb:sendMsg([[
         state: dynamic;
-        mass: 10.0;
+        mass: 100.0;
         shape: sphere; 
-        restitution: 1.0;
+        restitution: 0.0;
         colliderScale: 18,18,18;
     ]])
 
