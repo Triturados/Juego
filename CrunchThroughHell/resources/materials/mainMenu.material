@@ -210,7 +210,7 @@ material mainmenuButton5{
 			depth_check off
 			scene_blend alpha_blend
 			texture_unit {
-				texture buttonCredits.png
+				texture buttonCredit.png
 				colour_op modulate
 			}
 		}

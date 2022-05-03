@@ -93,11 +93,12 @@ scene2 = {
         menuObj:sendComponent(1, exitButton);
     end
 }
+icon('icon.bmp')
+
 function scene0() -- Main menu
     scene:name("Main menu")
     --menu = require "menu";
     --menu:cambiarIcono()
-    --icon('icon.bmp')
 
     local cam = scene:createObject("cam")
     cam:addComponent('Transform'):sendMsg([[
