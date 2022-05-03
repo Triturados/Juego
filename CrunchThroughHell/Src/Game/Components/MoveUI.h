@@ -4,15 +4,12 @@
 
 namespace LoveEngine {
 	namespace ECS {
-		class Image;
-		class Button;
-
+		class UIElement;
 		class MoveUI : public Component {
 		private:
 			Utilities::Vector3<int> origin;
 			Utilities::Vector3<int> destination;
-			Image* img;
-			Button* button;
+			UIElement* element;
 			float t;
 			float duration;
 			bool shouldcenterX;

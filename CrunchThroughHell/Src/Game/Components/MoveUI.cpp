@@ -1,8 +1,7 @@
 #include "MoveUI.h"
 #include "GameObject.h"
 #include "GameTime.h"
-#include "Image.h"
-#include "Button.h"
+#include "UIElement.h"
 #include "StringFormatter.h"
 #include "Utils.h"
 #include "Window.h"
@@ -14,8 +13,7 @@ namespace LoveEngine {
 	{
 		t = 0;
 		duration = 1;
-		img = nullptr;
-		button = nullptr;
+		element = nullptr;
 
 		destination = origin = Utilities::Vector3<int>();
 
@@ -26,12 +24,8 @@ namespace LoveEngine {
 
 	void LoveEngine::ECS::MoveUI::init()
 	{
-		if ((img = gameObject->getComponent<Image>()) != nullptr) {
-			origin = img->getPos();
-		}
-		else if ((button = gameObject->getComponent<Button>()) != nullptr) {
-			origin = button->getPos();
-		}
+		element = gameObject->getComponent<UIElement>();
+		origin = element->getPosition();
 	}
 
 	void ECS::MoveUI::setDuration(float newduration)
@@ -50,26 +44,13 @@ namespace LoveEngine {
 
 		float tvalue = t / duration;
 
-		if (img != nullptr) {
-			auto v = origin;
-			v.lerp(destination, Utilities::cubicEaseOut(tvalue));
+		auto v = origin;
+		v.lerp(destination, Utilities::cubicEaseOut(tvalue));
 
-			if (centerx)
-				v.x = centerx - (button->getSize().x * 0.5f);
+		if (centerx)
+			v.x = centerx - (element->getSize().x * 0.5f);
 
-			img->setPos(v);
-		}
-
-		if (button != nullptr) {
-			auto v = origin;
-			v.lerp(destination, Utilities::cubicEaseOut(tvalue));
-
-			if (centerx)
-				v.x = centerx - (button->getSize().x * 0.5f);
-
-			button->setPos(v);
-		}
-
+		element->setPosition(v);
 	}
 
 	void LoveEngine::ECS::MoveUI::receiveMessage(Utilities::StringFormatter& sf)
@@ -97,10 +78,7 @@ namespace LoveEngine {
 		destination = dest;
 		enabled = true;
 
-		if (img != nullptr)
-			origin = img->getPos();
-		else if (button != nullptr)
-			origin = button->getPos();
+		origin = element->getPosition();
 	}
 
 }

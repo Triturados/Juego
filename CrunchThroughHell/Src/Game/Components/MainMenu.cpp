@@ -47,7 +47,7 @@ namespace LoveEngine {
 			std::vector<ScaleMainMenuButton*> scales;
 			for (int i = 0; i < buttons.size(); i++) {
 				Button* button = buttons[i];
-				auto pos = button->getPos();
+				auto pos = button->getPosition();
 				positions[i] = pos.y;
 
 				auto scale = button->gameObject->addComponent<ScaleMainMenuButton>();
@@ -167,7 +167,7 @@ namespace LoveEngine {
 			}
 
 			for (int i = 0; i < NumButtons; i++) {
-				auto pos = buttons[i]->getPos();
+				auto pos = buttons[i]->getPosition();
 				int buttonidx = getButtonIdx(i);
 
 				buttons[i]->setInteractable(buttonidx == centerButtonIdx);
@@ -175,7 +175,7 @@ namespace LoveEngine {
 				pos.y = positions[buttonidx];
 				if ((buttonidx == 0 && idx == 1) || (buttonidx == NumButtons - 1 && idx == -1)) {
 					moveUIs[i]->setActive(false);
-					buttons[i]->setPos(pos);
+					buttons[i]->setPosition(pos);
 				}
 				if (time > 0)
 					moveUIs[i]->setDuration(time);
