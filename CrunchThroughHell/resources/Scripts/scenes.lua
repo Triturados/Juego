@@ -755,7 +755,7 @@ function scene5() -- Boss2
     compLight:sendMssg([[
         name: luz_direccional
         type: directional
-        power: 5
+        power: 1
     ]])
 
 
@@ -764,7 +764,7 @@ function scene5() -- Boss2
     local sueloTr = suelo:addComponent("Transform")
 
     sueloTr:sendMsg([[
-        scale: 150,1,150;
+        scale: 350,1,350;
         position: 0,-4,0;
         rotation: 0,0,0;
     ]])
@@ -780,7 +780,7 @@ function scene5() -- Boss2
         mass: 0.0;
         shape: cube; 
         restitution: 0.9;
-        colliderScale: 150,3.5,150;
+        colliderScale: 350,1,350;
         ]])
 
     -- player--
