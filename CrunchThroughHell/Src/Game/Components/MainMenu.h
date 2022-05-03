@@ -26,6 +26,9 @@ namespace LoveEngine {
 			Sound* musicSound;
 			int currentlySelected;
 
+			bool presskey;
+			Component* presskeytocontinue;
+
 			int getButtonIdx(int i);
 
 			void advance(int i, float t = -1);

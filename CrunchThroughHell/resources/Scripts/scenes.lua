@@ -141,23 +141,37 @@ function scene0() -- Main menu
 
     container:sendComponent(0, scene:createObject("Banner"):addComponent("Image"):sendMsg([[
         material: mainmenuBanner; 
-        width: 300;
-        height : 640;
+        height: 640;
+        width : ]].. bannerwidth .. [[;
         posX: 0;
         posY: 52
         posZ: ]] .. zOrder ..[[
     ]]))
     zOrder = zOrder + 1
 
+    container:sendComponent(0, scene:createObject("Logo"):addComponent("Image"):sendMsg([[
+        material: logo; 
+        width: 247;
+        height : 133;
+        posX: ]] .. round(bannerwidth * 0.5) ..[[
+        posY: 52
+        posZ: ]] .. zOrder ..[[
+    ]]))
+    zOrder = zOrder + 1
+
     
-    scene:createObject("Press any key"):addComponent("Image"):sendMsg([[
+    
+    local halfwidth = round((width() - 371) * 0.5);
+    local pressKeyHeight = round(height() * 0.5 + 100);
+    local presskey = scene:createObject("Press any key"):addComponent("Image"):sendMsg([[
         material: mainmenuPressKey; 
-        width: 381;
+        width: 371;
         height : 29;
+        posX: ]] .. halfwidth .. [[;
+        posY: ]] .. pressKeyHeight .. [[;
         posZ: ]] .. zOrder ..[[
     ]])
     zOrder = zOrder + 1
-
 
 
     local mainmenu = bg:addComponent("MainMenu");
@@ -181,9 +195,19 @@ function scene0() -- Main menu
 
     mainmenu:sendComponent(-1, createArrow(height() - 60, 'mainmenuArrowDown'))
     mainmenu:sendComponent(-2, createArrow(426, 'mainmenuArrow'))
+    mainmenu:sendComponent(-3, presskey);
     mainmenu:sendMssg('centerX: 250');
 
-
+    local hideposition = round((bannerwidth - 256)* 0.5);
+    container:sendComponent(0, scene:createObject("Hide"):addComponent("Image"):sendMsg([[
+        material: mainmenuHide; 
+        width: 256;
+        height : 72;
+        posX: ]] .. hideposition .. [[;
+        posY: 370
+        posZ: ]] .. zOrder ..[[
+    ]]))
+    zOrder = zOrder + 1
 
     scene:createObject("Black border"):addComponent("Image"):sendMsg([[
         material: mainmenuBlackBorder; 

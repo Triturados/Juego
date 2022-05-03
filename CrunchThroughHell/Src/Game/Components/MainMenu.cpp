@@ -28,6 +28,7 @@ namespace LoveEngine {
 
 		MainMenu::MainMenu()
 		{
+			presskey = true;
 			centerButtonIdx = 2;
 			centerx = Window::getInstance()->getWindowSize().x * .5f;
 			currentlySelected = 0;
@@ -102,12 +103,23 @@ namespace LoveEngine {
 				scale->update();
 			}
 
-			Timer::invoke([&](Timer*) {showMenu(); }, 1.6f);
+			//Timer::invoke([&](Timer*) {showMenu(); }, 1.6f);
 		}
 
 		void MainMenu::update() {
 
 			Input::InputManager* input = Input::InputManager::getInstance();
+			if (presskey) {
+
+				if (input->anyKeyPressed() || !input->mousePressed(Input::MouseState::NONE)) {
+					presskey = false;
+					presskeytocontinue->gameObject->removeGameObject();
+					showMenu();
+				}
+
+				return;
+			}
+
 
 			if (input->justClicked()) {
 				auto p = input->mousePosition();
@@ -136,6 +148,10 @@ namespace LoveEngine {
 
 		void MainMenu::receiveComponent(int i, Component* c)
 		{
+			if (i == -3) {
+				presskeytocontinue = c;
+				return;
+			}
 			if (i == -2) {
 				down = static_cast<Button*>(c);
 				return;
