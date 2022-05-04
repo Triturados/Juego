@@ -24,6 +24,7 @@
 #include "Components/BulletGenerator.h"
 #include "Components/MoveUI.h"
 #include "Components/ScrollContainer.h"
+#include "Components/Settings.h"
 
 namespace LoveEngine {
 
@@ -69,6 +70,7 @@ namespace LoveEngine {
 			newComponent<MoveUI>("MoveUI");
 			newComponent<AtaqueJugador>("AtaqueJugador");
 			newComponent<ScrollContainer>("Scroll");
+			newComponent<Settings>("Settings");
 
 			inst = nullptr;
 		}

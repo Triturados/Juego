@@ -4,6 +4,10 @@ local menu = {}
 
 function menu:createMainMenu()
     scene:name("Main menu")
+    local screenwidth = width();
+    local screenheight = height();
+
+    print(screenwidth)
     local cam = scene:createObject("cam")
     cam:addComponent('Transform'):sendMsg([[
         scale: 2,2,2;
@@ -20,8 +24,8 @@ function menu:createMainMenu()
     local bg = scene:createObject("Background");
     bg:addComponent("Image"):sendMsg([[
         material: mainmenuBackgroundImage;
-        width: 1280;
-        height : 720;
+        width: ]] .. screenwidth .. [[;
+        height : ]] .. screenheight .. [[;
         posZ: ]] .. zOrder ..[[
     ]])
     zOrder = zOrder + 1
@@ -40,7 +44,7 @@ function menu:createMainMenu()
     local container = containerObj:addComponent("UIContainer")
     container:sendMssg([[
         posX: 100;
-        posY: -720;
+        posY: -]] .. screenheight .. [[;
         posZ: 0;
     ]])
 
@@ -116,8 +120,8 @@ function menu:createMainMenu()
 
     scene:createObject("Black border"):addComponent("Image"):sendMsg([[
         material: mainmenuBlackBorder;
-        width: 1280;
-        height : 720;
+        width: ]] .. screenwidth .. [[;
+        height :]] .. screenheight .. [[;
         posZ: 19
     ]])
 
@@ -127,26 +131,52 @@ end
 function menu:createSettings()
     scene:name("Settings")
 
-    local startButton = scene:createObject("Start Button"):addComponent("Button");
-    local exitButton = scene:createObject("Exit Button"):addComponent("Button");
+    local container = createRightContainer()
 
-    startButton:sendMsg([[
-        material: Heal_bg;
-        width: 100;
-        height: 50;
-        posX: 500;
-        posY: 300;
-		posZ: 1
+    local scroll = scene:createObject('Scroll'):addComponent('Scroll'):sendMssg([[
+        minHeight: 0;
+        maxHeight: 720;
+        automatic: false;
+        speed: 100;
+        posX: 0;
+        posY: 52;
+        posZ: 0;
+        timeToEnable: 2.0;
+    ]])
+    scroll:sendComponent(-1, container)
+    container:sendComponent(0, scroll);
+
+
+    scroll:sendComponent(0, createImage('mainmenuBackgroundImage', 10, 10, 11, 400, 400))
+
+    local settings = scene:createObject('Settings'):addComponent('Settings'):sendMssg([[
+        resolution: 1920, 1080, 0
+    ]])
+    settings:sendMssg([[
+        resolution: 1280, 720, 0
+    ]])
+    settings:sendMssg([[
+        resolution: 852, 480, 0
     ]])
 
-    exitButton:sendMsg([[
-        material: Heal_bg;
-        width: 100;
-        height: 50;
-        posX: 500;
-        posY: 360;
-		posZ: 1
-    ]])
+    local fullscreenbutton = createButton('mainmenuButton', 20, 420, 12, 200, 50)
+    scroll:sendComponent(0, fullscreenbutton)
+    settings:sendComponent(1, fullscreenbutton);
+
+    
+    local p1080 = createButton('mainmenuButton', 20, 470, 12, 200, 50)
+    scroll:sendComponent(0, p1080)
+    settings:sendComponent(-1, p1080);
+
+    
+    local p720 = createButton('mainmenuButton', 20, 530, 12, 200, 50)
+    scroll:sendComponent(0, p720)
+    settings:sendComponent(-2, p720);
+
+    
+    local p480 = createButton('mainmenuButton', 20, 590, 12, 200, 50)
+    scroll:sendComponent(0, p480)
+    settings:sendComponent(-3, p480);
 
 end
 
@@ -165,10 +195,12 @@ function menu:createCredits()
         posZ: 0;
         timeToEnable: 2.0;
     ]])
-
-    container:sendComponent(0, scroll);
-    scroll:sendComponent(0, createImage('mainmenuBackgroundImage', 10, 10, 11, 400, 400))
     scroll:sendComponent(-1, container)
+    container:sendComponent(0, scroll);
+
+
+
+    scroll:sendComponent(0, createImage('mainmenuBackgroundImage', 10, 10, 11, 400, 400))
     --createImage('mainmenuBackgroundImage', 590, 10, 4, 400, 400)
 
 end
@@ -252,6 +284,18 @@ function createImage(material, x, y, z, w, h)
         posZ: ]] .. z)
 end
 
+function createButton(material, x, y, z, w, h)
+
+    return scene:createObject('Button:' .. material):addComponent('Button'):sendMssg([[
+        material:  ]] .. material..[[;
+        width:  ]] .. w ..[[;
+        height: ]] .. h ..[[;
+        posX:   ]] .. x ..[[;
+        posY:   ]] .. y ..[[;
+        posZ:   ]] .. z ..[[;
+    ]])
+
+end
 
 function menu:menuPausa()
     return {

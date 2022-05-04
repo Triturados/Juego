@@ -9,14 +9,21 @@ namespace LoveEngine {
 		public:
 			Settings();
 
-			void postInit() override;
-			void update() override;
+			void init() override;
 			void receiveMessage(Utilities::StringFormatter&) override;
 			void receiveComponent(int, Component*) override;
 		private:
-			Button *up, *down;
-			std::vector<Button*> buttons;
+			
+			std::vector<Utilities::Vector3<int>> resolutions;
+			Button* buttons[5];
 
+			void alternateFullScreen();
+			void changeResolution(Utilities::Vector3<int> res);
+			void changeResolution0();
+			void changeResolution1();
+			void changeResolution2();
+			void changeResolution3();
+			void backtomenu();
 		};
 	}
 }
