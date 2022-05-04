@@ -185,18 +185,21 @@ namespace LoveEngine
             }
             lockAction = true;
             // Aquí poneis el código del teleport
-            //rb->setKinematic(true);
-            //rb->setDynamic(false);
             Utilities::Vector2<float> nv = posRand();
             Utilities::Vector3<float> np(nv.x, tr->getPos()->y, nv.y);
             tr->setPos(np);
             rb->setTransform(tr);
+            Vector3 targetPos = *(target->getPos());
+            Vector3 pos = *(tr->getPos());
+            Utilities::Vector3<float> dir = targetPos - pos;
+            dir.normalize();
+            float angle = std::atan2(dir.x, dir.z);
+            rb->setRotation(Utilities::Vector3<int>(0, 1, 0), angle);
             ECS::Timer::invoke([&](ECS::Timer*) {
                 startTP();
             }, 1.5);
             // Suponiendo que el teleport es instantáneo, no hay que bloquear la acción, y se puede poner en cd desde el
             // momento que empieza
-            //setPriority(80.0);
         }
         void BossDistancia::Teleport::startTP()
         {
