@@ -74,7 +74,7 @@ namespace LoveEngine
         {
             // Aquí le asignais la velocidad de refresco del cooldown por segundo (más o menos) 
             //(lo será cuando meta bien el deltatime en agente)
-            increasePrioOverTime = 20.0;
+            increasePrioOverTime = 10.0;
         }
 
         void BossDistancia::RangedAttack::setTarget(Transform* t) { target = t; };
@@ -115,7 +115,7 @@ namespace LoveEngine
                 attackFinished();
                 }, spell.duration);
 
-            createBullet(); //dispara
+            createBullets(); //dispara
         }
 
         void BossDistancia::RangedAttack::activeUpdate()
@@ -129,27 +129,34 @@ namespace LoveEngine
             anim = a;
         }
 
-        void BossDistancia::RangedAttack::createBullet()
+        void BossDistancia::RangedAttack::shotOneBullet(Utilities::Vector3<float> dir_)
+        {
+            GameObject* bullet = LoveEngine::SceneManagement::SceneManager::getInstance()->getCurrentScene()->createGameObject("bullet");
+            auto bulletTr = bullet->addComponent<Transform>();
+            bulletTr->sendFormattedString("position: 0,0,0; scale: 3,3,3; rotation: 0,0,0");
+            bulletTr->setPos(*tr->getPos() + (dir_ * 10));
+            auto bulletMesh = bullet->addComponent<Mesh>();
+            bulletMesh->sendFormattedString("meshName: fireball.mesh");
+            auto bulletRigid = bullet->addComponent<RigidBody>();
+            bulletRigid->sendFormattedString("trigger: false; mass: 1.0; shape: cube; restitution: 1.0; colliderScale: 5, 5, 5;");
+            auto bulletB = bullet->addComponent<Bullet>();
+            bulletB->sendFormattedString("velocity: 30.0; damage: 10;");
+            bulletB->setDir(dir_);
+            auto bulletMat = bullet->addComponent<Material>();
+            bulletMat->receiveComponent(0, bulletMesh);
+            bulletMat->sendFormattedString("materialName: lava;");
+            bulletTr->init(); bulletMesh->init(); bulletRigid->init(); bulletB->init(); bulletMat->init();
+        }
+
+        void BossDistancia::RangedAttack::createBullets()
         {
             //calculamos la direccion de la bala
             Utilities::Vector3<float> dir = (*target->getPos() - *tr->getPos());
             dir.normalize();
 
-            GameObject* bullet = LoveEngine::SceneManagement::SceneManager::getInstance()->getCurrentScene()->createGameObject("bullet");
-            auto bulletTr = bullet->addComponent<Transform>();
-            bulletTr->sendFormattedString("position: 0,0,0; scale: 3,3,3; rotation: 0,0,0");
-            bulletTr->setPos(*tr->getPos());
-            auto bulletMesh = bullet->addComponent<Mesh>();
-            bulletMesh->sendFormattedString("meshName: fireball.mesh");
-            auto bulletRigid = bullet->addComponent<RigidBody>();
-            bulletRigid->sendFormattedString("trigger: true; state: dynamic; mass: 1.0; shape: cube; restitution: 1.0; colliderScale: 3, 3, 3;");
-            auto bulletB = bullet->addComponent<Bullet>();
-            bulletB->sendFormattedString("velocity: 30.0; damage: 10;");
-            bulletB->setDir(dir);
-            auto bulletMat = bullet->addComponent<Material>();
-            bulletMat->receiveComponent(0, bulletMesh);
-            bulletMat->sendFormattedString("materialName: lava;");
-            bulletTr->init(); bulletMesh->init(); bulletRigid->init(); bulletB->init(); bulletMat->init();
+            shotOneBullet(dir);
+
+            
         }
 
         void BossDistancia::RangedAttack::attackFinished()

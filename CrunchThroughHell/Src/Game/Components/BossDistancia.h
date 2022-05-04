@@ -34,7 +34,8 @@ namespace LoveEngine {
                 int numAnimations = 3;
                 int comboIndex = 0;
 
-                void createBullet();
+                void shotOneBullet(Utilities::Vector3<float> dir_);
+                void createBullets();
                 void attackFinished();
 			};
 
