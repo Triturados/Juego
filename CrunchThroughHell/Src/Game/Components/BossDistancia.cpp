@@ -3,6 +3,7 @@
 #include "Transform.h"
 #include "RigidBody.h"
 #include "Vector3.h"
+#include "Vector2.h"
 #include "Vector4.h"
 #include "GameTime.h"
 #include <StringFormatter.h>
@@ -12,6 +13,7 @@
 #include "Bullet.h"
 #include "Material.h"
 #include "Mesh.h"
+#include "Salud.h"
 
 namespace LoveEngine
 {
@@ -47,13 +49,16 @@ namespace LoveEngine
             teleport->setTransform(tr);
             teleport->setRB(rb);
             ComportamientoBoss::init();
+            vida = gameObject->getComponent<Salud>()->getHealth();
+            lastVd = vida;
         }
 
 #pragma region acciones
 
         BossDistancia::RangedAttack::RangedAttack(Agent* agent_) : Action(agent_, 10.0)
         {
-            // Aquí le asignais la velocidad de refresco del cooldown por segundo (más o menos) (lo será cuando meta bien el deltatime en agente)
+            // Aquí le asignais la velocidad de refresco del cooldown por segundo (más o menos) 
+            //(lo será cuando meta bien el deltatime en agente)
             increasePrioOverTime = 5.0;
         }
 
@@ -148,9 +153,14 @@ namespace LoveEngine
             }
         }
 
+        void BossDistancia::KeepDistance::onActionStart()
+        {
+            rb->setKinematic(false);
+        }
+
         BossDistancia::Teleport::Teleport(Agent* agent_) : Action(agent_, 80)
         {
-            increasePrioOverTime = 10.0;
+            increasePrioOverTime = 20.0;
         }
 
         void BossDistancia::Teleport::setTarget(Transform* t) { target = t; };
@@ -162,7 +172,7 @@ namespace LoveEngine
         bool BossDistancia::Teleport::conditionsFulfilled() const
         {
             if (target == nullptr) return false;
-            return (true /* Aquí poneis las condiciones necesarias para que haga teleport*/);
+            return (true);
         }
 
         void BossDistancia::Teleport::onActionStart()
@@ -174,11 +184,37 @@ namespace LoveEngine
             }
 
             // Aquí poneis el código del teleport
-
+            rb->setKinematic(true);
+            Utilities::Vector2<float> nv = posRand();
+            Utilities::Vector3<float> np(nv.x, tr->getPos()->y, nv.y);
+            tr->setPos(np);
             // Suponiendo que el teleport es instantáneo, no hay que bloquear la acción, y se puede poner en cd desde el
             // momento que empieza
             setPriority(80.0);
         }
+        Utilities::Vector2<float> BossDistancia::Teleport::posRand()
+        {
+            int x, y;
+
+            x = numRandNegPos(150);
+            y = numRandNegPos(150);
+            return Utilities::Vector2<float>(x, y);
+        }
+
+        int BossDistancia::Teleport::numRandNegPos(int maxRand)
+        {
+            int random_sign, cordR;
+            random_sign = (rand() % 2); // this randomly produces 0 or 1. if 0, change number to negative
+            cordR = (rand() % maxRand);
+
+            if (random_sign == 0) {
+                cordR = -cordR;
+            }
+
+            return cordR;
+        }
+
+
 #pragma endregion
     }
 }
