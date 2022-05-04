@@ -22,6 +22,7 @@ namespace LoveEngine {
 			protected:
 				Transform* target = nullptr;
 				Transform* tr = nullptr;
+                
                 void createBullet();
 			};
 
@@ -33,8 +34,9 @@ namespace LoveEngine {
                 void setTransform(Transform* t);
                 void setRB(RigidBody* rb_);
                 void activeUpdate() final;
+                void onActionStart() final;
             protected:
-                float maxVel = 10;
+                float maxVel = 25;
                 float acc = 10;
                 RigidBody* rb = nullptr;
                 Transform* target = nullptr;
@@ -44,6 +46,7 @@ namespace LoveEngine {
             class Teleport : public Action
             {
             public:
+                bool isTP = false;
                 Teleport(Agent* agent_);
                 void setTarget(Transform* t);
                 void setTransform(Transform* t);
@@ -54,6 +57,10 @@ namespace LoveEngine {
                 RigidBody* rb;
                 Transform* target = nullptr;
                 Transform* tr = nullptr;
+                int vida;
+                int lastVd;
+                Utilities::Vector2<float> posRand();
+                int numRandNegPos(int maxRand);
             };
 #pragma endregion
             void setTargets() override;
@@ -62,8 +69,9 @@ namespace LoveEngine {
             RangedAttack* attack;
             KeepDistance* keepDistance;
             Teleport* teleport;
-
 		public:
+            int vida;
+            int lastVd;
             BossDistancia();
             void init() override;
 		};

@@ -185,7 +185,7 @@ function createRightContainer()
     
     local containerObj = scene:createObject("Container")
     containerObj:addComponent('MoveUI'):sendMssg([[
-        destination: 100, 0, 0;
+        destination: 400, 0, 0;
         duration: 2.0;
         enabled: true;
     ]])
