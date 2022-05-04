@@ -54,7 +54,7 @@ namespace LoveEngine
         BossDistancia::RangedAttack::RangedAttack(Agent* agent_) : Action(agent_, 10.0)
         {
             // Aquí le asignais la velocidad de refresco del cooldown por segundo (más o menos) (lo será cuando meta bien el deltatime en agente)
-            increasePrioOverTime = 10.0;
+            increasePrioOverTime = 5.0;
         }
 
         void BossDistancia::RangedAttack::setTarget(Transform* t) { target = t; };
@@ -65,8 +65,9 @@ namespace LoveEngine
         bool BossDistancia::RangedAttack::conditionsFulfilled() const
         {
             if (target == nullptr) return false;
-            return (*(target->getPos()) - *(tr->getPos())).magnitude() > 25 &&
-                (*(target->getPos()) - *(tr->getPos())).magnitude() < 50;
+            return true; //dispara siempre
+            //(*(target->getPos()) - *(tr->getPos())).magnitude() > 25 &&
+            //(*(target->getPos()) - *(tr->getPos())).magnitude() < 50;
         }
 
         void BossDistancia::RangedAttack::onActionStart()
@@ -78,7 +79,11 @@ namespace LoveEngine
                 throw new std::exception("Faltan referencias para una accion");
                 return;
             }
+
+
             // TO DO: start animation
+
+            createBullet(); //dispara
         }
 
         void BossDistancia::RangedAttack::activeUpdate()
@@ -102,7 +107,8 @@ namespace LoveEngine
             auto bulletRigid = bullet->addComponent<RigidBody>();
             bulletRigid->sendFormattedString("trigger: true; state: dynamic; mass: 1.0; shape: cube; restitution: 1.0; colliderScale: 3, 3, 3;");
             auto bulletB = bullet->addComponent<Bullet>();
-            bulletB->sendFormattedString("direction: 0,0,1; velocity: 30.0; damage: 10;");
+            bulletB->sendFormattedString("velocity: 30.0; damage: 10;");
+            bulletB->setDir(dir);
             auto bulletMat = bullet->addComponent<Material>();
             bulletMat->receiveComponent(0, bulletMesh);
             bulletMat->sendFormattedString("materialName: lava;");
@@ -125,6 +131,14 @@ namespace LoveEngine
                 Vector3 pos = *(tr->getPos());
 
                 // Aquí aplicais las fuerzas necesarias para que se mueva
+                if ((*(target->getPos()) - *(tr->getPos())).magnitude() < 50) {
+                    Vector3 force = (pos - targetPos).getNormalized() * (acc / 10.0) * rb->getMass();
+                    rb->addForce(force, Vector3(0, 0, 0), ForceMode::IMPULSE);
+                }
+                else if ((*(target->getPos()) - *(tr->getPos())).magnitude() > 60) {
+                    Vector3 force = (targetPos - pos).getNormalized() * (acc / 10.0) * rb->getMass();
+                    rb->addForce(force, Vector3(0, 0, 0), ForceMode::IMPULSE);
+                }
 
                 //lookat target
                 Utilities::Vector3<float> dir = targetPos - pos;

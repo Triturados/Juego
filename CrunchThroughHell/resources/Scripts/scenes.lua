@@ -21,7 +21,7 @@ package.path = package.path .. ";../../resources/Scripts/?.lua"
 
 menu = require "menu";
 
-icon('icon.bmp')
+icon('iconkatana.bmp')
 
 function scene0() -- Main menu
     menu:createMainMenu()
@@ -749,14 +749,11 @@ function scene5() -- Boss2
     local trArbol2 = createArbol(arbol2, 50, 10, 20)
 ---------------------------------------------------------------------------------------------------------------------------
 -- -- -- -- JEFE -- -- -- --
--- Enemigo--
-
-
 local boss2 = scene:createObject("boss2")
---local bossHealth = boss2:addComponent("Salud")
---bossHealth:sendMsg([[
---    maxHealth: 100
---]])
+local bossHealth = boss2:addComponent("Salud")
+bossHealth:sendMsg([[
+    maxHealth: 100
+]])
 local bosstr = boss2:addComponent("Transform")
 bosstr:sendMsg([[
     scale: 0.02,0.02,0.02;
@@ -765,32 +762,32 @@ bosstr:sendMsg([[
 ]])
 
 
---local sliderBehindLiveBoss = boss2:addComponent("Slider")
---sliderBehindLiveBoss:sendMsg([[
---    materialBar: Heal;
---    materialBarBg: Heal_bg;
---    materialButton: CircleButton;
---    width: 1000;
---    height: 25;
---    posX: 135;
---    posY: 650;
---]])
+local sliderBehindLiveBoss = boss2:addComponent("Slider")
+sliderBehindLiveBoss:sendMsg([[
+    materialBar: Heal;
+    materialBarBg: Heal_bg;
+    materialButton: CircleButton;
+    width: 1000;
+    height: 25;
+    posX: 135;
+    posY: 650;
+]])
 
---local sliderOverLiveBoss = boss2:addComponent("Slider")
---sliderOverLiveBoss:sendMsg([[
---    materialBar: Heal;
---    materialBarBg: Heal_bg;
---    materialButton: CircleButton;
---    width: 1000;
---    height: 25;
---    posX: 135;
---    posY: 650;
---]])
+local sliderOverLiveBoss = boss2:addComponent("Slider")
+sliderOverLiveBoss:sendMsg([[
+    materialBar: Heal;
+    materialBarBg: Heal_bg;
+    materialButton: CircleButton;
+    width: 1000;
+    height: 25;
+    posX: 135;
+    posY: 650;
+]])
 
 
---bossHealth:sendComponent(0, sliderOverLiveBoss);
---bossHealth:sendComponent(1, sliderBehindLiveBoss);
---playerAttack:sendComponent(1, bossHealth)
+bossHealth:sendComponent(0, sliderOverLiveBoss);
+bossHealth:sendComponent(1, sliderBehindLiveBoss);
+playerAttack:sendComponent(1, bossHealth)
 
 local bossAI = boss2:addComponent("BossDistancia")
 bossAI:sendComponent(0, tr)

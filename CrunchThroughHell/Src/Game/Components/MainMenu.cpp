@@ -194,7 +194,8 @@ namespace LoveEngine {
 		}
 
 		void MainMenu::continueGame() {
-
+			
+			SceneManagement::changeScene((int)SceneOrder::Boss2, SceneManagement::SceneLoad::SWAP);
 		}
 
 		void MainMenu::howToPlay() {
