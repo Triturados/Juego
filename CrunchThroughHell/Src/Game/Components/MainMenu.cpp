@@ -13,6 +13,7 @@
 #include <Sound.h>
 #include <SoundButton.h>
 #include <Timer.h>
+#include <iostream>
 
 namespace LoveEngine {
 
@@ -109,7 +110,6 @@ namespace LoveEngine {
 		}
 
 		void MainMenu::update() {
-
 			Input::InputManager* input = Input::InputManager::getInstance();
 			if (presskey) {
 
@@ -210,7 +210,8 @@ namespace LoveEngine {
 		}
 
 		void MainMenu::credits() {
-
+			std::cout << "Credits weon\n";
+			SceneManagement::changeScene((int)SceneOrder::Credits, SceneManagement::SceneLoad::UP);
 		}
 
 		void MainMenu::exit() {

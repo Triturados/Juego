@@ -8,6 +8,8 @@
 --  6: victory
 --  7: defeat
 --  8: credits
+--  9: About
+-- 10: How to play
 --------------
 
 
@@ -17,89 +19,33 @@ package.path = package.path .. ";../../resources/Scripts/?.lua"
 
 sceneCount = 8;
 
-scene2 = {
-    name = "Pause",
-    objects = {
-        {
-            name = "Camera",
-            components = {
-                {
-                    type = 'Transform',
-                    info = [[
-                        scale: 2,2,2;
-                        position: 0,40,80;
-                        rotation: 0,0,0;
-                    ]]
-                },
-                {
-                    type = 'Camera',
-                    info = [[
-                        name: pause;
-                        zOrder: 2
-                    ]]
-                }
-            }
-        },
-        {
-            name = "Background",
-            components = {
-                    {
-                        type = 'Image',
-                        info = [[
-                            material: pauseMenu;
-                            width: 1280;
-                            height : 720;
-                        ]]
-                    }
-                }
-        },
-        {
-            name = "Vignette",
-            components = {
-                    {
-                        type = 'Image',
-                        info = [[
-                            material: splashScreen_vignette;
-                            width: 1280;
-                            height : 720;
-                        ]]
-                    }
-                }
-        },
-    },
-    code = function()
-        local continue = scene:createObject("Start Button"):addComponent("Button");
-        local exitButton = scene:createObject("Exit Button"):addComponent("Button");
-
-        continue:sendMsg([[
-            material: Heal_bg;
-            width: 100;
-            height: 50;
-            posX: 500;
-            posY: 300;
-            posZ: 1
-        ]])
-
-        exitButton:sendMsg([[
-            material: Heal_bg;
-            width: 100;
-            height: 50;
-            posX: 500;
-            posY: 360;
-            posZ: 1
-        ]])
-
-        local menuObj = scene:createObject("Pause Component"):addComponent("PauseMenu")
-        menuObj:sendComponent(0, continue);
-        menuObj:sendComponent(1, exitButton);
-    end
-}
-icon('icon.bmp')
 menu = require "menu";
+
+icon('icon.bmp')
 
 function scene0() -- Main menu
     menu:createMainMenu()
 end
+
+function scene1() -- Settings
+    menu:createSettings()
+end
+
+scene2 = menu:menuPausa(); --Pause Menu
+
+function scene8() -- Credits
+    menu:createCredits()
+end
+
+
+function scene9() -- About
+    menu:createAbout()
+end
+
+function scene10() -- How to play
+    menu:createHowtoplay()
+end
+
 
 
 function createCharco(name, type, x,y,z)
@@ -193,9 +139,6 @@ function createArbol(name, x,y,z)
 
 end
 
-function scene1() -- Settings
-  menu:createSettings()
-end
 
 function scene3() -- Overworld
     scene:name("Escena de Prueba")

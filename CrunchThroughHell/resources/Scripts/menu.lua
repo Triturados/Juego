@@ -4,7 +4,6 @@ local menu = {}
 
 function menu:createMainMenu()
     scene:name("Main menu")
-
     local cam = scene:createObject("cam")
     cam:addComponent('Transform'):sendMsg([[
         scale: 2,2,2;
@@ -152,6 +151,14 @@ function menu:createSettings()
 
 end
 
+function menu:createCredits()
+    scene:name("Credits")
+
+    local container = createRightContainer()
+
+end
+
+
 function createArrow(pos, mat)
     local button = scene:createObject("Displacement button"):addComponent('Button');
 
@@ -173,5 +180,113 @@ function createArrow(pos, mat)
     return button
 end
 
+
+function createRightContainer()
+    
+    local containerObj = scene:createObject("Container")
+    containerObj:addComponent('MoveUI'):sendMssg([[
+        destination: 100, 0, 0;
+        duration: 2.0;
+        enabled: true;
+    ]])
+
+    local container = containerObj:addComponent("UIContainer")
+    container:sendMssg([[
+        posX: 400;
+        posY: -720;
+        posZ: 0;
+    ]])
+
+    container:sendComponent(0, scene:createObject("Banner"):addComponent("Image"):sendMsg([[
+        material: mainmenuBanner;
+        height: 640;
+        width : 600;
+        posX: 0;
+        posY: 52
+        posZ: 0;
+    ]]))
+    return container
+end
+
+
+function menu:menuPausa()
+    return {
+    name = "Pause",
+    objects = {
+        {
+            name = "Camera",
+            components = {
+                {
+                    type = 'Transform',
+                    info = [[
+                        scale: 2,2,2;
+                        position: 0,40,80;
+                        rotation: 0,0,0;
+                    ]]
+                },
+                {
+                    type = 'Camera',
+                    info = [[
+                        name: pause;
+                        zOrder: 2
+                    ]]
+                }
+            }
+        },
+        {
+            name = "Background",
+            components = {
+                    {
+                        type = 'Image',
+                        info = [[
+                            material: pauseMenu;
+                            width: 1280;
+                            height : 720;
+                        ]]
+                    }
+                }
+        },
+        {
+            name = "Vignette",
+            components = {
+                    {
+                        type = 'Image',
+                        info = [[
+                            material: splashScreen_vignette;
+                            width: 1280;
+                            height : 720;
+                        ]]
+                    }
+                }
+        },
+    },
+    code = function()
+        local continue = scene:createObject("Start Button"):addComponent("Button");
+        local exitButton = scene:createObject("Exit Button"):addComponent("Button");
+
+        continue:sendMsg([[
+            material: Heal_bg;
+            width: 100;
+            height: 50;
+            posX: 500;
+            posY: 300;
+            posZ: 1
+        ]])
+
+        exitButton:sendMsg([[
+            material: Heal_bg;
+            width: 100;
+            height: 50;
+            posX: 500;
+            posY: 360;
+            posZ: 1
+        ]])
+
+        local menuObj = scene:createObject("Pause Component"):addComponent("PauseMenu")
+        menuObj:sendComponent(0, continue);
+        menuObj:sendComponent(1, exitButton);
+    end
+}
+end
 
 return menu

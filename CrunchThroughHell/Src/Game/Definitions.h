@@ -11,6 +11,9 @@ namespace LoveEngine {
 		Boss1,
 		Boss2,
 		Victory,
-		Defeat
+		Defeat,
+		Credits, 
+		About,
+		HowToPlay
 	};
 }
