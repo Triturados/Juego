@@ -60,7 +60,8 @@ namespace LoveEngine
         bool BossDistancia::RangedAttack::conditionsFulfilled() const
         {
             if (target == nullptr) return false;
-            return (true /*Aquí ponéis las condiciones necesarias para que ataque*/);
+            return (*(target->getPos()) - *(tr->getPos())).magnitude() > 25 &&
+                (*(target->getPos()) - *(tr->getPos())).magnitude() < 50;
         }
 
         void BossDistancia::RangedAttack::onActionStart()

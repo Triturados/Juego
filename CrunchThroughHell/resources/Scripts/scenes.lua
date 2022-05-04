@@ -1038,8 +1038,8 @@ bosstr:sendMsg([[
 --bossHealth:sendComponent(1, sliderBehindLiveBoss);
 --playerAttack:sendComponent(1, bossHealth)
 
---local bossAI = boss2:addComponent("BossMelee")
---bossAI:sendComponent(0, tr)
+local bossAI = boss2:addComponent("BossDistancia")
+bossAI:sendComponent(0, tr)
 boss2:addComponent("Mesh"):sendMsg([[meshName: Boss2.mesh]])
 local bossRb = boss2:addComponent('Rigidbody')
 bossRb:sendMsg([[
