@@ -185,8 +185,8 @@ namespace LoveEngine
             }
             lockAction = true;
             // Aquí poneis el código del teleport
-            rb->setKinematic(true);
-            rb->setDynamic(false);
+            //rb->setKinematic(true);
+            //rb->setDynamic(false);
             Utilities::Vector2<float> nv = posRand();
             Utilities::Vector3<float> np(nv.x, tr->getPos()->y, nv.y);
             tr->setPos(np);
