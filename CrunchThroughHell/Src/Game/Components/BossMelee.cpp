@@ -201,8 +201,8 @@ namespace LoveEngine
             float angle = std::atan2(dir.x, dir.z);
             rb->setRotation(Utilities::Vector3<int>(0, 1, 0), angle);
 
-            anim->resetAnim();
             anim->changeAnimation("jumpstart");
+            anim->resetAnim();
 
             lockAction = true;
 
