@@ -101,11 +101,6 @@ float naive_lerp(float a, float b, float t)
 
 void LoveEngine::ECS::Salud::update()
 {
-	//testeo
-	if(input->keyJustPressed(Input::InputKeys::B)) {
-		takeDamage(20);
-	}
-
 	int barProgress = actHealth * sliderBehind->MAX_VALUE / _MAX_HEALTH;
 
 	sliderTop->setProgress(barProgress);
