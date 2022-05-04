@@ -95,9 +95,9 @@ scene2 = {
     end
 }
 icon('icon.bmp')
+menu = require "menu";
 
 function scene0() -- Main menu
-    menu = require "menu";
     menu:createMainMenu()
 end
 
@@ -194,28 +194,7 @@ function createArbol(name, x,y,z)
 end
 
 function scene1() -- Settings
-    scene:name("Settings")
-
-    local startButton = scene:createObject("Start Button"):addComponent("Button");
-    local exitButton = scene:createObject("Exit Button"):addComponent("Button");
-
-    startButton:sendMsg([[
-        material: Heal_bg;
-        width: 100;
-        height: 50;
-        posX: 500;
-        posY: 300;
-		posZ: 1
-    ]])
-
-    exitButton:sendMsg([[
-        material: Heal_bg;
-        width: 100;
-        height: 50;
-        posX: 500;
-        posY: 360;
-		posZ: 1
-    ]])
+  menu:createSettings()
 end
 
 function scene3() -- Overworld

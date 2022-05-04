@@ -99,8 +99,8 @@ function menu:createMainMenu()
         mainmenu:sendComponent(i, button)
     end
 
-    mainmenu:sendComponent(-1, createArrow(height() - 60, 'mainmenuArrowDown'))
-    mainmenu:sendComponent(-2, createArrow(426, 'mainmenuArrow'))
+    mainmenu:sendComponent(-2, createArrow(height() - 60, 'mainmenuArrowDown'))
+    mainmenu:sendComponent(-1, createArrow(426, 'mainmenuArrow'))
     mainmenu:sendComponent(-3, presskey);
     mainmenu:sendMssg('centerX: 250');
 
@@ -126,7 +126,31 @@ function menu:createMainMenu()
     Blueprint.spawnObject(scene, "Vignette")
 end
 
+function menu:createSettings()
+    scene:name("Settings")
 
+    local startButton = scene:createObject("Start Button"):addComponent("Button");
+    local exitButton = scene:createObject("Exit Button"):addComponent("Button");
+
+    startButton:sendMsg([[
+        material: Heal_bg;
+        width: 100;
+        height: 50;
+        posX: 500;
+        posY: 300;
+		posZ: 1
+    ]])
+
+    exitButton:sendMsg([[
+        material: Heal_bg;
+        width: 100;
+        height: 50;
+        posX: 500;
+        posY: 360;
+		posZ: 1
+    ]])
+
+end
 
 function createArrow(pos, mat)
     local button = scene:createObject("Displacement button"):addComponent('Button');
