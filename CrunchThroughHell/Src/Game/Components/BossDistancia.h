@@ -17,13 +17,24 @@ namespace LoveEngine {
 				bool conditionsFulfilled() const final;
 				void onActionStart() final;
 				void activeUpdate() final;
-               
+                void setAnim(Animation* a);
 
 			protected:
 				Transform* target = nullptr;
 				Transform* tr = nullptr;
+                Animation* anim = nullptr;
                 
+                struct SpellAnimation {
+                    std::string animation;
+                    float duration;
+                };
+
+                SpellAnimation spellAnimations[3] = { { "spell1", 2.4 }, { "spell2", 1.5 }, { "spell3", 2.66 } };
+                int numAnimations = 3;
+                int comboIndex = 0;
+
                 void createBullet();
+                void attackFinished();
 			};
 
             class KeepDistance : public Action
@@ -35,6 +46,7 @@ namespace LoveEngine {
                 void setRB(RigidBody* rb_);
                 void activeUpdate() final;
                 void onActionStart() final;
+                void setAnim(Animation* a);
             protected:
                 float maxVel = 25;
                 float acc = 10;
@@ -42,6 +54,7 @@ namespace LoveEngine {
                 RigidBody* rb = nullptr;
                 Transform* target = nullptr;
                 Transform* tr = nullptr;
+                Animation* anim = nullptr;
             };
 
             class Teleport : public Action
@@ -54,6 +67,7 @@ namespace LoveEngine {
                 void setRB(RigidBody* rb_);
                 bool conditionsFulfilled() const final;
                 void onActionStart() final;
+                void setAnim(Animation* a);
             private:
                 void startTP();
                 void endTP();
@@ -61,6 +75,7 @@ namespace LoveEngine {
                 RigidBody* rb;
                 Transform* target = nullptr;
                 Transform* tr = nullptr;
+                Animation* anim = nullptr;
                 int vida;
                 int lastVd;
                 Utilities::Vector2<float> posRand();

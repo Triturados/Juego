@@ -15,6 +15,7 @@
 #include "Mesh.h"
 #include "Salud.h"
 #include "Timer.h"
+#include "Animation.h"
 
 namespace LoveEngine
 {
@@ -43,12 +44,17 @@ namespace LoveEngine
         {
             tr = gameObject->getComponent<Transform>();
             RigidBody* rb = gameObject->getComponent<RigidBody>();
+            anim = gameObject->getComponent<Animation>();
             rb->setMass(1000);
             attack->setTransform(tr);
+            attack->setAnim(anim);
             keepDistance->setTransform(tr);
             keepDistance->setRB(rb);
+            keepDistance->setAnim(anim);
             teleport->setTransform(tr);
             teleport->setRB(rb);
+            teleport->setAnim(anim);
+            
             ComportamientoBoss::init();
             vida = gameObject->getComponent<Salud>()->getHealth();
             lastVd = vida;
@@ -88,6 +94,18 @@ namespace LoveEngine
 
 
             // TO DO: start animation
+            SpellAnimation spell = spellAnimations[comboIndex++ % numAnimations];
+
+            if (!anim->playingAnimation(spell.animation))
+                anim->changeAnimation(spell.animation);
+
+            anim->resetAnim();
+
+            lockAction = true;
+
+            ECS::Timer::invoke([&](ECS::Timer*) {
+                attackFinished();
+                }, spell.duration);
 
             createBullet(); //dispara
         }
@@ -96,6 +114,11 @@ namespace LoveEngine
         {
             // Esto es más estética que nada, para que mientras dure la animación esté apuntando al jugador
             // TO DO: lookat target
+        }
+
+        void BossDistancia::RangedAttack::setAnim(Animation* a)
+        {
+            anim = a;
         }
 
         void BossDistancia::RangedAttack::createBullet()
@@ -119,6 +142,11 @@ namespace LoveEngine
             bulletMat->receiveComponent(0, bulletMesh);
             bulletMat->sendFormattedString("materialName: lava;");
             bulletTr->init(); bulletMesh->init(); bulletRigid->init(); bulletB->init(); bulletMat->init();
+        }
+
+        void BossDistancia::RangedAttack::attackFinished()
+        {
+            lockAction = false;
         }
 
         BossDistancia::KeepDistance::KeepDistance(Agent* agent_) : Action(agent_, 0.0) { };
@@ -151,12 +179,20 @@ namespace LoveEngine
                 dir.normalize();
                 float angle = std::atan2(dir.x, dir.z);
                 rb->setRotation(Utilities::Vector3<int>(0, 1, 0), angle);
+
+                anim->changeAnimation("walk");
+                anim->setLoop(true);
             }
         }
 
         void BossDistancia::KeepDistance::onActionStart()
         {
             rb->setKinematic(false);
+        }
+
+        void BossDistancia::KeepDistance::setAnim(Animation* a)
+        {
+            anim = a;
         }
 
         BossDistancia::Teleport::Teleport(Agent* agent_) : Action(agent_, 80)
@@ -198,9 +234,15 @@ namespace LoveEngine
             ECS::Timer::invoke([&](ECS::Timer*) {
                 startTP();
             }, 1.5);
+
             // Suponiendo que el teleport es instantáneo, no hay que bloquear la acción, y se puede poner en cd desde el
             // momento que empieza
         }
+        void BossDistancia::Teleport::setAnim(Animation* a)
+        {
+            anim = a;
+        }
+
         void BossDistancia::Teleport::startTP()
         {
             //animacion
