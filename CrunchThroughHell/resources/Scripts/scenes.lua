@@ -944,7 +944,6 @@ function scene5() -- Boss2
 
 
     local playerAttack = player:addComponent("AtaqueJugador")
-    playerAttack:sendComponent(1, bossHealth)
 
     local dashParticles = scene:createObject("dashParticles")
     local trDash = dashParticles:addComponent("Transform")
@@ -987,7 +986,6 @@ function scene5() -- Boss2
 
     camFollow:sendComponent(0, tr)
 
-    rotarcam:sendGameObject(0, boss)
     rotarcam:sendGameObject(1, player)
     rotarcam:sendGameObject(2, cam)
 
@@ -995,6 +993,68 @@ function scene5() -- Boss2
 ----------COLOCAR OBJETOS ESCENARIO
     local trArbol1 = createArbol(arbol1, 10, 10, 10)
     local trArbol2 = createArbol(arbol2, 50, 10, 20)
+---------------------------------------------------------------------------------------------------------------------------
+-- -- -- -- JEFE -- -- -- --
+-- Enemigo--
+
+
+local boss2 = scene:createObject("boss2")
+--local bossHealth = boss2:addComponent("Salud")
+--bossHealth:sendMsg([[
+--    maxHealth: 100
+--]])
+local bosstr = boss2:addComponent("Transform")
+bosstr:sendMsg([[
+    scale: 0.02,0.02,0.02;
+    position: 30,30,-30;
+    rotation: 0,0,0;
+]])
+
+
+--local sliderBehindLiveBoss = boss2:addComponent("Slider")
+--sliderBehindLiveBoss:sendMsg([[
+--    materialBar: Heal;
+--    materialBarBg: Heal_bg;
+--    materialButton: CircleButton;
+--    width: 1000;
+--    height: 25;
+--    posX: 135;
+--    posY: 650;
+--]])
+
+--local sliderOverLiveBoss = boss2:addComponent("Slider")
+--sliderOverLiveBoss:sendMsg([[
+--    materialBar: Heal;
+--    materialBarBg: Heal_bg;
+--    materialButton: CircleButton;
+--    width: 1000;
+--    height: 25;
+--    posX: 135;
+--    posY: 650;
+--]])
+
+
+--bossHealth:sendComponent(0, sliderOverLiveBoss);
+--bossHealth:sendComponent(1, sliderBehindLiveBoss);
+--playerAttack:sendComponent(1, bossHealth)
+
+local bossAI = boss2:addComponent("BossDistancia")
+bossAI:sendComponent(0, tr)
+boss2:addComponent("Mesh"):sendMsg([[meshName: Boss2.mesh]])
+local bossRb = boss2:addComponent('Rigidbody')
+bossRb:sendMsg([[
+    state: dynamic;
+    mass: 100.0;
+    shape: sphere;
+    restitution: 0.0;
+    colliderScale: 18,18,18;
+]])
+
+playerMov:sendComponent(0, bossRb)
+playerAttack:sendComponent(0,bosstr)
+rotarcam:sendGameObject(0, boss2)
+
+boss2:addComponent("Animation"):sendMsg([[animName: idle]])
 
 end
 
