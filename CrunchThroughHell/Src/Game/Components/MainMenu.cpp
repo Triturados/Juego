@@ -207,7 +207,7 @@ namespace LoveEngine {
 		}
 
 		void MainMenu::about() {
-
+			SceneManagement::changeScene((int)SceneOrder::About, SceneManagement::SceneLoad::UP);
 		}
 
 		void MainMenu::credits() {

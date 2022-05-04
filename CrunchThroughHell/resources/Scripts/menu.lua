@@ -174,6 +174,29 @@ function menu:createCredits()
 end
 
 
+function menu:createAbout()
+    scene:name("Credits")
+
+    local container = createRightContainer()
+
+    local scroll = scene:createObject('Scroll'):addComponent('Scroll'):sendMssg([[
+        minHeight: 0;
+        maxHeight: 720;
+        automatic: false;
+        speed: 100;
+        posX: 0;
+        posY: 52;
+        posZ: 0;
+        timeToEnable: 2.0;
+    ]])
+
+    container:sendComponent(0, scroll);
+    scroll:sendComponent(0, createImage('mainmenuBackgroundImage', 10, 10, 11, 400, 400))
+    scroll:sendComponent(-1, container)
+
+end
+
+
 function createArrow(pos, mat)
     local button = scene:createObject("Displacement button"):addComponent('Button');
 

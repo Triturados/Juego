@@ -21,6 +21,8 @@ namespace LoveEngine {
 			float speed;
 			float timeToEnable;
 
+			void leaveAndCloseScene();
+
 			UIContainer* cont;
 		};
 	}

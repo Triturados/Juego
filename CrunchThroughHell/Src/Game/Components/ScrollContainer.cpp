@@ -51,6 +51,15 @@ namespace LoveEngine {
 				cont = static_cast<UIContainer*>(c);
 		}
 
+		void ScrollContainer::leaveAndCloseScene()
+		{
+			int xpos = cont->getPosition().x;
+			int ypos = Window::getInstance()->getWindowSize().y;
+			cont->gameObject->getComponent<MoveUI>()->changeDestination(Utilities::Vector3(xpos, ypos, 0));
+			Timer::invoke([&](Timer*) {
+				SceneManagement::changeScene(0, SceneManagement::SceneLoad::POP); }, 2.0);
+		}
+
 
 		void ScrollContainer::onMove() {
 			int posy = position.y;
@@ -68,10 +77,17 @@ namespace LoveEngine {
 			}
 		}
 		void ScrollContainer::update() {
+			auto input = Input::InputManager::getInstance();
+
+			if (input->isKeyPressed(Input::InputKeys::ESCAPE)) {
+				leaveAndCloseScene();
+				return;
+			}
+
 			float dt = Time::getInstance()->deltaTime;
 			if (!automatic) {
 
-				float mousewheel = -Input::InputManager::getInstance()->mouseWheel();
+				float mousewheel = -input->mouseWheel();
 				if (mousewheel != 0) {
 
 					currentHeight += mousewheel * dt * speed;
@@ -86,11 +102,7 @@ namespace LoveEngine {
 				automatic = false;
 
 				//Cableo un poco esto aqui pero es un script del juego asi que no problem >n<
-				int xpos = cont->getPosition().x;
-				int ypos = Window::getInstance()->getWindowSize().y;
-				cont->gameObject->getComponent<MoveUI>()->changeDestination(Utilities::Vector3(xpos, ypos, 0));
-				Timer::invoke([&](Timer*) {
-					SceneManagement::changeScene(0, SceneManagement::SceneLoad::POP); }, 2.0);
+				leaveAndCloseScene();
 			}
 
 			ScrollContainer::onMove();
