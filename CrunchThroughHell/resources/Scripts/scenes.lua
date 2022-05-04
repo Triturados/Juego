@@ -21,7 +21,7 @@ sceneCount = 8;
 
 menu = require "menu";
 
-icon('icon.bmp')
+icon('iconkatana.bmp')
 
 function scene0() -- Main menu
     menu:createMainMenu()
