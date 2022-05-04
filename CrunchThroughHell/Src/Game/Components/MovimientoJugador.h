@@ -58,6 +58,8 @@ namespace LoveEngine {
 			int dashStamina = 0;
 			Stamina* sta;
 			Sound* dashSound;
+
+			bool overWorld = false;
 		public:
 			void init() override;
 			void postInit() override;

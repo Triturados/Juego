@@ -66,7 +66,7 @@ void LoveEngine::ECS::AtaqueJugador::update()
 
 		//std::cout << controller << "\n";
 
-		if (input->isControllerButtonPressed(Input::ControllerButton::A)&& sta->getStamina() >= attackStamina)
+		if (input->isControllerButtonPressed(Input::ControllerButton::A) && sta->getStamina() >= attackStamina)
 		{
 			startAttack();
 		}
@@ -91,7 +91,7 @@ void LoveEngine::ECS::AtaqueJugador::receiveComponent(int i, Component* c)
 	else if (i == 1)
 		if (dynamic_cast<Salud*>(c) != nullptr)
 			bossHealth = (Salud*)c;
-		
+
 }
 
 void LoveEngine::ECS::AtaqueJugador::startAttack()
@@ -120,7 +120,7 @@ void LoveEngine::ECS::AtaqueJugador::attack()
 		attackSound->playSound();
 		if (bossOnRange()) {
 			std::cout << "hit\n";
-			bossHealth->takeDamage(dmg);
+			if (bossHealth != nullptr)bossHealth->takeDamage(dmg);
 		}
 	}
 	if (currentDuration >= attackDuration) {
@@ -146,7 +146,7 @@ bool LoveEngine::ECS::AtaqueJugador::bossOnRange()
 	}
 
 	//CALCULAR ANGULO SOLO SI EL MOVIMIENTO ES LIBRE
-	
+
 
 	return true;;
 }

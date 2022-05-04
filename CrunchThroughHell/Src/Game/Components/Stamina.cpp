@@ -34,9 +34,10 @@ void LoveEngine::ECS::Stamina::init()
 
 	actStamina = _MAX_STAMINA;
 
-
-	sliderTop->setDetectInput(false);
-	sliderBehind->setDetectInput(false);
+	if (sliderTop != nullptr)
+		sliderTop->setDetectInput(false);
+	if (sliderBehind != nullptr)
+		sliderBehind->setDetectInput(false);
 }
 
 void LoveEngine::ECS::Stamina::setStamina(int sta)
@@ -91,23 +92,23 @@ void LoveEngine::ECS::Stamina::update()
 			setStamina(actStamina + 3);
 		}
 	}
+	if (sliderTop != nullptr && sliderBehind != nullptr) {
+		int barProgress = actStamina * sliderBehind->MAX_VALUE / _MAX_STAMINA;
 
-	int barProgress = actStamina * sliderBehind->MAX_VALUE / _MAX_STAMINA;
+		sliderTop->setProgress(barProgress);
 
-	sliderTop->setProgress(barProgress);
+		barProgress = naive_lerp(sliderBehind->getProgress(), barProgress, Time::getInstance()->deltaTime);
 
-	barProgress = naive_lerp(sliderBehind->getProgress(), barProgress, Time::getInstance()->deltaTime);
+		sliderBehind->setProgress(barProgress);
 
-	sliderBehind->setProgress(barProgress);
-
-
+	}
 
 
 }
 
 void LoveEngine::ECS::Stamina::stepPhysics()
 {
-	
+
 }
 
 

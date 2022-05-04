@@ -61,10 +61,10 @@ void LoveEngine::ECS::MovimientoJugador::postInit() {
 
 void LoveEngine::ECS::MovimientoJugador::update()
 {
-	if(input->isKeyPressed(Input::InputKeys::G)) salud->takeDamage(100);
+	if (input->isKeyPressed(Input::InputKeys::G)) salud->takeDamage(100);
 	if (!ataque->currentlyAttacking()) changeAnimations();
 
-	if (salud->isDead()) {
+	if (salud != nullptr && salud->isDead()) {
 		disablePlayer();
 		return;
 	}
@@ -80,12 +80,12 @@ void LoveEngine::ECS::MovimientoJugador::update()
 		if (input->isKeyPressed(Input::InputKeys::S)) movementZ = -speed;
 		if (input->isKeyPressed(Input::InputKeys::A)) movementX = speed;
 		if (input->isKeyPressed(Input::InputKeys::D)) movementX = -speed;
-		if (input->isKeyPressed(Input::InputKeys::SPACE) && sta->getStamina() >= dashStamina && !isDashing && lastDash >= dashDelay && (movementX != 0 || movementZ != 0))
+		if (input->isKeyPressed(Input::InputKeys::SPACE) && (sta->getStamina() >= dashStamina || overWorld) && !isDashing && lastDash >= dashDelay && (movementX != 0 || movementZ != 0))
 		{
 
 
 			lastDash = 0;
-			sta->loseStamina(dashStamina);
+			if (!overWorld)sta->loseStamina(dashStamina);
 			isDashing = true;
 			currentDashDuration = 0;
 			dashSound->playSound();
@@ -105,9 +105,9 @@ void LoveEngine::ECS::MovimientoJugador::update()
 		//std::cout << controller << "\n";
 
 		if (input->isControllerButtonPressed(Input::ControllerButton::B) &&
-			input->isControllerButtonState(Input::ControllerButtonState::DOWN) && sta->getStamina() >= dashStamina && !isDashing && lastDash >= dashDelay && (movementX != 0 || movementZ != 0))
+			input->isControllerButtonState(Input::ControllerButtonState::DOWN) && (sta->getStamina() >= dashStamina || overWorld) && !isDashing && lastDash >= dashDelay && (movementX != 0 || movementZ != 0))
 		{
-			sta->loseStamina(dashStamina);
+			if(!overWorld)sta->loseStamina(dashStamina);
 			isDashing = true;
 			currentDashDuration = 0;
 		}
@@ -129,7 +129,7 @@ void LoveEngine::ECS::MovimientoJugador::stepPhysics()
 			knockback();
 	}
 	else {
-		if(bossTr != nullptr)
+		if (bossTr != nullptr)
 			aimedMovement(movementX, movementZ);
 		else {
 			freeMovement(movementX, movementZ);
@@ -173,39 +173,47 @@ void LoveEngine::ECS::MovimientoJugador::knockback()
 
 void LoveEngine::ECS::MovimientoJugador::changeAnimations()
 {
-	if (salud->isDead()) {
-		anim->changeAnimation("death");
+	if (overWorld) {
+		if (movementX == 0 && movementZ == 0) {
+			anim->changeAnimation("idle");
+		}
+		else {
+			anim->changeAnimation("run");
+		}
 	}
-	else if (movementX == 0 && movementZ == 0) {
-		anim->changeAnimation("idle");
+	else {
+		if (salud != nullptr && salud->isDead()) {
+			anim->changeAnimation("death");
+		}
+		else if (movementX == 0 && movementZ == 0) {
+			anim->changeAnimation("idle");
+		}
+		else if (movementX > abs(movementZ)) {
+			anim->changeAnimation("runright");
+		}
+		else if (movementX<0 && abs(movementX) > abs(movementZ)) {
+			anim->changeAnimation("runleft");
+		}
+		else if (movementZ > 0)anim->changeAnimation("run");
+		else anim->changeAnimation("walkback");
 	}
-	else if (movementX > abs(movementZ)) {
-		anim->changeAnimation("runright");
-	}
-	else if (movementX<0 && abs(movementX) > abs(movementZ)) {
-		anim->changeAnimation("runleft");
-	}
-	else if (movementZ > 0)anim->changeAnimation("run");
-	else anim->changeAnimation("walkback");
-
 	anim->setLoop(true);
-	if (salud->isDead()) anim->setLoop(false);
+	if (salud != nullptr && salud->isDead()) anim->setLoop(false);
+
 }
 
 
 void LoveEngine::ECS::MovimientoJugador::freeMovement(float mvX, float mvZ)
 {
-	Utilities::Vector3<float>newVelocity = tr->forward() * mvZ + tr->right() * mvX;
+	Utilities::Vector3<float>newVelocity(-mvX, 0, -mvZ);
 	newVelocity.y = rb->getVelocity()->y;
-
 	rb->setLinearVelocity(newVelocity);
 
-	Utilities::Vector3<float> camRot = *camTr->getRot();
-
-	float angle = camRot.y + 3.1416;
-
+	newVelocity.normalize();
+	float angle = std::atan2(mvX, mvZ) + 3.1416;
 
 	rb->setRotation(Utilities::Vector3<int>(0, 1, 0), angle);
+
 }
 
 void LoveEngine::ECS::MovimientoJugador::aimedMovement(float mvX, float mvZ)
@@ -242,6 +250,7 @@ void LoveEngine::ECS::MovimientoJugador::receiveMessage(Utilities::StringFormatt
 	MAX_SPEED = speed;
 	sf.tryGetFloat("dashSpeed", dashSpeed);
 	sf.tryGetFloat("dashDuration", dashDuration);
+	sf.tryGetBool("overWorld", overWorld);
 }
 
 void LoveEngine::ECS::MovimientoJugador::receiveComponent(int i, Component* c)

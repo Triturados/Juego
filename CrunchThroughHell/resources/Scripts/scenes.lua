@@ -139,6 +139,224 @@ function createArbol(name, x,y,z)
 
 end
 
+function sceneOverworld() -- Overworld de verdad
+    scene:name("Escena Overworld")
+
+    -- Limites mundo --
+    --MURO1
+    local muro1 = scene:createObject("muro1")
+    local muroTr1 = muro1:addComponent("Transform")
+    muroTr1:sendMsg([[
+        scale: 1,10,150;
+        position: -150,10,0;
+        rotation: 0,0,0;
+    ]])
+    local rBMuro1 = muro1:addComponent('Rigidbody')
+    rBMuro1:sendMsg([[
+        trigger: false;
+        state: kinematic;
+        mass: 0.0;
+        shape: cube;
+        restitution: 0.9;
+        colliderScale: 10,30,150;
+    ]])
+
+
+    --MURO2
+    local muro2 = scene:createObject("muro2")
+    local muroTr2 = muro2:addComponent("Transform")
+
+    muroTr2:sendMsg([[
+        scale: 1,10,150;
+        position: 150,10,0;
+        rotation: 0,0,0;
+    ]])
+
+    local rBMuro2 = muro2:addComponent('Rigidbody')
+    rBMuro2:sendMsg([[
+        trigger: false;
+        state: kinematic;
+        mass: 0.0;
+        shape: cube;
+        restitution: 0.9;
+        colliderScale: 10,30,150;
+    ]])
+
+
+    --MURO3
+    local muro3 = scene:createObject("muro3")
+    local muroTr3 = muro3:addComponent("Transform")
+
+    muroTr3:sendMsg([[
+        scale: 150,10,1;
+        position: 0,10,-150;
+        rotation: 0,0,0;
+    ]])
+
+    local rBMuro3 = muro3:addComponent('Rigidbody')
+    rBMuro3:sendMsg([[
+        trigger: false;
+        state: kinematic;
+        mass: 0.0;
+        shape: cube;
+        restitution: 0.9;
+        colliderScale: 150,30,10;
+    ]])
+
+
+    --MURO4
+    local muro4 = scene:createObject("muro4")
+    local muroTr4 = muro4:addComponent("Transform")
+
+    muroTr4:sendMsg([[
+        scale: 150,10,1;
+        position: 0,10,150;
+        rotation: 0,0,0;
+    ]])
+
+    local rBMuro4 = muro4:addComponent('Rigidbody')
+    rBMuro4:sendMsg([[
+        trigger: false;
+        state: kinematic;
+        mass: 0.0;
+        shape: cube;
+        restitution: 0.9;
+        colliderScale: 150,30,10;
+    ]])
+
+    -- Suelo--
+    local suelo = scene:createObject("Suelo")
+    local sueloTr = suelo:addComponent("Transform")
+    -- Colocamos el padre
+    sueloTr:sendMsg([[
+        scale: 150,1,150;
+        position: 0,-4,0;
+        rotation: 0,0,0;
+    ]])
+    local sueloMesh  = suelo:addComponent("Mesh")
+    sueloMesh :sendMsg([[
+        meshName: cube.mesh;
+    ]])
+    local compRigidbodySuelo = suelo:addComponent('Rigidbody')
+    compRigidbodySuelo:sendMsg([[
+        trigger: false;
+        state: kinematic;
+        mass: 0.0;
+        shape: cube;
+        restitution: 0.9;
+        colliderScale: 150,3.5,150;
+        ]])
+
+    local material = suelo:addComponent("Material")
+    material:sendMsg([[materialName: GrisSinBrillo]])
+    material:sendComponent(0, sueloMesh)
+
+     --------------------------------------------
+    -- hijosmuros --
+    muroTr1:sendComponent(1,sueloTr)
+    muroTr2:sendComponent(1,sueloTr)
+    muroTr3:sendComponent(1,sueloTr)
+    muroTr4:sendComponent(1,sueloTr)
+    ------------------------------
+
+
+    local luz = scene:createObject("Luz")
+    local luzTr = luz:addComponent('Transform')
+    luzTr:sendMsg([[
+        scale: 1,1,1;
+        position: 0,40,0;
+        rotation: -45,0,0;
+    ]])
+    local compLight = luz:addComponent('Light')
+    compLight:sendMssg([[
+        name: luz_direccional
+        type: directional
+    ]])
+
+    --CAMARA
+    local cam = scene:createObject("cam")
+    local trcam = cam:addComponent('Transform')
+
+    trcam:sendMsg([[
+        scale: 2,2,2;
+        position: 0,45,200;
+        rotation: -0.25,0,0;
+    ]])
+
+    local camCamera = cam:addComponent('Camera')
+
+    camCamera:sendMsg([[
+        name: escenaJuego;
+        zOrder: -3;
+    ]])
+    -- camCamera:sendMsg([[
+    --     compositor: Posterize;
+    -- ]])
+
+    -- player--
+
+
+    local playerSpawnHeight = 16
+    local player = scene:createObject("jugador")
+    local tr = player:addComponent("Transform")
+    tr:sendMsg([[
+        scale: 0.075,0.075,0.075;
+        position: 0,]] .. playerSpawnHeight .. [[,0;
+        rotation: 0,0,0;
+    ]])
+    player:addComponent("Rigidbody"):sendMsg([[
+        shape: cube;
+        type: dynamic;
+        mass: 10.0;
+        restitution: 0;
+        colliderScale: 3,8,2;
+    ]])
+    local mesh = player:addComponent("Mesh")
+    mesh:sendMsg([[meshName: Player.mesh]])
+    local playerMov = player:addComponent("MovimientoJugador")
+    playerMov:sendMsg([[
+        speed: 30.0;
+        overWorld: true;
+
+    ]])
+
+    local dashParticles = scene:createObject("dashParticles")
+    local trDash = dashParticles:addComponent("Transform")
+    trDash:sendMsg([[scale: 1,1,1; position: 0,15,0; rotation: 0,0,0;]])
+    local dashSys = dashParticles:addComponent("ParticleSystem")
+    dashSys:sendMsg([[particleName: dash; emitting: false]])
+    trDash:sendComponent(1, tr)
+
+    player:addComponent("Animation"):sendMsg([[animName: idle]])
+
+
+
+    local staminajugador = player:addComponent("Stamina")
+
+
+    local playerAttack = player:addComponent("AtaqueJugador")
+
+    playerMov:sendComponent(1, trcam)
+
+    createMesh("columna.mesh", -150, 10, 150, 10, 40, 10, 0,0,0)
+    createMesh("columna2.mesh", 150, 10, -150, 10, 40, 10, 0,0,0)
+    createMesh("columna3.mesh", -150, 10, -150, 10, 40, 10, 0,0,0)
+    createMesh("columna3.mesh", 150, 10, 150, 10, 40, 10, 0,0,0)
+    createMesh("wallRock1.mesh", 110, -5, 150, 5, 2, 3, 0,-0.7,0)
+    createMesh("wallRock1.mesh", 150, -5, 110, 5, 2, 3, 0,0.85,0)
+    createMesh("wallRock2.mesh", 150, -5, -110, 5, 2, 3, 0,1.6,0)
+    createMesh("wallRock1.mesh", -110, -5, -150, 5, 2, 3, 0,-0.7,0)
+    createMesh("wallRock2.mesh", -150, -5, 110, 5, 2, 3, 0,-1.6,0)
+    createMesh("wallRock1.mesh", -150, -5, 0, 5, 2, 3, 0,0.85,0)
+
+    
+    local skybox = scene:createObject("Skybox")
+    skybox:addComponent("Skybox"):sendMsg([[materialName: skyboxhell; distance: 300; ]])
+
+    createVignette()
+    scene:createObject("Pause Game"):addComponent("PauseGame")
+
+end
 
 function scene3() -- Overworld
     scene:name("Escena de Prueba")
