@@ -5,6 +5,7 @@
 #include <Sound.h>
 #include <SoundButton.h>
 #include <GameObject.h>
+#include <Definitions.h>
 
 namespace LoveEngine {
 
@@ -61,7 +62,7 @@ namespace LoveEngine {
 
 
 		void PauseMenu::exit() {
-			SceneManagement::changeScene(0, SceneManagement::SceneLoad::EXIT);
+			SceneManagement::changeScene((int)SceneOrder::MainMenu, SceneManagement::SceneLoad::CLEAR);
 		}
 
 	}

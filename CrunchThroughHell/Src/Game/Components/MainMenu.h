@@ -15,6 +15,7 @@ namespace LoveEngine {
 			void receiveMessage(Utilities::StringFormatter&) override;
 			void receiveComponent(int, Component*) override;
 		private:
+			float presskeytimer;
 			int centerButtonIdx;
 			int centerx;
 			float scrollTimer;
