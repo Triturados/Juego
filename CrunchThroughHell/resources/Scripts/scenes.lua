@@ -830,7 +830,7 @@ function scene6() -- Victory
     local bg = scene:createObject("Background");
     bg:addComponent("Transform")
     bg:addComponent("Image"):sendMsg([[
-        material: menuDeadBackground;
+        material: menuWinBackground;
         width: 1280;
         height : 720;
     ]])
