@@ -3,6 +3,11 @@
 #include "GameTime.h"
 #include "SceneManager.h"
 #include <Input.h>
+#include "Utils.h"
+#include "GameObject.h"
+#include "MoveUI.h"
+#include "Timer.h"
+#include "Window.h"
 
 namespace LoveEngine {
 
@@ -15,6 +20,8 @@ namespace LoveEngine {
 			minHeight = 0;
 			maxHeight = 1000;
 			automatic = false;
+			timeToEnable = -1;
+			currentHeight = 0;
 		}
 
 		void ScrollContainer::receiveMessage(Utilities::StringFormatter& sf) {
@@ -23,27 +30,46 @@ namespace LoveEngine {
 			sf.tryGetInt("minHeight", minHeight);
 
 			if (sf.tryGetBool("automatic", automatic))
-				if (sf.tryGetFloat("speed", speed)) {
+				if (!sf.tryGetFloat("speed", speed)) {
 					if (sf.tryGetInt("speed", newspeed)) {
 						speed = newspeed;
 					}
 				}
+
+			if (!sf.tryGetFloat("timeToEnable", timeToEnable)) {
+				if (sf.tryGetInt("timeToEnable", newspeed)) {
+					timeToEnable = newspeed;
+				}
+			}
+		}
+
+		void ScrollContainer::receiveComponent(int i, Component* c)
+		{
+			if (i >= 0)
+				UIContainer::receiveComponent(i, c);
+			else
+				cont = static_cast<UIContainer*>(c);
 		}
 
 
 		void ScrollContainer::onMove() {
-			if (!enabled) return;
-
-			int& ypos = position.y;
-			if (ypos < minHeight)
-				ypos = minHeight;
-			else if (ypos > maxHeight)
-				ypos = maxHeight;
+			int posy = position.y;
+			position.y += std::round(currentHeight);;
+			UIContainer::onMove();
+			position.y = posy;
 		}
+
 
 #define input Input::InputManager::getInstance()
 #define v3down(x) Utilities::Vector3<int>(0, x, 0)
 
+		void ScrollContainer::init()
+		{
+			if (timeToEnable > 0) {
+				enabled = false;
+				Timer::invoke([&](Timer*) {enabled = true; }, timeToEnable);
+			}
+		}
 		void ScrollContainer::update() {
 			if (!automatic) {
 
@@ -51,16 +77,24 @@ namespace LoveEngine {
 				if (mousewheel != 0) {
 					setPosition(position + v3down(speed));
 				}
+
+				ScrollContainer::onMove();
 				return;
 			}
-			position = position + v3down(speed * Time::getInstance()->deltaTime);
+			currentHeight += speed * Time::getInstance()->deltaTime;
 
-			if (position.y > maxHeight) {
+			if (currentHeight > maxHeight) {
 				automatic = false;
 
 				//Cableo un poco esto aqui pero es un script del juego asi que no problem >n<
-				SceneManagement::changeScene(0, SceneManagement::SceneLoad::POP);
+				int xpos = cont->getPosition().x;
+				int ypos = Window::getInstance()->getWindowSize().y;
+				cont->gameObject->getComponent<MoveUI>()->changeDestination(Utilities::Vector3(xpos, ypos, 0));
+				Timer::invoke([&](Timer*) {
+					SceneManagement::changeScene(0, SceneManagement::SceneLoad::POP); }, 2.0);
 			}
+
+			ScrollContainer::onMove();
 		}
 
 	}

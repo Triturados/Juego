@@ -118,9 +118,8 @@ function menu:createMainMenu()
         material: mainmenuBlackBorder;
         width: 1280;
         height : 720;
-        posZ: ]] .. zOrder ..[[
+        posZ: 19
     ]])
-    zOrder = zOrder + 1
 
     Blueprint.spawnObject(scene, "Vignette")
 end
@@ -156,6 +155,22 @@ function menu:createCredits()
 
     local container = createRightContainer()
 
+    local scroll = scene:createObject('Scroll'):addComponent('Scroll'):sendMssg([[
+        minHeight: 0;
+        maxHeight: 720;
+        automatic: true;
+        speed: 100;
+        posX: 0;
+        posY: 52;
+        posZ: 0;
+        timeToEnable: 2.0;
+    ]])
+
+    container:sendComponent(0, scroll);
+    scroll:sendComponent(0, createImage('mainmenuBackgroundImage', 10, 10, 11, 400, 400))
+    scroll:sendComponent(-1, container)
+    --createImage('mainmenuBackgroundImage', 590, 10, 4, 400, 400)
+
 end
 
 
@@ -183,29 +198,35 @@ end
 
 function createRightContainer()
     
+    local w = 600;
+    local xposition = width() - w - 100;
+
     local containerObj = scene:createObject("Container")
     containerObj:addComponent('MoveUI'):sendMssg([[
-        destination: 400, 0, 0;
+        destination: ]] .. xposition ..[[, 0, 0;
         duration: 2.0;
         enabled: true;
     ]])
 
     local container = containerObj:addComponent("UIContainer")
     container:sendMssg([[
-        posX: 400;
+        posX: ]] .. xposition .. [[;
         posY: -720;
         posZ: 0;
     ]])
 
-    container:sendComponent(0, scene:createObject("Banner"):addComponent("Image"):sendMsg([[
-        material: mainmenuBanner;
-        height: 640;
-        width : 600;
-        posX: 0;
-        posY: 52
-        posZ: 0;
-    ]]))
+    container:sendComponent(0, createImage('mainmenuBanner', 0, 52, 10, 600, 640));
     return container
+end
+
+function createImage(material, x, y, z, w, h)
+    return scene:createObject(material):addComponent('Image'):sendMssg([[
+        material: ]] .. material .. [[;
+        height:  ]] .. h .. [[;
+        width :  ]] .. w .. [[;
+        posX: ]] .. x .. [[;
+        posY: ]] .. y .. [[;
+        posZ: ]] .. z)
 end
 
 

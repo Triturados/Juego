@@ -211,7 +211,6 @@ namespace LoveEngine {
 		}
 
 		void MainMenu::credits() {
-			std::cout << "Credits weon\n";
 			SceneManagement::changeScene((int)SceneOrder::Credits, SceneManagement::SceneLoad::UP);
 		}
 
