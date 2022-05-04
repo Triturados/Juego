@@ -54,7 +54,7 @@ namespace LoveEngine
         BossDistancia::RangedAttack::RangedAttack(Agent* agent_) : Action(agent_, 10.0)
         {
             // Aquí le asignais la velocidad de refresco del cooldown por segundo (más o menos) (lo será cuando meta bien el deltatime en agente)
-            increasePrioOverTime = 10.0;
+            increasePrioOverTime = 5.0;
         }
 
         void BossDistancia::RangedAttack::setTarget(Transform* t) { target = t; };
@@ -65,8 +65,9 @@ namespace LoveEngine
         bool BossDistancia::RangedAttack::conditionsFulfilled() const
         {
             if (target == nullptr) return false;
-            return (*(target->getPos()) - *(tr->getPos())).magnitude() > 25 &&
-                (*(target->getPos()) - *(tr->getPos())).magnitude() < 50;
+            return true; //dispara siempre
+            //(*(target->getPos()) - *(tr->getPos())).magnitude() > 25 &&
+            //(*(target->getPos()) - *(tr->getPos())).magnitude() < 50;
         }
 
         void BossDistancia::RangedAttack::onActionStart()
@@ -130,9 +131,14 @@ namespace LoveEngine
                 Vector3 pos = *(tr->getPos());
 
                 // Aquí aplicais las fuerzas necesarias para que se mueva
-                Vector3 force = (pos - targetPos).getNormalized() * (acc / 10.0) * rb->getMass();
-                rb->addForce(force, Vector3(0, 0, 0), ForceMode::IMPULSE);
-
+                if ((*(target->getPos()) - *(tr->getPos())).magnitude() < 50) {
+                    Vector3 force = (pos - targetPos).getNormalized() * (acc / 10.0) * rb->getMass();
+                    rb->addForce(force, Vector3(0, 0, 0), ForceMode::IMPULSE);
+                }
+                else if ((*(target->getPos()) - *(tr->getPos())).magnitude() > 60) {
+                    Vector3 force = (targetPos - pos).getNormalized() * (acc / 10.0) * rb->getMass();
+                    rb->addForce(force, Vector3(0, 0, 0), ForceMode::IMPULSE);
+                }
 
                 //lookat target
                 Utilities::Vector3<float> dir = targetPos - pos;

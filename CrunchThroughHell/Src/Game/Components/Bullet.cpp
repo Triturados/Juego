@@ -9,6 +9,7 @@
 #include "Salud.h"
 #include <RigidBody.h>
 #include "Mesh.h"
+#include "MovimientoJugador.h"
 
 void LoveEngine::ECS::Bullet::bulletDamage(GameObject* other)
 {
@@ -71,7 +72,7 @@ void LoveEngine::ECS::Bullet::receiveMessage(Utilities::StringFormatter& sf)
 
 void LoveEngine::ECS::Bullet::colliding(GameObject* other)
 {
-	if (!other->getComponent<Salud>()) return;
+	if (!other->getComponent<MovimientoJugador>()) return;
 
 	hit = true;
 	hitObject = other;
@@ -84,7 +85,7 @@ void LoveEngine::ECS::Bullet::setDir(Utilities::Vector3<float> dir_)
 
 void LoveEngine::ECS::Bullet::enterCollision(GameObject* other)
 {
-	if (!other->getComponent<Salud>()) return;
+	if (!other->getComponent<MovimientoJugador>()) return;
 
 	hit = true;
 	hitObject = other;

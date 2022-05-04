@@ -22,6 +22,7 @@ namespace LoveEngine {
 			protected:
 				Transform* target = nullptr;
 				Transform* tr = nullptr;
+                
                 void createBullet();
 			};
 
@@ -34,7 +35,7 @@ namespace LoveEngine {
                 void setRB(RigidBody* rb_);
                 void activeUpdate() final;
             protected:
-                float maxVel = 10;
+                float maxVel = 25;
                 float acc = 10;
                 RigidBody* rb = nullptr;
                 Transform* target = nullptr;
@@ -44,6 +45,7 @@ namespace LoveEngine {
             class Teleport : public Action
             {
             public:
+                bool isTP = false;
                 Teleport(Agent* agent_);
                 void setTarget(Transform* t);
                 void setTransform(Transform* t);
