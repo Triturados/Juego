@@ -1029,6 +1029,15 @@ rotarcam:sendGameObject(0, boss2)
 
 boss2:addComponent("Animation"):sendMsg([[animName: idle]])
 
+---PARTICULAS JEFE AL TP---
+local tpPrticle = scene:createObject("tpPrticle")
+local trTpPrticle = tpPrticle:addComponent("Transform")
+trTpPrticle:sendMsg([[scale: 1,1,1; position: 30,30,-30; rotation: 0,0,0;]])
+local tpPrticleSys = tpPrticle:addComponent("ParticleSystem")
+tpPrticleSys:sendMsg([[particleName: bomb; emitting: false]])
+trTpPrticle:sendComponent(1, bosstr)
+-------------------
+
 end
 
 function scene6() -- Victory

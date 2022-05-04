@@ -35,7 +35,7 @@ namespace LoveEngine {
 
 			bool followBoss;
 			float distanceBehindPlayer = 20;
-			float distanceAbovePlayer = 1;
+			float distanceAbovePlayer = 6;
 
 			float calculateAngle(Utilities::Vector3<float> vectorA, Utilities::Vector3<float> vectorB);
 			void lookAtBoss();

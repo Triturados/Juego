@@ -5,6 +5,7 @@
 namespace LoveEngine {
 
 	namespace ECS {
+        class ParticleSystem;
 		class BossDistancia : public ComportamientoBoss {
 		protected:
 #pragma region Actions
@@ -68,16 +69,17 @@ namespace LoveEngine {
                 bool conditionsFulfilled() const final;
                 void onActionStart() final;
                 void setAnim(Animation* a);
+                void setPartSys(ParticleSystem* ps_);
             private:
+                void particleTP();
                 void startTP();
                 void endTP();
             protected:
+                ParticleSystem* tpParticles;
                 RigidBody* rb;
                 Transform* target = nullptr;
                 Transform* tr = nullptr;
                 Animation* anim = nullptr;
-                int vida;
-                int lastVd;
                 Utilities::Vector2<float> posRand();
                 int numRandNegPos(int maxRand);
             };

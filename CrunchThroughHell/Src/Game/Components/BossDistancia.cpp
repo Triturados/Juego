@@ -16,6 +16,7 @@
 #include "Salud.h"
 #include "Timer.h"
 #include "Animation.h"
+#include "ParticleSystem.h"
 
 namespace LoveEngine
 {
@@ -45,6 +46,11 @@ namespace LoveEngine
             tr = gameObject->getComponent<Transform>();
             RigidBody* rb = gameObject->getComponent<RigidBody>();
             anim = gameObject->getComponent<Animation>();
+            int indx = 0;
+            //DO: codigo defensivo --> tiene q ser hijo del boss las particulas
+            while (tr->getChild(indx)->gameObject->getComponent<ParticleSystem>() == nullptr)
+                indx++;
+            ParticleSystem* ps = tr->getChild(indx)->gameObject->getComponent<ParticleSystem>();
             rb->setMass(1000);
             attack->setTransform(tr);
             attack->setAnim(anim);
@@ -54,6 +60,8 @@ namespace LoveEngine
             teleport->setTransform(tr);
             teleport->setRB(rb);
             teleport->setAnim(anim);
+            teleport->setPartSys(ps);
+
             
             ComportamientoBoss::init();
             vida = gameObject->getComponent<Salud>()->getHealth();
@@ -66,7 +74,7 @@ namespace LoveEngine
         {
             // Aquí le asignais la velocidad de refresco del cooldown por segundo (más o menos) 
             //(lo será cuando meta bien el deltatime en agente)
-            increasePrioOverTime = 5.0;
+            increasePrioOverTime = 20.0;
         }
 
         void BossDistancia::RangedAttack::setTarget(Transform* t) { target = t; };
@@ -197,7 +205,7 @@ namespace LoveEngine
 
         BossDistancia::Teleport::Teleport(Agent* agent_) : Action(agent_, 80)
         {
-            increasePrioOverTime = 20.0;
+            increasePrioOverTime = 3.0;
         }
 
         void BossDistancia::Teleport::setTarget(Transform* t) { target = t; };
@@ -221,19 +229,13 @@ namespace LoveEngine
             }
             lockAction = true;
             // Aquí poneis el código del teleport
-            Utilities::Vector2<float> nv = posRand();
-            Utilities::Vector3<float> np(nv.x, tr->getPos()->y, nv.y);
-            tr->setPos(np);
-            rb->setTransform(tr);
-            Vector3 targetPos = *(target->getPos());
-            Vector3 pos = *(tr->getPos());
-            Utilities::Vector3<float> dir = targetPos - pos;
-            dir.normalize();
-            float angle = std::atan2(dir.x, dir.z);
-            rb->setRotation(Utilities::Vector3<int>(0, 1, 0), angle);
+            anim->changeAnimation("teleport");
+            float dur = anim->getDuration();
+            anim->setLoop(true);
+            particleTP();
             ECS::Timer::invoke([&](ECS::Timer*) {
                 startTP();
-            }, 1.5);
+            }, dur);
 
             // Suponiendo que el teleport es instantáneo, no hay que bloquear la acción, y se puede poner en cd desde el
             // momento que empieza
@@ -243,12 +245,32 @@ namespace LoveEngine
             anim = a;
         }
 
+        void BossDistancia::Teleport::setPartSys(ParticleSystem* ps_)
+        {
+            tpParticles = ps_;
+        }
+
+        void BossDistancia::Teleport::particleTP()
+        {
+            if (!tpParticles->isEmitting()) tpParticles->setActive(true);
+        }
+
         void BossDistancia::Teleport::startTP()
         {
+            Utilities::Vector2<float> nv = posRand();
+            Utilities::Vector3<float> np(nv.x, tr->getPos()->y, nv.y);
+            tpParticles->setActive(false);
+            tr->setPos(np);
+            rb->setTransform(tr);
+            Vector3 targetPos = *(target->getPos());
+            Vector3 pos = *(tr->getPos());
+            Utilities::Vector3<float> dir = targetPos - pos;
+            dir.normalize();
+            float angle = std::atan2(dir.x, dir.z);
+            rb->setRotation(Utilities::Vector3<int>(0, 1, 0), angle);
             //animacion
-            ECS::Timer::invoke([&](ECS::Timer*) {
-                endTP();
-            }, 2.8);
+            anim->changeAnimation("idle");
+            endTP();
         }
         void BossDistancia::Teleport::endTP()
         {
