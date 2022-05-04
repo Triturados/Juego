@@ -14,6 +14,7 @@
 #include "Random.h"
 #include "Stamina.h"
 #include <Sound.h>
+#include "Salud.h"
 
 
 void LoveEngine::ECS::AtaqueJugador::init()
@@ -85,6 +86,11 @@ void LoveEngine::ECS::AtaqueJugador::receiveComponent(int i, Component* c)
 	if (i == 0)
 		if (dynamic_cast<Transform*>(c) != nullptr)
 			bossTr = (Transform*)c;
+
+		else {}
+	else if (i == 1)
+		if (dynamic_cast<Salud*>(c) != nullptr)
+			bossHealth = (Salud*)c;
 		
 }
 
@@ -112,8 +118,10 @@ void LoveEngine::ECS::AtaqueJugador::attack()
 	if (currentDuration >= attackDuration / 2 && !hit) {
 		hit = true;
 		attackSound->playSound();
-		if (bossOnRange())
+		if (bossOnRange()) {
 			std::cout << "hit\n";
+			bossHealth->takeDamage(dmg);
+		}
 	}
 	if (currentDuration >= attackDuration) {
 		isAttacking = false;

@@ -7,6 +7,11 @@ namespace LoveEngine {
 		class InputManager;
 	}
 
+	namespace Utilities {
+		template<typename T>
+		class Vector3;
+	}
+
 	namespace ECS {
 		class Transform;
 		class RigidBody;
@@ -18,6 +23,7 @@ namespace LoveEngine {
 			Slider* sliderBehind = nullptr;
 			Slider* sliderTop = nullptr;
 			Input::InputManager* input = nullptr;
+			Utilities::Vector3<int>* pos;
 
 			int _MAX_HEALTH = 100;
 			int actHealth = 100;
@@ -26,8 +32,11 @@ namespace LoveEngine {
 			float _MAX_COOLDOWN_TIME = 0.3;
 			float cooldownTime = _MAX_COOLDOWN_TIME;
 
+
+
 		public:
 			void init() override;
+			void postInit() override;
 			void update() override;
 			virtual void stepPhysics() override;
 			void receiveMessage(Utilities::StringFormatter& message) override;

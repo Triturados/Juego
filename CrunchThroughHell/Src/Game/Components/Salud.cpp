@@ -14,8 +14,12 @@
 
 void LoveEngine::ECS::Salud::receiveMessage(Utilities::StringFormatter& sf)
 {
+	pos = new Utilities::Vector3<int>();
 	sf.tryGetFloat("cooldownTime", cooldownTime);
 	sf.tryGetInt("maxHealth", _MAX_HEALTH);
+	sf.tryGetInt("posX", pos->x);
+	sf.tryGetInt("posY", pos->y);
+	sf.tryGetInt("posZ", pos->z);
 }
 
 void LoveEngine::ECS::Salud::addHealth()
@@ -36,6 +40,12 @@ void LoveEngine::ECS::Salud::init()
 	actHealth = _MAX_HEALTH;
 	//sliderBehind->setDetectInput(false);
 	//sliderBehind->setPos(Utilities::Vector3<int>(100,100, 1));
+
+
+}
+
+void LoveEngine::ECS::Salud::postInit()
+{
 	sliderTop->setDetectInput(false);
 	sliderBehind->setDetectInput(false);
 }

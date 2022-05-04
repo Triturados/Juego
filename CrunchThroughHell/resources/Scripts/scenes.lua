@@ -1,4 +1,4 @@
--- Escenas del juego: 
+-- Escenas del juego:
 --  0: menu
 --  1: settings
 --  2: pause
@@ -45,7 +45,7 @@ scene2 = {
                     {
                         type = 'Image',
                         info = [[
-                            material: pauseMenu; 
+                            material: pauseMenu;
                             width: 1280;
                             height : 720;
                         ]]
@@ -58,7 +58,7 @@ scene2 = {
                     {
                         type = 'Image',
                         info = [[
-                            material: splashScreen_vignette; 
+                            material: splashScreen_vignette;
                             width: 1280;
                             height : 720;
                         ]]
@@ -69,7 +69,7 @@ scene2 = {
     code = function()
         local continue = scene:createObject("Start Button"):addComponent("Button");
         local exitButton = scene:createObject("Exit Button"):addComponent("Button");
-    
+
         continue:sendMsg([[
             material: Heal_bg;
             width: 100;
@@ -78,7 +78,7 @@ scene2 = {
             posY: 300;
             posZ: 1
         ]])
-    
+
         exitButton:sendMsg([[
             material: Heal_bg;
             width: 100;
@@ -111,11 +111,11 @@ function scene0() -- Main menu
         name: escenaMenu;
         zOrder: -1
     ]])
-    
+
     local zOrder = 0
     local bg = scene:createObject("Background");
     bg:addComponent("Image"):sendMsg([[
-        material: mainmenuBackgroundImage; 
+        material: mainmenuBackgroundImage;
         width: 1280;
         height : 720;
         posZ: ]] .. zOrder ..[[
@@ -141,7 +141,7 @@ function scene0() -- Main menu
     ]])
 
     container:sendComponent(0, scene:createObject("Banner"):addComponent("Image"):sendMsg([[
-        material: mainmenuBanner; 
+        material: mainmenuBanner;
         height: 640;
         width : ]].. bannerwidth .. [[;
         posX: 0;
@@ -151,7 +151,7 @@ function scene0() -- Main menu
     zOrder = zOrder + 1
 
     container:sendComponent(0, scene:createObject("Logo"):addComponent("Image"):sendMsg([[
-        material: logo; 
+        material: logo;
         width: 247;
         height : 133;
         posX: ]] .. round((bannerwidth - 247) * 0.5) ..[[;
@@ -160,12 +160,12 @@ function scene0() -- Main menu
     ]]))
     zOrder = zOrder + 1
 
-    
-    
+
+
     local halfwidth = round((width() - 371) * 0.5);
     local pressKeyHeight = round(height() * 0.5 + 100);
     local presskey = scene:createObject("Press any key"):addComponent("Image"):sendMsg([[
-        material: mainmenuPressKey; 
+        material: mainmenuPressKey;
         width: 371;
         height : 29;
         posX: ]] .. halfwidth .. [[;
@@ -201,7 +201,7 @@ function scene0() -- Main menu
 
     local hideposition = round((bannerwidth - 256)* 0.5);
     container:sendComponent(0, scene:createObject("Hide"):addComponent("Image"):sendMsg([[
-        material: mainmenuHide; 
+        material: mainmenuHide;
         width: 256;
         height : 72;
         posX: ]] .. hideposition .. [[;
@@ -211,7 +211,7 @@ function scene0() -- Main menu
     zOrder = zOrder + 1
 
     scene:createObject("Black border"):addComponent("Image"):sendMsg([[
-        material: mainmenuBlackBorder; 
+        material: mainmenuBlackBorder;
         width: 1280;
         height : 720;
         posZ: ]] .. zOrder ..[[
@@ -261,7 +261,7 @@ function createCharco(name, type, x,y,z)
     charco:addComponent('Rigidbody'):sendMsg([[
         trigger: true;
         mass: 0.0;
-        shape: cube; 
+        shape: cube;
         restitution: 0.9;
         colliderScale:10,1,10;
     ]])
@@ -269,7 +269,7 @@ function createCharco(name, type, x,y,z)
     charco:addComponent('EfectoEscenario'):sendMsg([[
         type: ]] .. type .. [[
     ]])
-    
+
     return tr;
 
 end
@@ -288,7 +288,7 @@ function createMesh(meshName, x,y,z, sx, sy, sz, rx, ry, rz)
     mesh:addComponent("Mesh"):sendMsg([[
         meshName: ]] .. meshName .. [[;
     ]])
-    
+
     return mesh;
 
 end
@@ -296,13 +296,13 @@ end
 function createSmoke(name, x,y,z)
     local particleSys = scene:createObject(name)
     local particleSystr = particleSys:addComponent("Transform"):sendMsg([[
-        scale: 1,1,1; 
+        scale: 1,1,1;
         position: ]] .. x .. [[ , ]] .. y .. [[ , ]] .. z .. [[;
         rotation: 0,0,0;
         ]])
     local pSys = particleSys:addComponent("ParticleSystem")
     pSys:sendMsg([[particleName: bomb; emitting: true]])
-    
+
     return particleSystr;
 
 end
@@ -325,7 +325,7 @@ function createArbol(name, x,y,z)
     arbol:addComponent('Rigidbody'):sendMsg([[
         mass: 0.0;
         state: static;
-        shape: cube; 
+        shape: cube;
         restitution: 0.9;
         colliderScale: 15,25,15;
     ]])
@@ -355,7 +355,7 @@ function scene1() -- Settings
     local bg = scene:createObject("Background");
     bg:addComponent("Transform")
     bg:addComponent("Image"):sendMsg([[
-        material: backgroundMenu; 
+        material: backgroundMenu;
         width: 1280;
         height : 720;
     ]])
@@ -425,7 +425,7 @@ function scene3() -- Overworld
         trigger: false;
         state: kinematic;
         mass: 0.0;
-        shape: cube; 
+        shape: cube;
         restitution: 0.9;
         colliderScale: 10,30,150;
     ]])
@@ -444,7 +444,7 @@ function scene3() -- Overworld
         trigger: false;
         state: kinematic;
         mass: 0.0;
-        shape: cube; 
+        shape: cube;
         restitution: 0.9;
         colliderScale: 10,30,150;
     ]])
@@ -464,7 +464,7 @@ function scene3() -- Overworld
         trigger: false;
         state: kinematic;
         mass: 0.0;
-        shape: cube; 
+        shape: cube;
         restitution: 0.9;
         colliderScale: 150,30,10;
     ]])
@@ -483,7 +483,7 @@ function scene3() -- Overworld
         trigger: false;
         state: kinematic;
         mass: 0.0;
-        shape: cube; 
+        shape: cube;
         restitution: 0.9;
         colliderScale: 150,30,10;
     ]])
@@ -525,7 +525,7 @@ function scene3() -- Overworld
         trigger: false;
         state: kinematic;
         mass: 0.0;
-        shape: cube; 
+        shape: cube;
         restitution: 0.9;
         colliderScale: 150,3.5,150;
         ]])
@@ -596,7 +596,7 @@ function scene3() -- Overworld
         rotation: 0,0,0;
     ]])
     player:addComponent("Rigidbody"):sendMsg([[
-        shape: cube; 
+        shape: cube;
         type: dynamic;
         mass: 10.0;
         restitution: 0;
@@ -611,7 +611,8 @@ function scene3() -- Overworld
 
     player:addComponent("Animation"):sendMsg([[animName: idle]])
 
-    local sliderBehindLive = player:addComponent("Slider"):sendMsg([[
+    local sliderBehindLive = player:addComponent("Slider")
+    sliderBehindLive:sendMsg([[
         materialBar: Heal;
         materialBarBg: Heal_bg;
         materialButton: CircleButton;
@@ -621,7 +622,8 @@ function scene3() -- Overworld
         posY: 60;
     ]])
 
-   local sliderOverLive = player:addComponent("Slider"):sendMsg([[
+   local sliderOverLive = player:addComponent("Slider")
+   sliderOverLive:sendMsg([[
         materialBar: Heal;
         materialBarBg: Heal_bg;
         materialButton: CircleButton;
@@ -635,7 +637,8 @@ function scene3() -- Overworld
     saludjugador:sendComponent(0, sliderOverLive);
     saludjugador:sendComponent(1, sliderBehindLive);
 
-    local sliderBehindSta = player:addComponent("Slider"):sendMsg([[
+    local sliderBehindSta = player:addComponent("Slider")
+    sliderBehindSta:sendMsg([[
         materialBar: Stamina;
         materialBarBg: Stamina_bg;
         materialButton: CircleButton;
@@ -645,7 +648,8 @@ function scene3() -- Overworld
         posY: 90;
     ]])
 
-   local sliderOverSta = player:addComponent("Slider"):sendMsg([[
+   local sliderOverSta = player:addComponent("Slider")
+   sliderOverSta:sendMsg([[
         materialBar: Stamina;
         materialBarBg: Stamina_bg;
         materialButton: CircleButton;
@@ -662,6 +666,8 @@ function scene3() -- Overworld
 
     local playerAttack = player:addComponent("AtaqueJugador")
 
+
+
     local dashParticles = scene:createObject("dashParticles")
     local trDash = dashParticles:addComponent("Transform")
     trDash:sendMsg([[scale: 1,1,1; position: 0,]] .. playerSpawnHeight - 1 .. [[,0; rotation: 0,0,0;]])
@@ -670,15 +676,48 @@ function scene3() -- Overworld
     trDash:sendComponent(1, tr)
 
     -- Enemigo--
-    
+
 
     local boss = scene:createObject("boss")
+    local bossHealth = boss:addComponent("Salud")
+    bossHealth:sendMsg([[
+        maxHealth: 100
+    ]])
     local bosstr = boss:addComponent("Transform")
     bosstr:sendMsg([[
         scale: 0.2,0.2,0.2;
         position: 30,24,-30;
         rotation: 0,0,0;
     ]])
+
+
+    local sliderBehindLiveBoss = boss:addComponent("Slider")
+    sliderBehindLiveBoss:sendMsg([[
+        materialBar: Heal;
+        materialBarBg: Heal_bg;
+        materialButton: CircleButton;
+        width: 1000;
+        height: 25;
+        posX: 135;
+        posY: 650;
+    ]])
+
+   local sliderOverLiveBoss = boss:addComponent("Slider")
+   sliderOverLiveBoss:sendMsg([[
+        materialBar: Heal;
+        materialBarBg: Heal_bg;
+        materialButton: CircleButton;
+        width: 1000;
+        height: 25;
+        posX: 135;
+        posY: 650;
+    ]])
+
+
+    bossHealth:sendComponent(0, sliderOverLiveBoss);
+    bossHealth:sendComponent(1, sliderBehindLiveBoss);
+    playerAttack:sendComponent(1, bossHealth)
+
     local bossAI = boss:addComponent("BossMelee")
     bossAI:sendComponent(0, tr)
     boss:addComponent("Mesh"):sendMsg([[meshName: Boss.mesh]])
@@ -686,7 +725,7 @@ function scene3() -- Overworld
     bossRb:sendMsg([[
         state: dynamic;
         mass: 100.0;
-        shape: sphere; 
+        shape: sphere;
         restitution: 0.0;
         colliderScale: 18,18,18;
     ]])
@@ -747,7 +786,7 @@ function scene3() -- Overworld
     scene:createObject("Pause Game"):addComponent("PauseGame")
 
     local bulletGenerator = scene:createObject("BulletGen")
-    bulletGenerator:addComponent("Transform"):sendMsg([[        
+    bulletGenerator:addComponent("Transform"):sendMsg([[
     scale: 1,1,1;
     position: 0,10,-150;
     rotation: 0,0,0;]])
@@ -817,7 +856,7 @@ function scene5() -- Boss2
         trigger: false;
         state: static;
         mass: 0.0;
-        shape: cube; 
+        shape: cube;
         restitution: 0.9;
         colliderScale: 350,1,350;
         ]])
@@ -835,7 +874,7 @@ function scene5() -- Boss2
         rotation: 0,0,0;
     ]])
     player:addComponent("Rigidbody"):sendMsg([[
-        shape: cube; 
+        shape: cube;
         type: dynamic;
         mass: 10.0;
         restitution: 0;
@@ -851,7 +890,8 @@ function scene5() -- Boss2
     player:addComponent("Animation"):sendMsg([[animName: idle]])
 
 
-    local sliderBehindLive = player:addComponent("Slider"):sendMsg([[
+    local sliderBehindLive = player:addComponent("Slider")
+    sliderBehindLive:sendMsg([[
         materialBar: Heal;
         materialBarBg: Heal_bg;
         materialButton: CircleButton;
@@ -861,7 +901,8 @@ function scene5() -- Boss2
         posY: 60;
     ]])
 
-   local sliderOverLive = player:addComponent("Slider"):sendMsg([[
+   local sliderOverLive = player:addComponent("Slider")
+   sliderOverLive:sendMsg([[
         materialBar: Heal;
         materialBarBg: Heal_bg;
         materialButton: CircleButton;
@@ -875,7 +916,8 @@ function scene5() -- Boss2
     saludjugador:sendComponent(0, sliderOverLive);
     saludjugador:sendComponent(1, sliderBehindLive);
 
-    local sliderBehindSta = player:addComponent("Slider"):sendMsg([[
+    local sliderBehindSta = player:addComponent("Slider")
+    sliderBehindSta:sendMsg([[
         materialBar: Stamina;
         materialBarBg: Stamina_bg;
         materialButton: CircleButton;
@@ -885,7 +927,8 @@ function scene5() -- Boss2
         posY: 90;
     ]])
 
-   local sliderOverSta = player:addComponent("Slider"):sendMsg([[
+   local sliderOverSta = player:addComponent("Slider")
+   sliderOverSta:sendMsg([[
         materialBar: Stamina;
         materialBarBg: Stamina_bg;
         materialButton: CircleButton;
@@ -901,6 +944,7 @@ function scene5() -- Boss2
 
 
     local playerAttack = player:addComponent("AtaqueJugador")
+    playerAttack:sendComponent(1, bossHealth)
 
     local dashParticles = scene:createObject("dashParticles")
     local trDash = dashParticles:addComponent("Transform")
@@ -975,7 +1019,7 @@ function scene6() -- Victory
     local bg = scene:createObject("Background");
     bg:addComponent("Transform")
     bg:addComponent("Image"):sendMsg([[
-        material: menuDeadBackground; 
+        material: menuDeadBackground;
         width: 1280;
         height : 720;
     ]])
@@ -1005,7 +1049,7 @@ function scene7() -- Defeat
     local bg = scene:createObject("Background");
     bg:addComponent("Transform")
     bg:addComponent("Image"):sendMsg([[
-        material: menuDeadBackground; 
+        material: menuDeadBackground;
         width: 1280;
         height : 720;
     ]])

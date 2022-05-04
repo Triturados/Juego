@@ -14,12 +14,13 @@ namespace LoveEngine {
 		class Stamina;
 		class MovimientoJugador;
 		class Sound;
+		class Salud;
 		class AtaqueJugador : public Component {
 
 		private:
 
 			Input::InputManager* input;
-			float dmg = 15;
+			float dmg = 5;
 			float attackDistance =45;
 			float attackAngle = 45;
 			int comboIndex = 0;
@@ -46,6 +47,7 @@ namespace LoveEngine {
 			float attackStamina = 0;
 			Stamina* sta;
 			Sound* attackSound;
+			Salud* bossHealth;
 
 		public:
 			void init() override;
@@ -57,6 +59,8 @@ namespace LoveEngine {
 			void startAttack();
 			void attack();
 			bool bossOnRange();
+			inline void setDmg(int dmg_) { dmg = dmg_; };
+			inline int getDmg() { return dmg; };
 
 			bool currentlyAttacking();
 		};
