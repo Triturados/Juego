@@ -52,8 +52,8 @@ namespace LoveEngine {
                 void setAnim(Animation* a);
                 void activeUpdate() final;
             protected:
-                float maxVel = 10;
-                float acc = 10;
+                float maxVel = 40;
+                float acc = 40;
                 RigidBody* rb = nullptr;
                 Transform* target = nullptr;
                 Transform* tr = nullptr;
@@ -81,7 +81,8 @@ namespace LoveEngine {
                 Transform* tr = nullptr;
                 Animation* anim = nullptr;
             private:
-                float jumpDuration = 2.0;        // duración fija de los saltos
+                float minLeapDistance = 90;     // distancia mínima para realizar un salto
+                float jumpDuration = 2.0;       // duración fija de los saltos
                 void enableLanding();
                 void recover();                 // después de aterrizar, tarda un momento en levantarse
             };

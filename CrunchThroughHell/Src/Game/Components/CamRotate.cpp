@@ -13,6 +13,8 @@
 
 #define PI 3.14159265
 
+using Vector3 = LoveEngine::Utilities::Vector3<float>;
+
 LoveEngine::ECS::CamRotate::~CamRotate()
 {
 
@@ -33,7 +35,8 @@ void LoveEngine::ECS::CamRotate::init()
 
 void LoveEngine::ECS::CamRotate::update()
 {
-	gameObject->getComponent<Transform>()->setPos(*playerTr->getPos());
+	lookAtBoss();
+	/*gameObject->getComponent<Transform>()->setPos(*playerTr->getPos());
 	if (input->keyJustPressed(Input::InputKeys::B) || (input->isControllerButtonPressed(Input::ControllerButton::Y) && input->isControllerButtonState(Input::ControllerButtonState::DOWN)))
 	{
 		if(bossTr != nullptr) followBoss = !followBoss;
@@ -65,7 +68,6 @@ void LoveEngine::ECS::CamRotate::update()
 		float angulo  = acosf(supElem/infElem) * 180.0 / PI;
 
 
-
 		if (angulo > 2) //No esta colocado
 		{
 			float speed = angulo / 180;
@@ -81,8 +83,6 @@ void LoveEngine::ECS::CamRotate::update()
 				rotation.y = horiSens * speed * dT;
 			}
 
-			//std::cout << angulo << std::endl;
-
 			if (antAngulo > angulo && cont < 2) //ESTO ES HORRIBLE 
 			{
 				girarDer = !girarDer;
@@ -96,84 +96,16 @@ void LoveEngine::ECS::CamRotate::update()
 		}
 
 		cont++;
-		//Permitir ligero movimiento a los lados
-		if (!input->controllerConected()) //pad and mouse
-		{
-			//if (angulo < 10) //rango maximo de 10 por cada lado
-			//{
-			//	std::cout << "movimiento solo" << std::endl;
-			//	float speed = angulo / 10;
-
-			//	Utilities::Vector2<float> antPos = *mousePos;
-			//	delete mousePos;
-			//	mousePos = new Utilities::Vector2<float>(input->mousePosition().x, input->mousePosition().y);
-
-			//	float movementHorizontal = mousePos->x - antPos.x;
-			//	float movementVertical = mousePos->y - antPos.y;
-
-			//	rotation.y = horiSens * movementHorizontal * dT * 0.1 * speed;
-			//	rotation.x = verSens * movementVertical * dT * 0.1 * speed;
-			//}
-
-		}
-		
 	}
 	else
 	{
 		if (!input->controllerConected()) //pad and mouse
 		{
-
 			float movementHorizontal = (float)input->relativeMousePosition().x;
-			//float movementVertical = (float)input->relativeMousePosition().y;
-
 
 			if (movementHorizontal <= 1 && movementHorizontal >= -1) movementHorizontal = 0;
-			//if (movementVertical <= 1 && movementVertical >= -1) movementVertical = 0;
-			//Limitar altura
-			/*Utilities::Vector3<float> playerPos = *playerTr->getPos();
-			Utilities::Vector3<float> camPos = *camTr->getPos();
-
-			Utilities::Vector3<float> direccionCP;
-			direccionCP.x = camPos.x - playerPos.x;
-			direccionCP.y = camPos.y - playerPos.y;
-			direccionCP.z = camPos.z - playerPos.z;
-			Utilities::Vector3<float> direccionPS;
-			direccionPS.y = playerPos.y;
-			direccionPS.x = camPos.x;
-			direccionPS.z = camPos.z;
-
-			float angulo = calculateAngle(direccionCP, direccionPS);*/
-
-			//float anguloX = calculateAngle(Utilities::Vector3<float>(direccionCP.x, 0, direccionCP.z), Utilities::Vector3<float>(1, 0, 0));
-
-			//if (anguloX > 90) anguloX = 180 - anguloX;
-
-			////std::cout << "angulo " << angulo << "mov vertical " << movementVertical << std::endl;
-			//
-			//float valorX = 90 / anguloX;
-			//float valorZ = 1 - valorX;
-
-			////std::cout << "anguloX: " << anguloX << "seno del angulo: " << valorX << std::endl;
-
-			//if (angulo >= 40  && movementVertical > 0) //Limite superior
-			//{
-			//	rotation.x =/* valorX **/ verSens * movementVertical * dT * 0.1;
-			//	//rotation.z = valorZ * verSens * movementVertical * dT * 0.1;
-			//}
-			//else if (angulo <= 3  && movementVertical < 0) //Limite inferior
-			//{
-			//	rotation.x =/* valorX **/ verSens * movementVertical * dT * 0.1;
-			//	//rotation.z = valorZ * verSens * movementVertical * dT * 0.1;
-			//}
-			//else if (angulo > 3 && angulo < 40)
-			//{
-			//	rotation.x =/* valorX **/ verSens * movementVertical * dT * 0.1;
-			//	//rotation.z = valorZ * verSens * movementVertical * dT * 0.1;
-			//}
 
 			rotation.y = horiSens * movementHorizontal * dT * 0.1;
-
-			
 		}
 		else //Controller
 		{
@@ -183,7 +115,22 @@ void LoveEngine::ECS::CamRotate::update()
 		}
 	}
 
-	gameObject->getComponent<Transform>()->rotate(rotation);
+	gameObject->getComponent<Transform>()->rotate(rotation);*/
+}
+
+void LoveEngine::ECS::CamRotate::lookAtBoss()
+{
+	if (bossTr != nullptr && playerTr != nullptr && camTr != nullptr)
+	{
+		Vector3 offset = (*(playerTr->getPos()) - *(bossTr->getPos())).getNormalized() * distanceBehindPlayer;
+		offset.y = distanceAbovePlayer;
+		camTr->setPos(*playerTr->getPos() + offset);
+		//lookat boss
+		Vector3 dir = *bossTr->getPos() - *playerTr->getPos();
+		dir.normalize();
+		float angle = std::atan2(dir.x, dir.z);
+		camTr->setRot(Vector3(PI/24, angle + PI, 0));
+	}
 }
 
 void LoveEngine::ECS::CamRotate::receiveMessage(Utilities::StringFormatter& sf)

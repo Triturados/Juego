@@ -23,7 +23,7 @@ void LoveEngine::ECS::CamFollow::receiveMessage(Utilities::StringFormatter& sf)
 
 void LoveEngine::ECS::CamFollow::update()
 {
-	cam->lookAt(*targetTr->getPos());
+	//cam->lookAt(*targetTr->getPos());
 }
 
 void LoveEngine::ECS::CamFollow::receiveComponent(int n, Component* c)

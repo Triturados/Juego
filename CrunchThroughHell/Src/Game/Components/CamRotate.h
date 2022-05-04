@@ -34,8 +34,11 @@ namespace LoveEngine {
 			bool girarDer = true;
 
 			bool followBoss;
+			float distanceBehindPlayer = 20;
+			float distanceAbovePlayer = 1;
 
 			float calculateAngle(Utilities::Vector3<float> vectorA, Utilities::Vector3<float> vectorB);
+			void lookAtBoss();
 		public:
 			~CamRotate();
 

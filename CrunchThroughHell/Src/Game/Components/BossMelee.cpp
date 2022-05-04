@@ -105,6 +105,8 @@ namespace LoveEngine
         {
             //std::cout << "\n\n\n\n\n\n\nAttacking\n\n\n\n\n\n\n\n";
 
+            rb->setLinearVelocity(Vector3(0, 0, 0));
+
             setPriority(30.0);
             if (target == nullptr || rb == nullptr || tr == nullptr)
             {
@@ -181,7 +183,7 @@ namespace LoveEngine
         bool BossMelee::Leap::conditionsFulfilled() const
         {
             if (target == nullptr) return false;
-            return (*(target->getPos()) - *(tr->getPos())).magnitude() > 50;
+            return (*(target->getPos()) - *(tr->getPos())).magnitude() > minLeapDistance;
         }
 
         void BossMelee::Leap::onActionStart()
@@ -283,7 +285,7 @@ namespace LoveEngine
             anim->changeAnimation("idle");
             ECS::Timer::invoke([&](ECS::Timer*) {
                 startRoar();
-                }, 1.5);
+                }, 2.0);
         }
 
         void BossMelee::Roar::startRoar()
