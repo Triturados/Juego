@@ -21,7 +21,7 @@ package.path = package.path .. ";../../resources/Scripts/?.lua"
 
 menu = require "menu";
 
-icon('CTH.bmp')
+icon('iconkatana.bmp')
 
 function scene0() -- Main menu
     menu:createMainMenu()

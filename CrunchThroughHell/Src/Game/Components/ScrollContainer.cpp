@@ -60,9 +60,6 @@ namespace LoveEngine {
 		}
 
 
-#define input Input::InputManager::getInstance()
-#define v3down(x) Utilities::Vector3<int>(0, x, 0)
-
 		void ScrollContainer::init()
 		{
 			if (timeToEnable > 0) {
@@ -71,17 +68,19 @@ namespace LoveEngine {
 			}
 		}
 		void ScrollContainer::update() {
+			float dt = Time::getInstance()->deltaTime;
 			if (!automatic) {
 
-				float mousewheel = input->mouseWheel();
+				float mousewheel = -Input::InputManager::getInstance()->mouseWheel();
 				if (mousewheel != 0) {
-					setPosition(position + v3down(speed));
+
+					currentHeight += mousewheel * dt * speed;
 				}
 
 				ScrollContainer::onMove();
 				return;
 			}
-			currentHeight += speed * Time::getInstance()->deltaTime;
+			currentHeight += speed * dt;
 
 			if (currentHeight > maxHeight) {
 				automatic = false;
