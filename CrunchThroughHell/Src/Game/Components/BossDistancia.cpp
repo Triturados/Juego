@@ -14,6 +14,7 @@
 #include "Material.h"
 #include "Mesh.h"
 #include "Salud.h"
+#include "Timer.h"
 
 namespace LoveEngine
 {
@@ -182,14 +183,31 @@ namespace LoveEngine
                 throw new std::exception("Faltan referencias para una accion");
                 return;
             }
-
+            lockAction = true;
             // Aquí poneis el código del teleport
             rb->setKinematic(true);
+            rb->setDynamic(false);
             Utilities::Vector2<float> nv = posRand();
             Utilities::Vector3<float> np(nv.x, tr->getPos()->y, nv.y);
             tr->setPos(np);
+            rb->setTransform(tr);
+            ECS::Timer::invoke([&](ECS::Timer*) {
+                startTP();
+            }, 1.5);
             // Suponiendo que el teleport es instantáneo, no hay que bloquear la acción, y se puede poner en cd desde el
             // momento que empieza
+            //setPriority(80.0);
+        }
+        void BossDistancia::Teleport::startTP()
+        {
+            //animacion
+            ECS::Timer::invoke([&](ECS::Timer*) {
+                endTP();
+            }, 2.8);
+        }
+        void BossDistancia::Teleport::endTP()
+        {
+            lockAction = false;
             setPriority(80.0);
         }
         Utilities::Vector2<float> BossDistancia::Teleport::posRand()

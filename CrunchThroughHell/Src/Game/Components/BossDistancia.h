@@ -38,6 +38,7 @@ namespace LoveEngine {
             protected:
                 float maxVel = 25;
                 float acc = 10;
+                
                 RigidBody* rb = nullptr;
                 Transform* target = nullptr;
                 Transform* tr = nullptr;
@@ -53,6 +54,9 @@ namespace LoveEngine {
                 void setRB(RigidBody* rb_);
                 bool conditionsFulfilled() const final;
                 void onActionStart() final;
+            private:
+                void startTP();
+                void endTP();
             protected:
                 RigidBody* rb;
                 Transform* target = nullptr;
