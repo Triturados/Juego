@@ -749,9 +749,6 @@ function scene5() -- Boss2
     local trArbol2 = createArbol(arbol2, 50, 10, 20)
 ---------------------------------------------------------------------------------------------------------------------------
 -- -- -- -- JEFE -- -- -- --
--- Enemigo--
-
-
 local boss2 = scene:createObject("boss2")
 --local bossHealth = boss2:addComponent("Salud")
 --bossHealth:sendMsg([[

@@ -78,7 +78,11 @@ namespace LoveEngine
                 throw new std::exception("Faltan referencias para una accion");
                 return;
             }
+
+
             // TO DO: start animation
+
+            createBullet(); //dispara
         }
 
         void BossDistancia::RangedAttack::activeUpdate()
@@ -102,7 +106,8 @@ namespace LoveEngine
             auto bulletRigid = bullet->addComponent<RigidBody>();
             bulletRigid->sendFormattedString("trigger: true; state: dynamic; mass: 1.0; shape: cube; restitution: 1.0; colliderScale: 3, 3, 3;");
             auto bulletB = bullet->addComponent<Bullet>();
-            bulletB->sendFormattedString("direction: 0,0,1; velocity: 30.0; damage: 10;");
+            bulletB->sendFormattedString("velocity: 30.0; damage: 10;");
+            bulletB->setDir(dir);
             auto bulletMat = bullet->addComponent<Material>();
             bulletMat->receiveComponent(0, bulletMesh);
             bulletMat->sendFormattedString("materialName: lava;");
@@ -125,6 +130,9 @@ namespace LoveEngine
                 Vector3 pos = *(tr->getPos());
 
                 // Aquí aplicais las fuerzas necesarias para que se mueva
+                Vector3 force = (pos - targetPos).getNormalized() * (acc / 10.0) * rb->getMass();
+                rb->addForce(force, Vector3(0, 0, 0), ForceMode::IMPULSE);
+
 
                 //lookat target
                 Utilities::Vector3<float> dir = targetPos - pos;
