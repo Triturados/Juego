@@ -32,6 +32,8 @@ namespace LoveEngine {
 			void receiveMessage(Utilities::StringFormatter& sf) override;
 			void colliding(GameObject* other) override;
 			void enterCollision(GameObject* other) override;
+
+			void setDir(Utilities::Vector3<float> dir_);
 		};
 	}
 }

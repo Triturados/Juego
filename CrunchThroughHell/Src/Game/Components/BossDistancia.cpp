@@ -7,6 +7,11 @@
 #include "GameTime.h"
 #include <StringFormatter.h>
 #include <iostream>
+#include <SceneManager.h>
+#include <Scene.h>
+#include "Bullet.h"
+#include "Material.h"
+#include "Mesh.h"
 
 namespace LoveEngine
 {
@@ -80,6 +85,28 @@ namespace LoveEngine
         {
             // Esto es más estética que nada, para que mientras dure la animación esté apuntando al jugador
             // TO DO: lookat target
+        }
+
+        void BossDistancia::RangedAttack::createBullet()
+        {
+            //calculamos la direccion de la bala
+            Utilities::Vector3<float> dir = (*target->getPos() - *tr->getPos());
+            dir.normalize();
+
+            GameObject* bullet = LoveEngine::SceneManagement::SceneManager::getInstance()->getCurrentScene()->createGameObject("bullet");
+            auto bulletTr = bullet->addComponent<Transform>();
+            bulletTr->sendFormattedString("position: 0,0,0; scale: 3,3,3; rotation: 0,0,0");
+            bulletTr->setPos(*tr->getPos());
+            auto bulletMesh = bullet->addComponent<Mesh>();
+            bulletMesh->sendFormattedString("meshName: fireball.mesh");
+            auto bulletRigid = bullet->addComponent<RigidBody>();
+            bulletRigid->sendFormattedString("trigger: true; state: dynamic; mass: 1.0; shape: cube; restitution: 1.0; colliderScale: 3, 3, 3;");
+            auto bulletB = bullet->addComponent<Bullet>();
+            bulletB->sendFormattedString("direction: 0,0,1; velocity: 30.0; damage: 10;");
+            auto bulletMat = bullet->addComponent<Material>();
+            bulletMat->receiveComponent(0, bulletMesh);
+            bulletMat->sendFormattedString("materialName: lava;");
+            bulletTr->init(); bulletMesh->init(); bulletRigid->init(); bulletB->init(); bulletMat->init();
         }
 
         BossDistancia::KeepDistance::KeepDistance(Agent* agent_) : Action(agent_, 0.0) { };

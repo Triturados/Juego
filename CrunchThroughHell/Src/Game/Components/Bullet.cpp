@@ -77,6 +77,11 @@ void LoveEngine::ECS::Bullet::colliding(GameObject* other)
 	hitObject = other;
 }
 
+void LoveEngine::ECS::Bullet::setDir(Utilities::Vector3<float> dir_)
+{
+	*dir = dir_;
+}
+
 void LoveEngine::ECS::Bullet::enterCollision(GameObject* other)
 {
 	if (!other->getComponent<Salud>()) return;

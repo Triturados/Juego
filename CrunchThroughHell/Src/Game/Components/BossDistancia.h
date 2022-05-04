@@ -22,6 +22,7 @@ namespace LoveEngine {
 			protected:
 				Transform* target = nullptr;
 				Transform* tr = nullptr;
+                void createBullet();
 			};
 
             class KeepDistance : public Action
