@@ -22,6 +22,7 @@ namespace LoveEngine
             attack->setTarget(target);
             chase->setTarget(target);
             leap->setTarget(target);
+            roar->setTarget(target);
         }
 
         BossMelee::BossMelee()
@@ -32,6 +33,8 @@ namespace LoveEngine
             addAction(chase);
             leap = new Leap(this);
             addAction(leap);
+            roar = new Roar(this);
+            addAction(roar);
         }
 
         void BossMelee::init()
@@ -49,6 +52,9 @@ namespace LoveEngine
             leap->setTransform(tr);
             leap->setRB(rb);
             leap->setAnim(anim);
+            roar->setTransform(tr);
+            roar->setRB(rb);
+            roar->setAnim(anim);
             ComportamientoBoss::init();
         }
 
@@ -126,6 +132,8 @@ namespace LoveEngine
             damaging = true;
         }
 
+        //-----------------------------------------------------------------------------------------------
+
         BossMelee::Chase::Chase(Agent* agent_) : Action(agent_, 0.0) { };
 
         void BossMelee::Chase::setTarget(Transform* t) { target = t; };
@@ -155,6 +163,8 @@ namespace LoveEngine
                 anim->setLoop(true);
             }
         }
+
+        //-----------------------------------------------------------------------------------------------
 
         BossMelee::Leap::Leap(Agent* agent_) : Action(agent_, 140)
         {
@@ -228,7 +238,7 @@ namespace LoveEngine
 
             ECS::Timer::invoke([&](ECS::Timer*) {
                 recover();
-                }, 1.2);
+                }, 2.5);
             //end animation
             anim->changeAnimation("jumpend");
             anim->setLoop(true);
@@ -245,7 +255,53 @@ namespace LoveEngine
             setPriority(80);
             lockAction = false;
         }
+
+        //-----------------------------------------------------------------------------------------------
+
+        BossMelee::Roar::Roar(Agent* agent_) : Action(agent_, -10) { }
+
+        void BossMelee::Roar::setTransform(Transform* t) { tr = t; };
+
+        void BossMelee::Roar::setRB(RigidBody* rb_) { rb = rb_; };
+
+        void BossMelee::Roar::setTarget(Transform* t) { target = t; }
+
+        void BossMelee::Roar::setAnim(Animation* a) { anim = a; }
+        
+        void BossMelee::Roar::onActionStart()
+        {
+            std::cout << "Roaring\n\n\n\n\n\n\n\n";
+            lockAction = true;
+            Vector3 targetPos = *(target->getPos());
+            Vector3 pos = *(tr->getPos());
+
+            Utilities::Vector3<float> dir = targetPos - pos;
+            dir.normalize();
+            float angle = std::atan2(dir.x, dir.z);
+            rb->setRotation(Utilities::Vector3<int>(0, 1, 0), angle);
+
+            anim->changeAnimation("idle");
+            ECS::Timer::invoke([&](ECS::Timer*) {
+                startRoar();
+                }, 1.5);
+        }
+
+        void BossMelee::Roar::startRoar()
+        {
+            anim->changeAnimation("battlecry");
+            ECS::Timer::invoke([&](ECS::Timer*) {
+                endRoar();
+                }, 2.8);
+        }
+
+        void BossMelee::Roar::endRoar()
+        {
+            lockAction = false;
+            // Solo se realiza esta acción una vez
+            setPriority(LONG_MAX);
+        }
+
 #pragma endregion
-    }
+}
 }
 

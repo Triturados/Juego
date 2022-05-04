@@ -85,6 +85,26 @@ namespace LoveEngine {
                 void enableLanding();
                 void recover();                 // después de aterrizar, tarda un momento en levantarse
             };
+
+            class Roar : public Action
+            {
+            public:
+                Roar(Agent* agent_);
+                void setTransform(Transform* t);
+                void setRB(RigidBody* rb_);
+                void setTarget(Transform* t);
+                void setAnim(Animation* a);
+                void onActionStart() final;
+            protected:
+                RigidBody* rb;
+                Transform* target = nullptr;
+                Transform* tr = nullptr;
+                Animation* anim = nullptr;
+            private:
+                void startRoar();
+                void endRoar();
+            };
+
 #pragma endregion
             void setTargets() override;
 		private:
@@ -92,6 +112,7 @@ namespace LoveEngine {
             MeleeAttack* attack;
             Leap* leap;
             Chase* chase;
+            Roar* roar;
 
 		public:
             BossMelee();
