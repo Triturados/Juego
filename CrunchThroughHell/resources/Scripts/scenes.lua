@@ -837,6 +837,10 @@ function scene5() -- Boss2
     material:sendMsg([[materialName: VerdeOscuro]])
     material:sendComponent(0, comp3)
 
+    -- skyBox
+    local skybox = scene:createObject("Skybox")
+    skybox:addComponent("Skybox"):sendMsg([[materialName: skyboxblue; distance: 300; ]])
+
     -- player--
     local player = scene:createObject("jugador")
     local tr = player:addComponent("Transform")
