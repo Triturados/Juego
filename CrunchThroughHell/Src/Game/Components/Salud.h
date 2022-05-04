@@ -31,7 +31,7 @@ namespace LoveEngine {
 			bool hitCooldown = false;
 			float _MAX_COOLDOWN_TIME = 0.3;
 			float cooldownTime = _MAX_COOLDOWN_TIME;
-
+			bool dead = false;
 
 
 		public:
@@ -47,6 +47,7 @@ namespace LoveEngine {
 			void setHealth(int health);
 			void addMaxHealth();
 			void takeDamage(int damage);
+			inline bool isDead() { return dead; }
 			~Salud();
 		};
 	}

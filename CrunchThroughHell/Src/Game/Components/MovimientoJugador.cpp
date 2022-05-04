@@ -15,6 +15,7 @@
 #include "Definitions.h"
 #include "Stamina.h"
 #include "AtaqueJugador.h"
+#include "Salud.h"
 #include <Sound.h>
 
 
@@ -32,7 +33,7 @@ void LoveEngine::ECS::MovimientoJugador::init()
 	sta = gameObject->getComponent<Stamina>();
 	anim = gameObject->getComponent<Animation>();
 	ataque = gameObject->getComponent<AtaqueJugador>();
-
+	salud = gameObject->getComponent<Salud>();
 
 	dashSound = gameObject->addComponent<Sound>();
 	dashSound->sendFormattedString("soundName:dash.wav; channel: effects; loop: false; volume: 0.5; playNow: false;");
@@ -60,8 +61,13 @@ void LoveEngine::ECS::MovimientoJugador::postInit() {
 
 void LoveEngine::ECS::MovimientoJugador::update()
 {
-
+	if(input->isKeyPressed(Input::InputKeys::G)) salud->takeDamage(100);
 	if (!ataque->currentlyAttacking()) changeAnimations();
+
+	if (salud->isDead()) {
+		disablePlayer();
+		return;
+	}
 
 	movementZ = 0;
 	movementX = 0;
@@ -167,7 +173,10 @@ void LoveEngine::ECS::MovimientoJugador::knockback()
 
 void LoveEngine::ECS::MovimientoJugador::changeAnimations()
 {
-	if (movementX == 0 && movementZ == 0) {
+	if (salud->isDead()) {
+		anim->changeAnimation("death");
+	}
+	else if (movementX == 0 && movementZ == 0) {
 		anim->changeAnimation("idle");
 	}
 	else if (movementX > abs(movementZ)) {
@@ -180,7 +189,7 @@ void LoveEngine::ECS::MovimientoJugador::changeAnimations()
 	else anim->changeAnimation("walkback");
 
 	anim->setLoop(true);
-
+	if (salud->isDead()) anim->setLoop(false);
 }
 
 
@@ -216,6 +225,15 @@ void LoveEngine::ECS::MovimientoJugador::aimedMovement(float mvX, float mvZ)
 	float angle = std::atan2(dir.x, dir.z);
 
 	rb->setRotation(Utilities::Vector3<int>(0, 1, 0), angle);
+}
+
+void LoveEngine::ECS::MovimientoJugador::disablePlayer()
+{
+	if (ataque) ataque->enabled = false;
+	if (rb) rb->enabled = false;
+	if (salud) salud->enabled = false;
+
+	enabled = false;
 }
 
 void LoveEngine::ECS::MovimientoJugador::receiveMessage(Utilities::StringFormatter& sf)

@@ -15,6 +15,7 @@ namespace LoveEngine {
 		class Sound;
 
 		class AtaqueJugador;
+		class Salud;
 		class MovimientoJugador : public Component {
 			
 		private:
@@ -30,6 +31,7 @@ namespace LoveEngine {
 			Transform* trJefe = nullptr;
 
 			AtaqueJugador* ataque;
+			Salud* salud;
 			Animation* anim;
 			ParticleSystem* dashParticles;
 			RigidBody* rb;
@@ -66,6 +68,7 @@ namespace LoveEngine {
 			void changeAnimations();
 			void freeMovement(float mvX, float mvZ);
 			void aimedMovement(float mvX, float mvZ);
+			void disablePlayer();
 			void receiveMessage(Utilities::StringFormatter& message) override;
 			void receiveComponent(int, Component*) override;
 

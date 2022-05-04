@@ -55,8 +55,7 @@ void LoveEngine::ECS::Salud::setHealth(int health)
 	if (health < 0) health = 0;
 	else if (health > _MAX_HEALTH) health = _MAX_HEALTH;
 	actHealth = health;	
-
-
+	if (actHealth == 0) dead = true;
 }
 
 void LoveEngine::ECS::Salud::receiveComponent(int i, Component* c)
