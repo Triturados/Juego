@@ -13,11 +13,11 @@
 --------------
 
 
+sceneCount = 11;
 
 package.path = package.path .. ";./resources/Scripts/?.lua"
 package.path = package.path .. ";../../resources/Scripts/?.lua"
 
-sceneCount = 8;
 
 menu = require "menu";
 
