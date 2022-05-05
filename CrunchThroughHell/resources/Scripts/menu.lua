@@ -71,7 +71,7 @@ function menu:createMainMenu()
 
 
     local halfwidth = round((width() - 371) * 0.5);
-    local pressKeyHeight = round(height() * 0.5 + 100);
+    local pressKeyHeight = round(height() * 0.5 + 250);
     local presskey = scene:createObject("Press any key"):addComponent("Image"):sendMsg([[
         material: mainmenuPressKey;
         width: 371;
@@ -339,7 +339,7 @@ function menu:menuPausa()
                     type = 'Camera',
                     info = [[
                         name: pause;
-                        zOrder: 2
+                        zOrder: 15
                     ]]
                 }
             }
@@ -380,6 +380,14 @@ function menu:menuPausa()
         local exitButton = scene:createObject("Exit Button"):addComponent("Button");
         local banner = scene:createObject("Banner"):addComponent("Image");
         local logo = scene:createObject("Logo"):addComponent("Image");
+        local upBorder = scene:createObject("UpBorder"):addComponent("Image");
+
+        upBorder:sendMsg([[
+            material: mainmenuBlackBorder;
+            width: ]] .. screenwidth .. [[;
+            height :]] .. screenheight .. [[;
+            posZ: 2
+        ]])
 
         logo:sendMsg([[
             material: logo;
@@ -395,6 +403,7 @@ function menu:menuPausa()
             width: 300;
             height : ]] .. screenheight .. [[;
             posX: 510;
+            posY: -60
             posZ: 1
         ]])
 
@@ -403,7 +412,7 @@ function menu:menuPausa()
             width: 200;
             height: 60;
             posX: 560;
-            posY: 480;
+            posY: 440;
             posZ: 2
         ]])
 
@@ -412,13 +421,16 @@ function menu:menuPausa()
             width: 200;
             height: 60;
             posX: 560;
-            posY: 550;
+            posY: 510;
             posZ: 2
         ]])
+
+        createVignette()
 
         local menuObj = scene:createObject("Pause Component"):addComponent("PauseMenu")
         menuObj:sendComponent(0, continue);
         menuObj:sendComponent(1, exitButton);
+
     end
 }
 end

@@ -1,0 +1,27 @@
+particle_system explosion
+{ 						// p. s. attributes
+
+	renderer 	billboard
+	billboard_type 	point
+	particle_width 	7
+	particle_height 7
+	quota 		20			// Max de particulas que se generan
+	material 	fire		// Entrada de un .material
+
+	emitter Point
+
+		{ 					// e. attributes
+            direction 0 1 0
+			angle 		180
+			emission_rate 	15
+			time_to_live	1000
+			velocity_min 	8
+			velocity_max 	10
+		}
+	affector ColourImage{
+        image smokecolors.png
+    }
+	affector DirectionRandomiser {
+			randomness 0.45
+   		}
+}

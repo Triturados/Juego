@@ -276,7 +276,7 @@ function sceneboss1:createScene() -- Boss1
 
     camCamera:sendMsg([[
         name: escenaJuego;
-        zOrder: -3;
+        zOrder: 2;
     ]])
     camCamera:sendMsg([[
         compositor: Posterize;

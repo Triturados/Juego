@@ -194,8 +194,8 @@ function scene3() -- Overworld de verdad
     local camCamera = cam:addComponent('Camera')
 
     camCamera:sendMsg([[
-        name: escenaJuego;
-        zOrder: -3;
+        name: escenaOverWorld;
+        zOrder: 1;
     ]])
     camCamera:sendMsg([[
         compositor: Posterize;

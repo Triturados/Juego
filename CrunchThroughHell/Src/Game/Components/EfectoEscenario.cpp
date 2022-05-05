@@ -92,15 +92,7 @@ void LoveEngine::ECS::EfectoEscenario::exitCollision(GameObject* other)
 	}
 }
 
-LoveEngine::ECS::EfectoEscenario::~EfectoEscenario()
-{
-
-}
-
-void LoveEngine::ECS::EfectoEscenario::update()
-{
-
-}
+LoveEngine::ECS::EfectoEscenario::~EfectoEscenario(){}
 
 
 
