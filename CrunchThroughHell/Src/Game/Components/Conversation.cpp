@@ -3,7 +3,7 @@
 #include "ShowText.h"
 #include "Input.h"
 #include "StringFormatter.h"
-
+#include "Utils.h"
 
 LoveEngine::ECS::Conversation::Conversation()
 {
@@ -49,6 +49,8 @@ void LoveEngine::ECS::Conversation::update()
 
 void LoveEngine::ECS::Conversation::receiveMessage(Utilities::StringFormatter& sf)
 {
+
+
 	if (sf.tryGetInt("lines", lines)) {
 		showtext = std::vector<ShowText*>(lines, nullptr);
 	}
@@ -93,19 +95,19 @@ void LoveEngine::ECS::Conversation::setCallBack(std::function<void()> f)
 void LoveEngine::ECS::Conversation::start()
 {
 	//RESTART DIALOGUE
-	Dialogue d;
-	std::string image;
-	bool hasContent = false;
-	for (int i = 0; i < showtext.size(); i++) {
-		std::string line = "line" + std::to_string(i);
-		std::string message = "";
+	//Dialogue d;
+	//std::string image;
+	//bool hasContent = false;
+	//for (int i = 0; i < showtext.size(); i++) {
+	//	std::string line = "line" + std::to_string(i);
+	//	std::string message = "";
 
-		d.message.push_back(message);
-	}
+	//	d.message.push_back(message);
+	//}
 
-	d.speaker = speaker;
+	//d.speaker = speaker;
 
-	dialogues.push_back(d);
+	//dialogues.push_back(d);
 
 	enabled = true;
 	showtext[0]->changeText(dialogues[dialogueIdx].message[0]);
@@ -113,6 +115,8 @@ void LoveEngine::ECS::Conversation::start()
 
 void LoveEngine::ECS::Conversation::skip()
 {
+	//Utilities::breakpoint();
+
 	if (lineIdx < lines) {
 		for (int i = 0; i < lines; i++) {
 			showtext[i]->changeText(dialogues[dialogueIdx].message[i]);
@@ -141,6 +145,7 @@ void LoveEngine::ECS::Conversation::advanceDialogue()
 	++dialogueIdx;
 	if (dialogueIdx >= dialogues.size()) {
 		onEnd();
+		//Utilities::breakpoint();
 		enabled = false;
 	}
 	else
