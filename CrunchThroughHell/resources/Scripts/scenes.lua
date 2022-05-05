@@ -266,9 +266,6 @@ function scene3() -- Overworld de verdad
     player:addComponent("Animation"):sendMsg([[animName: idle]])
 
     --local playerAttack = player:addComponent("AtaqueJugador")
-    local staminajugador = player:addComponent("Stamina")
-
-    --local playerAttack = player:addComponent("AtaqueJugador")
 
     playerMov:sendComponent(1, trcam)
 
