@@ -41,6 +41,7 @@ namespace LoveEngine {
 			scrollTimer = 0;
 			scrollInterval = 0.2f;
 			presskeytimer = 0;
+
 		}
 
 		void MainMenu::postInit()
@@ -106,6 +107,19 @@ namespace LoveEngine {
 				scale->setHeight(height);
 				scale->update();
 			}
+
+			//upy = up->getPosition().y;
+			//downy = down->getPosition().y;
+
+			auto pos = up->getPosition();
+			upy = pos.y;
+			pos.y = 1000;
+			up->setPosition(pos);
+			pos = down->getPosition();
+			downy = pos.y;
+			pos.y = 1000;
+			down->setPosition(pos);
+
 
 			//Timer::invoke([&](Timer*) {showMenu(); }, 1.6f);
 		}
@@ -252,6 +266,13 @@ namespace LoveEngine {
 				button->gameObject->activate(true);
 				button->setVisibility(true);
 			}
+
+			auto pos = up->getPosition();
+			pos.y = upy;
+			up->setPosition(pos);
+			pos = down->getPosition();
+			pos.y = downy;
+			down->setPosition(pos);
 		}
 	}
 }
