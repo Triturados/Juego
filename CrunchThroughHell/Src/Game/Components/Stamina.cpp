@@ -66,6 +66,7 @@ void LoveEngine::ECS::Stamina::receiveComponent(int i, Component* c)
 void LoveEngine::ECS::Stamina::loseStamina(int damage)
 {
 	restartStamina = 0;
+	staminaUp = false;
 	setStamina(getStamina() - damage);
 }
 
@@ -89,20 +90,29 @@ void LoveEngine::ECS::Stamina::update()
 		if (restartStamina >= staminaTime)
 		{
 			setStamina(actStamina + 3);
+			staminaUp = true;
 		}
 	}
 	if (sliderTop != nullptr && sliderBehind != nullptr) {
-		int barProgress = actStamina * sliderBehind->MAX_VALUE / _MAX_STAMINA;
+		if (!staminaUp)
+		{
+			int barProgress = actStamina * sliderBehind->MAX_VALUE / _MAX_STAMINA;
 
-		sliderTop->setProgress(barProgress);
-
-
-
-		barProgress = naive_lerp(sliderBehind->getProgress(), barProgress, Time::getInstance()->deltaTime);
-
-		sliderBehind->setProgress(barProgress);
+			sliderTop->setProgress(barProgress);
 
 
+
+			barProgress = naive_lerp(sliderBehind->getProgress(), barProgress, Time::getInstance()->deltaTime);
+
+			sliderBehind->setProgress(barProgress);
+		}
+		else
+		{
+			int barProgress = actStamina * sliderBehind->MAX_VALUE / _MAX_STAMINA;
+
+			sliderTop->setProgress(barProgress);
+			sliderBehind->setProgress(barProgress);
+		}
 	}
 
 
