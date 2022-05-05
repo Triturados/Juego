@@ -5,11 +5,10 @@
 namespace LoveEngine {
 
 	namespace ECS {
-		class Timer;
-		class RigidBody;
-		class Transform;
-		class ParticleSystem;
-		class Mesh;
+		class Timer; class RigidBody;
+		class Transform; class ParticleSystem;
+		class Mesh; class Sound;
+
 		class Bullet : public Component {
 			
 		private:
@@ -25,6 +24,7 @@ namespace LoveEngine {
 			GameObject* hitObject;
 			ParticleSystem* pSys;
 			bool isDead = false;
+			Sound* explosionSound = nullptr;
 
 			void bulletDamage(GameObject* other);
 		public:

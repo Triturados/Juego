@@ -14,6 +14,7 @@
 #include "MovimientoJugador.h"
 #include "Timer.h"
 #include "ParticleSystem.h"
+#include <Sound.h>
 
 void LoveEngine::ECS::Bullet::bulletDamage(GameObject* other)
 {
@@ -25,6 +26,7 @@ void LoveEngine::ECS::Bullet::bulletDamage(GameObject* other)
 	rb->setActive(false);
 
 	pSys->setActive(true);
+	explosionSound->playSound();
 
 	ECS::Timer::invoke([&](ECS::Timer*) {
 		isDead = true;
@@ -55,6 +57,7 @@ void LoveEngine::ECS::Bullet::init()
 	mesh = gameObject->getComponent<Mesh>();
 	rb = gameObject->getComponent<RigidBody>();
 	pSys = gameObject->getComponent<ParticleSystem>();
+	explosionSound = gameObject->getComponent<Sound>();
 }
 
 void LoveEngine::ECS::Bullet::update()
@@ -93,7 +96,7 @@ void LoveEngine::ECS::Bullet::setDir(Utilities::Vector3<float> dir_)
 void LoveEngine::ECS::Bullet::enterCollision(GameObject* other)
 {
 	if (other->getComponent<BossDistancia>() ||
-		other->getComponent<BossMelee>() || hit) return;
+		other->getComponent<BossMelee>() || hit || other->getComponent<Bullet>()) return;
 
 	hit = true;
 	hitObject = other;

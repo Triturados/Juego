@@ -190,7 +190,10 @@ namespace LoveEngine
             bulletMat->sendFormattedString("materialName: lava;");
             auto bulletSys = bullet->addComponent<ParticleSystem>();
             bulletSys->sendFormattedString("particleName: explosion; emitting: false");
-            bulletTr->init(); bulletMesh->init(); bulletRigid->init(); bulletB->init(); bulletMat->init(); bulletSys->init();
+            auto bulletSound = bullet->addComponent<Sound>();
+            bulletSound->sendFormattedString("soundName: fireballimpact.wav; channel: music; loop: true; volume: 0.5; playNow: false;");
+            bulletTr->init(); bulletMesh->init(); bulletRigid->init(); bulletB->init(); bulletMat->init();
+            bulletSys->init(); bulletSound->init();
         }
 
         void BossDistancia::RangedAttack::createBullets()

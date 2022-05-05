@@ -10,6 +10,7 @@
 #include <Vector3.h>
 #include <SceneManager.h>
 #include <Scene.h>
+#include <Sound.h>
 #include <GameObject.h>
 #include "ParticleSystem.h"
 
@@ -35,7 +36,10 @@ void LoveEngine::ECS::BulletGenerator::createBullet()
 	bulletMat->sendFormattedString("materialName: lava;");
 	auto bulletSys = bullet->addComponent<ParticleSystem>();
 	bulletSys->sendFormattedString("particleName: explosion; emitting: false");
-	bulletTr->init(); bulletMesh->init(); bulletRigid->init(); bulletB->init(); bulletMat->init(); bulletSys->init();
+	auto bulletSound = bullet->addComponent<Sound>();
+	bulletSound->sendFormattedString("soundName: fireballimpact.wav; channel: music; loop: true; volume: 0.5; playNow: false;");
+	bulletTr->init(); bulletMesh->init(); bulletRigid->init(); bulletB->init(); 
+	bulletMat->init(); bulletSys->init(); bulletSound->init();
 }
 
 LoveEngine::ECS::BulletGenerator::BulletGenerator() : interval(0)
