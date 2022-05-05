@@ -208,7 +208,7 @@ function menu:createCredits()
     scroll:sendComponent(0, createImage('mainmenuBackgroundImage', 10, 10, 11, 400, 400))
     --createImage('mainmenuBackgroundImage', 590, 10, 4, 400, 400)
 
-    scroll:sendComponent(0, createTextElement('Creditos de mi jueguito', 0, 450, 12, 0.05, 0));
+    scroll:sendComponent(0, createTextElement('Creditos de mi jueguito', 200, 450, 12, 0.05, 0));
 end
 
 
