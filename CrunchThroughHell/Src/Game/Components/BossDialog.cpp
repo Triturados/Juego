@@ -5,11 +5,22 @@
 #include "ShowText.h"
 #include "SceneManager.h"
 #include "Definitions.h"
+#include "Timer.h"
+#include "SaveData.h"
+#include "Shop.h"
 
+bool LoveEngine::ECS::BossDialog::boss1Defeated = false;
 
 void LoveEngine::ECS::BossDialog::init()
 {
 	Interactable::init();
+
+
+	if (Shop::SAVEDATA) {
+		Utilities::SaveData sd;
+		auto sf = sd.readData("boss");
+		sf.tryGetBool("defeated", boss1Defeated);
+	}
 }
 
 void LoveEngine::ECS::BossDialog::use()
@@ -19,12 +30,19 @@ void LoveEngine::ECS::BossDialog::use()
 	if (input->keyJustPressed((Input::InputKeys)interactKey)) {
 		texto->changeText(" ");
 		if (bossNum == 1) {
-			if (!boss1Defeated && !converBoss1->isActive())converBoss1->start();
-			else if (boss1Defeated && !alternateConverBoss1->isActive()) alternateConverBoss1->start();
+			if (!boss1Defeated && !converBoss1->isActive())
+				Timer::invoke([&](Timer*) {converBoss1->start(); }, 0.5f);
+
+			else if (boss1Defeated && !alternateConverBoss1->isActive())
+				Timer::invoke([&](Timer*) {alternateConverBoss1->start(); }, 0.5f);
+
 		}
 		else if (bossNum == 2) {
-			if (boss1Defeated && !converBoss2->isActive()) converBoss2->start();
-			else if (!boss1Defeated && !alternateConverBoss2->isActive()) alternateConverBoss2->start();
+			if (boss1Defeated && !converBoss2->isActive())
+				Timer::invoke([&](Timer*) {converBoss2->start(); }, 0.5f);
+			else if (!boss1Defeated && !alternateConverBoss2->isActive())
+				Timer::invoke([&](Timer*) {alternateConverBoss2->start(); }, 0.5f);
+
 		}
 	}
 }
@@ -66,7 +84,7 @@ void LoveEngine::ECS::BossDialog::receiveComponent(int i, Component* c)
 	if (i == 5) {
 		alternateConverBoss2 = (Conversation*)c;
 		alternateConverBoss2->enabled = false;
-	
+
 	}
 
 	Interactable::receiveComponent(i, c);

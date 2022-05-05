@@ -272,7 +272,7 @@ function sceneboss1:createScene() -- Boss1
     ]])
 
     local camCamera = cam:addComponent('Camera')
-    local camFollow = cam:addComponent('CamFollow')
+    --local camFollow = cam:addComponent('CamFollow')
 
     camCamera:sendMsg([[
         name: escenaJuego;
@@ -448,7 +448,7 @@ function sceneboss1:createScene() -- Boss1
         horiSens: 5.5
     ]])
 
-    camFollow:sendComponent(0, tr)
+    --camFollow:sendComponent(0, tr)
 
     rotarcam:sendGameObject(0, boss)
     rotarcam:sendGameObject(1, player)

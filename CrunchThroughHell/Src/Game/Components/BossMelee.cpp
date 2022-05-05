@@ -13,7 +13,8 @@
 #include <Timer.h>
 #include "Salud.h"
 #include <Sound.h>
-
+#include "BossDialog.h"
+#include "SaveData.h"
 namespace LoveEngine
 {
     namespace ECS
@@ -426,7 +427,11 @@ namespace LoveEngine
             lockAction = true;
             // Solo se realiza esta acción una vez
             setPriority(-1);
+            BossDialog::boss1Defeated = true;
 
+
+            Utilities::SaveData sd;
+            sd.saveData("boss", "defeated: true");
             SceneManagement::changeScene((int)SceneOrder::Overworld, SceneManagement::SceneLoad::CLEAR);
         }
 #pragma endregion
