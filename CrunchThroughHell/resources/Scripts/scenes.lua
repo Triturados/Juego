@@ -301,9 +301,9 @@ function sceneOverworld() -- Overworld de verdad
 
     local textoInteractuar = scene:createObject("texto")
     textoInteractuar:addComponent("Text"):sendMsg([[
-    posX: 0;
-    posY: 0;
-    allignment: 0;
+    posX: ]] .. round(width()/2) .. [[;
+    posY: ]] .. round(height()* 0.85) ..[[;
+    alignment: 2;
     fontName: SourceSansProLight
     textScale: 0.05;
     mainColor: 1,1,1,1;]])
@@ -313,7 +313,6 @@ function sceneOverworld() -- Overworld de verdad
 
     --boss1
     
-    local spawn = 16
     local boss1 = scene:createObject("boss1")
     local boss1tr = boss1:addComponent("Transform")
     boss1tr:sendMsg([[
