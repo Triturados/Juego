@@ -171,16 +171,16 @@ function menu:createSettings()
     settings:sendComponent(1, p1080);
 
     
-    local p720 = menu:createButton('mainmenuButton', 20, 530, 12, 200, 50)
+    local p720 = menu:createButton('mainmenuButtonLowS', 20, 530, 12, 200, 50)
     scroll:sendComponent(0, p720)
     settings:sendComponent(-2, p720);
 
     
-    local p480 = menu:createButton('mainmenuButton', 20, 590, 12, 200, 50)
+    local p480 = menu:createButton('mainmenuButtonMediumS', 20, 590, 12, 200, 50)
     scroll:sendComponent(0, p480)
     settings:sendComponent(-3, p480);
        
-    local p480 = menu:createButton('mainmenuButton', 20, 650, 12, 200, 50)
+    local p480 = menu:createButton('mainmenuButtonHighS', 20, 650, 12, 200, 50)
     scroll:sendComponent(0, p480)
     settings:sendComponent(-4, p480);
 
