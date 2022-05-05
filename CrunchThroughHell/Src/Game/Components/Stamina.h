@@ -25,7 +25,7 @@ namespace LoveEngine {
 			float naive_lerp(float a, float b, float t);
 
 			float restartStamina = 0;
-			float staminaTime = 3; 
+			float staminaTime = 5; 
 			float comebackStamina;
 		public:
 			void init() override;

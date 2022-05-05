@@ -103,9 +103,11 @@ void LoveEngine::ECS::Salud::update()
 	int barProgress = actHealth * sliderBehind->MAX_VALUE / _MAX_HEALTH;
 
 	sliderTop->setProgress(barProgress);
-	
+
 	barProgress = naive_lerp(sliderBehind->getProgress(), barProgress, Time::getInstance()->deltaTime);
 	sliderBehind->setProgress(barProgress);
+
+	
 }
 
 void LoveEngine::ECS::Salud::stepPhysics()

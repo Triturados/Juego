@@ -61,7 +61,6 @@ void LoveEngine::ECS::MovimientoJugador::postInit() {
 
 void LoveEngine::ECS::MovimientoJugador::update()
 {
-	if (input->isKeyPressed(Input::InputKeys::G)) salud->takeDamage(100);
 	if (!ataque->currentlyAttacking()) changeAnimations();
 
 	if (salud != nullptr && salud->isDead()) {
@@ -90,11 +89,11 @@ void LoveEngine::ECS::MovimientoJugador::update()
 			currentDashDuration = 0;
 			dashSound->playSound();
 		}
-		if (input->isKeyPressed(Input::InputKeys::R))
-		{
-			std::cout << "cambiando de escena" << std::endl;
-			SceneManagement::changeScene((int)SceneOrder::Defeat, SceneManagement::SceneLoad::SWAP); //Ir escena muerte
-		}
+		//if (input->isKeyPressed(Input::InputKeys::R))
+		//{
+		//	std::cout << "cambiando de escena" << std::endl;
+		//	SceneManagement::changeScene((int)SceneOrder::Defeat, SceneManagement::SceneLoad::SWAP); //Ir escena muerte
+		//}
 	}
 	else {
 		Utilities::Vector2 controller = input->getController().leftJoystick;
