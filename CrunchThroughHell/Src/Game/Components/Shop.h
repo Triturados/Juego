@@ -21,7 +21,7 @@ namespace LoveEngine {
 			const char* path = "shop";
 
 			int currency;
-			int healt, damage, speed;
+			int health, damage, speed;
 
 			void buyHealth();
 			void buyDamage();

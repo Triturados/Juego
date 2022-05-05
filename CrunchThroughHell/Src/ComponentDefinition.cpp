@@ -25,6 +25,7 @@
 #include "Components/MoveUI.h"
 #include "Components/ScrollContainer.h"
 #include "Components/Settings.h"
+#include "Components/Shop.h"
 #include "Components/Interactable.h"
 
 namespace LoveEngine {
@@ -73,7 +74,7 @@ namespace LoveEngine {
 			newComponent<ScrollContainer>("Scroll");
 			newComponent<Settings>("Settings");
 			newComponent<Interactable>("Interactable");
-
+			newComponent<Shop>("Shop");
 			inst = nullptr;
 		}
 	}
