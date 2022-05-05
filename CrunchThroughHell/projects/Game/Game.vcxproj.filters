@@ -110,6 +110,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Src\Game\Components\BossDialog.cpp">
       <Filter>Archivos de origen</Filter>
+      </ClCompile>
+    <ClCompile Include="..\..\Src\Game\Components\Shop.cpp">
+      <Filter>Components\Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -199,6 +202,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Src\Game\Components\BossDialog.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Game\Components\Shop.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

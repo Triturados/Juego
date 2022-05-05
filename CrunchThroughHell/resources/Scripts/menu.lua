@@ -8,9 +8,6 @@ function menu:createMainMenu()
     local screenheight = height();
 
 
-
-
-    print(screenwidth)
     local cam = scene:createObject("cam")
     cam:addComponent('Transform'):sendMsg([[
         scale: 2,2,2;
@@ -136,7 +133,7 @@ end
 function menu:createSettings()
     scene:name("Settings")
 
-    local container = createRightContainer()
+    local container = menu:createRightContainer()
 
     local scroll = scene:createObject('Scroll'):addComponent('Scroll'):sendMssg([[
         minHeight: 0;
@@ -152,7 +149,7 @@ function menu:createSettings()
     container:sendComponent(0, scroll);
 
 
-    scroll:sendComponent(0, createImage('mainmenuBackgroundImage', 10, 10, 11, 400, 400))
+    scroll:sendComponent(0, menu:createImage('mainmenuBackgroundImage', 10, 10, 11, 400, 400))
 
     local settings = scene:createObject('Settings'):addComponent('Settings'):sendMssg([[
         resolution: 1920, 1080, 0
@@ -164,27 +161,27 @@ function menu:createSettings()
         resolution: 852, 480, 0
     ]])
 
-    local fullscreenbutton = createButton('mainmenuButton', 20, 420, 12, 200, 50)
+    local fullscreenbutton = menu:createButton('mainmenuButton', 20, 420, 12, 200, 50)
     scroll:sendComponent(0, fullscreenbutton)
     settings:sendComponent(1, fullscreenbutton);
 
     
-    local p1080 = createButton('mainmenuButton', 20, 470, 12, 200, 50)
+    local p1080 = menu:createButton('mainmenuButton', 20, 470, 12, 200, 50)
     scroll:sendComponent(0, p1080)
     settings:sendComponent(-1, p1080);
 
     
-    local p720 = createButton('mainmenuButton', 20, 530, 12, 200, 50)
+    local p720 = menu:createButton('mainmenuButton', 20, 530, 12, 200, 50)
     scroll:sendComponent(0, p720)
     settings:sendComponent(-2, p720);
 
     
-    local p480 = createButton('mainmenuButton', 20, 590, 12, 200, 50)
+    local p480 = menu:createButton('mainmenuButton', 20, 590, 12, 200, 50)
     scroll:sendComponent(0, p480)
     settings:sendComponent(-3, p480);
     
     
-    local p480 = createButton('mainmenuButton', 20, 650, 12, 200, 50)
+    local p480 = menu:createButton('mainmenuButton', 20, 650, 12, 200, 50)
     scroll:sendComponent(0, p480)
     settings:sendComponent(0, p480);
 
@@ -193,7 +190,7 @@ end
 function menu:createCredits()
     scene:name("Credits")
 
-    local container = createRightContainer()
+    local container = menu:createRightContainer()
 
     local scroll = scene:createObject('Scroll'):addComponent('Scroll'):sendMssg([[
         minHeight: 0;
@@ -210,17 +207,17 @@ function menu:createCredits()
 
 
 
-    scroll:sendComponent(0, createImage('mainmenuBackgroundImage', 10, 10, 11, 400, 400))
+    scroll:sendComponent(0, menu:createImage('mainmenuBackgroundImage', 10, 10, 11, 400, 400))
     --createImage('mainmenuBackgroundImage', 590, 10, 4, 400, 400)
 
-    scroll:sendComponent(0, createTextElement('Creditos de mi jueguito', 200, 450, 12, 0.05, 0));
+    scroll:sendComponent(0, menu:createTextElement('Creditos de mi jueguito', 200, 450, 12, 0.05, 0));
 end
 
 
 function menu:createAbout()
     scene:name("About")
 
-    local container = createRightContainer()
+    local container = menu:createRightContainer()
 
     local scroll = scene:createObject('Scroll'):addComponent('Scroll'):sendMssg([[
         minHeight: 0;
@@ -235,7 +232,7 @@ function menu:createAbout()
     scroll:sendComponent(-1, container)
 
     container:sendComponent(0, scroll);
-    scroll:sendComponent(0, createImage('mainmenuBackgroundImage', 10, 10, 11, 400, 400))
+    scroll:sendComponent(0, menu:createImage('mainmenuBackgroundImage', 10, 10, 11, 400, 400))
 
 
     
@@ -264,7 +261,7 @@ function createArrow(pos, mat)
 end
 
 
-function createRightContainer()
+function menu:createRightContainer()
     
     local w = 600;
     local xposition = width() - w - 100;
@@ -283,11 +280,11 @@ function createRightContainer()
         posZ: 0;
     ]])
 
-    container:sendComponent(0, createImage('mainmenuBanner', 0, 52, 10, 600, 640));
+    container:sendComponent(0, menu:createImage('mainmenuBanner', 0, 52, 10, 600, 640));
     return container
 end
 
-function createImage(material, x, y, z, w, h)
+function menu:createImage(material, x, y, z, w, h)
     return scene:createObject(material):addComponent('Image'):sendMssg([[
         material: ]] .. material .. [[;
         height:  ]] .. h .. [[;
@@ -297,7 +294,7 @@ function createImage(material, x, y, z, w, h)
         posZ: ]] .. z)
 end
 
-function createButton(material, x, y, z, w, h)
+function menu:createButton(material, x, y, z, w, h)
 
     return scene:createObject('Button:' .. material):addComponent('Button'):sendMssg([[
         material:  ]] .. material..[[;
@@ -310,7 +307,7 @@ function createButton(material, x, y, z, w, h)
 
 end
 
-function createTextElement(text, x, y, z, size, alignment)
+function menu:createTextElement(text, x, y, z, size, alignment)
     return scene:createObject("textObj"):addComponent("Text"):sendMsg([[
         posX: ]] .. x .. [[;
         posY: ]] .. y .. [[;
@@ -375,25 +372,48 @@ function menu:menuPausa()
         },
     },
     code = function()
+
+        local screenwidth = width();
+        local screenheight = height();
+
         local continue = scene:createObject("Start Button"):addComponent("Button");
         local exitButton = scene:createObject("Exit Button"):addComponent("Button");
+        local banner = scene:createObject("Banner"):addComponent("Image");
+        local logo = scene:createObject("Logo"):addComponent("Image");
 
-        continue:sendMsg([[
-            material: Heal_bg;
-            width: 100;
-            height: 50;
-            posX: 500;
-            posY: 300;
+        logo:sendMsg([[
+            material: logo;
+            width: 247;
+            height : 133;
+            posX: 535;
+            posY: 150
+            posZ: 2
+        ]])
+
+        banner:sendMsg([[
+            material: mainmenuBanner;
+            width: 300;
+            height : ]] .. screenheight .. [[;
+            posX: 510;
             posZ: 1
         ]])
 
+        continue:sendMsg([[
+            material: backtogame;
+            width: 200;
+            height: 60;
+            posX: 560;
+            posY: 480;
+            posZ: 2
+        ]])
+
         exitButton:sendMsg([[
-            material: Heal_bg;
-            width: 100;
-            height: 50;
-            posX: 500;
-            posY: 360;
-            posZ: 1
+            material: backtomenu;
+            width: 200;
+            height: 60;
+            posX: 560;
+            posY: 550;
+            posZ: 2
         ]])
 
         local menuObj = scene:createObject("Pause Component"):addComponent("PauseMenu")

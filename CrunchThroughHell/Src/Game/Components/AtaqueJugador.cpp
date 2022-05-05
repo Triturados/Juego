@@ -16,6 +16,8 @@
 #include <Sound.h>
 #include "Salud.h"
 
+int LoveEngine::ECS::AtaqueJugador::dmg = 5;
+int LoveEngine::ECS::AtaqueJugador::initial_dmg = 5;
 
 void LoveEngine::ECS::AtaqueJugador::init()
 {

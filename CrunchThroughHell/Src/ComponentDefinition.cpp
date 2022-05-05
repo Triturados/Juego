@@ -25,6 +25,7 @@
 #include "Components/MoveUI.h"
 #include "Components/ScrollContainer.h"
 #include "Components/Settings.h"
+#include "Components/Shop.h"
 #include "Components/Interactable.h"
 #include "Components/BossDialog.h"
 
@@ -75,6 +76,8 @@ namespace LoveEngine {
 			newComponent<Settings>("Settings");
 			newComponent<Interactable>("Interactable");
 			newComponent<BossDialog>("BossDialog");
+			newComponent<Shop>("Shop");
+
 
 			inst = nullptr;
 		}

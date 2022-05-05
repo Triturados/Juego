@@ -8,18 +8,19 @@
 #include <iostream>
 #include <Slider.h>
 
-
+#include "MovimientoJugador.h"
+#include <Timer.h>
+#include <SceneManager.h>
+#include <Definitions.h>
 #include <Input.h>
 #include <GameTime.h>
 
+int LoveEngine::ECS::Salud::_MAX_HEALTH = 100;
+int LoveEngine::ECS::Salud::initial_MAX_HEALTH = 100;
 void LoveEngine::ECS::Salud::receiveMessage(Utilities::StringFormatter& sf)
 {
-	pos = new Utilities::Vector3<int>();
 	sf.tryGetFloat("cooldownTime", cooldownTime);
-	sf.tryGetInt("maxHealth", _MAX_HEALTH);
-	sf.tryGetInt("posX", pos->x);
-	sf.tryGetInt("posY", pos->y);
-	sf.tryGetInt("posZ", pos->z);
+	sf.tryGetInt("maxHealth", initial_MAX_HEALTH);
 }
 
 void LoveEngine::ECS::Salud::addHealth()
@@ -48,6 +49,7 @@ void LoveEngine::ECS::Salud::postInit()
 {
 	sliderTop->setDetectInput(false);
 	sliderBehind->setDetectInput(false);
+	sliderTop->setVisibilityBg(false);
 }
 
 void LoveEngine::ECS::Salud::setHealth(int health)
@@ -85,6 +87,11 @@ void LoveEngine::ECS::Salud::takeDamage(int damage)
 	setHealth(getHealth() - damage);
 	hitCooldown = true;
 	cooldownTime = _MAX_COOLDOWN_TIME;
+
+	if (gameObject->getComponent<MovimientoJugador>() && isDead())
+		ECS::Timer::invoke([&](ECS::Timer*) {
+		SceneManagement::changeScene((int)SceneOrder::Defeat, SceneManagement::SceneLoad::SWAP);
+		}, 3);
 }
 
 LoveEngine::ECS::Salud::~Salud()

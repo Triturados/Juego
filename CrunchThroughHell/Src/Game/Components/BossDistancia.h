@@ -12,7 +12,8 @@ namespace LoveEngine {
 		protected:
 #pragma region Actions
             Sound* deathSound;
-
+            Sound* teleportSound;
+            ParticleSystem* pSys;
 			class RangedAttack : public Action
 			{
 			public:
@@ -23,11 +24,12 @@ namespace LoveEngine {
 				void onActionStart() final;
 				void activeUpdate() final;
                 void setAnim(Animation* a);
-
+                void setParticleSys(ParticleSystem* p);
 			protected:
 				Transform* target = nullptr;
 				Transform* tr = nullptr;
                 Animation* anim = nullptr;
+                ParticleSystem* pSys = nullptr;
                 
                 struct SpellAnimation {
                     std::string animation;
@@ -75,6 +77,7 @@ namespace LoveEngine {
                 void onActionStart() final;
                 void setAnim(Animation* a);
                 void setPartSys(ParticleSystem* ps_);
+                void setSound(Sound* s) { teleportSound = s; };
             private:
                 void particleTP();
                 void startTP();
@@ -87,6 +90,7 @@ namespace LoveEngine {
                 Animation* anim = nullptr;
                 Utilities::Vector2<float> posRand();
                 int numRandNegPos(int maxRand);
+                Sound* teleportSound = nullptr;
             };
 
             class Death : public Action

@@ -17,9 +17,11 @@ namespace LoveEngine {
 		class AtaqueJugador;
 		class Salud;
 		class MovimientoJugador : public Component {
-			
+		public:
+			static float MAX_SPEED;
+			static float initial_MAX_SPEED;
+			static float speed;
 		private:
-			float MAX_SPEED = 15;
 
 			RigidBody* bossRb;
 			Transform* bossTr;
@@ -36,7 +38,6 @@ namespace LoveEngine {
 			ParticleSystem* dashParticles;
 			RigidBody* rb;
 			Input::InputManager* input;
-			float speed = MAX_SPEED;
 
 			float movementZ = 0;
 			float movementX = 0;
@@ -73,6 +74,8 @@ namespace LoveEngine {
 			void disablePlayer();
 			void receiveMessage(Utilities::StringFormatter& message) override;
 			void receiveComponent(int, Component*) override;
+
+			static void updateMaxSpeed();
 
 			inline float getSpeed() { return speed; };
 			inline float getMaxSpeed() { return MAX_SPEED; };

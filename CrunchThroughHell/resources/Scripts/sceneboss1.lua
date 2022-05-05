@@ -51,6 +51,33 @@ function sceneboss1:createMesh(meshName, x,y,z, sx, sy, sz, rx, ry, rz)
 
 end
 
+function sceneboss1:createRigidMesh(meshName, x,y,z, sx, sy, sz, rx, ry, rz)
+    local mesh = scene:createObject(meshName);
+
+    local tr = mesh:addComponent("Transform");
+
+    tr:sendMsg([[
+        scale: ]] .. sx .. [[ , ]] .. sy .. [[ , ]] .. sz .. [[;
+        position: ]] .. x .. [[ , ]] .. y .. [[ , ]] .. z .. [[;
+        rotation: ]] .. rx .. [[ , ]] .. ry .. [[ , ]] .. rz .. [[;
+    ]])
+
+    mesh:addComponent("Mesh"):sendMsg([[
+        meshName: ]] .. meshName .. [[;
+    ]])
+
+    mesh:addComponent('Rigidbody'):sendMsg([[
+        mass: 0.0;
+        state: static;
+        shape: cube;
+        restitution: 0.9;
+        colliderScale: 14,25,14;
+    ]])
+
+    return mesh;
+
+end
+
 function sceneboss1:createSmoke(name, x,y,z)
     local particleSys = scene:createObject(name)
     local particleSystr = particleSys:addComponent("Transform"):sendMsg([[
@@ -290,6 +317,7 @@ function sceneboss1:createScene() -- Boss1
         height: 25;
         posX: 100;
         posY: 60;
+        posZ: 0;
     ]])
 
    local sliderOverLive = player:addComponent("Slider")
@@ -301,6 +329,7 @@ function sceneboss1:createScene() -- Boss1
         height: 25;
         posX: 100;
         posY: 60;
+        posZ: 1;
     ]])
 
     local saludjugador = player:addComponent("Salud")
@@ -316,6 +345,7 @@ function sceneboss1:createScene() -- Boss1
         height: 25;
         posX: 100;
         posY: 90;
+        posZ: 0;
     ]])
 
    local sliderOverSta = player:addComponent("Slider")
@@ -327,6 +357,7 @@ function sceneboss1:createScene() -- Boss1
         height: 25;
         posX: 100;
         posY: 90;
+        posZ: 1;
     ]])
 
     local staminajugador = player:addComponent("Stamina")
@@ -370,6 +401,7 @@ function sceneboss1:createScene() -- Boss1
         height: 25;
         posX: 135;
         posY: 650;
+        posZ: 0;
     ]])
 
    local sliderOverLiveBoss = boss:addComponent("Slider")
@@ -381,6 +413,7 @@ function sceneboss1:createScene() -- Boss1
         height: 25;
         posX: 135;
         posY: 650;
+        posZ: 1;
     ]])
 
 
@@ -458,7 +491,7 @@ function sceneboss1:createScene() -- Boss1
     local bulletGenerator = scene:createObject("BulletGen")
     bulletGenerator:addComponent("Transform"):sendMsg([[
     scale: 1,1,1;
-    position: 0,10,-150;
+    position: 0,10,-125;
     rotation: 0,0,0;]])
     bulletGenerator:addComponent("BulletGenerator"):sendMsg([[
     interval: 5;

@@ -56,10 +56,18 @@ namespace LoveEngine
             //DO: codigo defensivo --> tiene q ser hijo del boss las particulas
             while (tr->getChild(indx)->gameObject->getComponent<ParticleSystem>() == nullptr)
                 indx++;
+
             ParticleSystem* ps = tr->getChild(indx)->gameObject->getComponent<ParticleSystem>();
+            indx++;
+
+            while (tr->getChild(indx)->gameObject->getComponent<ParticleSystem>() == nullptr)
+                indx++;
+            pSys = tr->getChild(indx)->gameObject->getComponent<ParticleSystem>();
+
             rb->setMass(1000);
             attack->setTransform(tr);
             attack->setAnim(anim);
+            attack->setParticleSys(pSys);
             keepDistance->setTransform(tr);
             keepDistance->setRB(rb);
             keepDistance->setAnim(anim);
@@ -77,10 +85,16 @@ namespace LoveEngine
             lastVd = vida;
 
             deathSound = gameObject->addComponent<Sound>();
-            deathSound->sendFormattedString("soundName: death.wav; channel: effects; loop: false; volume: 0.5; playNow: false;");
+            deathSound->sendFormattedString("soundName: boss2death.mp3; channel: effects; loop: false; volume: 0.5; playNow: false;");
             deathSound->init();
 
             death->setSound(deathSound);
+
+            teleportSound = gameObject->addComponent<Sound>();
+            teleportSound->sendFormattedString("soundName: Teleport.wav; channel: effects; loop: false; volume: 0.8; playNow: false;");
+            teleportSound->init();
+
+            teleport->setSound(teleportSound);
 
             salud = gameObject->getComponent<Salud>();
         }
@@ -136,6 +150,9 @@ namespace LoveEngine
 
             lockAction = true;
 
+            if(!pSys->isEmitting())
+            pSys->setActive(true);
+
             ECS::Timer::invoke([&](ECS::Timer*) {
                 attackFinished();
                 }, spell.duration);
@@ -143,7 +160,6 @@ namespace LoveEngine
             ECS::Timer::invoke([&](ECS::Timer*) {
                 createBullets();
                 }, spell.duration / 2);
-            //dispara
         }
 
         void BossDistancia::RangedAttack::activeUpdate()
@@ -157,6 +173,8 @@ namespace LoveEngine
             anim = a;
         }
 
+        void BossDistancia::RangedAttack::setParticleSys(ParticleSystem* p) { pSys = p; };
+
         void BossDistancia::RangedAttack::shotOneBullet(Utilities::Vector3<float> dir_)
         {
             GameObject* bullet = LoveEngine::SceneManagement::SceneManager::getInstance()->getCurrentScene()->createGameObject("bullet");
@@ -169,6 +187,7 @@ namespace LoveEngine
             bulletRigid->sendFormattedString("trigger: true; mass: 1.0; shape: cube; restitution: 1.0; colliderScale: 5, 5, 5;");
             auto bulletB = bullet->addComponent<Bullet>();
             bulletB->sendFormattedString("velocity: 30.0; damage: 10;");
+            dir_.y += 0.05;
             bulletB->setDir(dir_);
             auto bulletMat = bullet->addComponent<Material>();
             bulletMat->receiveComponent(0, bulletMesh);
@@ -184,7 +203,7 @@ namespace LoveEngine
 
             shotOneBullet(dir);
 
-            
+            pSys->setActive(false);
         }
 
         void BossDistancia::RangedAttack::attackFinished()
@@ -268,6 +287,9 @@ namespace LoveEngine
             float dur = anim->getDuration();
             anim->setLoop(true);
             particleTP();
+
+            teleportSound->playSound();
+
             ECS::Timer::invoke([&](ECS::Timer*) {
                 startTP();
             }, dur);
