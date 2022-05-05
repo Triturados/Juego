@@ -18,8 +18,10 @@ namespace LoveEngine {
 			void receiveComponent(int, Component*) override;
 			static bool SAVEDATA;
 
+			static bool boss1justdefeated;
 			void postInit() override;
 			void setButtonsActive(bool set);
+
 		private:
 			const int maxPurchase = 3;
 			const char* path = "shop";

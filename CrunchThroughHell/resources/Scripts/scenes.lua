@@ -468,13 +468,13 @@ function scene3() -- Overworld de verdad
 
 
     
-    local tiendaMesh = scene:createObject("boss1")
-    tiendaMesh:addComponent("Transform"):sendMsg([[
-        scale: 0.3,0.3,0.3;
-        position: -50,30,-50;
-        rotation: 0,0.4,0;
-    ]])
-    tiendaMesh:addComponent("Mesh"):sendMsg([[meshName: forja.mesh]])
+    -- local tiendaMesh = scene:createObject("boss1")
+    -- tiendaMesh:addComponent("Transform"):sendMsg([[
+    --     scale: 0.3,0.3,0.3;
+    --     position: -50,30,-50;
+    --     rotation: 0,0.4,0;
+    -- ]])
+    -- tiendaMesh:addComponent("Mesh"):sendMsg([[meshName: forja.mesh]])
 
     local shopInteract = tiendaObject:addComponent("ShopInteract")
     shopInteract:sendComponent(0,tr)

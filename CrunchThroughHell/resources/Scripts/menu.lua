@@ -210,9 +210,9 @@ function menu:createCredits()
 
     local scroll = scene:createObject('Scroll'):addComponent('Scroll'):sendMssg([[
         minHeight: 0;
-        maxHeight: 720;
+        maxHeight: 1200;
         automatic: true;
-        speed: 100;
+        speed: 50;
         posX: 0;
         posY: 52;
         posZ: 0;
@@ -223,7 +223,7 @@ function menu:createCredits()
 
 
 
-    scroll:sendComponent(0, menu:createImage('mainmenuCredits', 0, -600, 11, 600, 1200))
+    scroll:sendComponent(0, menu:createImage('mainmenuCredits', 0, -900, 11, 600, 1200))
     --createImage('mainmenuBackgroundImage', 590, 10, 4, 400, 400)
 
     
