@@ -240,7 +240,7 @@ void LoveEngine::ECS::MovimientoJugador::disablePlayer()
 void LoveEngine::ECS::MovimientoJugador::receiveMessage(Utilities::StringFormatter& sf)
 {
 	sf.tryGetFloat("speed", speed);
-	MAX_SPEED = speed;
+	initial_MAX_SPEED = speed;
 	sf.tryGetFloat("dashSpeed", dashSpeed);
 	sf.tryGetFloat("dashDuration", dashDuration);
 	sf.tryGetBool("overWorld", overWorld);
