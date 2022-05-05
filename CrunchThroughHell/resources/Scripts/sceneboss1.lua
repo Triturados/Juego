@@ -190,9 +190,9 @@ function sceneboss1:createScene() -- Boss1
     local sueloTr = suelo:addComponent("Transform")
 
     -- Colocamos sus hijos
-    local charcoTr = sceneboss1:createCharco("Charco", 0, 0,2,70)
-    local charcoTr2 = sceneboss1:createCharco("Charco", 0, -70,2, -70)
-    local charcoTr3 =  sceneboss1:createCharco("Charco", 0, 70,2,-70)
+    local charcoTr = sceneboss1:createCharco("Charco", 0, 0, -2, 70)
+    local charcoTr2 = sceneboss1:createCharco("Charco", 0, -70, -2, -70)
+    local charcoTr3 =  sceneboss1:createCharco("Charco", 0, 70, -2, -70)
 
     -- Colocamos el padre
     sueloTr:sendMsg([[
