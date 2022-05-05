@@ -329,7 +329,7 @@ function sceneboss1:createScene() -- Boss1
         height: 25;
         posX: 100;
         posY: 60;
-        posZ: 1;
+        posZ: 2;
     ]])
 
     local saludjugador = player:addComponent("Salud")
@@ -357,7 +357,7 @@ function sceneboss1:createScene() -- Boss1
         height: 25;
         posX: 100;
         posY: 90;
-        posZ: 1;
+        posZ: 2;
     ]])
 
     local staminajugador = player:addComponent("Stamina")

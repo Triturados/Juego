@@ -248,7 +248,7 @@ function scene3() -- Overworld de verdad
         height: 25;
         posX: 100;
         posY: -50;
-        posZ: 1;
+        posZ: 2;
     ]])
 
     local staminajugador = player:addComponent("Stamina")
@@ -462,7 +462,7 @@ function scene3() -- Overworld de verdad
         tiendaComp:sendComponent(i, menu:createButton('mainmenuButton', xpos, 500, 11, buttonwidth, 50));
     end
     local currency = menu:createTextElement('Souls: 22' , 10,  round(height() - 30), 11, 0.05, 0);
-    shop:sendComponent(3, currency)
+    tiendaComp:sendComponent(3, currency)
 
 
 
