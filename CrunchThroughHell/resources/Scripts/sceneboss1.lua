@@ -290,6 +290,7 @@ function sceneboss1:createScene() -- Boss1
         height: 25;
         posX: 100;
         posY: 60;
+        posZ: 0;
     ]])
 
    local sliderOverLive = player:addComponent("Slider")
@@ -301,6 +302,7 @@ function sceneboss1:createScene() -- Boss1
         height: 25;
         posX: 100;
         posY: 60;
+        posZ: 1;
     ]])
 
     local saludjugador = player:addComponent("Salud")
@@ -316,6 +318,7 @@ function sceneboss1:createScene() -- Boss1
         height: 25;
         posX: 100;
         posY: 90;
+        posZ: 0;
     ]])
 
    local sliderOverSta = player:addComponent("Slider")
@@ -327,6 +330,7 @@ function sceneboss1:createScene() -- Boss1
         height: 25;
         posX: 100;
         posY: 90;
+        posZ: 1;
     ]])
 
     local staminajugador = player:addComponent("Stamina")
@@ -370,6 +374,7 @@ function sceneboss1:createScene() -- Boss1
         height: 25;
         posX: 135;
         posY: 650;
+        posZ: 0;
     ]])
 
    local sliderOverLiveBoss = boss:addComponent("Slider")
@@ -381,6 +386,7 @@ function sceneboss1:createScene() -- Boss1
         height: 25;
         posX: 135;
         posY: 650;
+        posZ: 1;
     ]])
 
 

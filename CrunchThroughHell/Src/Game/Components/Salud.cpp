@@ -48,6 +48,7 @@ void LoveEngine::ECS::Salud::postInit()
 {
 	sliderTop->setDetectInput(false);
 	sliderBehind->setDetectInput(false);
+	sliderTop->setVisibilityBg(false);
 }
 
 void LoveEngine::ECS::Salud::setHealth(int health)
