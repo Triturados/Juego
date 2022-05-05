@@ -85,10 +85,16 @@ namespace LoveEngine
             lastVd = vida;
 
             deathSound = gameObject->addComponent<Sound>();
-            deathSound->sendFormattedString("soundName: death.wav; channel: effects; loop: false; volume: 0.5; playNow: false;");
+            deathSound->sendFormattedString("soundName: boss2death.mp3; channel: effects; loop: false; volume: 0.5; playNow: false;");
             deathSound->init();
 
             death->setSound(deathSound);
+
+            teleportSound = gameObject->addComponent<Sound>();
+            teleportSound->sendFormattedString("soundName: Teleport.wav; channel: effects; loop: false; volume: 0.8; playNow: false;");
+            teleportSound->init();
+
+            teleport->setSound(teleportSound);
 
             salud = gameObject->getComponent<Salud>();
         }
@@ -181,6 +187,7 @@ namespace LoveEngine
             bulletRigid->sendFormattedString("trigger: true; mass: 1.0; shape: cube; restitution: 1.0; colliderScale: 5, 5, 5;");
             auto bulletB = bullet->addComponent<Bullet>();
             bulletB->sendFormattedString("velocity: 30.0; damage: 10;");
+            dir_.y += 0.05;
             bulletB->setDir(dir_);
             auto bulletMat = bullet->addComponent<Material>();
             bulletMat->receiveComponent(0, bulletMesh);
@@ -280,6 +287,9 @@ namespace LoveEngine
             float dur = anim->getDuration();
             anim->setLoop(true);
             particleTP();
+
+            teleportSound->playSound();
+
             ECS::Timer::invoke([&](ECS::Timer*) {
                 startTP();
             }, dur);
