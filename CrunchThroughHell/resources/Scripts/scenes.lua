@@ -226,6 +226,35 @@ function scene3() -- Overworld de verdad
 
     ]])
 
+    local sliderBehindSta = player:addComponent("Slider")
+    sliderBehindSta:sendMsg([[
+        materialBar: Stamina2;
+        materialBarBg: Stamina_bg;
+        materialButton: CircleButton;
+        width: 300;
+        height: 25;
+        posX: 100;
+        posY: -20;
+        posZ: 0;
+    ]])
+
+   local sliderOverSta = player:addComponent("Slider")
+   sliderOverSta:sendMsg([[
+        materialBar: Stamina;
+        materialBarBg: Stamina_bg;
+        materialButton: CircleButton;
+        width: 300;
+        height: 25;
+        posX: 100;
+        posY: -20;
+        posZ: 1;
+    ]])
+
+    local staminajugador = player:addComponent("Stamina")
+    staminajugador:sendComponent(0, sliderOverSta);
+    staminajugador:sendComponent(1, sliderBehindSta);
+
+
     local dashParticles = scene:createObject("dashParticles")
     local trDash = dashParticles:addComponent("Transform")
     trDash:sendMsg([[scale: 1,1,1; position: 0,15,0; rotation: 0,0,0;]])
@@ -234,8 +263,6 @@ function scene3() -- Overworld de verdad
     trDash:sendComponent(1, tr)
 
     player:addComponent("Animation"):sendMsg([[animName: idle]])
-
-    local staminajugador = player:addComponent("Stamina")
 
     local playerAttack = player:addComponent("AtaqueJugador")
 
