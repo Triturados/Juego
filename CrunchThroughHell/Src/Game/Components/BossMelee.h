@@ -27,6 +27,7 @@ namespace LoveEngine {
 				bool conditionsFulfilled() const final;
 				void onActionStart() final;
                 void setSound(Sound* s) { meleeSound = s; }
+                void attackOnRange();
 
 			protected:
 				RigidBody* rb;
@@ -34,6 +35,8 @@ namespace LoveEngine {
 				Transform* target = nullptr;
 				Transform* tr = nullptr;
                 Sound* meleeSound;
+                float attackRange = 45.0f;
+                float attackDmg = 10.0f;
 
                 struct AttackAnimation {
                     std::string animation;
