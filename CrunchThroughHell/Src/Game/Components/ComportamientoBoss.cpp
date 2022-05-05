@@ -35,12 +35,6 @@ namespace LoveEngine
             setTargets();
         }
 
-        void ComportamientoBoss::update()
-        {
-            Agent::update();
-            //esto esta aqui para poder hacer couts de debug
-            //TO DO: remove this before final release
-        }
     }
 }
 

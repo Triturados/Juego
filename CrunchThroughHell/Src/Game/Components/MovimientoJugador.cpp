@@ -92,19 +92,13 @@ void LoveEngine::ECS::MovimientoJugador::update()
 			currentDashDuration = 0;
 			dashSound->playSound();
 		}
-		//if (input->isKeyPressed(Input::InputKeys::R))
-		//{
-		//	std::cout << "cambiando de escena" << std::endl;
-		//	SceneManagement::changeScene((int)SceneOrder::Defeat, SceneManagement::SceneLoad::SWAP); //Ir escena muerte
-		//}
+		
 	}
 	else {
 		Utilities::Vector2 controller = input->getController().leftJoystick;
 
 		movementZ = controller.y * speed;
 		movementX = controller.x * speed;
-
-		//std::cout << controller << "\n";
 
 		if (input->isControllerButtonPressed(Input::ControllerButton::B) &&
 			input->isControllerButtonState(Input::ControllerButtonState::DOWN) && (sta->getStamina() >= dashStamina || overWorld) && !isDashing && lastDash >= dashDelay && (movementX != 0 || movementZ != 0))
@@ -127,7 +121,6 @@ void LoveEngine::ECS::MovimientoJugador::stepPhysics()
 		dash();
 	else if (isKnockback) {
 		if (trJefe != nullptr)
-			//throw std::exception("received negative value");
 			knockback();
 	}
 	else {
@@ -162,7 +155,6 @@ void LoveEngine::ECS::MovimientoJugador::knockback()
 
 	Utilities::Vector3<float> force = (pos - targetPos);
 	force.y = 0;
-	//std::cout << "fuerza aplicada" << force << std::endl;
 
 	rb->addForce(force, Utilities::Vector3<float>(0, 0, 0), ForceMode::ACCELERATION);
 

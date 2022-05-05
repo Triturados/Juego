@@ -29,8 +29,6 @@ void LoveEngine::ECS::Stamina::init()
 	//assert
 
 	tr = gameObject->getComponent<Transform>();
-	//sliderBehind = gameObject->getComponent<Slider>();
-	//assert
 
 	actStamina = _MAX_STAMINA;
 

@@ -292,7 +292,6 @@ namespace LoveEngine
 
         void BossMelee::Leap::activeUpdate()
         {
-            //std::cout << "Current height: " << tr->getPos()->y;
             if (rb->getVelocity()->y < 0 && tr->getPos()->y < 22)
                 land();
         }

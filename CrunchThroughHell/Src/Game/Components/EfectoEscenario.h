@@ -18,7 +18,6 @@ namespace LoveEngine {
 			FloorEfects efect = FloorEfects::LAVA;
 		public:
 			void init() override;
-			void update() override;
 			void receiveMessage(Utilities::StringFormatter& message) override;
 
 			void slowMovement(GameObject* jugador);

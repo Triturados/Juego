@@ -81,7 +81,7 @@ void LoveEngine::ECS::Bullet::setDir(Utilities::Vector3<float> dir_)
 void LoveEngine::ECS::Bullet::enterCollision(GameObject* other)
 {
 	if (other->getComponent<BossDistancia>() ||
-		other->getComponent<BossMelee>()) return;
+		other->getComponent<BossMelee>() || other->getComponent<Bullet>()) return;
 
 	hit = true;
 	hitObject = other;

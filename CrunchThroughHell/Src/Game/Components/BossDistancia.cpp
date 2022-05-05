@@ -125,8 +125,6 @@ namespace LoveEngine
         {
             if (target == nullptr) return false;
             return true; //dispara siempre
-            //(*(target->getPos()) - *(tr->getPos())).magnitude() > 25 &&
-            //(*(target->getPos()) - *(tr->getPos())).magnitude() < 50;
         }
 
         void BossDistancia::RangedAttack::onActionStart()
@@ -139,8 +137,6 @@ namespace LoveEngine
                 return;
             }
 
-
-            // TO DO: start animation
             SpellAnimation spell = spellAnimations[comboIndex++ % numAnimations];
 
             if (!anim->playingAnimation(spell.animation))
@@ -198,9 +194,9 @@ namespace LoveEngine
         void BossDistancia::RangedAttack::createBullets()
         {
             //calculamos la direccion de la bala
+
             Utilities::Vector3<float> dir = (*target->getPos() - *tr->getPos());
             dir.normalize();
-
             shotOneBullet(dir);
 
             pSys->setActive(false);
