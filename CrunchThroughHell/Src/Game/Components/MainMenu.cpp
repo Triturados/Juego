@@ -188,7 +188,7 @@ namespace LoveEngine {
 				
 			}
 			musicSound->releaseSound();
-			musicSound->remove();
+			//musicSound->remove();
 
 			SceneManagement::changeScene((int)SceneOrder::Overworld, SceneManagement::SceneLoad::SWAP);
 		}
