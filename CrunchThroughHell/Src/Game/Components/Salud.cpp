@@ -8,7 +8,10 @@
 #include <iostream>
 #include <Slider.h>
 
-
+#include "MovimientoJugador.h"
+#include <Timer.h>
+#include <SceneManager.h>
+#include <Definitions.h>
 #include <Input.h>
 #include <GameTime.h>
 
@@ -84,6 +87,11 @@ void LoveEngine::ECS::Salud::takeDamage(int damage)
 	setHealth(getHealth() - damage);
 	hitCooldown = true;
 	cooldownTime = _MAX_COOLDOWN_TIME;
+
+	if (gameObject->getComponent<MovimientoJugador>() && isDead())
+		ECS::Timer::invoke([&](ECS::Timer*) {
+		SceneManagement::changeScene((int)SceneOrder::Defeat, SceneManagement::SceneLoad::SWAP);
+		}, 3);
 }
 
 LoveEngine::ECS::Salud::~Salud()

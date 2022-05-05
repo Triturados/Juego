@@ -112,6 +112,10 @@ namespace LoveEngine
 
         void BossMelee::update() {
             ComportamientoBoss::update();
+
+            if (leap->hasKilled() || attack->hasKilled())
+                roar->setRoar(-1);
+
             if (salud->isDead())
                 death->setDeath(-1);
         }
@@ -300,7 +304,10 @@ namespace LoveEngine
             if (distance < attackRange) {
                 std::cout << "hit\n";
                 Salud* playerHealth = target->gameObject->getComponent<Salud>();
-                if (playerHealth) playerHealth->takeDamage(attackDmg);
+                if (playerHealth) {
+                    playerHealth->takeDamage(attackDmg);
+                    isDead = true;
+                }
             }
         }
 
