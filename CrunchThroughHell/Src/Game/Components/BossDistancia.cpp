@@ -125,8 +125,6 @@ namespace LoveEngine
         {
             if (target == nullptr) return false;
             return true; //dispara siempre
-            //(*(target->getPos()) - *(tr->getPos())).magnitude() > 25 &&
-            //(*(target->getPos()) - *(tr->getPos())).magnitude() < 50;
         }
 
         void BossDistancia::RangedAttack::onActionStart()
@@ -139,8 +137,6 @@ namespace LoveEngine
                 return;
             }
 
-
-            // TO DO: start animation
             SpellAnimation spell = spellAnimations[comboIndex++ % numAnimations];
 
             if (!anim->playingAnimation(spell.animation))
@@ -192,15 +188,20 @@ namespace LoveEngine
             auto bulletMat = bullet->addComponent<Material>();
             bulletMat->receiveComponent(0, bulletMesh);
             bulletMat->sendFormattedString("materialName: lava;");
+            auto bulletSys = bullet->addComponent<ParticleSystem>();
+            bulletSys->sendFormattedString("particleName: explosion; emitting: false");
+            auto bulletSound = bullet->addComponent<Sound>();
+            bulletSound->sendFormattedString("soundName: fireballimpact.wav; channel: music; loop: true; volume: 0.5; playNow: false;");
             bulletTr->init(); bulletMesh->init(); bulletRigid->init(); bulletB->init(); bulletMat->init();
+            bulletSys->init(); bulletSound->init();
         }
 
         void BossDistancia::RangedAttack::createBullets()
         {
             //calculamos la direccion de la bala
+
             Utilities::Vector3<float> dir = (*target->getPos() - *tr->getPos());
             dir.normalize();
-
             shotOneBullet(dir);
 
             pSys->setActive(false);

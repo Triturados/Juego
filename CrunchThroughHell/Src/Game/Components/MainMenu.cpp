@@ -189,8 +189,6 @@ namespace LoveEngine {
 				soundController->removeSound();
 				
 			}
-			/*musicSound->releaseSound();
-			musicSound->remove();*/
 
 			SceneManagement::changeScene((int)SceneOrder::Overworld, SceneManagement::SceneLoad::SWAP);
 		}
@@ -198,7 +196,6 @@ namespace LoveEngine {
 		void MainMenu::continueGame() {
 			Shop::SAVEDATA = true;
 			SceneManagement::changeScene((int)SceneOrder::Overworld, SceneManagement::SceneLoad::SWAP);
-			//SceneManagement::changeScene((int)SceneOrder::Boss2, SceneManagement::SceneLoad::SWAP);
 		}
 
 		void MainMenu::howToPlay() {
@@ -254,7 +251,6 @@ namespace LoveEngine {
 				Button* button = buttons[i];
 				button->gameObject->activate(true);
 				button->setVisibility(true);
-				//moveUIs[i]->setActive(true);
 			}
 		}
 	}

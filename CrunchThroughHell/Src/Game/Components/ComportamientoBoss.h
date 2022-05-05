@@ -20,8 +20,6 @@ namespace LoveEngine {
             void init() override;
             void postInit()override;
             void receiveComponent(int n, Component* b) override;
-
-            void update() override;
 		};
 	}
 }
