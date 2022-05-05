@@ -28,6 +28,7 @@ namespace LoveEngine {
 			void mediumVolume();
 			void highVolume();
 			void backtomenu();
+			//uwuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu
 		};
 	}
 }
