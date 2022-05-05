@@ -14,6 +14,8 @@
 #include <Definitions.h>
 #include <Input.h>
 #include <GameTime.h>
+#include <Scene.h>
+#include <CameraComponent.h>
 
 int LoveEngine::ECS::Salud::_MAX_HEALTH = 100;
 int LoveEngine::ECS::Salud::initial_MAX_HEALTH = 100;
@@ -29,6 +31,16 @@ void LoveEngine::ECS::Salud::addHealth()
 	if (actHealth > _MAX_HEALTH) actHealth = _MAX_HEALTH;
 }
 
+void LoveEngine::ECS::Salud::addBlur()
+{
+	scene->getMainCamera()->enableCompositor("Radial_Blur");
+}
+
+void LoveEngine::ECS::Salud::removeBlur()
+{
+	scene->getMainCamera()->disableCompositor("Radial_Blur");
+}
+
 void LoveEngine::ECS::Salud::init()
 {
 	input = Input::InputManager::getInstance();
@@ -42,7 +54,9 @@ void LoveEngine::ECS::Salud::init()
 	//sliderBehind->setDetectInput(false);
 	//sliderBehind->setPos(Utilities::Vector3<int>(100,100, 1));
 
-
+	//necesario para el efecto borroso
+	scene->getMainCamera()->addCompositor("Radial_Blur");
+	scene->getMainCamera()->disableCompositor("Radial_Blur");
 }
 
 void LoveEngine::ECS::Salud::postInit()
@@ -87,6 +101,16 @@ void LoveEngine::ECS::Salud::takeDamage(int damage)
 	setHealth(getHealth() - damage);
 	hitCooldown = true;
 	cooldownTime = _MAX_COOLDOWN_TIME;
+
+
+	// Aplicamos el zarandeo a la pantalla, solo en golpes significativos
+	if (damage >= 5)
+	{
+		addBlur();
+		ECS::Timer::invoke([&](ECS::Timer*) {
+			removeBlur();
+			}, 0.9);
+	}
 
 	if (gameObject->getComponent<MovimientoJugador>() && isDead())
 		ECS::Timer::invoke([&](ECS::Timer*) {
