@@ -161,6 +161,9 @@ function menu:createSettings()
         resolution: 852, 480, 0
     ]])
 
+
+
+    
     local fullscreenbutton = menu:createButton('fullscreen', 20, 470, 12, 200, 50)
     scroll:sendComponent(0, fullscreenbutton)
     settings:sendComponent(1, fullscreenbutton);

@@ -33,12 +33,12 @@ void LoveEngine::ECS::Salud::addHealth()
 
 void LoveEngine::ECS::Salud::addBlur()
 {
-	//scene->getMainCamera()->enableCompositor("Radial_Blur");
+	scene->getMainCamera()->enableCompositor("Radial_Blur");
 }
 
 void LoveEngine::ECS::Salud::removeBlur()
 {
-	//scene->getMainCamera()->disableCompositor("Radial_Blur");
+	scene->getMainCamera()->disableCompositor("Radial_Blur");
 }
 
 void LoveEngine::ECS::Salud::init()
