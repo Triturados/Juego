@@ -141,7 +141,6 @@ void LoveEngine::ECS::Conversation::advanceDialogue()
 	++dialogueIdx;
 	if (dialogueIdx >= dialogues.size()) {
 		onEnd();
-		//Utilities::breakpoint();
 		enabled = false;
 	}
 	else
