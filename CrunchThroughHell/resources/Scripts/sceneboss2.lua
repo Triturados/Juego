@@ -71,7 +71,7 @@ compRigidbodySuelo:sendMsg([[
     ]])
 
 local material = suelo:addComponent("Material")
-material:sendMsg([[materialName: VerdeOscuro]])
+material:sendMsg([[materialName: Astral_scenario]])
 material:sendComponent(0, comp3)
 
 -- skyBox

@@ -102,8 +102,8 @@ function menu:createMainMenu()
         mainmenu:sendComponent(i, button)
     end
 
-    mainmenu:sendComponent(-2, createArrow(height() - 60, 'mainmenuArrowDown'))
-    mainmenu:sendComponent(-1, createArrow(426, 'mainmenuArrow'))
+    mainmenu:sendComponent(-2, createArrow(height() - 80, 'mainmenuArrowDown'))
+    mainmenu:sendComponent(-1, createArrow(350, 'mainmenuArrow'))
     mainmenu:sendComponent(-3, presskey);
     mainmenu:sendMssg('centerX: 250');
 
@@ -122,7 +122,7 @@ function menu:createMainMenu()
         material: mainmenuBlackBorder;
         width: ]] .. screenwidth .. [[;
         height :]] .. screenheight .. [[;
-        posZ: 19
+        posZ: 18
     ]])
 
 
@@ -163,27 +163,43 @@ function menu:createSettings()
 
     local fullscreenbutton = menu:createButton('mainmenuButton', 20, 420, 12, 200, 50)
     scroll:sendComponent(0, fullscreenbutton)
-    settings:sendComponent(1, fullscreenbutton);
+    settings:sendComponent(0, fullscreenbutton);
 
     
     local p1080 = menu:createButton('mainmenuButton', 20, 470, 12, 200, 50)
     scroll:sendComponent(0, p1080)
-    settings:sendComponent(-1, p1080);
+    settings:sendComponent(1, p1080);
 
     
-    local p720 = menu:createButton('mainmenuButton', 20, 530, 12, 200, 50)
+    local p720 = menu:createButton('mainmenuButtonLowS', 20, 530, 12, 200, 50)
     scroll:sendComponent(0, p720)
     settings:sendComponent(-2, p720);
 
     
-    local p480 = menu:createButton('mainmenuButton', 20, 590, 12, 200, 50)
+    local p480 = menu:createButton('mainmenuButtonMediumS', 20, 590, 12, 200, 50)
     scroll:sendComponent(0, p480)
     settings:sendComponent(-3, p480);
-    
-    
-    local p480 = menu:createButton('mainmenuButton', 20, 650, 12, 200, 50)
+       
+    local p480 = menu:createButton('mainmenuButtonHighS', 20, 650, 12, 200, 50)
     scroll:sendComponent(0, p480)
-    settings:sendComponent(0, p480);
+    settings:sendComponent(-4, p480);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 end
 
@@ -207,10 +223,10 @@ function menu:createCredits()
 
 
 
-    scroll:sendComponent(0, menu:createImage('mainmenuBackgroundImage', 10, 10, 11, 400, 400))
+    scroll:sendComponent(0, menu:createImage('mainmenuCredits', 0, -600, 11, 600, 1200))
     --createImage('mainmenuBackgroundImage', 590, 10, 4, 400, 400)
 
-    scroll:sendComponent(0, menu:createTextElement('Creditos de mi jueguito', 200, 450, 12, 0.05, 0));
+    
 end
 
 
@@ -219,6 +235,7 @@ function menu:createAbout()
 
     local container = menu:createRightContainer()
 
+    
     local scroll = scene:createObject('Scroll'):addComponent('Scroll'):sendMssg([[
         minHeight: 0;
         maxHeight: 720;
@@ -232,10 +249,11 @@ function menu:createAbout()
     scroll:sendComponent(-1, container)
 
     container:sendComponent(0, scroll);
-    scroll:sendComponent(0, menu:createImage('mainmenuBackgroundImage', 10, 10, 11, 400, 400))
+    scroll:sendComponent(0, menu:createImage('mainmenuLogo', 90, 190, 11, 400, 400))
 
+    scroll:sendComponent(0, menu:createTextElement('Juego creado para la asignatura de Proyecto 3.', 25, 80, 12, 0.045, 0));
+    scroll:sendComponent(0, menu:createTextElement('Por el grupo Triturados.', 150, 120, 12, 0.045, 0));
 
-    
 end
 
 
@@ -245,7 +263,7 @@ function createArrow(pos, mat)
     local w = 50
     local x = round((width() - w) / 2);
 
-    x = 10
+    x = round(250 - w * 0.5)
 
     button:sendMsg([[
         material: ]] .. mat .. [[;
@@ -253,7 +271,7 @@ function createArrow(pos, mat)
         height: ]] .. w .. [[;
         posX: ]] .. x .. [[;
         posY: ]] .. pos .. [[ ;
-        posZ: 6
+        posZ: 19
     ]])
 
     -- print(mapa['objects']['name'])
@@ -296,7 +314,10 @@ end
 
 function menu:createButton(material, x, y, z, w, h)
 
-    return scene:createObject('Button:' .. material):addComponent('Button'):sendMssg([[
+    
+
+    local bDef= scene:createObject('Button:' .. material)
+    return bDef:addComponent('Button'):sendMssg([[
         material:  ]] .. material..[[;
         width:  ]] .. w ..[[;
         height: ]] .. h ..[[;
@@ -304,6 +325,9 @@ function menu:createButton(material, x, y, z, w, h)
         posY:   ]] .. y ..[[;
         posZ:   ]] .. z ..[[;
     ]])
+
+
+
 
 end
 
