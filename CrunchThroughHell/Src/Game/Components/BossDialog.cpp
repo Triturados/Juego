@@ -46,7 +46,7 @@ void LoveEngine::ECS::BossDialog::receiveComponent(int i, Component* c)
 		converBoss1 = (Conversation*)c;
 		converBoss1->enabled = false;
 		converBoss1->setCallBack([&]() {
-			SceneManagement::changeScene((int)SceneOrder::Boss1,SceneManagement::SceneLoad::PUSH);
+			SceneManagement::changeScene((int)SceneOrder::Boss1,SceneManagement::SceneLoad::CLEAR);
 			});
 	}
 
@@ -59,7 +59,7 @@ void LoveEngine::ECS::BossDialog::receiveComponent(int i, Component* c)
 		converBoss2 = (Conversation*)c;
 		converBoss2->enabled = false;
 		converBoss2->setCallBack([&]() {
-			SceneManagement::changeScene((int)SceneOrder::Boss2, SceneManagement::SceneLoad::PUSH);
+			SceneManagement::changeScene((int)SceneOrder::Boss2, SceneManagement::SceneLoad::CLEAR);
 			});
 	}
 
