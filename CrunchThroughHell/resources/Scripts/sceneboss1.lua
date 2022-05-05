@@ -458,7 +458,7 @@ function sceneboss1:createScene() -- Boss1
     local bulletGenerator = scene:createObject("BulletGen")
     bulletGenerator:addComponent("Transform"):sendMsg([[
     scale: 1,1,1;
-    position: 0,10,-150;
+    position: 0,10,-125;
     rotation: 0,0,0;]])
     bulletGenerator:addComponent("BulletGenerator"):sendMsg([[
     interval: 5;
