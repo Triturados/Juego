@@ -372,7 +372,7 @@ function scene3() -- Overworld de verdad
     boss1Dialogue:sendMsg("lines: 3")
 
     for i = 0, 2, 1 do
-        local line = createText(round(width()/2), round(height() * 0.8 + i * 30), '  ')
+        local line = createText(round(width()/2), round(height() * 0.8 + i * 30), '  ', 0)
         boss1Dialogue:sendComponent(i, line);
     end
     boss1Dialogue:sendMssg([[
@@ -388,7 +388,7 @@ function scene3() -- Overworld de verdad
     boss1DialogueAlternate:sendMsg("lines: 3")
 
     for i = 0, 2, 1 do
-        local line = createText(round(width()/2), round(height() * 0.8 + i * 30), '  ')
+        local line = createText(round(width()/2), round(height() * 0.8 + i * 30), '  ', 0)
         boss1DialogueAlternate:sendComponent(i, line);
     end
     boss1DialogueAlternate:sendMssg([[
@@ -403,7 +403,7 @@ function scene3() -- Overworld de verdad
     boss2Dialogue:sendMsg("lines: 3")
 
     for i = 0, 2, 1 do
-        local line = createText(round(width()/2), round(height() * 0.8 + i * 30), '  ')
+        local line = createText(round(width()/2), round(height() * 0.8 + i * 30), '  ', 0)
         boss2Dialogue:sendComponent(i, line);
     end
     boss2Dialogue:sendMssg([[
@@ -419,7 +419,7 @@ function scene3() -- Overworld de verdad
     boss2DialogueAlternate:sendMsg("lines: 3")
 
     for i = 0, 2, 1 do
-        local line = createText(round(width()/2), round(height() * 0.8 + i * 30), '  ')
+        local line = createText(round(width()/2), round(height() * 0.8 + i * 30), '  ', 0)
         boss2DialogueAlternate:sendComponent(i, line);
     end
     boss2DialogueAlternate:sendMssg([[
@@ -529,7 +529,7 @@ function scene7() -- Defeat
     createVignette()
 end
 
-function createText(x, y, text)
+function createText(x, y, text, alignment)
     local textObj = scene:createObject("textObj")
     local textComp = textObj:addComponent("Text")
     textComp:sendMsg([[
@@ -540,7 +540,7 @@ function createText(x, y, text)
         fontName: SourceSansProLight
         mainColor: 1, 1, 1, 1.0;
         textScale:0.05
-        alignment : 2
+        alignment : ]] .. alignment .. [[;
         ]])
     local showText = textObj:addComponent("ShowText")
     showText:sendMssg([[
