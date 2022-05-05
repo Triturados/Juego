@@ -201,8 +201,33 @@ namespace LoveEngine
             //calculamos la direccion de la bala
 
             Utilities::Vector3<float> dir = (*target->getPos() - *tr->getPos());
+            Utilities::Vector3<float> dir1 = dir;
+            Utilities::Vector3<float> dir2 = dir;
+
+            float theta = 20 * 3.14 / 180.0;
+
+            float cs = cos(theta);
+            float sn = sin(theta);
+
+            dir1.x = dir.x * cs - dir.z * sn;
+            dir1.z = dir.x * sn + dir.z * cs;
+
+            float theta1 = -20 * 3.14 / 180.0;
+
+            float cs1 = cos(theta1);
+            float sn1 = sin(theta1);
+
+            dir2.x = dir.x * cs1 - dir.z * sn1;
+            dir2.z = dir.x * sn1 + dir.z * cs1;
+
             dir.normalize();
             shotOneBullet(dir);
+
+            dir1.normalize();
+            shotOneBullet(dir1);
+
+            dir2.normalize();
+            shotOneBullet(dir2);
 
             pSys->setActive(false);
         }
