@@ -75,27 +75,26 @@
                                 </div>
                             </div>
                             </div>
-                            <div class="col-xl-4 col-lg-4 col-md-1 col-sm-12 " align="left" >
+                            <div class="col-xl-4 col-lg-4 col-md-1 col-sm-12 " style="right: 250px;" >
                                 <div class="text-bg">
                                     <h1 style="color: red;" >Crunch<br>Through hell</h1>
-                                    <span style="font-sisze: 25px;">El juego Crunch Through Hell ha sido desarrollado por Triturados, un grupo de alumnos de 3 de la UCM</span>
+                                    <span style="font-sisze: 25px;">Crunch Through Hell ha sido el juego desarrollado por Triturados, un grupo de alumnos de 3º del grado de Desarrollo de Videojuegos
+                                        de la facultad de informatica de la UCM</span>
                                     <body>
                                         <table>
                                            <td><a  href="https://www.github.com/Triturados">Github Link</a></td>
                                            <td></td><td></td><td></td><td></td> <td></td><td></td><td></td><td></td>
-                                           <td><a  href="./CrunchThroughHell/Engine/Documentation/index.html">Engine Doc</a></td>
+                                           <td><a  href="./CrunchThroughHell/Engine/Documentation/index.html">DOCUMENTACIÓN MOTOR</a></td>
                                         </table>
                                         
                                     </body>
                                 </div>
                             </div>
-                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 ">
+                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12" style="left: 200px;">
                                 <div class="text-img">
-                                  <img src="docs/images/img.png" alt="#"/></figure>
+                                  <img src="docs/images/triturados.jpg" alt="#" width="900" height="900"/></figure>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
@@ -123,15 +122,19 @@
                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                      <div class="box_bg">
                          <div class="box_bg_img"; >
-                             <figure><img src="docs/images/soft.jpg"></figure>
+                             <figure><img src="docs/images/banner2x.jpg" height="550"></figure>
                          </div>
                      </div>
                  </div>
                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 border_right">
                      <div class="box_text">
-                         <p  style="font-size: 20px;">El código de todo el proyecto estará dividido en dos soluciones. Una solución contará con la implementación del motor, y en la otra estará el código completo del juego. En este repositorio estará subida la solución del motor 'Love'. <br><br>                                                
-                         Para cargar modelos 3d de todos los elementos de juego, se van a crear modelos sencillos "low poly" en blender. Se exportaran como .obj y se utilizara OgreAssimpConverter.exe para convertirlos a .mesh, el formato binario eficiente de Ogre. Se importaran al juego gracias al motor de renderizado, utilizando Ogre. <br><br>
-                         Para cargar audios se obtendrán de páginas gratuitas como freeSound.com. Se utilizarán en formato .wav y se implementán en el juego gracias al proyecto de Sonido, que utiliza la biblioteca FMod. <br>Habrá al menos 2 pistas de audio: efectos y musica.Para cargar escenarios, se utilizara Lua para establecer las posiciones de distintos elementos del mapa. Se creará en proyecto de la solucion del motor que carge los elementos de juego con los componentes que necesiten para ser usados.</p>
+                         <p  style="font-size: 22px;">
+                            El código del motor está dividido en varios proyectos. Cada uno destinado a cada parte fundamental del motor. 
+                            Físicas, Input, Gráficos, Lenguaje de Scripting, Sonido y ECS. <br><br>                                                
+                            Para usar LoveEngine, se debe trabajar en un proyecto de Visual Studio de C++ y en ficheros de Lua para crear las escenas con sus objetos.
+                            Para cargar modelos 3d de todos los elementos de juego, se van a crear en blender y se exportaran como .obj y se utilizara OgreAssimpConverter.exe para convertirlos a .mesh.
+                            Se importaran al juego gracias al motor de renderizado, utilizando Ogre. <br><br>
+                            En cuanto a los archivos de audio, se utilizarán en formato .wav y se implementán en el juego gracias al proyecto de Sonido, que utiliza la biblioteca FMOD.</p>
                      </div>
                  </div> 
             </div>
@@ -140,8 +143,39 @@
     <!-- end We are -->
     <!-- our -->
    
+    <!-- end abouts -->
+    <div id="concept" class="our">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="titlepage">
+                          <h2 style="text-align: center; margin-bottom: 50px;">Concept Art</h2>
+                        <div id="dani-slider">
+                            <ul class="slider">
+                              <li id="slide1">                             
+                                <img src="docs/images/Arena.png"/>
+                              </li>
+                              <li id="slide2">
+                                <img src="docs/images/OtoroshiHit.gif"/>
+                              </li>
+                            </ul>                           
+                             <br><br><br><br><br><ul class="menu">
+                              <li>
+                                <a href="#slide1">1</a>
+                              </li>
+                              <li>
+                                <a href="#slide2">2</a>
+                              </li>
+                            </ul>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- about  -->
-    <div id="about" class="about">
+    <div id="about" class="about" style="margin-bottom: 100px;">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -153,9 +187,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="about-box">
-                        <figure><img src="docs/images/about.jpg" alt="#" /></figure>
+                        <figure><img src="docs/images/gameplay.PNG" alt="#" /></figure>
 
-                        <p style="font-size:25px;">CTH es un videojuego 3D del género Acción/Boss Rush(o juego en el que vas eliminando boss por boss) con perspectiva top down inclinado en el que controlas a un valiente enamorado. Para lograr su objetivo y ganarse la aprobación de su amada, deberá bajar al infierno y derrotar a un serie de jefes sedientos de sangre. Como referencias hemos tomado juegos como Furi, Dark Souls entre otros.
+                        <p style="font-size:25px;">
+                            <b>CrunchThroughHell</b> es un videojuego 3D del género <b>Acción/Boss</b> Rush en el que controlas a un valiente enamorado. Para lograr su objetivo y ganarse la aprobación de su amada, 
+                            deberá bajar al infierno y derrotar a un serie de jefes sedientos de sangre. Como referencias hemos tomado juegos como Furi, Dark Souls entre otros.
                             </p>
                     </div>
                 </div>
@@ -163,43 +199,7 @@
 
         </div>
     </div>
-    <!-- end abouts -->
-    <div id="concept" class="our">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="titlepage">
-                          <h2 style="padding-bottom: 0px;">Concept Art</h2>
-                        <div id="dani-slider">
-                            <ul class="slider">
-                              <li id="slide1" ><br><br><br><br><br><br><br>                               
-                                <img src="docs/images/about.jpg"/>
-                              </li>
-                              <li id="slide2"><br><br><br><br><br><br><br>
-                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3947459/sunset.jpg"/>
-                              </li>
-                              <li id="slide3"><br><br><br><br><br><br><br>
-                                <img src="docs/images/about.jpg"/>
-                              </li>
-                            </ul>                           
-                              <br><br><br><br><br><br><br><br><br><br><br><br><ul class="menu">
-                              <li>
-                                <a href="#slide1">1</a>
-                              </li>
-                              <li>
-                                <a href="#slide2">2</a>
-                              </li>
-                              <li>
-                                <a href="#slide3">3</a>
-                              </li>
-                            </ul>
-                            
-                          </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <!-- testimonial -->
     <div id="herramientas" class="herramientas">
         <div class="container">
@@ -211,7 +211,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xl-11 col-lg-11 col-md-11 col-sm-30 offset-md-2">
+                <div class="col-xl-11 col-lg-11 col-md-11 col-sm-30 offset-md-1">
                     <div class="row box">
                         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
                             <div class="testimonial_box">
@@ -245,8 +245,8 @@
                         </div>
                     </div><br><br>
                     <div class="clients_box">
-                        <h3 style="font-size: 25px">Informacion sobre las herramientas </h3><br>
-                        <p style="font-size: 20px">Para acceder a las herramientas ,click en en logo y te redirigirá a sus respectivas webs</p>
+                        <h3 style="text-align: center; font-size: 20px; margin-right: 90px;">Informacion sobre las herramientas </h3><br>
+                        <p style="font-size: 20px;" >Para acceder a las herramientas, click en en logo y te redirigirá a sus respectivas webs</p>
 
                     </div>
                 </div>
@@ -267,11 +267,10 @@
         <div class="footer ">
             <div class="container">
                 <h2>A Game made with Love</h2> 
-                 <p style="font-size:18px; color:antiquewhite;" >Integrantes del grupo </p>
                  <div class="row">  
                     <div class="col-xl-11 col-lg-11 col-md-11 col-sm-30 offset-md-2">
                         <div class="row box">
-                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 offset-px-20">
                             <p>Yojhan Steven Garcia</p>
                             </div>
                             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
