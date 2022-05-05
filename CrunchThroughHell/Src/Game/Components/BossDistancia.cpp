@@ -138,7 +138,7 @@ namespace LoveEngine
             auto bulletMesh = bullet->addComponent<Mesh>();
             bulletMesh->sendFormattedString("meshName: fireball.mesh");
             auto bulletRigid = bullet->addComponent<RigidBody>();
-            bulletRigid->sendFormattedString("trigger: false; mass: 1.0; shape: cube; restitution: 1.0; colliderScale: 5, 5, 5;");
+            bulletRigid->sendFormattedString("trigger: true; mass: 1.0; shape: cube; restitution: 1.0; colliderScale: 5, 5, 5;");
             auto bulletB = bullet->addComponent<Bullet>();
             bulletB->sendFormattedString("velocity: 30.0; damage: 10;");
             bulletB->setDir(dir_);
