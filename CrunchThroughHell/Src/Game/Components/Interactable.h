@@ -22,14 +22,18 @@ namespace LoveEngine {
 			Transform* tr = nullptr;
 			Transform* playerTr = nullptr;
 
-			float interactDistance = 15;
+			float interactDistance = 55;
 
 			int interactKey;
 
+			bool justEntered = false;
+
 			ShowText* texto;
+			std::string textoOri;
 
 		public:
 			void init() override;
+			void postInit() override;
 			void update() override;
 			bool checkDistance();
 			void showMessage();

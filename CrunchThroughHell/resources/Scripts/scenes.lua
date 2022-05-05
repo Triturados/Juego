@@ -76,11 +76,6 @@ end
 
 function sceneOverworld() -- Overworld de verdad
 
-
-
-
-
-
     scene:name("Escena Overworld")
 
     -- Limites mundo --
@@ -236,9 +231,9 @@ function sceneOverworld() -- Overworld de verdad
         name: escenaJuego;
         zOrder: -3;
     ]])
-    -- camCamera:sendMsg([[
-    --     compositor: Posterize;
-    -- ]])
+    camCamera:sendMsg([[
+        compositor: Posterize;
+    ]])
 
     -- player--
 
@@ -302,6 +297,83 @@ function sceneOverworld() -- Overworld de verdad
 
     createVignette()
     scene:createObject("Pause Game"):addComponent("PauseGame")
+
+
+    local textoInteractuar = scene:createObject("texto")
+    textoInteractuar:addComponent("Text"):sendMsg([[
+    posX: 0;
+    posY: 0;
+    allignment: 0;
+    fontName: SourceSansProLight
+    textScale: 0.05;
+    mainColor: 1,1,1,1;]])
+    local showText = textoInteractuar:addComponent("ShowText"):sendMsg([[
+        interval: 0.025;
+    ]])
+
+    --boss1
+    
+    local spawn = 16
+    local boss1 = scene:createObject("boss1")
+    local boss1tr = boss1:addComponent("Transform")
+    boss1tr:sendMsg([[
+        scale: 0.3,0.3,0.3;
+        position: -70,30,-50;
+        rotation: 0,0.4,0;
+    ]])
+     local bossMesh = boss1:addComponent("Mesh")
+     bossMesh:sendMsg([[meshName: Boss.mesh]])
+
+     local boss1Rb = boss1:addComponent('Rigidbody')
+    boss1Rb:sendMsg([[
+    state: static;
+    mass: 50000.0;
+    shape: cube;
+    restitution: 0.0;
+    colliderScale: 18,60,18;
+    ]])
+
+    local boss1Anim = boss1:addComponent("Animation"):sendMsg([[
+        animName: idle;
+        initialState: true;
+        initialLoop: true;
+        ]])
+
+    local boss1Interact = boss1:addComponent("Interactable")
+        boss1Interact:sendComponent(0,tr)
+        boss1Interact:sendComponent(1,showText)
+
+        --boss2
+
+    local boss2 = scene:createObject("boss2")
+    local boss2tr = boss2:addComponent("Transform")
+    boss2tr:sendMsg([[
+        scale: 0.045,0.045,0.045;
+        position: 70,30,-50;
+        rotation: 0,-0.4,0;
+    ]])
+    local boss2Mesh = boss2:addComponent("Mesh")
+     boss2Mesh:sendMsg([[meshName: Boss2.mesh]])
+
+    local boss2Rb = boss2:addComponent('Rigidbody')
+    boss2Rb:sendMsg([[
+    state: static;
+    mass: 50000.0;
+    shape: cube;
+    restitution: 0.0;
+    colliderScale: 18,60,18;
+    ]])
+
+    local boss2Anim = boss2:addComponent("Animation"):sendMsg([[
+    animName: idle;
+    initialState: true;
+    initialLoop: true;
+    ]])
+
+
+    local boss2Interact = boss2:addComponent("Interactable")
+    boss2Interact:sendComponent(0,tr)
+    boss2Interact:sendComponent(1,showText)
 
 end
 
