@@ -157,7 +157,7 @@ function scene3() -- Overworld de verdad
         ]])
 
     local material = suelo:addComponent("Material")
-    material:sendMsg([[materialName: GrisSinBrillo]])
+    material:sendMsg([[materialName: Overworld_scenario]])
     material:sendComponent(0, sueloMesh)
 
     --------------------------------------------
