@@ -384,7 +384,7 @@ function scene4() -- Boss1
     sceneboss1:createScene()
 end
 
-function scene3() -- Boss2
+function scene5() -- Boss2
     sceneboss2:createScene2()
 end
 
