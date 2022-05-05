@@ -402,7 +402,7 @@ namespace LoveEngine
             // Solo se realiza esta acción una vez
             setPriority(-1);
 
-            SceneManagement::changeScene((int)SceneOrder::Victory, SceneManagement::SceneLoad::SWAP);
+            SceneManagement::changeScene((int)SceneOrder::Victory, SceneManagement::SceneLoad::CLEAR);
         }
 #pragma endregion
     }

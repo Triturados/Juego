@@ -30,7 +30,9 @@ void LoveEngine::ECS::EfectoEscenario::slowMovement(GameObject* jugador)
 void LoveEngine::ECS::EfectoEscenario::doDamage(GameObject* jugador)
 {
 	//el metodo tiene cooldown
-	jugador->getComponent<Salud>()->takeDamage(1);
+	auto salud = jugador->getComponent<Salud>();
+	if (salud)
+		salud->takeDamage(1);
 }
 
 void LoveEngine::ECS::EfectoEscenario::recoverMovement(GameObject* jugador)
@@ -92,7 +94,7 @@ void LoveEngine::ECS::EfectoEscenario::exitCollision(GameObject* other)
 	}
 }
 
-LoveEngine::ECS::EfectoEscenario::~EfectoEscenario(){}
+LoveEngine::ECS::EfectoEscenario::~EfectoEscenario() {}
 
 
 
