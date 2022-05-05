@@ -628,6 +628,9 @@ function createText(x, y, text)
     local textComp = textObj:addComponent("Text")
     textComp:sendMsg([[
         position: ]] .. x .. ',' .. y .. [[, 0;
+        posX: ]] .. x .. [[;
+        posY: ]] .. y .. [[;
+        posZ: ]] .. 0 .. [[;
         fontName: SourceSansProLight
         mainColor: 1, 1, 1, 1.0;
         textScale:0.05
