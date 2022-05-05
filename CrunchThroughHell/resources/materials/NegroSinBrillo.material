@@ -74,3 +74,17 @@ material Astral_scenario {
 		}
 	}
 }
+
+material Overworld_scenario {
+ 	technique {
+		pass {
+			depth_check on
+			scene_blend add
+			texture_unit {
+				texture overworld_floor.jpg
+				scale 0.1 0.1
+				colour_op modulate
+			}
+		}
+	}
+}
