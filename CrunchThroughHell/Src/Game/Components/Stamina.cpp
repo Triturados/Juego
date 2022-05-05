@@ -53,12 +53,10 @@ void LoveEngine::ECS::Stamina::receiveComponent(int i, Component* c)
 {
 	if (i == 0)
 	{
-		std::cout << "Meto el  slider arriba" << "\n";
 		sliderTop = static_cast<Slider*>(c);
 	}
 	else if (i == 1)
 	{
-		std::cout << "Meto el slider abajo" << "\n";
 		sliderBehind = static_cast<Slider*>(c);
 	}
 }
@@ -97,9 +95,12 @@ void LoveEngine::ECS::Stamina::update()
 
 		sliderTop->setProgress(barProgress);
 
+
+
 		barProgress = naive_lerp(sliderBehind->getProgress(), barProgress, Time::getInstance()->deltaTime);
 
 		sliderBehind->setProgress(barProgress);
+
 
 	}
 

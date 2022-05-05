@@ -13,7 +13,7 @@ function sceneboss1:createCharco(name, type, x,y,z)
     ]])
 
     charco:addComponent("Mesh"):sendMsg([[
-        meshName: Charco.mesh;
+        meshName: ]] .. name .. [[.mesh;
     ]])
 
     charco:addComponent('Rigidbody'):sendMsg([[
@@ -163,9 +163,9 @@ function sceneboss1:createScene() -- Boss1
     local sueloTr = suelo:addComponent("Transform")
 
     -- Colocamos sus hijos
-    local charcoTr = sceneboss1:createCharco("Charco1", 1, 0,2,70)
-    local charcoTr2 = sceneboss1:createCharco("Charco2", 1, -70,2, -70)
-    local charcoTr3 =  sceneboss1:createCharco("Charco3", 1, 70,2,-70)
+    local charcoTr = sceneboss1:createCharco("Charco", 0, 0,2,70)
+    local charcoTr2 = sceneboss1:createCharco("Charco", 0, -70,2, -70)
+    local charcoTr3 =  sceneboss1:createCharco("Charco", 0, 70,2,-70)
 
     -- Colocamos el padre
     sueloTr:sendMsg([[
@@ -283,7 +283,7 @@ function sceneboss1:createScene() -- Boss1
 
     local sliderBehindLive = player:addComponent("Slider")
     sliderBehindLive:sendMsg([[
-        materialBar: Heal;
+        materialBar: Stamina2;
         materialBarBg: Heal_bg;
         materialButton: CircleButton;
         width: 500;
@@ -309,7 +309,7 @@ function sceneboss1:createScene() -- Boss1
 
     local sliderBehindSta = player:addComponent("Slider")
     sliderBehindSta:sendMsg([[
-        materialBar: Stamina;
+        materialBar: Stamina2;
         materialBarBg: Stamina_bg;
         materialButton: CircleButton;
         width: 300;
@@ -363,7 +363,7 @@ function sceneboss1:createScene() -- Boss1
 
     local sliderBehindLiveBoss = boss:addComponent("Slider")
     sliderBehindLiveBoss:sendMsg([[
-        materialBar: Heal;
+        materialBar: Stamina2;
         materialBarBg: Heal_bg;
         materialButton: CircleButton;
         width: 1000;

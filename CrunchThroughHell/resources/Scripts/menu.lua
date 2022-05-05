@@ -7,6 +7,9 @@ function menu:createMainMenu()
     local screenwidth = width();
     local screenheight = height();
 
+
+
+
     print(screenwidth)
     local cam = scene:createObject("cam")
     cam:addComponent('Transform'):sendMsg([[
@@ -125,7 +128,9 @@ function menu:createMainMenu()
         posZ: 19
     ]])
 
-    Blueprint.spawnObject(scene, "Vignette")
+
+    createVignette();
+    --Blueprint.spawnObject(scene, "Vignette")
 end
 
 function menu:createSettings()
