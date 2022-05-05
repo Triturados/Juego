@@ -228,7 +228,7 @@ function sceneboss1:createScene() -- Boss1
         ]])
 
     local material = suelo:addComponent("Material")
-    material:sendMsg([[materialName: GrisSinBrillo]])
+    material:sendMsg([[materialName: Hell_scenario]])
     material:sendComponent(0, comp3)
 
     local luz = scene:createObject("Luz")
