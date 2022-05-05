@@ -28,6 +28,7 @@ namespace LoveEngine {
 				void onActionStart() final;
                 void setSound(Sound* s) { meleeSound = s; }
                 void attackOnRange();
+                bool hasKilled() { return isDead; };
 
 			protected:
 				RigidBody* rb;
@@ -37,6 +38,7 @@ namespace LoveEngine {
                 Sound* meleeSound;
                 float attackRange = 45.0f;
                 float attackDmg = 10.0f;
+                bool isDead = false;
 
                 struct AttackAnimation {
                     std::string animation;
@@ -82,13 +84,14 @@ namespace LoveEngine {
                 void onActionStart() final;
                 void activeUpdate() final;
                 void attackOnRange();
-
+                bool hasKilled() { return isDead; };
                 void land();
             protected:
                 RigidBody* rb;
                 Transform* target = nullptr;
                 Transform* tr = nullptr;
                 Animation* anim = nullptr;
+                bool isDead = false;
             private:
                 float minLeapDistance = 90;     // distancia mínima para realizar un salto
                 float jumpDuration = 2.0;       // duración fija de los saltos
@@ -102,6 +105,7 @@ namespace LoveEngine {
             {
             public:
                 Roar(Agent* agent_);
+                void setRoar(int p) { setPriority(p); };
                 void setTransform(Transform* t);
                 void setRB(RigidBody* rb_);
                 void setTarget(Transform* t);
