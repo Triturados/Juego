@@ -20,7 +20,6 @@ namespace LoveEngine {
 		private:
 
 			Input::InputManager* input;
-			float dmg = 5;
 			float attackDistance =45;
 			float attackAngle = 45;
 			int comboIndex = 0;
@@ -50,6 +49,9 @@ namespace LoveEngine {
 			Salud* bossHealth;
 
 		public:
+			static int dmg;
+			static int initial_dmg;
+
 			void init() override;
 			void postInit() override;
 			void update() override;

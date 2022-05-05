@@ -18,6 +18,8 @@
 #include "Salud.h"
 #include <Sound.h>
 
+float LoveEngine::ECS::MovimientoJugador::MAX_SPEED = 15;
+float LoveEngine::ECS::MovimientoJugador::initial_MAX_SPEED = 15;
 
 void LoveEngine::ECS::MovimientoJugador::init()
 {
@@ -61,7 +63,7 @@ void LoveEngine::ECS::MovimientoJugador::postInit() {
 
 void LoveEngine::ECS::MovimientoJugador::update()
 {
-	if (!ataque->currentlyAttacking() || (salud != nullptr && salud->isDead())) changeAnimations();
+	if (ataque == nullptr ||  (!ataque->currentlyAttacking() || (salud != nullptr && salud->isDead()))) changeAnimations();
 
 	if (salud != nullptr && salud->isDead()) {
 		disablePlayer();
@@ -236,8 +238,8 @@ void LoveEngine::ECS::MovimientoJugador::aimedMovement(float mvX, float mvZ)
 
 void LoveEngine::ECS::MovimientoJugador::disablePlayer()
 {
-	if (ataque) ataque->enabled = false;
-	if (rb) rb->enabled = false;
+	if (ataque != nullptr) ataque->enabled = false;
+	if (rb != nullptr) rb->enabled = false;
 
 	enabled = false;
 }

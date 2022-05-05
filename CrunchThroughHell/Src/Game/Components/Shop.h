@@ -13,6 +13,7 @@ namespace LoveEngine {
 
 			Shop();
 			~Shop();
+			void receiveMessage(Utilities::StringFormatter&) override;
 			void receiveComponent(int, Component*) override;
 			static bool SAVEDATA;
 
@@ -22,6 +23,8 @@ namespace LoveEngine {
 
 			int currency;
 			int health, damage, speed;
+
+			int healthIncrement, damageIncrement, speedIncrement;
 
 			void buyHealth();
 			void buyDamage();

@@ -17,15 +17,15 @@ namespace LoveEngine {
 		class RigidBody;
 		class Slider;
 		class Salud : public Component {
-			
+		public:
+			static int _MAX_HEALTH;
+			static int initial_MAX_HEALTH;
 		private:
 			Transform* tr = nullptr;
 			Slider* sliderBehind = nullptr;
 			Slider* sliderTop = nullptr;
 			Input::InputManager* input = nullptr;
-			Utilities::Vector3<int>* pos;
 
-			int _MAX_HEALTH = 100;
 			int actHealth = 100;
 
 			bool hitCooldown = false;
