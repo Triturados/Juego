@@ -43,6 +43,8 @@ namespace LoveEngine {
 			void exit();
 
 			void showMenu();
+
+			int upy, downy;
 		};
 	}
 }

@@ -102,8 +102,8 @@ function menu:createMainMenu()
         mainmenu:sendComponent(i, button)
     end
 
-    mainmenu:sendComponent(-2, createArrow(height() - 60, 'mainmenuArrowDown'))
-    mainmenu:sendComponent(-1, createArrow(426, 'mainmenuArrow'))
+    mainmenu:sendComponent(-2, createArrow(height() - 80, 'mainmenuArrowDown'))
+    mainmenu:sendComponent(-1, createArrow(350, 'mainmenuArrow'))
     mainmenu:sendComponent(-3, presskey);
     mainmenu:sendMssg('centerX: 250');
 
@@ -122,7 +122,7 @@ function menu:createMainMenu()
         material: mainmenuBlackBorder;
         width: ]] .. screenwidth .. [[;
         height :]] .. screenheight .. [[;
-        posZ: 19
+        posZ: 18
     ]])
 
 
@@ -261,7 +261,7 @@ function createArrow(pos, mat)
     local w = 50
     local x = round((width() - w) / 2);
 
-    x = 10
+    x = round(250 - w * 0.5)
 
     button:sendMsg([[
         material: ]] .. mat .. [[;
@@ -269,7 +269,7 @@ function createArrow(pos, mat)
         height: ]] .. w .. [[;
         posX: ]] .. x .. [[;
         posY: ]] .. pos .. [[ ;
-        posZ: 6
+        posZ: 19
     ]])
 
     -- print(mapa['objects']['name'])
