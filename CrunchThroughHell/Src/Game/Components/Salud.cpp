@@ -20,7 +20,7 @@ int LoveEngine::ECS::Salud::initial_MAX_HEALTH = 100;
 void LoveEngine::ECS::Salud::receiveMessage(Utilities::StringFormatter& sf)
 {
 	sf.tryGetFloat("cooldownTime", cooldownTime);
-	sf.tryGetInt("maxHealth", _MAX_HEALTH);
+	sf.tryGetInt("maxHealth", initial_MAX_HEALTH);
 }
 
 void LoveEngine::ECS::Salud::addHealth()

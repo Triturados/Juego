@@ -36,12 +36,16 @@ LoveEngine::ECS::Shop::Shop()
 			sf.tryGetInt("currency", currency);
 		}
 	}
-
-	std::cout << "health: " << health << "\n";
-	std::cout << "speed: " << speed << "\n";
-	std::cout << "damage: " << damage << "\n";
-	std::cout << "currency: " << currency << "\n";
 }
+
+void LoveEngine::ECS::Shop::init()
+{
+	MovimientoJugador::MAX_SPEED = MovimientoJugador::initial_MAX_SPEED + speedIncrement * speed;
+	AtaqueJugador::dmg = AtaqueJugador::initial_dmg + damageIncrement * damage;
+	Salud::_MAX_HEALTH = Salud::initial_MAX_HEALTH + healthIncrement * health;
+
+}
+
 
 LoveEngine::ECS::Shop::~Shop()
 {
@@ -57,6 +61,9 @@ void LoveEngine::ECS::Shop::receiveMessage(Utilities::StringFormatter& sf)
 	sf.tryGetInt("healthIncrement", healthIncrement);
 	sf.tryGetInt("damageIncrement", damageIncrement);
 	sf.tryGetInt("speedIncrement", speedIncrement);
+
+
+
 }
 
 void LoveEngine::ECS::Shop::receiveComponent(int i, Component* b)
@@ -82,7 +89,6 @@ void LoveEngine::ECS::Shop::buyHealth()
 
 	Salud::_MAX_HEALTH = Salud::initial_MAX_HEALTH + healthIncrement * health;
 
-	std::cout << "comprada vida\n";
 }
 
 void LoveEngine::ECS::Shop::buyDamage()
@@ -90,7 +96,6 @@ void LoveEngine::ECS::Shop::buyDamage()
 	if (damage >= maxPurchase || currency <= 0) return;
 	damage++;
 	currency--;
-	std::cout << "comprado daño\n";
 
 	AtaqueJugador::dmg = AtaqueJugador::initial_dmg + damageIncrement * damage;
 }
@@ -100,10 +105,6 @@ void LoveEngine::ECS::Shop::buySpeed()
 	if (speed >= maxPurchase || currency <= 0) return;
 	speed++;
 	currency--;
-	std::cout << "comprada velocidad\n";
 
-
-	MovimientoJugador::MAX_SPEED = MovimientoJugador::initial_MAX_SPEED + speedIncrement * speed;
-
-	std::cout << MovimientoJugador::MAX_SPEED << "\n";
+	MovimientoJugador::MAX_SPEED = MovimientoJugador::MAX_SPEED + speedIncrement * speed;
 }

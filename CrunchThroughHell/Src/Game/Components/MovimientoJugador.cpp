@@ -41,7 +41,7 @@ void LoveEngine::ECS::MovimientoJugador::init()
 	dashSound->sendFormattedString("soundName:dash.wav; channel: effects; loop: false; volume: 0.5; playNow: false;");
 	dashSound->init();
 
-
+	speed = MAX_SPEED;
 }
 
 void LoveEngine::ECS::MovimientoJugador::postInit() {

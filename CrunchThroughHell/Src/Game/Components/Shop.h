@@ -12,6 +12,7 @@ namespace LoveEngine {
 		public:
 
 			Shop();
+			void init() override;
 			~Shop();
 			void receiveMessage(Utilities::StringFormatter&) override;
 			void receiveComponent(int, Component*) override;

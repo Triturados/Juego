@@ -264,7 +264,7 @@ function scene3() -- Overworld de verdad
 
     player:addComponent("Animation"):sendMsg([[animName: idle]])
 
-    local playerAttack = player:addComponent("AtaqueJugador")
+    --local playerAttack = player:addComponent("AtaqueJugador")
     local staminajugador = player:addComponent("Stamina")
 
     --local playerAttack = player:addComponent("AtaqueJugador")
@@ -383,7 +383,7 @@ function scene4() -- Boss1
     sceneboss1:createScene()
 end
 
-function scene5() -- Boss2
+function scene3() -- Boss2
 
     -- Creamos Camara
     local cam = scene:createObject("cam")

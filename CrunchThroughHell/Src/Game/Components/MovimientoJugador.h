@@ -37,7 +37,7 @@ namespace LoveEngine {
 			ParticleSystem* dashParticles;
 			RigidBody* rb;
 			Input::InputManager* input;
-			float speed = MAX_SPEED;
+			float speed;
 
 			float movementZ = 0;
 			float movementX = 0;
