@@ -55,8 +55,8 @@ void LoveEngine::ECS::Salud::init()
 	//sliderBehind->setPos(Utilities::Vector3<int>(100,100, 1));
 
 	//necesario para el efecto borroso
-	//scene->getMainCamera()->addCompositor("Radial_Blur");
-	//scene->getMainCamera()->disableCompositor("Radial_Blur");
+	scene->getMainCamera()->addCompositor("Radial_Blur");
+	scene->getMainCamera()->disableCompositor("Radial_Blur");
 }
 
 void LoveEngine::ECS::Salud::postInit()
