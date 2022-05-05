@@ -28,6 +28,7 @@
 #include "Components/Shop.h"
 #include "Components/Interactable.h"
 #include "Components/BossDialog.h"
+#include "Components/ShopInteract.h"
 
 namespace LoveEngine {
 
@@ -77,7 +78,7 @@ namespace LoveEngine {
 			newComponent<Interactable>("Interactable");
 			newComponent<BossDialog>("BossDialog");
 			newComponent<Shop>("Shop");
-
+			newComponent<ShopInteract>("ShopInteract");
 
 			inst = nullptr;
 		}

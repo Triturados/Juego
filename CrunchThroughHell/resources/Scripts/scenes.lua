@@ -304,7 +304,7 @@ function scene3() -- Overworld de verdad
     local boss1tr = boss1:addComponent("Transform")
     boss1tr:sendMsg([[
         scale: 0.3,0.3,0.3;
-        position: -70,30,-50;
+        position: -100,30,-50;
         rotation: 0,0.4,0;
     ]])
     local bossMesh = boss1:addComponent("Mesh")
@@ -337,7 +337,7 @@ function scene3() -- Overworld de verdad
     local boss2tr = boss2:addComponent("Transform")
     boss2tr:sendMsg([[
         scale: 0.045,0.045,0.045;
-        position: 70,30,-50;
+        position: 100,30,-50;
         rotation: 0,-0.4,0;
     ]])
     local boss2Mesh = boss2:addComponent("Mesh")
@@ -432,7 +432,25 @@ function scene3() -- Overworld de verdad
 
     -- TIENDA
 
-    local shop = scene:createObject('Shop'):addComponent('Shop'):sendMssg([[
+    local tiendaObject = scene:createObject("tienda")
+    tiendaObject:addComponent("Transform"):sendMsg([[
+        scale: 2.5,2.5,2.5;
+        position: 0,0,-70;
+        rotation: 0,0,0;
+    ]])
+    tiendaObject:addComponent("Mesh"):sendMsg([[meshName: forja.mesh]])
+
+    local tiendaRb = tiendaObject:addComponent('Rigidbody')
+    tiendaRb:sendMsg([[
+    state: static;
+    mass: 50000.0;
+    shape: cube;
+    restitution: 0.0;
+    colliderScale: 30,20,20;
+    ]])
+
+
+    local tiendaComp = tiendaObject:addComponent('Shop'):sendMssg([[
         speedIncrement: 30;
     ]]);
 
@@ -441,23 +459,15 @@ function scene3() -- Overworld de verdad
         local buttonwidth = 200;
         local margin = 100;
         local xpos = round((width() - buttonwidth) * 0.5 - buttonwidth - margin + (buttonwidth + margin) * i);
-        shop:sendComponent(i, menu:createButton('mainmenuButton', xpos, 500, 11, buttonwidth, 50));
+        tiendaComp:sendComponent(i, menu:createButton('mainmenuButton', xpos, 500, 11, buttonwidth, 50));
     end
     local currency = menu:createTextElement('Souls: 22' , 20, 600, 11, 0.05, 0);
-    shop:sendComponent(3, currency)
+    tiendaComp:sendComponent(3, currency)
 
-
-
-
-    
-    local tiendaMesh = scene:createObject("boss1")
-    tiendaMesh:addComponent("Transform"):sendMsg([[
-        scale: 0.3,0.3,0.3;
-        position: -50,30,-50;
-        rotation: 0,0.4,0;
-    ]])
-    tiendaMesh:addComponent("Mesh"):sendMsg([[meshName: forja.mesh]])
-
+    local shopInteract = tiendaObject:addComponent("ShopInteract")
+    shopInteract:sendComponent(0,tr)
+    shopInteract:sendComponent(1,showText)
+    shopInteract:sendComponent(2,tiendaComp)
 
 end
 

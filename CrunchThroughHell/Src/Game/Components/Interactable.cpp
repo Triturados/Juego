@@ -17,12 +17,10 @@ void LoveEngine::ECS::Interactable::postInit()
 {
 	textoOri = "PRESS \"E\" TO INTERACT";
 	texto->changeText(" ");
-
 }
 
 void LoveEngine::ECS::Interactable::update()
 {
-
 	if (checkDistance()) {
 
 		if (!justEntered) {

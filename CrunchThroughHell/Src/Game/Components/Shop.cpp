@@ -68,16 +68,23 @@ void LoveEngine::ECS::Shop::receiveComponent(int i, Component* b)
 
 	if (i == 0) {
 		button->onClick([&]() {buyHealth(); });
+		buttons.push_back(button);
+		buttonsPos.push_back(button->getPosition().y);
 	}
 	else if (i == 1) {
 		button->onClick([&]() {buyDamage(); });
+		buttons.push_back(button);
+		buttonsPos.push_back(button->getPosition().y);
 	}
 	else if (i == 2) {
 		button->onClick([&]() {buySpeed(); });
+		buttons.push_back(button);
+		buttonsPos.push_back(button->getPosition().y);
 	}
 	else if (i == 3) {
 		text = static_cast<Text*>(b);
 	}
+
 }
 
 void LoveEngine::ECS::Shop::postInit()
@@ -116,4 +123,30 @@ void LoveEngine::ECS::Shop::buySpeed()
 
 	MovimientoJugador::MAX_SPEED = MovimientoJugador::MAX_SPEED + speedIncrement * speed;
 	MovimientoJugador::updateMaxSpeed();
+}
+
+void LoveEngine::ECS::Shop::setButtonsActive(bool set)
+{
+
+	if (!buttonsActive && set) {
+		std::cout << "ACTIVANDO\n";
+		int i = 0;
+		for (Button* b : buttons) {
+			Utilities::Vector3<int> currentPos = b->getPosition();
+			Utilities::Vector3<int> newPos(currentPos.x, buttonsPos[i], currentPos.z);
+			b->setPosition(newPos);
+			i++;
+		}
+	}
+	else if(buttonsActive && !set){
+		std::cout << "DESACTIVANDO\n";
+		int i = 0;
+		for (Button* b : buttons) {
+			Utilities::Vector3<int> currentPos = b->getPosition();
+			Utilities::Vector3<int> newPos(currentPos.x, -3000, currentPos.z);
+			b->setPosition(newPos);
+			i++;
+		}
+	}
+	buttonsActive = set;
 }

@@ -19,7 +19,7 @@ namespace LoveEngine {
 			static bool SAVEDATA;
 
 			void postInit() override;
-
+			void setButtonsActive(bool set);
 		private:
 			const int maxPurchase = 3;
 			const char* path = "shop";
@@ -30,10 +30,14 @@ namespace LoveEngine {
 			int healthIncrement, damageIncrement, speedIncrement;
 
 			Text* text;
+			std::vector<Button*> buttons;
+			std::vector<float> buttonsPos;
+			bool buttonsActive = true;
 
 			void buyHealth();
 			void buyDamage();
 			void buySpeed();
+
 		};
 	}
 }
