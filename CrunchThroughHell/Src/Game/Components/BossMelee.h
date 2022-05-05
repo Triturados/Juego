@@ -7,11 +7,13 @@ namespace LoveEngine {
 	namespace ECS {
         class Timer;
         class Sound;
+        class Salud;
 		class BossMelee : public ComportamientoBoss {
 		protected:
 #pragma region Actions
             Sound* meleeSound;
             Sound* roarSound;
+            Sound* deathSound;
 			class MeleeAttack : public Action
 			{
 			public:
@@ -111,6 +113,28 @@ namespace LoveEngine {
                 void endRoar();
             };
 
+            class Death : public Action
+            {
+            public:
+                Death(Agent* agent_);
+                void setDeath(int p);
+                void setTransform(Transform* t);
+                void setRB(RigidBody* rb_);
+                void setTarget(Transform* t);
+                void setAnim(Animation* a);
+                void onActionStart() final;
+                void setSound(Sound* s) { deathSound = s; }
+            protected:
+                RigidBody* rb;
+                Transform* target = nullptr;
+                Transform* tr = nullptr;
+                Animation* anim = nullptr;
+                Sound* deathSound;
+            private:
+                void startDeath();
+                void Died();
+            };
+
 #pragma endregion
             void setTargets() override;
 		private:
@@ -119,11 +143,14 @@ namespace LoveEngine {
             Leap* leap;
             Chase* chase;
             Roar* roar;
+            Death* death;
+            Salud* salud;
 
 		public:
             BossMelee();
             void init() override;
             void enterCollision(GameObject* other) override;
+            void update() override;
 		};
 	}
 }
