@@ -317,9 +317,9 @@ function sceneboss2:createScene2()
     sceneboss1:createMesh("wallRock2.mesh", -350, -5, 110, 5, 2, 3, 0, -1.6, 0)
     sceneboss1:createMesh("wallRock1.mesh", -350, -5, 0, 5, 2, 3, 0, 0.85, 0)
 
-    sceneboss1:createCharco("Lodo", 1, 0, 2, 70)
-    sceneboss1:createCharco("Lodo", 1, -70, 2, -70)
-    sceneboss1:createCharco("Lodo", 1, 70, 2, -70)
+    sceneboss1:createCharco("Lodo", 1, 0, -2, 70)
+    sceneboss1:createCharco("Lodo", 1, -70, -2, -70)
+    sceneboss1:createCharco("Lodo", 1, 70, -2, -70)
     ---------------------------------------------------------------------------------------------------------------------------
     -- -- -- -- JEFE -- -- -- --
     local boss2 = scene:createObject("boss2")
