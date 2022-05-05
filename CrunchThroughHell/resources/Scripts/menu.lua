@@ -372,25 +372,48 @@ function menu:menuPausa()
         },
     },
     code = function()
+
+        local screenwidth = width();
+        local screenheight = height();
+
         local continue = scene:createObject("Start Button"):addComponent("Button");
         local exitButton = scene:createObject("Exit Button"):addComponent("Button");
+        local banner = scene:createObject("Banner"):addComponent("Image");
+        local logo = scene:createObject("Logo"):addComponent("Image");
 
-        continue:sendMsg([[
-            material: Heal_bg;
-            width: 100;
-            height: 50;
-            posX: 500;
-            posY: 300;
+        logo:sendMsg([[
+            material: logo;
+            width: 247;
+            height : 133;
+            posX: 535;
+            posY: 150
+            posZ: 2
+        ]])
+
+        banner:sendMsg([[
+            material: mainmenuBanner;
+            width: 300;
+            height : ]] .. screenheight .. [[;
+            posX: 510;
             posZ: 1
         ]])
 
+        continue:sendMsg([[
+            material: backtogame;
+            width: 200;
+            height: 60;
+            posX: 560;
+            posY: 480;
+            posZ: 2
+        ]])
+
         exitButton:sendMsg([[
-            material: Heal_bg;
-            width: 100;
-            height: 50;
-            posX: 500;
-            posY: 360;
-            posZ: 1
+            material: backtomenu;
+            width: 200;
+            height: 60;
+            posX: 560;
+            posY: 550;
+            posZ: 2
         ]])
 
         local menuObj = scene:createObject("Pause Component"):addComponent("PauseMenu")
