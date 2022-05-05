@@ -19,6 +19,8 @@ LoveEngine::ECS::Shop::Shop()
 	speedIncrement = 10;
 	damageIncrement = 10;
 
+	text = nullptr;
+
 	if (SAVEDATA) {
 
 		LoveEngine::Utilities::SaveData data;
@@ -38,14 +40,6 @@ LoveEngine::ECS::Shop::Shop()
 	}
 }
 
-void LoveEngine::ECS::Shop::init()
-{
-	MovimientoJugador::MAX_SPEED = MovimientoJugador::initial_MAX_SPEED + speedIncrement * speed;
-	AtaqueJugador::dmg = AtaqueJugador::initial_dmg + damageIncrement * damage;
-	Salud::_MAX_HEALTH = Salud::initial_MAX_HEALTH + healthIncrement * health;
-
-}
-
 
 LoveEngine::ECS::Shop::~Shop()
 {
@@ -62,8 +56,9 @@ void LoveEngine::ECS::Shop::receiveMessage(Utilities::StringFormatter& sf)
 	sf.tryGetInt("damageIncrement", damageIncrement);
 	sf.tryGetInt("speedIncrement", speedIncrement);
 
-
-
+	MovimientoJugador::MAX_SPEED = MovimientoJugador::initial_MAX_SPEED + speedIncrement * speed;
+	AtaqueJugador::dmg = AtaqueJugador::initial_dmg + damageIncrement * damage;
+	Salud::_MAX_HEALTH = Salud::initial_MAX_HEALTH + healthIncrement * health;
 }
 
 void LoveEngine::ECS::Shop::receiveComponent(int i, Component* b)
@@ -106,5 +101,7 @@ void LoveEngine::ECS::Shop::buySpeed()
 	speed++;
 	currency--;
 
+
 	MovimientoJugador::MAX_SPEED = MovimientoJugador::MAX_SPEED + speedIncrement * speed;
+	MovimientoJugador::updateMaxSpeed();
 }

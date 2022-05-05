@@ -6,13 +6,13 @@ namespace LoveEngine {
 
 	namespace ECS {
 
+		class Text;
 		class Button;
 		class Shop : public Component {
 
 		public:
 
 			Shop();
-			void init() override;
 			~Shop();
 			void receiveMessage(Utilities::StringFormatter&) override;
 			void receiveComponent(int, Component*) override;
@@ -26,6 +26,8 @@ namespace LoveEngine {
 			int health, damage, speed;
 
 			int healthIncrement, damageIncrement, speedIncrement;
+
+			Text* text;
 
 			void buyHealth();
 			void buyDamage();

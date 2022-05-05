@@ -18,6 +18,7 @@
 #include "Salud.h"
 #include <Sound.h>
 
+float LoveEngine::ECS::MovimientoJugador::speed = 15;
 float LoveEngine::ECS::MovimientoJugador::MAX_SPEED = 15;
 float LoveEngine::ECS::MovimientoJugador::initial_MAX_SPEED = 15;
 
@@ -261,6 +262,11 @@ void LoveEngine::ECS::MovimientoJugador::receiveComponent(int i, Component* c)
 	if (i != 0)
 		if (dynamic_cast<Transform*>(c) != nullptr)
 			camTr = (Transform*)c;
+}
+
+void LoveEngine::ECS::MovimientoJugador::updateMaxSpeed()
+{
+	speed = MAX_SPEED;
 }
 
 void LoveEngine::ECS::MovimientoJugador::enterCollision(GameObject* other)
