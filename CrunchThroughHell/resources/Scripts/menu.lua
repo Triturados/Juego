@@ -139,7 +139,7 @@ function menu:createSettings()
         minHeight: 0;
         maxHeight: 720;
         automatic: false;
-        speed: 100;
+        speed: -200;
         posX: 0;
         posY: 52;
         posZ: 0;
@@ -149,7 +149,7 @@ function menu:createSettings()
     container:sendComponent(0, scroll);
 
 
-    scroll:sendComponent(0, menu:createImage('mainmenuBackgroundImage', 10, 10, 11, 400, 400))
+    scroll:sendComponent(0, menu:createImage('secret', 10, -180, 11, 511, 241))
 
     local settings = scene:createObject('Settings'):addComponent('Settings'):sendMssg([[
         resolution: 1920, 1080, 0
@@ -162,36 +162,42 @@ function menu:createSettings()
     ]])
 
 
-
-    
-    local fullscreenbutton = menu:createButton('fullscreen', 20, 470, 12, 200, 50)
+    local buttonw = 200;
+    local buttonx = round(300 - buttonw * 0.5)
+    local buttony = 50;
+    local margin = 10;
+    local buttonposy = 0300;
+    local fullscreenbutton = menu:createButton('fullscreen', buttonx, buttonposy, 12, buttonw, buttony)
     scroll:sendComponent(0, fullscreenbutton)
     settings:sendComponent(1, fullscreenbutton);
 
+    buttonposy = buttonposy + buttony + margin;
+   
     
-    local p1080 = menu:createButton('back', 20, 410, 12, 200, 50)
-    scroll:sendComponent(0, p1080)
-    settings:sendComponent(0, p1080);
-
-    
-    local p720 = menu:createButton('mainmenuButtonLowS', 20, 530, 12, 200, 50)
+    local p720 = menu:createButton('mainmenuButtonLowS', buttonx, buttonposy, 12, buttonw, buttony)
     scroll:sendComponent(0, p720)
     settings:sendComponent(-2, p720);
 
+    buttonposy = buttonposy + buttony + margin;
     
-    local p480 = menu:createButton('mainmenuButtonMediumS', 20, 590, 12, 200, 50)
+    local p480 = menu:createButton('mainmenuButtonMediumS', buttonx, buttonposy, 12, buttonw, buttony)
     scroll:sendComponent(0, p480)
     settings:sendComponent(-3, p480);
+    buttonposy = buttonposy + buttony + margin;
        
-    local p480 = menu:createButton('mainmenuButtonHighS', 20, 650, 12, 200, 50)
+    local p480 = menu:createButton('mainmenuButtonHighS', buttonx, buttonposy, 12, buttonw, buttony)
     scroll:sendComponent(0, p480)
     settings:sendComponent(-4, p480);
 
 
+    buttonposy = buttonposy + buttony + margin;
 
 
+    local p1080 = menu:createButton('back', buttonx, buttonposy, 12, buttonw, buttony)
+    scroll:sendComponent(0, p1080)
+    settings:sendComponent(0, p1080);
 
-
+    buttonposy = buttonposy + buttony + margin;
 
 
 
