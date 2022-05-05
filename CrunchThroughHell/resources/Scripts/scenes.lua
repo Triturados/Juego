@@ -573,7 +573,7 @@ local tpPrticle = scene:createObject("tpPrticle")
 local trTpPrticle = tpPrticle:addComponent("Transform")
 trTpPrticle:sendMsg([[scale: 1,1,1; position: 30,30,-30; rotation: 0,0,0;]])
 local tpPrticleSys = tpPrticle:addComponent("ParticleSystem")
-tpPrticleSys:sendMsg([[particleName: bomb; emitting: false]])
+tpPrticleSys:sendMsg([[particleName: teleport; emitting: false]])
 trTpPrticle:sendComponent(1, bosstr)
 -------------------
 
