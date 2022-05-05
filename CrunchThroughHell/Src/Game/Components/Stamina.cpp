@@ -39,8 +39,8 @@ void LoveEngine::ECS::Stamina::init()
 	if (sliderBehind != nullptr)
 		sliderBehind->setDetectInput(false);
 
-
-	sliderTop->setVisibilityBg(false);
+	if (sliderTop != nullptr)
+		sliderTop->setVisibilityBg(false);
 }
 
 void LoveEngine::ECS::Stamina::setStamina(int sta)

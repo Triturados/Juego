@@ -51,6 +51,33 @@ function sceneboss1:createMesh(meshName, x,y,z, sx, sy, sz, rx, ry, rz)
 
 end
 
+function sceneboss1:createRigidMesh(meshName, x,y,z, sx, sy, sz, rx, ry, rz)
+    local mesh = scene:createObject(meshName);
+
+    local tr = mesh:addComponent("Transform");
+
+    tr:sendMsg([[
+        scale: ]] .. sx .. [[ , ]] .. sy .. [[ , ]] .. sz .. [[;
+        position: ]] .. x .. [[ , ]] .. y .. [[ , ]] .. z .. [[;
+        rotation: ]] .. rx .. [[ , ]] .. ry .. [[ , ]] .. rz .. [[;
+    ]])
+
+    mesh:addComponent("Mesh"):sendMsg([[
+        meshName: ]] .. meshName .. [[;
+    ]])
+
+    mesh:addComponent('Rigidbody'):sendMsg([[
+        mass: 0.0;
+        state: static;
+        shape: cube;
+        restitution: 0.9;
+        colliderScale: 14,25,14;
+    ]])
+
+    return mesh;
+
+end
+
 function sceneboss1:createSmoke(name, x,y,z)
     local particleSys = scene:createObject(name)
     local particleSystr = particleSys:addComponent("Transform"):sendMsg([[

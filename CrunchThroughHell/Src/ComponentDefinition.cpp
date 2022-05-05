@@ -75,6 +75,8 @@ namespace LoveEngine {
 			newComponent<Settings>("Settings");
 			newComponent<Interactable>("Interactable");
 			newComponent<Shop>("Shop");
+
+
 			inst = nullptr;
 		}
 	}

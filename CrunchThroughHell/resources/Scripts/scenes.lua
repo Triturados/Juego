@@ -265,7 +265,10 @@ function scene3() -- Overworld de verdad
 
     player:addComponent("Animation"):sendMsg([[animName: idle]])
 
-    local playerAttack = player:addComponent("AtaqueJugador")
+    --local playerAttack = player:addComponent("AtaqueJugador")
+    local staminajugador = player:addComponent("Stamina")
+
+    --local playerAttack = player:addComponent("AtaqueJugador")
 
     playerMov:sendComponent(1, trcam)
 
@@ -362,7 +365,9 @@ function scene3() -- Overworld de verdad
 
     -- TIENDA
 
-    local shop = scene:createObject('Shop'):addComponent('Shop');
+    local shop = scene:createObject('Shop'):addComponent('Shop'):sendMssg([[
+        speedIncrement: 30;
+    ]]);
 
     for i = 0, 2, 1 do
 

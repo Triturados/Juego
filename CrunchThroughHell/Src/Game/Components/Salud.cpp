@@ -15,14 +15,12 @@
 #include <Input.h>
 #include <GameTime.h>
 
+int LoveEngine::ECS::Salud::_MAX_HEALTH = 100;
+int LoveEngine::ECS::Salud::initial_MAX_HEALTH = 100;
 void LoveEngine::ECS::Salud::receiveMessage(Utilities::StringFormatter& sf)
 {
-	pos = new Utilities::Vector3<int>();
 	sf.tryGetFloat("cooldownTime", cooldownTime);
-	sf.tryGetInt("maxHealth", _MAX_HEALTH);
-	sf.tryGetInt("posX", pos->x);
-	sf.tryGetInt("posY", pos->y);
-	sf.tryGetInt("posZ", pos->z);
+	sf.tryGetInt("maxHealth", initial_MAX_HEALTH);
 }
 
 void LoveEngine::ECS::Salud::addHealth()

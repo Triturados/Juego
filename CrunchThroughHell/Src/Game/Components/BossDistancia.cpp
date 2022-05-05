@@ -181,6 +181,7 @@ namespace LoveEngine
             bulletRigid->sendFormattedString("trigger: true; mass: 1.0; shape: cube; restitution: 1.0; colliderScale: 5, 5, 5;");
             auto bulletB = bullet->addComponent<Bullet>();
             bulletB->sendFormattedString("velocity: 30.0; damage: 10;");
+            dir_.y += 0.1;
             bulletB->setDir(dir_);
             auto bulletMat = bullet->addComponent<Material>();
             bulletMat->receiveComponent(0, bulletMesh);
