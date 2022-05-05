@@ -15,6 +15,8 @@
 #include <Sound.h>
 #include "BossDialog.h"
 #include "SaveData.h"
+#include "Shop.h"
+
 namespace LoveEngine
 {
     namespace ECS
@@ -428,7 +430,7 @@ namespace LoveEngine
             // Solo se realiza esta acción una vez
             setPriority(-1);
             BossDialog::boss1Defeated = true;
-
+            Shop::boss1justdefeated = true;
 
             Utilities::SaveData sd;
             sd.saveData("boss", "defeated: true");

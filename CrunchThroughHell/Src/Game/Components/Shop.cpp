@@ -10,6 +10,7 @@
 #include "Text.h"
 
 bool LoveEngine::ECS::Shop::SAVEDATA = false;
+bool LoveEngine::ECS::Shop::boss1justdefeated = false;
 
 LoveEngine::ECS::Shop::Shop()
 {
@@ -39,6 +40,9 @@ LoveEngine::ECS::Shop::Shop()
 			sf.tryGetInt("currency", currency);
 		}
 	}
+
+	if (boss1justdefeated)
+		currency += 2;
 }
 
 
