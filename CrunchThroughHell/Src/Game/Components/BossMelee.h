@@ -11,6 +11,7 @@ namespace LoveEngine {
 		protected:
 #pragma region Actions
             Sound* meleeSound;
+            Sound* roarSound;
 			class MeleeAttack : public Action
 			{
 			public:
@@ -98,11 +99,13 @@ namespace LoveEngine {
                 void setTarget(Transform* t);
                 void setAnim(Animation* a);
                 void onActionStart() final;
+                void setSound(Sound* s) { roarSound = s; }
             protected:
                 RigidBody* rb;
                 Transform* target = nullptr;
                 Transform* tr = nullptr;
                 Animation* anim = nullptr;
+                Sound* roarSound;
             private:
                 void startRoar();
                 void endRoar();

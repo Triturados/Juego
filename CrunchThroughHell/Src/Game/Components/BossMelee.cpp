@@ -63,6 +63,12 @@ namespace LoveEngine
             meleeSound->init();
 
             attack->setSound(meleeSound);
+
+            roarSound = gameObject->addComponent<Sound>();
+            roarSound->sendFormattedString("soundName: roar.ogg; channel: effects; loop: false; volume: 0.5; playNow: false;");
+            roarSound->init();
+
+            roar->setSound(roarSound);
         }
 
         void BossMelee::enterCollision(GameObject* other)
@@ -303,6 +309,7 @@ namespace LoveEngine
         void BossMelee::Roar::startRoar()
         {
             anim->changeAnimation("battlecry");
+            roarSound->playSound();
             ECS::Timer::invoke([&](ECS::Timer*) {
                 endRoar();
                 }, 2.8);
