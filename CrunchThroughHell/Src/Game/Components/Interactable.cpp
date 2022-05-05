@@ -1,4 +1,4 @@
-#include "Interactable.h"ç
+#include "Interactable.h"
 #include "Input.h"
 #include "GameObject.h"
 #include "Transform.h"
@@ -8,7 +8,7 @@
 void LoveEngine::ECS::Interactable::init()
 {
 	input = Input::InputManager::getInstance();
-	interactKey = Input::InputKeys::E;
+	interactKey = (int)Input::InputKeys::E;
 
 	tr = gameObject->getComponent<Transform>();
 }
@@ -16,7 +16,7 @@ void LoveEngine::ECS::Interactable::init()
 void LoveEngine::ECS::Interactable::update()
 {
 	if (playerTr != nullptr && tr != nullptr) {
-		if (checkDistance) {
+		if (checkDistance()) {
 			showMessage();
 			use();
 		}

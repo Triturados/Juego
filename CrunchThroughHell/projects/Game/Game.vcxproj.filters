@@ -105,6 +105,9 @@
     <ClCompile Include="..\..\Src\Game\Components\ScrollContainer.cpp">
       <Filter>Components\Menu\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Src\Game\Components\Interactable.cpp">
+      <Filter>Components\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Game\Components\ComponenteDeContar.h">
@@ -187,6 +190,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Src\Game\Components\ScrollContainer.h">
       <Filter>Components\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Src\Game\Components\Interactable.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

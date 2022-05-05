@@ -6,7 +6,6 @@ class string;
 namespace LoveEngine {
 	namespace Input {
 		class InputManager;
-		enum class InputKeys;
 	}
 
 	namespace ECS {
@@ -25,7 +24,7 @@ namespace LoveEngine {
 
 			float interactDistance = 15;
 
-			Input::InputKeys interactKey = Input::InputKeys::E;
+			int interactKey;
 
 			ShowText* texto;
 

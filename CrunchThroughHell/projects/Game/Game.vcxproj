@@ -109,6 +109,7 @@
     <ClCompile Include="..\..\src\Game\Components\DeadMenu.cpp" />
     <ClCompile Include="..\..\src\Game\Components\DeadZone.cpp" />
     <ClCompile Include="..\..\src\Game\Components\EfectoEscenario.cpp" />
+    <ClCompile Include="..\..\Src\Game\Components\Interactable.cpp" />
     <ClCompile Include="..\..\src\Game\Components\MainMenu.cpp" />
     <ClCompile Include="..\..\src\Game\Components\MoveUI.cpp" />
     <ClCompile Include="..\..\src\Game\Components\MovimientoJugador.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="..\..\src\Game\Components\DeadMenu.h" />
     <ClInclude Include="..\..\src\Game\Components\DeadZone.h" />
     <ClInclude Include="..\..\src\Game\Components\EfectoEscenario.h" />
+    <ClInclude Include="..\..\Src\Game\Components\Interactable.h" />
     <ClInclude Include="..\..\src\Game\Components\MainMenu.h" />
     <ClInclude Include="..\..\src\Game\Components\MoveUI.h" />
     <ClInclude Include="..\..\src\Game\Components\MovimientoJugador.h" />
