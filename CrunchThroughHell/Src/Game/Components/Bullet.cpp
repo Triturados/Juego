@@ -48,7 +48,6 @@ void LoveEngine::ECS::Bullet::init()
 
 void LoveEngine::ECS::Bullet::update()
 {
-	//std::cout << "Este componente se autodestruira en: " << lifetime->timeLeft() << "\n";
 	
 	rb->setLinearVelocity(*dir * vel);
 
@@ -72,14 +71,6 @@ void LoveEngine::ECS::Bullet::receiveMessage(Utilities::StringFormatter& sf)
 	dir->x = direction.x;
 	dir->y = direction.y;
 	dir->z = direction.z;
-}
-
-void LoveEngine::ECS::Bullet::colliding(GameObject* other)
-{
-	if (!other->getComponent<MovimientoJugador>()) return;
-
-	hit = true;
-	hitObject = other;
 }
 
 void LoveEngine::ECS::Bullet::setDir(Utilities::Vector3<float> dir_)
