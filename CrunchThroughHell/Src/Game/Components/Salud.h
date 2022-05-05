@@ -33,7 +33,8 @@ namespace LoveEngine {
 			float cooldownTime = _MAX_COOLDOWN_TIME;
 			bool dead = false;
 
-
+			void addBlur();
+			void removeBlur();
 		public:
 			void init() override;
 			void postInit() override;
