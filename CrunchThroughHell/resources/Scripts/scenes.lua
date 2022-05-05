@@ -343,6 +343,10 @@ function scene5() -- Boss2
         power: 1.1
     ]])
 
+    camCamera:sendMsg([[
+        compositor: Posterize;
+    ]])
+
     --Creacion del sonido del boss2
     local soundObjBoss = scene:createObject("menuSound") 
     local soundCompBoss= soundObjBoss:addComponent("Sound")
@@ -506,8 +510,117 @@ function scene5() -- Boss2
 
 -------------------------------------YA SE ACABO NO SUFRAS MAS----------------------------------------------------------
 ----------COLOCAR OBJETOS ESCENARIO
-    local trArbol1 = createArbol(arbol1, 10, 10, 10)
-    local trArbol2 = createArbol(arbol2, 50, 10, 20)
+
+    -- Limites mundo --
+    --MURO1
+    local muro1 = scene:createObject("muro1")
+    local muroTr1 = muro1:addComponent("Transform")
+    muroTr1:sendMsg([[
+        scale: 1,10,350;
+        position: -350,10,0;
+        rotation: 0,0,0;
+    ]])
+    local rBMuro1 = muro1:addComponent('Rigidbody')
+    rBMuro1:sendMsg([[
+        trigger: false;
+        state: kinematic;
+        mass: 0.0;
+        shape: cube;
+        restitution: 0.9;
+        colliderScale: 10,30,350;
+    ]])
+
+
+    --MURO2
+    local muro2 = scene:createObject("muro2")
+    local muroTr2 = muro2:addComponent("Transform")
+
+    muroTr2:sendMsg([[
+        scale: 1,10,350;
+        position: 350,10,0;
+        rotation: 0,0,0;
+    ]])
+
+    local rBMuro2 = muro2:addComponent('Rigidbody')
+    rBMuro2:sendMsg([[
+        trigger: false;
+        state: kinematic;
+        mass: 0.0;
+        shape: cube;
+        restitution: 0.9;
+        colliderScale: 10,30,350;
+    ]])
+
+
+    --MURO3
+    local muro3 = scene:createObject("muro3")
+    local muroTr3 = muro3:addComponent("Transform")
+
+    muroTr3:sendMsg([[
+        scale: 350,10,1;
+        position: 0,10,-350;
+        rotation: 0,0,0;
+    ]])
+
+    local rBMuro3 = muro3:addComponent('Rigidbody')
+    rBMuro3:sendMsg([[
+        trigger: false;
+        state: kinematic;
+        mass: 0.0;
+        shape: cube;
+        restitution: 0.9;
+        colliderScale: 350,30,10;
+    ]])
+
+
+    --MURO4
+    local muro4 = scene:createObject("muro4")
+    local muroTr4 = muro4:addComponent("Transform")
+
+    muroTr4:sendMsg([[
+        scale: 350,10,1;
+        position: 0,10,350;
+        rotation: 0,0,0;
+    ]])
+
+    local rBMuro4 = muro4:addComponent('Rigidbody')
+    rBMuro4:sendMsg([[
+        trigger: false;
+        state: kinematic;
+        mass: 0.0;
+        shape: cube;
+        restitution: 0.9;
+        colliderScale: 350,30,10;
+    ]])
+
+    local trArbol1 = createArbol(arbol1, 350, 10, 200)
+    local trArbol2 = createArbol(arbol2, -350, 10, 200)
+    local trArbol3 = createArbol(arbol3, 350, 10, 60)
+    local trArbol4 = createArbol(arbol4, -350, 10, 60)
+    local trArbol5 = createArbol(arbol5, 200, 10, 350)
+    local trArbol6 = createArbol(arbol6, 200, 10, -350)
+    local trArbol7 = createArbol(arbol7, 60, 10, 350)
+    local trArbol8 = createArbol(arbol8, 60, 10, -350)
+    local trArbol9 = createArbol(arbol9, 350, 10, -200)
+    local trArbol10 = createArbol(arbol10, -350, 10, -200)
+    local trArbol11 = createArbol(arbol11, 350, 10, -60)
+    local trArbol12 = createArbol(arbol12, -350, 10, -60)
+    local trArbol13 = createArbol(arbol13, -200, 10, 350)
+    local trArbol14 = createArbol(arbol14, -200, 10, -350)
+    local trArbol15 = createArbol(arbol15, -60, 10, 350)
+    local trArbol16 = createArbol(arbol16, -60, 10, -350)
+
+
+    sceneboss1:createMesh("columna.mesh", -350, 10, 350, 10, 40, 10, 0,0,0)
+    sceneboss1:createMesh("columna2.mesh", 350, 10, -350, 10, 40, 10, 0,0,0)
+    sceneboss1:createMesh("columna3.mesh", -350, 10, -350, 10, 40, 10, 0,0,0)
+    sceneboss1:createMesh("columna3.mesh", 350, 10, 350, 10, 40, 10, 0,0,0)
+    sceneboss1:createMesh("wallRock1.mesh", 110, -5, 350, 5, 2, 3, 0,-0.7,0)
+    sceneboss1:createMesh("wallRock1.mesh", 350, -5, 110, 5, 2, 3, 0,0.85,0)
+    sceneboss1:createMesh("wallRock2.mesh", 350, -5, -110, 5, 2, 3, 0,1.6,0)
+    sceneboss1:createMesh("wallRock1.mesh", -110, -5, -350, 5, 2, 3, 0,-0.7,0)
+    sceneboss1:createMesh("wallRock2.mesh", -350, -5, 110, 5, 2, 3, 0,-1.6,0)
+    sceneboss1:createMesh("wallRock1.mesh", -350, -5, 0, 5, 2, 3, 0,0.85,0)
 ---------------------------------------------------------------------------------------------------------------------------
 -- -- -- -- JEFE -- -- -- --
 local boss2 = scene:createObject("boss2")
