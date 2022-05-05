@@ -765,6 +765,12 @@ local tpPrticleSys = tpPrticle:addComponent("ParticleSystem")
 tpPrticleSys:sendMsg([[particleName: teleport; emitting: false]])
 trTpPrticle:sendComponent(1, bosstr)
 -------------------
+local tpPrticle2 = scene:createObject("tpPrticle2")
+local trTpPrticle2 = tpPrticle2:addComponent("Transform")
+trTpPrticle2:sendMsg([[scale: 1,1,1; position: 30,35,-30; rotation: 0,0,0;]])
+local tpPrticleSys2 = tpPrticle2:addComponent("ParticleSystem")
+tpPrticleSys2:sendMsg([[particleName: magic; emitting: false]])
+trTpPrticle2:sendComponent(1, bosstr)
 
 end
 

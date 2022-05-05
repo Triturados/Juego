@@ -12,7 +12,7 @@ namespace LoveEngine {
 		protected:
 #pragma region Actions
             Sound* deathSound;
-
+            ParticleSystem* pSys;
 			class RangedAttack : public Action
 			{
 			public:
@@ -23,11 +23,12 @@ namespace LoveEngine {
 				void onActionStart() final;
 				void activeUpdate() final;
                 void setAnim(Animation* a);
-
+                void setParticleSys(ParticleSystem* p);
 			protected:
 				Transform* target = nullptr;
 				Transform* tr = nullptr;
                 Animation* anim = nullptr;
+                ParticleSystem* pSys = nullptr;
                 
                 struct SpellAnimation {
                     std::string animation;

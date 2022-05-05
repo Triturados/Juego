@@ -56,10 +56,18 @@ namespace LoveEngine
             //DO: codigo defensivo --> tiene q ser hijo del boss las particulas
             while (tr->getChild(indx)->gameObject->getComponent<ParticleSystem>() == nullptr)
                 indx++;
+
             ParticleSystem* ps = tr->getChild(indx)->gameObject->getComponent<ParticleSystem>();
+            indx++;
+
+            while (tr->getChild(indx)->gameObject->getComponent<ParticleSystem>() == nullptr)
+                indx++;
+            pSys = tr->getChild(indx)->gameObject->getComponent<ParticleSystem>();
+
             rb->setMass(1000);
             attack->setTransform(tr);
             attack->setAnim(anim);
+            attack->setParticleSys(pSys);
             keepDistance->setTransform(tr);
             keepDistance->setRB(rb);
             keepDistance->setAnim(anim);
@@ -136,6 +144,9 @@ namespace LoveEngine
 
             lockAction = true;
 
+            if(!pSys->isEmitting())
+            pSys->setActive(true);
+
             ECS::Timer::invoke([&](ECS::Timer*) {
                 attackFinished();
                 }, spell.duration);
@@ -143,7 +154,6 @@ namespace LoveEngine
             ECS::Timer::invoke([&](ECS::Timer*) {
                 createBullets();
                 }, spell.duration / 2);
-            //dispara
         }
 
         void BossDistancia::RangedAttack::activeUpdate()
@@ -156,6 +166,8 @@ namespace LoveEngine
         {
             anim = a;
         }
+
+        void BossDistancia::RangedAttack::setParticleSys(ParticleSystem* p) { pSys = p; };
 
         void BossDistancia::RangedAttack::shotOneBullet(Utilities::Vector3<float> dir_)
         {
@@ -184,7 +196,7 @@ namespace LoveEngine
 
             shotOneBullet(dir);
 
-            
+            pSys->setActive(false);
         }
 
         void BossDistancia::RangedAttack::attackFinished()
