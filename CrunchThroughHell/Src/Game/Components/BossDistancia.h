@@ -6,9 +6,13 @@ namespace LoveEngine {
 
 	namespace ECS {
         class ParticleSystem;
+        class Sound;
+        class Salud;
 		class BossDistancia : public ComportamientoBoss {
 		protected:
 #pragma region Actions
+            Sound* deathSound;
+
 			class RangedAttack : public Action
 			{
 			public:
@@ -84,6 +88,29 @@ namespace LoveEngine {
                 Utilities::Vector2<float> posRand();
                 int numRandNegPos(int maxRand);
             };
+
+            class Death : public Action
+            {
+            public:
+                Death(Agent* agent_);
+                void setDeath(int p);
+                void setTransform(Transform* t);
+                void setRB(RigidBody* rb_);
+                void setTarget(Transform* t);
+                void setAnim(Animation* a);
+                void onActionStart() final;
+                void setSound(Sound* s) { deathSound = s; }
+            protected:
+                RigidBody* rb;
+                Transform* target = nullptr;
+                Transform* tr = nullptr;
+                Animation* anim = nullptr;
+                Sound* deathSound;
+            private:
+                void startDeath();
+                void Died();
+            };
+
 #pragma endregion
             void setTargets() override;
 		private:
@@ -91,11 +118,14 @@ namespace LoveEngine {
             RangedAttack* attack;
             KeepDistance* keepDistance;
             Teleport* teleport;
+            Death* death;
+            Salud* salud;
 		public:
             int vida;
             int lastVd;
             BossDistancia();
             void init() override;
+            void update() override;
 		};
 	}
 }

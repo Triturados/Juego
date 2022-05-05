@@ -1,6 +1,8 @@
 #include "BossDistancia.h"
 #include "GameObject.h"
 #include "Transform.h"
+#include "SceneManager.h"
+#include "Definitions.h"
 #include "RigidBody.h"
 #include "Vector3.h"
 #include "Vector2.h"
@@ -16,6 +18,7 @@
 #include "Salud.h"
 #include "Timer.h"
 #include "Animation.h"
+#include "Sound.h"
 #include "ParticleSystem.h"
 
 namespace LoveEngine
@@ -29,6 +32,7 @@ namespace LoveEngine
             attack->setTarget(target);
             keepDistance->setTarget(target);
             teleport->setTarget(target);
+            death->setTarget(target);
         }
 
         BossDistancia::BossDistancia()
@@ -39,6 +43,8 @@ namespace LoveEngine
             addAction(keepDistance);
             teleport = new Teleport(this);
             addAction(teleport);
+            death = new Death(this);
+            addAction(death);
         }
 
         void BossDistancia::init()
@@ -61,12 +67,31 @@ namespace LoveEngine
             teleport->setRB(rb);
             teleport->setAnim(anim);
             teleport->setPartSys(ps);
+            death->setTransform(tr);
+            death->setRB(rb);
+            death->setAnim(anim);
 
             
             ComportamientoBoss::init();
             vida = gameObject->getComponent<Salud>()->getHealth();
             lastVd = vida;
+
+            deathSound = gameObject->addComponent<Sound>();
+            deathSound->sendFormattedString("soundName: death.wav; channel: effects; loop: false; volume: 0.5; playNow: false;");
+            deathSound->init();
+
+            death->setSound(deathSound);
+
+            salud = gameObject->getComponent<Salud>();
         }
+
+        void BossDistancia::update()
+        {
+            ComportamientoBoss::update();
+            if (salud->isDead())
+                death->setDeath(-1);
+        }
+
 
 #pragma region acciones
 
@@ -309,7 +334,53 @@ namespace LoveEngine
             return cordR;
         }
 
+        //---------------------------------------------------------------------------
 
+        BossDistancia::Death::Death(Agent* agent_) : Action(agent_, 300) { }
+
+        void BossDistancia::Death::setDeath(int p) { setPriority(p); };
+
+        void BossDistancia::Death::setTransform(Transform* t) { tr = t; };
+
+        void BossDistancia::Death::setRB(RigidBody* rb_) { rb = rb_; };
+
+        void BossDistancia::Death::setTarget(Transform* t) { target = t; }
+
+        void BossDistancia::Death::setAnim(Animation* a) { anim = a; }
+
+        void BossDistancia::Death::onActionStart()
+        {
+            std::cout << "Dying\n\n\n\n\n\n\n\n";
+            lockAction = true;
+            Vector3 targetPos = *(target->getPos());
+            Vector3 pos = *(tr->getPos());
+
+            Utilities::Vector3<float> dir = targetPos - pos;
+            dir.normalize();
+            float angle = std::atan2(dir.x, dir.z);
+            rb->setRotation(Utilities::Vector3<int>(0, 1, 0), angle);
+
+            startDeath();
+        }
+
+        void BossDistancia::Death::startDeath()
+        {
+            anim->changeAnimation("death");
+            anim->setLoop(false);
+            deathSound->playSound();
+            ECS::Timer::invoke([&](ECS::Timer*) {
+                Died();
+                }, 3.8);
+        }
+
+        void BossDistancia::Death::Died()
+        {
+            lockAction = true;
+            // Solo se realiza esta acción una vez
+            setPriority(-1);
+
+            SceneManagement::changeScene((int)SceneOrder::Victory, SceneManagement::SceneLoad::SWAP);
+        }
 #pragma endregion
     }
 }
