@@ -219,6 +219,7 @@ function menu:createAbout()
 
     local container = menu:createRightContainer()
 
+    
     local scroll = scene:createObject('Scroll'):addComponent('Scroll'):sendMssg([[
         minHeight: 0;
         maxHeight: 720;
@@ -232,10 +233,11 @@ function menu:createAbout()
     scroll:sendComponent(-1, container)
 
     container:sendComponent(0, scroll);
-    scroll:sendComponent(0, menu:createImage('mainmenuBackgroundImage', 10, 10, 11, 400, 400))
+    scroll:sendComponent(0, menu:createImage('mainmenuLogo', 90, 190, 11, 400, 400))
 
+    scroll:sendComponent(0, menu:createTextElement('Juego creado para la asignatura de Proyecto 3.', 25, 80, 12, 0.045, 0));
+    scroll:sendComponent(0, menu:createTextElement('Por el grupo Triturados.', 150, 120, 12, 0.045, 0));
 
-    
 end
 
 
