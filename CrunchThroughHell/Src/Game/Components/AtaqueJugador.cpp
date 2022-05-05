@@ -33,7 +33,7 @@ void LoveEngine::ECS::AtaqueJugador::init()
 
 
 	attackSound = gameObject->addComponent<Sound>();
-	attackSound->sendFormattedString("soundName: dash.wav; channel: effects; loop: false; volume: 0.5; playNow: false;");
+	attackSound->sendFormattedString("soundName: hitsound.wav; channel: effects; loop: false; volume: 0.5; playNow: false;");
 	attackSound->init();
 
 }
@@ -117,10 +117,12 @@ void LoveEngine::ECS::AtaqueJugador::attack()
 {
 	if (currentDuration >= attackDuration / 2 && !hit) {
 		hit = true;
-		attackSound->playSound();
 		if (bossOnRange()) {
 			std::cout << "hit\n";
-			if (bossHealth != nullptr)bossHealth->takeDamage(dmg);
+			if (bossHealth != nullptr) {
+				bossHealth->takeDamage(dmg);
+				attackSound->playSound();
+			}
 		}
 	}
 	if (currentDuration >= attackDuration) {
