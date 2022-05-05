@@ -113,7 +113,10 @@ namespace LoveEngine
         {
             //std::cout << "\n\n\n\n\n\n\nAttacking\n\n\n\n\n\n\n\n";
 
-            meleeSound->playSound();
+            Timer::invoke([&](Timer*) {
+                meleeSound->playSound();
+                }, 1.0);
+
             rb->setLinearVelocity(Vector3(0, 0, 0));
 
             setPriority(30.0);
