@@ -101,10 +101,10 @@ void LoveEngine::ECS::Stamina::update()
 			sliderTop->setProgress(barProgress);
 
 
-
 			barProgress = naive_lerp(sliderBehind->getProgress(), barProgress, Time::getInstance()->deltaTime);
-
+			
 			sliderBehind->setProgress(barProgress);
+
 		}
 		else
 		{
