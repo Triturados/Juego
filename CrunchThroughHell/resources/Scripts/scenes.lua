@@ -75,6 +75,12 @@ function createArbol(name, x,y,z)
 end
 
 function sceneOverworld() -- Overworld de verdad
+
+
+
+
+
+
     scene:name("Escena Overworld")
 
     -- Limites mundo --
@@ -158,6 +164,12 @@ function sceneOverworld() -- Overworld de verdad
         restitution: 0.9;
         colliderScale: 150,30,10;
     ]])
+
+    --Creacion del sonido del boss2
+    local soundOverWorld = scene:createObject("overSound") 
+    local soundOverWorldComp= soundOverWorld:addComponent("Sound")
+    soundOverWorldComp:sendMsg([[soundName: HandPanOverWorld.wav; channel: music; loop: true; volume: 0.5; playNow: true;]])
+
 
     -- Suelo--
     local suelo = scene:createObject("Suelo")
@@ -331,6 +343,10 @@ function scene5() -- Boss2
         power: 1.1
     ]])
 
+    --Creacion del sonido del boss2
+    local soundObjBoss = scene:createObject("menuSound") 
+    local soundCompBoss= soundObjBoss:addComponent("Sound")
+    soundCompBoss:sendMsg([[soundName: SongFire.wav; channel: music; loop: true; volume: 0.5; playNow: true;]])
 
     --Creamos Suelo
     local suelo = scene:createObject("Suelo")
