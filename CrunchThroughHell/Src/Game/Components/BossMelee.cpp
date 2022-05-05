@@ -167,7 +167,6 @@ namespace LoveEngine
                 attackFinished();
                 }, attack.duration);
 
-            std::cout << "ataque boss aaa" << std::endl;
             ECS::Timer::invoke([&](ECS::Timer*) {
                 attackOnRange();
                 }, attack.duration / 2.0f);
@@ -280,6 +279,11 @@ namespace LoveEngine
             ECS::Timer::invoke([&](ECS::Timer*) {
                 enableLanding();
                 }, 0.1);
+
+
+            ECS::Timer::invoke([&](ECS::Timer*) {
+                attackOnRange();
+                }, jumpDuration + 1.5);
         }
 
         void BossMelee::Leap::activeUpdate()
@@ -287,6 +291,17 @@ namespace LoveEngine
             //std::cout << "Current height: " << tr->getPos()->y;
             if (rb->getVelocity()->y < 0 && tr->getPos()->y < 22)
                 land();
+        }
+
+        void BossMelee::Leap::attackOnRange()
+        {
+            if (!target) return;
+            float distance = std::abs((*target->getPos() - *tr->getPos()).magnitude());
+            if (distance < attackRange) {
+                std::cout << "hit\n";
+                Salud* playerHealth = target->gameObject->getComponent<Salud>();
+                if (playerHealth) playerHealth->takeDamage(attackDmg);
+            }
         }
 
         void BossMelee::Leap::land()
