@@ -223,10 +223,10 @@ function menu:createCredits()
 
 
 
-    scroll:sendComponent(0, menu:createImage('mainmenuBackgroundImage', 10, 10, 11, 400, 400))
+    scroll:sendComponent(0, menu:createImage('mainmenuCredits', 0, -600, 11, 600, 1200))
     --createImage('mainmenuBackgroundImage', 590, 10, 4, 400, 400)
 
-    scroll:sendComponent(0, menu:createTextElement('Creditos de mi jueguito', 200, 450, 12, 0.05, 0));
+    
 end
 
 

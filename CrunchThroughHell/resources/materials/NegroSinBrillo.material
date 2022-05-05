@@ -47,15 +47,15 @@ material GrisSinBrillo {
 }
 
 
-material Hell_scenario {
+material Overworld_scenario {
  	technique {
 		pass {
 			depth_check on
 			scene_blend alpha_blend
 			texture_unit {
-				texture hell_scenario.png
+				texture overworld_floor.png
 				scale 0.1 0.1
-				colour_op modulate
+				colour_op motor
 			}
 		}
 	}
@@ -75,13 +75,13 @@ material Astral_scenario {
 	}
 }
 
-material Overworld_scenario {
+material Hell_scenario {
  	technique {
 		pass {
 			depth_check on
-			scene_blend add
+			scene_blend alpha_blend
 			texture_unit {
-				texture overworld_floor.jpg
+				texture hell_scenario.jpg
 				scale 0.1 0.1
 				colour_op modulate
 			}

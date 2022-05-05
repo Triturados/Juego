@@ -121,6 +121,7 @@
     <ClCompile Include="..\..\Src\Game\Components\ScrollContainer.cpp" />
     <ClCompile Include="..\..\Src\Game\Components\Settings.cpp" />
     <ClCompile Include="..\..\Src\Game\Components\Shop.cpp" />
+    <ClCompile Include="..\..\Src\Game\Components\ShopInteract.cpp" />
     <ClCompile Include="..\..\src\Game\Components\ShowText.cpp" />
     <ClCompile Include="..\..\src\Game\Components\Stamina.cpp" />
     <ClCompile Include="..\..\src\Game\Components\Transition.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="..\..\Src\Game\Components\ScrollContainer.h" />
     <ClInclude Include="..\..\Src\Game\Components\Settings.h" />
     <ClInclude Include="..\..\Src\Game\Components\Shop.h" />
+    <ClInclude Include="..\..\Src\Game\Components\ShopInteract.h" />
     <ClInclude Include="..\..\src\Game\Components\ShowText.h" />
     <ClInclude Include="..\..\src\Game\Components\Stamina.h" />
     <ClInclude Include="..\..\src\Game\Components\Transition.h" />
