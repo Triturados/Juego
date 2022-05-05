@@ -177,6 +177,11 @@ function menu:createSettings()
     local p480 = createButton('mainmenuButton', 20, 590, 12, 200, 50)
     scroll:sendComponent(0, p480)
     settings:sendComponent(-3, p480);
+    
+    
+    local p480 = createButton('mainmenuButton', 20, 650, 12, 200, 50)
+    scroll:sendComponent(0, p480)
+    settings:sendComponent(0, p480);
 
 end
 
@@ -203,11 +208,12 @@ function menu:createCredits()
     scroll:sendComponent(0, createImage('mainmenuBackgroundImage', 10, 10, 11, 400, 400))
     --createImage('mainmenuBackgroundImage', 590, 10, 4, 400, 400)
 
+    scroll:sendComponent(0, createTextElement('Creditos de mi jueguito', 0, 450, 12, 0.05, 0));
 end
 
 
 function menu:createAbout()
-    scene:name("Credits")
+    scene:name("About")
 
     local container = createRightContainer()
 
@@ -221,11 +227,13 @@ function menu:createAbout()
         posZ: 0;
         timeToEnable: 2.0;
     ]])
+    scroll:sendComponent(-1, container)
 
     container:sendComponent(0, scroll);
     scroll:sendComponent(0, createImage('mainmenuBackgroundImage', 10, 10, 11, 400, 400))
-    scroll:sendComponent(-1, container)
 
+
+    
 end
 
 
@@ -295,6 +303,19 @@ function createButton(material, x, y, z, w, h)
         posZ:   ]] .. z ..[[;
     ]])
 
+end
+
+function createTextElement(text, x, y, z, size, alignment)
+    return scene:createObject("textObj"):addComponent("Text"):sendMsg([[
+        posX: ]] .. x .. [[;
+        posY: ]] .. y .. [[;
+        posZ: ]] .. z .. [[;
+        fontName: SourceSansProLight
+        mainColor: 1, 1, 1, 1.0;
+        textScale: ]] .. size ..[[;
+        alignment : ]] .. alignment .. [[;
+        text: #]] .. text .. [[#;
+        ]])
 end
 
 function menu:menuPausa()
