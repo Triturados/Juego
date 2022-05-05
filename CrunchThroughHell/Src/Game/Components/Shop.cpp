@@ -7,6 +7,7 @@
 #include "Salud.h"
 #include "AtaqueJugador.h"
 #include "MovimientoJugador.h"
+#include "Text.h"
 
 bool LoveEngine::ECS::Shop::SAVEDATA = false;
 
@@ -74,6 +75,14 @@ void LoveEngine::ECS::Shop::receiveComponent(int i, Component* b)
 	else if (i == 2) {
 		button->onClick([&]() {buySpeed(); });
 	}
+	else if (i == 3) {
+		text = static_cast<Text*>(b);
+	}
+}
+
+void LoveEngine::ECS::Shop::postInit()
+{
+	text->changeText("Souls: " + std::to_string(currency));
 }
 
 void LoveEngine::ECS::Shop::buyHealth()
@@ -81,6 +90,7 @@ void LoveEngine::ECS::Shop::buyHealth()
 	if (health >= maxPurchase || currency <= 0) return;
 	health++;
 	currency--;
+	text->changeText("Souls: " + std::to_string(currency));
 
 	Salud::_MAX_HEALTH = Salud::initial_MAX_HEALTH + healthIncrement * health;
 
@@ -91,6 +101,7 @@ void LoveEngine::ECS::Shop::buyDamage()
 	if (damage >= maxPurchase || currency <= 0) return;
 	damage++;
 	currency--;
+	text->changeText("Souls: " + std::to_string(currency));
 
 	AtaqueJugador::dmg = AtaqueJugador::initial_dmg + damageIncrement * damage;
 }
@@ -100,6 +111,7 @@ void LoveEngine::ECS::Shop::buySpeed()
 	if (speed >= maxPurchase || currency <= 0) return;
 	speed++;
 	currency--;
+	text->changeText("Souls: " + std::to_string(currency));
 
 
 	MovimientoJugador::MAX_SPEED = MovimientoJugador::MAX_SPEED + speedIncrement * speed;
