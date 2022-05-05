@@ -115,7 +115,10 @@ namespace LoveEngine
                 attackFinished();
                 }, spell.duration);
 
-            createBullets(); //dispara
+            ECS::Timer::invoke([&](ECS::Timer*) {
+                createBullets();
+                }, spell.duration / 2);
+            //dispara
         }
 
         void BossDistancia::RangedAttack::activeUpdate()

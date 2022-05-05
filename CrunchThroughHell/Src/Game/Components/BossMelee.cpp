@@ -1,4 +1,6 @@
 #include "BossMelee.h"
+#include <SceneManager.h>
+#include <Definitions.h>
 #include "GameObject.h"
 #include "Transform.h"
 #include "RigidBody.h"
@@ -24,6 +26,7 @@ namespace LoveEngine
             chase->setTarget(target);
             leap->setTarget(target);
             roar->setTarget(target);
+            death->setTarget(target);
         }
 
         BossMelee::BossMelee()
@@ -36,6 +39,8 @@ namespace LoveEngine
             addAction(leap);
             roar = new Roar(this);
             addAction(roar);
+            death = new Death(this);
+            addAction(death);
         }
 
         void BossMelee::init()
@@ -56,6 +61,9 @@ namespace LoveEngine
             roar->setTransform(tr);
             roar->setRB(rb);
             roar->setAnim(anim);
+            death->setTransform(tr);
+            death->setRB(rb);
+            death->setAnim(anim);
             ComportamientoBoss::init();
 
             meleeSound = gameObject->addComponent<Sound>();
@@ -63,6 +71,20 @@ namespace LoveEngine
             meleeSound->init();
 
             attack->setSound(meleeSound);
+
+            roarSound = gameObject->addComponent<Sound>();
+            roarSound->sendFormattedString("soundName: roar.ogg; channel: effects; loop: false; volume: 0.5; playNow: false;");
+            roarSound->init();
+
+            roar->setSound(roarSound);
+
+            deathSound = gameObject->addComponent<Sound>();
+            deathSound->sendFormattedString("soundName: death.wav; channel: effects; loop: false; volume: 0.5; playNow: false;");
+            deathSound->init();
+
+            death->setSound(deathSound);
+
+            salud = gameObject->getComponent<Salud>();
         }
 
         void BossMelee::enterCollision(GameObject* other)
@@ -86,6 +108,12 @@ namespace LoveEngine
                     hp->takeDamage(10);
                 }
             }
+        }
+
+        void BossMelee::update() {
+            ComportamientoBoss::update();
+            if (salud->isDead())
+                death->setDeath(-1);
         }
 
 #pragma region acciones
@@ -303,6 +331,7 @@ namespace LoveEngine
         void BossMelee::Roar::startRoar()
         {
             anim->changeAnimation("battlecry");
+            roarSound->playSound();
             ECS::Timer::invoke([&](ECS::Timer*) {
                 endRoar();
                 }, 2.8);
@@ -315,6 +344,53 @@ namespace LoveEngine
             setPriority(LONG_MAX);
         }
 
+        //---------------------------------------------------------------------------
+
+        BossMelee::Death::Death(Agent* agent_) : Action(agent_, 300) { }
+
+        void BossMelee::Death::setDeath(int p) { setPriority(p); };
+
+        void BossMelee::Death::setTransform(Transform* t) { tr = t; };
+
+        void BossMelee::Death::setRB(RigidBody* rb_) { rb = rb_; };
+
+        void BossMelee::Death::setTarget(Transform* t) { target = t; }
+
+        void BossMelee::Death::setAnim(Animation* a) { anim = a; }
+
+        void BossMelee::Death::onActionStart()
+        {
+            std::cout << "Dying\n\n\n\n\n\n\n\n";
+            lockAction = true;
+            Vector3 targetPos = *(target->getPos());
+            Vector3 pos = *(tr->getPos());
+
+            Utilities::Vector3<float> dir = targetPos - pos;
+            dir.normalize();
+            float angle = std::atan2(dir.x, dir.z);
+            rb->setRotation(Utilities::Vector3<int>(0, 1, 0), angle);
+
+            startDeath();
+        }
+
+        void BossMelee::Death::startDeath()
+        {
+            anim->changeAnimation("death");
+            anim->setLoop(false);
+            deathSound->playSound();
+            ECS::Timer::invoke([&](ECS::Timer*) {
+                Died();
+                }, 4.5);
+        }
+
+        void BossMelee::Death::Died()
+        {
+            lockAction = true;
+            // Solo se realiza esta acción una vez
+            setPriority(-1);
+
+            SceneManagement::changeScene((int)SceneOrder::Overworld, SceneManagement::SceneLoad::SWAP);
+        }
 #pragma endregion
 }
 }
