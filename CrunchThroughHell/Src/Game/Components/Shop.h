@@ -18,6 +18,8 @@ namespace LoveEngine {
 			void receiveComponent(int, Component*) override;
 			static bool SAVEDATA;
 
+			void postInit() override;
+
 		private:
 			const int maxPurchase = 3;
 			const char* path = "shop";

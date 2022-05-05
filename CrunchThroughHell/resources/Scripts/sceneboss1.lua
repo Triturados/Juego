@@ -228,7 +228,7 @@ function sceneboss1:createScene() -- Boss1
         ]])
 
     local material = suelo:addComponent("Material")
-    material:sendMsg([[materialName: GrisSinBrillo]])
+    material:sendMsg([[materialName: Hell_scenario]])
     material:sendComponent(0, comp3)
 
     local luz = scene:createObject("Luz")
@@ -502,28 +502,28 @@ function sceneboss1:createScene() -- Boss1
     local soundCompBoss= soundObjBoss:addComponent("Sound")
     soundCompBoss:sendMsg([[soundName: SongFire.wav; channel: music; loop: true; volume: 0.5; playNow: true;]])
 
-    local dialogue = scene:createObject("Dialogue"):addComponent('Dialogue')
-    dialogue:sendMsg("lines: 3")
+    -- local dialogue = scene:createObject("Dialogue"):addComponent('Dialogue')
+    -- dialogue:sendMsg("lines: 3")
 
-    for i = 0, 2, 1 do
-        local line = createText(20, 500 + i * 30, '  ')
-        dialogue:sendComponent(i, line);
-    end
-    dialogue:sendMssg([[
-        line0: #Soy el primer texto uwu#
-        line1: #Soy el segundo texto uwu#
-        line2: #Soy el tercer texto uwu...#
-    ]])
-    dialogue:sendMssg([[
-        line0: #Soy el cuarto texto uwu#
-        line1: #Soy el quinto texto uwu#
-        line2: #Soy el sexto texto uwu...#
-    ]])
-    dialogue:sendMssg([[
-        line0: #Hola nene, mi nombre es Yojhan Steven, si estas#
-        line1: #viendo esto es porque eres una persona muy#
-        line2: #atenta Muchas gracias por tu tiempo.#
-    ]])
+    -- for i = 0, 2, 1 do
+    --     local line = createText(20, 500 + i * 30, '  ')
+    --     dialogue:sendComponent(i, line);
+    -- end
+    -- dialogue:sendMssg([[
+    --     line0: #Soy el primer texto uwu#
+    --     line1: #Soy el segundo texto uwu#
+    --     line2: #Soy el tercer texto uwu...#
+    -- ]])
+    -- dialogue:sendMssg([[
+    --     line0: #Soy el cuarto texto uwu#
+    --     line1: #Soy el quinto texto uwu#
+    --     line2: #Soy el sexto texto uwu...#
+    -- ]])
+    -- dialogue:sendMssg([[
+    --     line0: #Hola nene, mi nombre es Yojhan Steven, si estas#
+    --     line1: #viendo esto es porque eres una persona muy#
+    --     line2: #atenta Muchas gracias por tu tiempo.#
+    -- ]])
 end
 
 return sceneboss1

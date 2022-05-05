@@ -73,7 +73,7 @@ namespace LoveEngine
             attack->setSound(meleeSound);
 
             roarSound = gameObject->addComponent<Sound>();
-            roarSound->sendFormattedString("soundName: roar.ogg; channel: effects; loop: false; volume: 0.5; playNow: false;");
+            roarSound->sendFormattedString("soundName: roar.mp3; channel: effects; loop: false; volume: 0.5; playNow: false;");
             roarSound->init();
 
             roar->setSound(roarSound);

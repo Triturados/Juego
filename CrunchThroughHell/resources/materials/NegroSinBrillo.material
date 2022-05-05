@@ -45,3 +45,32 @@ material GrisSinBrillo {
         }
     }
 }
+
+
+material Hell_scenario {
+ 	technique {
+		pass {
+			depth_check on
+			scene_blend alpha_blend
+			texture_unit {
+				texture hell_scenario.png
+				scale 0.1 0.1
+				colour_op modulate
+			}
+		}
+	}
+}
+
+material Astral_scenario {
+ 	technique {
+		pass {
+			depth_check on
+			scene_blend alpha_blend
+			texture_unit {
+				texture astral_scenario.jpg
+				scale 0.1 0.1
+				colour_op modulate
+			}
+		}
+	}
+}

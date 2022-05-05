@@ -163,12 +163,12 @@ function menu:createSettings()
 
     local fullscreenbutton = menu:createButton('mainmenuButton', 20, 420, 12, 200, 50)
     scroll:sendComponent(0, fullscreenbutton)
-    settings:sendComponent(1, fullscreenbutton);
+    settings:sendComponent(0, fullscreenbutton);
 
     
     local p1080 = menu:createButton('mainmenuButton', 20, 470, 12, 200, 50)
     scroll:sendComponent(0, p1080)
-    settings:sendComponent(-1, p1080);
+    settings:sendComponent(1, p1080);
 
     
     local p720 = menu:createButton('mainmenuButton', 20, 530, 12, 200, 50)
@@ -179,11 +179,27 @@ function menu:createSettings()
     local p480 = menu:createButton('mainmenuButton', 20, 590, 12, 200, 50)
     scroll:sendComponent(0, p480)
     settings:sendComponent(-3, p480);
-    
-    
+       
     local p480 = menu:createButton('mainmenuButton', 20, 650, 12, 200, 50)
     scroll:sendComponent(0, p480)
-    settings:sendComponent(0, p480);
+    settings:sendComponent(-4, p480);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 end
 
@@ -298,7 +314,10 @@ end
 
 function menu:createButton(material, x, y, z, w, h)
 
-    return scene:createObject('Button:' .. material):addComponent('Button'):sendMssg([[
+    
+
+    local bDef= scene:createObject('Button:' .. material)
+    return bDef:addComponent('Button'):sendMssg([[
         material:  ]] .. material..[[;
         width:  ]] .. w ..[[;
         height: ]] .. h ..[[;
@@ -306,6 +325,9 @@ function menu:createButton(material, x, y, z, w, h)
         posY:   ]] .. y ..[[;
         posZ:   ]] .. z ..[[;
     ]])
+
+
+
 
 end
 

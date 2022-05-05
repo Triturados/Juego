@@ -235,7 +235,7 @@ function scene3() -- Overworld de verdad
         width: 300;
         height: 25;
         posX: 100;
-        posY: -20;
+        posY: -50;
         posZ: 0;
     ]])
 
@@ -247,7 +247,7 @@ function scene3() -- Overworld de verdad
         width: 300;
         height: 25;
         posX: 100;
-        posY: -20;
+        posY: -50;
         posZ: 1;
     ]])
 
@@ -443,8 +443,22 @@ function scene3() -- Overworld de verdad
         local xpos = round((width() - buttonwidth) * 0.5 - buttonwidth - margin + (buttonwidth + margin) * i);
         shop:sendComponent(i, menu:createButton('mainmenuButton', xpos, 500, 11, buttonwidth, 50));
     end
+    local currency = menu:createTextElement('Souls: 22' , 20, 600, 11, 0.05, 0);
+    shop:sendComponent(3, currency)
 
-    print('Overworldo')
+
+
+
+    
+    local tiendaMesh = scene:createObject("boss1")
+    tiendaMesh:addComponent("Transform"):sendMsg([[
+        scale: 0.3,0.3,0.3;
+        position: -50,30,-50;
+        rotation: 0,0.4,0;
+    ]])
+    tiendaMesh:addComponent("Mesh"):sendMsg([[meshName: forja.mesh]])
+
+
 end
 
 function scene4() -- Boss1
