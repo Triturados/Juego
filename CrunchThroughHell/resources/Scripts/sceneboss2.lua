@@ -7,6 +7,7 @@ package.path = package.path .. ";../../resources/Scripts/?.lua"
 sceneboss1 = require "sceneboss1";
 
 function sceneboss2:createScene2() 
+scene:createObject("Pause Game"):addComponent("PauseGame")
 
 -- Creamos Camara
 local cam = scene:createObject("cam")
@@ -175,11 +176,11 @@ compTrBolaHijaJug:sendMsg([[
 
 local rotarcam = bolaHijaJug:addComponent('CamRotate')
 
-local camFollow = cam:addComponent('CamFollow')
+--local camFollow = cam:addComponent('CamFollow')
 
 camCamera:sendMsg([[
-     name: escenaJuego;
-     zOrder: -3;
+     name: escenaBoss2;
+     zOrder: 2;
  ]])
 camCamera:sendMsg([[
      compositor: Posterize;
@@ -189,13 +190,13 @@ playerMov:sendComponent(1, trcam)
 
 trcam:sendComponent(1, compTrBolaHijaJug)
 
--- Metiendo componente rotar Camara
+--Metiendo componente rotar Camara
 rotarcam:sendMsg([[
     verSens: 5.5
     horiSens: 5.5
+
 ]])
 
-camFollow:sendComponent(0, tr)
 
 rotarcam:sendGameObject(1, player)
 rotarcam:sendGameObject(2, cam)

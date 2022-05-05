@@ -370,17 +370,17 @@ function scene3() -- Overworld de verdad
 
     local boss1Dialogue = scene:createObject("DialogueBoss1"):addComponent('Dialogue')
     boss1Dialogue:sendMsg("lines: 3")
-
+    local movetextleft = 400;
     for i = 0, 2, 1 do
-        local line = createText(round(width()/2), round(height() * 0.8 + i * 30), '  ', 0)
+        local line = createText(round(width()/2 - movetextleft), round(height() * 0.8 + i * 30), '  ', 0)
         boss1Dialogue:sendComponent(i, line);
     end
     boss1Dialogue:sendMssg([[
         line0: #Welcome to the overworld you little worm.#
         line1: #You will have to defeat me: YOJHANSAN and my master DANIEL#
-        line2: #If you wanna get out of here. Good luck#
+        line2: #I just want you to know that I have never been defeated...#
     ]])
-
+  
     boss1Interact:sendComponent(2,boss1Dialogue)
 
 
@@ -388,7 +388,7 @@ function scene3() -- Overworld de verdad
     boss1DialogueAlternate:sendMsg("lines: 3")
 
     for i = 0, 2, 1 do
-        local line = createText(round(width()/2), round(height() * 0.8 + i * 30), '  ', 0)
+        local line = createText(round(width()/2 - movetextleft), round(height() * 0.8 + i * 30), '  ', 0)
         boss1DialogueAlternate:sendComponent(i, line);
     end
     boss1DialogueAlternate:sendMssg([[
@@ -403,7 +403,7 @@ function scene3() -- Overworld de verdad
     boss2Dialogue:sendMsg("lines: 3")
 
     for i = 0, 2, 1 do
-        local line = createText(round(width()/2), round(height() * 0.8 + i * 30), '  ', 0)
+        local line = createText(round(width()/2 - movetextleft), round(height() * 0.8 + i * 30), '  ', 0)
         boss2Dialogue:sendComponent(i, line);
     end
     boss2Dialogue:sendMssg([[
@@ -419,7 +419,7 @@ function scene3() -- Overworld de verdad
     boss2DialogueAlternate:sendMsg("lines: 3")
 
     for i = 0, 2, 1 do
-        local line = createText(round(width()/2), round(height() * 0.8 + i * 30), '  ', 0)
+        local line = createText(round(width()/2 - movetextleft), round(height() * 0.8 + i * 30), '  ', 0)
         boss2DialogueAlternate:sendComponent(i, line);
     end
     boss2DialogueAlternate:sendMssg([[
@@ -443,7 +443,7 @@ function scene3() -- Overworld de verdad
         local xpos = round((width() - buttonwidth) * 0.5 - buttonwidth - margin + (buttonwidth + margin) * i);
         shop:sendComponent(i, menu:createButton('mainmenuButton', xpos, 500, 11, buttonwidth, 50));
     end
-    local currency = menu:createTextElement('Souls: 22' , 20, 600, 11, 0.05, 0);
+    local currency = menu:createTextElement('Souls: 22' , 10,  round(height() - 30), 11, 0.05, 0);
     shop:sendComponent(3, currency)
 
 

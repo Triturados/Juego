@@ -31,7 +31,7 @@ void LoveEngine::ECS::Conversation::update()
 		return;
 	}
 
-	if (Input::InputManager::getInstance()->keyJustPressed(Input::InputKeys::C)) {
+	if (Input::InputManager::getInstance()->keyJustPressed(Input::InputKeys::E)) {
 		skip();
 		return;
 	}
@@ -73,6 +73,7 @@ void LoveEngine::ECS::Conversation::receiveMessage(Utilities::StringFormatter& s
 		d.message.push_back(message);
 	}
 
+
 	d.speaker = speaker;
 	sf.tryGetString("image", d.imageMaterial);
 
@@ -105,7 +106,6 @@ void LoveEngine::ECS::Conversation::start()
 		
 		dialogues[dialogueIdx].message[i] = originalMessages[i];
 	}
-
 	showtext[0]->changeText(dialogues[dialogueIdx].message[0]);
 }
 

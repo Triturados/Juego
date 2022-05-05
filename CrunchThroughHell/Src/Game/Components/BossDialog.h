@@ -25,11 +25,10 @@ namespace LoveEngine {
 			Conversation* converBoss2;
 			Conversation* alternateConverBoss2;
 
-			bool boss1Defeated = false;
 			int bossNum = 1;
 
 		public:
-
+			static bool boss1Defeated;
 			void init()override;
 			void use() override;
 		

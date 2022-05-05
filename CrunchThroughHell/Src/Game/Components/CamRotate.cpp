@@ -137,6 +137,16 @@ void LoveEngine::ECS::CamRotate::receiveMessage(Utilities::StringFormatter& sf)
 {
 	sf.tryGetFloat("verSens", verSens);
 	sf.tryGetFloat("horiSens", horiSens);
+
+	//int aux;
+	//if (!sf.tryGetFloat("behind", distanceBehindPlayer)) {
+	//	sf.tryGetInt("behind", aux);
+	//	distanceBehindPlayer = aux;
+	//}
+	//if (!sf.tryGetFloat("above", distanceAbovePlayer)) {
+	//	sf.tryGetInt("above", aux);
+	//	distanceAbovePlayer = aux;
+	//}
 }
 
 float LoveEngine::ECS::CamRotate::calculateAngle(Utilities::Vector3<float> vectorA, Utilities::Vector3<float> vectorB)
