@@ -3,7 +3,7 @@
 #include "ShowText.h"
 #include "Input.h"
 #include "StringFormatter.h"
-#include "Utils.h"
+
 
 LoveEngine::ECS::Conversation::Conversation()
 {
@@ -25,6 +25,7 @@ void LoveEngine::ECS::Conversation::init()
 
 void LoveEngine::ECS::Conversation::update()
 {
+
 	if (dialogueIdx >= dialogues.size()) {
 		enabled = false;
 		return;
@@ -37,6 +38,7 @@ void LoveEngine::ECS::Conversation::update()
 
 	if (lineIdx >= lines)
 		return;
+
 
 	if (showtext[lineIdx]->hasFinishedWritting()) {
 		lineIdx++;
@@ -54,6 +56,7 @@ void LoveEngine::ECS::Conversation::receiveMessage(Utilities::StringFormatter& s
 	if (sf.tryGetInt("lines", lines)) {
 		showtext = std::vector<ShowText*>(lines, nullptr);
 	}
+	originalMessages = std::vector<std::string>(lines, " ");
 
 	sf.tryGetString("name", speaker);
 
@@ -66,7 +69,7 @@ void LoveEngine::ECS::Conversation::receiveMessage(Utilities::StringFormatter& s
 		if (sf.tryGetString(line, message)) {
 			hasContent = true;
 		}
-
+		originalMessages[i] = message;
 		d.message.push_back(message);
 	}
 
@@ -94,22 +97,15 @@ void LoveEngine::ECS::Conversation::setCallBack(std::function<void()> f)
 
 void LoveEngine::ECS::Conversation::start()
 {
-	//RESTART DIALOGUE
-	//Dialogue d;
-	//std::string image;
-	//bool hasContent = false;
-	//for (int i = 0; i < showtext.size(); i++) {
-	//	std::string line = "line" + std::to_string(i);
-	//	std::string message = "";
-
-	//	d.message.push_back(message);
-	//}
-
-	//d.speaker = speaker;
-
-	//dialogues.push_back(d);
-
 	enabled = true;
+
+	//RESTART DIALOGUE
+	dialogueIdx = lineIdx = 0;
+	for (int i = 0; i < lines; i++) {
+		
+		dialogues[dialogueIdx].message[i] = originalMessages[i];
+	}
+
 	showtext[0]->changeText(dialogues[dialogueIdx].message[0]);
 }
 
@@ -145,7 +141,6 @@ void LoveEngine::ECS::Conversation::advanceDialogue()
 	++dialogueIdx;
 	if (dialogueIdx >= dialogues.size()) {
 		onEnd();
-		//Utilities::breakpoint();
 		enabled = false;
 	}
 	else

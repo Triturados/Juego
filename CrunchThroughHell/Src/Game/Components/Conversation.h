@@ -31,6 +31,8 @@ namespace LoveEngine {
 			int lineIdx;
 			int dialogueIdx;
 
+			std::vector<std::string> originalMessages;
+
 			ShowText* nameText;
 			std::string speaker;
 			std::vector<Dialogue> dialogues;

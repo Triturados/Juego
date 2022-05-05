@@ -58,14 +58,15 @@ void LoveEngine::ECS::BossDialog::receiveComponent(int i, Component* c)
 	if (i == 4) {
 		converBoss2 = (Conversation*)c;
 		converBoss2->enabled = false;
+		converBoss2->setCallBack([&]() {
+			SceneManagement::changeScene((int)SceneOrder::Boss2, SceneManagement::SceneLoad::PUSH);
+			});
 	}
 
 	if (i == 5) {
 		alternateConverBoss2 = (Conversation*)c;
 		alternateConverBoss2->enabled = false;
-		alternateConverBoss2->setCallBack([&]() {
-			SceneManagement::changeScene((int)SceneOrder::Boss2, SceneManagement::SceneLoad::PUSH);
-			});
+	
 	}
 
 	Interactable::receiveComponent(i, c);
