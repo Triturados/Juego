@@ -239,7 +239,6 @@ void LoveEngine::ECS::MovimientoJugador::disablePlayer()
 {
 	if (ataque) ataque->enabled = false;
 	if (rb) rb->enabled = false;
-	if (salud) salud->enabled = false;
 
 	enabled = false;
 }

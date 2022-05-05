@@ -80,7 +80,7 @@ void LoveEngine::ECS::Salud::addMaxHealth()
 // Metodo que tiene en cuenta el cooldown para afcetar a la vida
 void LoveEngine::ECS::Salud::takeDamage(int damage)
 {
-	if (hitCooldown) return;
+ 	if (hitCooldown) return;
 
 	setHealth(getHealth() - damage);
 	hitCooldown = true;
@@ -105,7 +105,6 @@ void LoveEngine::ECS::Salud::update()
 	sliderTop->setProgress(barProgress);
 	
 	barProgress = naive_lerp(sliderBehind->getProgress(), barProgress, Time::getInstance()->deltaTime);
-
 	sliderBehind->setProgress(barProgress);
 }
 
