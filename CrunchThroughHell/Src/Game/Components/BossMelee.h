@@ -6,10 +6,11 @@ namespace LoveEngine {
 
 	namespace ECS {
         class Timer;
-
+        class Sound;
 		class BossMelee : public ComportamientoBoss {
 		protected:
 #pragma region Actions
+            Sound* meleeSound;
 			class MeleeAttack : public Action
 			{
 			public:
@@ -22,13 +23,14 @@ namespace LoveEngine {
                 void setAnim(Animation* a);
 				bool conditionsFulfilled() const final;
 				void onActionStart() final;
-               
+                void setSound(Sound* s) { meleeSound = s; }
 
 			protected:
 				RigidBody* rb;
                 Animation* anim = nullptr;
 				Transform* target = nullptr;
 				Transform* tr = nullptr;
+                Sound* meleeSound;
 
                 struct AttackAnimation {
                     std::string animation;

@@ -10,6 +10,7 @@
 #include <Animation.h>
 #include <Timer.h>
 #include "Salud.h"
+#include <Sound.h>
 
 namespace LoveEngine
 {
@@ -56,6 +57,12 @@ namespace LoveEngine
             roar->setRB(rb);
             roar->setAnim(anim);
             ComportamientoBoss::init();
+
+            meleeSound = gameObject->addComponent<Sound>();
+            meleeSound->sendFormattedString("soundName: meleeSound.wav; channel: effects; loop: false; volume: 0.5; playNow: false;");
+            meleeSound->init();
+
+            attack->setSound(meleeSound);
         }
 
         void BossMelee::enterCollision(GameObject* other)
@@ -83,6 +90,7 @@ namespace LoveEngine
 
 #pragma region acciones
 
+
         BossMelee::MeleeAttack::MeleeAttack(Agent* agent_) : Action(agent_, 10.0)
         {
             increasePrioOverTime = 10.0;
@@ -105,6 +113,7 @@ namespace LoveEngine
         {
             //std::cout << "\n\n\n\n\n\n\nAttacking\n\n\n\n\n\n\n\n";
 
+            meleeSound->playSound();
             rb->setLinearVelocity(Vector3(0, 0, 0));
 
             setPriority(30.0);
