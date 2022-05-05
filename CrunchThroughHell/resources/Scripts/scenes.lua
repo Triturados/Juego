@@ -235,7 +235,7 @@ function scene3() -- Overworld de verdad
         width: 300;
         height: 25;
         posX: 100;
-        posY: -20;
+        posY: -50;
         posZ: 0;
     ]])
 
@@ -247,7 +247,7 @@ function scene3() -- Overworld de verdad
         width: 300;
         height: 25;
         posX: 100;
-        posY: -20;
+        posY: -50;
         posZ: 1;
     ]])
 
