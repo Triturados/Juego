@@ -8,6 +8,7 @@ namespace LoveEngine {
 		class Timer;
 		class RigidBody;
 		class Transform;
+		class ParticleSystem;
 		class Mesh;
 		class Bullet : public Component {
 			
@@ -22,6 +23,8 @@ namespace LoveEngine {
 			int damage;
 			bool hit = false;
 			GameObject* hitObject;
+			ParticleSystem* pSys;
+			bool isDead = false;
 
 			void bulletDamage(GameObject* other);
 		public:

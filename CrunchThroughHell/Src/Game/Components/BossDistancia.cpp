@@ -188,7 +188,9 @@ namespace LoveEngine
             auto bulletMat = bullet->addComponent<Material>();
             bulletMat->receiveComponent(0, bulletMesh);
             bulletMat->sendFormattedString("materialName: lava;");
-            bulletTr->init(); bulletMesh->init(); bulletRigid->init(); bulletB->init(); bulletMat->init();
+            auto bulletSys = bullet->addComponent<ParticleSystem>();
+            bulletSys->sendFormattedString("particleName: explosion; emitting: false");
+            bulletTr->init(); bulletMesh->init(); bulletRigid->init(); bulletB->init(); bulletMat->init(); bulletSys->init();
         }
 
         void BossDistancia::RangedAttack::createBullets()
