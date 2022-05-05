@@ -339,7 +339,7 @@ function menu:menuPausa()
                     type = 'Camera',
                     info = [[
                         name: pause;
-                        zOrder: 2
+                        zOrder: 15
                     ]]
                 }
             }
