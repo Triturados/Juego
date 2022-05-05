@@ -161,14 +161,14 @@ function menu:createSettings()
         resolution: 852, 480, 0
     ]])
 
-    local fullscreenbutton = menu:createButton('mainmenuButton', 20, 420, 12, 200, 50)
+    local fullscreenbutton = menu:createButton('fullscreen', 20, 470, 12, 200, 50)
     scroll:sendComponent(0, fullscreenbutton)
-    settings:sendComponent(0, fullscreenbutton);
+    settings:sendComponent(1, fullscreenbutton);
 
     
-    local p1080 = menu:createButton('mainmenuButton', 20, 470, 12, 200, 50)
+    local p1080 = menu:createButton('back', 20, 410, 12, 200, 50)
     scroll:sendComponent(0, p1080)
-    settings:sendComponent(1, p1080);
+    settings:sendComponent(0, p1080);
 
     
     local p720 = menu:createButton('mainmenuButtonLowS', 20, 530, 12, 200, 50)
