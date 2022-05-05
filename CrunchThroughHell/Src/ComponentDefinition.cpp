@@ -26,6 +26,7 @@
 #include "Components/ScrollContainer.h"
 #include "Components/Settings.h"
 #include "Components/Interactable.h"
+#include "Components/BossDialog.h"
 
 namespace LoveEngine {
 
@@ -73,6 +74,7 @@ namespace LoveEngine {
 			newComponent<ScrollContainer>("Scroll");
 			newComponent<Settings>("Settings");
 			newComponent<Interactable>("Interactable");
+			newComponent<BossDialog>("BossDialog");
 
 			inst = nullptr;
 		}

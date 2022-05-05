@@ -15,7 +15,7 @@ void LoveEngine::ECS::Interactable::init()
 
 void LoveEngine::ECS::Interactable::postInit()
 {
-	textoOri = "Pulsa \"E\" para interactuar";
+	textoOri = "PRESS \"E\" TO INTERACT";
 	texto->changeText(" ");
 
 }
@@ -32,6 +32,7 @@ void LoveEngine::ECS::Interactable::update()
 		use();
 	}
 	else {
+		notOnRangeCallBack();
 		if (justEntered) {
 			texto->changeText(" ");
 			justEntered = false;
@@ -64,10 +65,8 @@ void LoveEngine::ECS::Interactable::receiveMessage(Utilities::StringFormatter& m
 void LoveEngine::ECS::Interactable::receiveComponent(int i, Component* c)
 {
 	if (i == 0)
-		if (dynamic_cast<Transform*>(c) != nullptr)
-			playerTr = (Transform*)c;
+		playerTr = (Transform*)c;
 
 	if (i == 1)
-		if (dynamic_cast<ShowText*>(c) != nullptr)
-			texto = (ShowText*)c;
+		texto = (ShowText*)c;
 }

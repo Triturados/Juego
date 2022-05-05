@@ -74,7 +74,7 @@ function createArbol(name, x,y,z)
 
 end
 
-function sceneOverworld() -- Overworld de verdad
+function scene3() -- Overworld de verdad
 
     scene:name("Escena Overworld")
 
@@ -338,10 +338,12 @@ function sceneOverworld() -- Overworld de verdad
         initialLoop: true;
         ]])
 
-    local boss1Interact = boss1:addComponent("Interactable")
+    local boss1Interact = boss1:addComponent("BossDialog")
         boss1Interact:sendComponent(0,tr)
         boss1Interact:sendComponent(1,showText)
-
+        boss1Interact:sendMsg([[
+            bossNum: 1;
+        ]])
         --boss2
 
     local boss2 = scene:createObject("boss2")
@@ -370,13 +372,80 @@ function sceneOverworld() -- Overworld de verdad
     ]])
 
 
-    local boss2Interact = boss2:addComponent("Interactable")
+    local boss2Interact = boss2:addComponent("BossDialog")
     boss2Interact:sendComponent(0,tr)
     boss2Interact:sendComponent(1,showText)
+    boss2Interact:sendMsg([[
+            bossNum: 2;
+            boss1Defeated:false;
+        ]])
+
+
+    local boss1Dialogue = scene:createObject("DialogueBoss1"):addComponent('Dialogue')
+    boss1Dialogue:sendMsg("lines: 3")
+
+    for i = 0, 2, 1 do
+        local line = createText(round(width()/2), round(height() * 0.8 + i * 30), '  ')
+        boss1Dialogue:sendComponent(i, line);
+    end
+    boss1Dialogue:sendMssg([[
+        line0: #Welcome to the overworld you little worm.#
+        line1: #You will have to defeat me: YOJHANSAN and my master DANIEL#
+        line2: #If you wanna get out of here. Good luck#
+    ]])
+
+    boss1Interact:sendComponent(2,boss1Dialogue)
+
+
+    local boss1DialogueAlternate = scene:createObject("DialogueBoss1Alternate"):addComponent('Dialogue')
+    boss1DialogueAlternate:sendMsg("lines: 3")
+
+    for i = 0, 2, 1 do
+        local line = createText(round(width()/2), round(height() * 0.8 + i * 30), '  ')
+        boss1DialogueAlternate:sendComponent(i, line);
+    end
+    boss1DialogueAlternate:sendMssg([[
+        line0: #I underestimated you worm#
+        line1: #Anyway DANIEL is gona split you into pieces#
+        line2: #If I were you i wouldnt even try#
+    ]])
+
+    boss1Interact:sendComponent(3,boss1DialogueAlternate)
+
+    local boss2Dialogue = scene:createObject("DialogueBoss2"):addComponent('Dialogue')
+    boss2Dialogue:sendMsg("lines: 3")
+
+    for i = 0, 2, 1 do
+        local line = createText(round(width()/2), round(height() * 0.8 + i * 30), '  ')
+        boss2Dialogue:sendComponent(i, line);
+    end
+    boss2Dialogue:sendMssg([[
+        line0: #You have defeated YOJHASAN but he is just a mere apprentice.#
+        line1: #You better run away if you dont want to get destroyed...#
+        line2: #Try if u dont believe me, my power is unmesurable#
+    ]])
+
+    boss2Interact:sendComponent(4,boss2Dialogue)
+
+    
+    local boss2DialogueAlternate = scene:createObject("DialogueBoss2Alternate"):addComponent('Dialogue')
+    boss2DialogueAlternate:sendMsg("lines: 3")
+
+    for i = 0, 2, 1 do
+        local line = createText(round(width()/2), round(height() * 0.8 + i * 30), '  ')
+        boss2DialogueAlternate:sendComponent(i, line);
+    end
+    boss2DialogueAlternate:sendMssg([[
+        line0: #HAHAHAHAHAHAHAHAHHAAHHAHAA#
+        line1: #You couldnt defeat YOJHASAN and u wanna try against me?#
+        line2: #Dont be an idiot and defeat YOJHASAN if u wanna fight me#
+    ]])
+
+    boss2Interact:sendComponent(5,boss2DialogueAlternate)
 
 end
 
-function scene3() -- Boss1
+function scene30() -- Boss1
     sceneboss1:createScene()
 end
 
@@ -692,11 +761,6 @@ function scene5() -- Boss2
     sceneboss1:createMesh("wallRock1.mesh", -110, -5, -350, 5, 2, 3, 0,-0.7,0)
     sceneboss1:createMesh("wallRock2.mesh", -350, -5, 110, 5, 2, 3, 0,-1.6,0)
     sceneboss1:createMesh("wallRock1.mesh", -350, -5, 0, 5, 2, 3, 0,0.85,0)
-
-
-    sceneboss1:createCharco("Lodo", 1, 0,2,70)
-    sceneboss1:createCharco("Lodo", 1, -70,2, -70)
-    sceneboss1:createCharco("Lodo", 1, 70,2,-70)
 ---------------------------------------------------------------------------------------------------------------------------
 -- -- -- -- JEFE -- -- -- --
 local boss2 = scene:createObject("boss2")
@@ -839,11 +903,11 @@ function createText(x, y, text)
         fontName: SourceSansProLight
         mainColor: 1, 1, 1, 1.0;
         textScale:0.05
-        alignment : 0
+        alignment : 2
         ]])
     local showText = textObj:addComponent("ShowText")
     showText:sendMssg([[
-        interval: 0.1
+        interval: 0.025
         ]])
     showText:sendString(text)
     return showText

@@ -19,7 +19,8 @@ void LoveEngine::ECS::Conversation::init()
 	for (int i = 1; i < lines; i++) {
 		showtext[i]->setActive(false);
 	}
-	showtext[0]->changeText(dialogues[dialogueIdx].message[0]);
+	if (enabled)showtext[0]->changeText(dialogues[dialogueIdx].message[0]);
+
 }
 
 void LoveEngine::ECS::Conversation::update()
@@ -28,7 +29,7 @@ void LoveEngine::ECS::Conversation::update()
 		enabled = false;
 		return;
 	}
-	
+
 	if (Input::InputManager::getInstance()->keyJustPressed(Input::InputKeys::C)) {
 		skip();
 		return;
@@ -63,7 +64,7 @@ void LoveEngine::ECS::Conversation::receiveMessage(Utilities::StringFormatter& s
 		if (sf.tryGetString(line, message)) {
 			hasContent = true;
 		}
-		
+
 		d.message.push_back(message);
 	}
 
@@ -87,6 +88,27 @@ void LoveEngine::ECS::Conversation::receiveComponent(int idx, Component* comp)
 void LoveEngine::ECS::Conversation::setCallBack(std::function<void()> f)
 {
 	onEnd = f;
+}
+
+void LoveEngine::ECS::Conversation::start()
+{
+	//RESTART DIALOGUE
+	Dialogue d;
+	std::string image;
+	bool hasContent = false;
+	for (int i = 0; i < showtext.size(); i++) {
+		std::string line = "line" + std::to_string(i);
+		std::string message = "";
+
+		d.message.push_back(message);
+	}
+
+	d.speaker = speaker;
+
+	dialogues.push_back(d);
+
+	enabled = true;
+	showtext[0]->changeText(dialogues[dialogueIdx].message[0]);
 }
 
 void LoveEngine::ECS::Conversation::skip()
@@ -122,5 +144,5 @@ void LoveEngine::ECS::Conversation::advanceDialogue()
 		enabled = false;
 	}
 	else
-	showtext[0]->changeText(dialogues[dialogueIdx].message[0]);
+		showtext[0]->changeText(dialogues[dialogueIdx].message[0]);
 }

@@ -23,6 +23,8 @@ namespace LoveEngine {
 			void receiveMessage(Utilities::StringFormatter& sf) override;
 			void receiveComponent(int idx, Component* comp) override;
 			void setCallBack(std::function<void()> f);
+			void start();
+			void clearText();
 		private:
 
 			int lines;
@@ -36,7 +38,6 @@ namespace LoveEngine {
 			std::function<void()> onEnd;
 
 			void skip();
-			void clearText();
 			void advanceDialogue();
 		};
 	}

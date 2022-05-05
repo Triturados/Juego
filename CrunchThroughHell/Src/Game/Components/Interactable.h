@@ -15,10 +15,10 @@ namespace LoveEngine {
 		class GameObject;
 		class Interactable : public Component {
 
-		private:
+		protected:
 
 			Input::InputManager* input;
-			
+
 			Transform* tr = nullptr;
 			Transform* playerTr = nullptr;
 
@@ -37,9 +37,10 @@ namespace LoveEngine {
 			void update() override;
 			bool checkDistance();
 			void showMessage();
-			virtual void use(){};
+			virtual void use() {};
 			void receiveMessage(Utilities::StringFormatter& message) override;
 			void receiveComponent(int, Component*) override;
+			virtual void notOnRangeCallBack() {};
 
 		};
 	}
