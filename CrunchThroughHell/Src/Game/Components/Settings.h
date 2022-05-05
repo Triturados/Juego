@@ -14,7 +14,7 @@ namespace LoveEngine {
 			void receiveMessage(Utilities::StringFormatter&) override;
 			void receiveComponent(int, Component*) override;
 		private:
-			
+
 			std::vector<Utilities::Vector3<int>> resolutions;
 			Button* buttons[5];
 			Sound* sButton1;
@@ -28,7 +28,6 @@ namespace LoveEngine {
 			void mediumVolume();
 			void highVolume();
 			void backtomenu();
-			//uwuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu
 		};
 	}
 }
