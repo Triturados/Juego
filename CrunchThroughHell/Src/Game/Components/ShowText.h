@@ -13,7 +13,7 @@ namespace LoveEngine {
 			void init() override;
 			void update() override;
 			void receiveMessage(Utilities::StringFormatter& sf) override;
-			void receiveString(std::string str) override;
+			void receiveString(const std::string& str) override;
 
 			void setCallBack(std::function<void()> f);
 			void changeText(std::string str);

@@ -53,7 +53,7 @@ void LoveEngine::ECS::ShowText::receiveMessage(Utilities::StringFormatter& sf)
 	sf.tryGetString("text", finalText);
 }
 
-void LoveEngine::ECS::ShowText::receiveString(std::string str)
+void LoveEngine::ECS::ShowText::receiveString(const std::string& str)
 {
 	finalText = str;
 }
