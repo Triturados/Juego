@@ -61,7 +61,7 @@ void LoveEngine::ECS::MovimientoJugador::postInit() {
 
 void LoveEngine::ECS::MovimientoJugador::update()
 {
-	if (!ataque->currentlyAttacking()) changeAnimations();
+	if (!ataque->currentlyAttacking() || (salud != nullptr && salud->isDead())) changeAnimations();
 
 	if (salud != nullptr && salud->isDead()) {
 		disablePlayer();
