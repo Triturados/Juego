@@ -454,18 +454,16 @@ function scene3() -- Overworld de verdad
         speedIncrement: 30;
     ]]);
 
+    local images = {"corazon", "fuerza", "velocidad"}
     for i = 0, 2, 1 do
 
         local buttonwidth = 200;
         local margin = 100;
         local xpos = round((width() - buttonwidth) * 0.5 - buttonwidth - margin + (buttonwidth + margin) * i);
-        tiendaComp:sendComponent(i, menu:createButton('mainmenuButton', xpos, 500, 11, buttonwidth, 50));
+        tiendaComp:sendComponent(i, menu:createButton(images[i+1], xpos, 500, 11, buttonwidth, 50));
     end
     local currency = menu:createTextElement('Souls: 22' , 10,  round(height() - 30), 11, 0.05, 0);
     tiendaComp:sendComponent(3, currency)
-
-
-
 
     
     -- local tiendaMesh = scene:createObject("boss1")
