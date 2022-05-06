@@ -239,6 +239,33 @@ function menu:createCredits()
 end
 
 
+function menu:createHowToPlay()
+    scene:name("Credits")
+
+    local container = menu:createRightContainer()
+
+    local scroll = scene:createObject('Scroll'):addComponent('Scroll'):sendMssg([[
+        minHeight: 0;
+        maxHeight: 1200;
+        automatic: false;
+        speed: -150;
+        posX: 0;
+        posY: 52;
+        posZ: 0;
+        timeToEnable: 2.0;
+    ]])
+    scroll:sendComponent(-1, container)
+    container:sendComponent(0, scroll);
+
+
+
+    scroll:sendComponent(0, menu:createImage('howtoplay', 0, 0, 11, 600, 600))
+    --createImage('mainmenuBackgroundImage', 590, 10, 4, 400, 400)
+
+end
+
+
+
 function menu:createAbout()
     scene:name("About")
 

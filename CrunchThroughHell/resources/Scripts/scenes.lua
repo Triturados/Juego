@@ -41,7 +41,7 @@ function scene9() -- About
 end
 
 function scene10() -- How to play
-    menu:createHowtoplay()
+    menu:createHowToPlay()
 end
 
 function scene3() -- Overworld de verdad

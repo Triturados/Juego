@@ -213,7 +213,7 @@ namespace LoveEngine {
 		}
 
 		void MainMenu::howToPlay() {
-
+			SceneManagement::changeScene((int)SceneOrder::HowToPlay, SceneManagement::SceneLoad::UP);
 		}
 
 		void MainMenu::settings() {
